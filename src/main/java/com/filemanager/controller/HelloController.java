@@ -11,4 +11,12 @@ public class HelloController {
 	public String hi() {
 		return "Hello, world.";
 	}
+
+	@RequestMapping("/index")
+	public String userList() {
+
+		System.out.println("in index");
+		return "test/index";
+	}
+	
 }
