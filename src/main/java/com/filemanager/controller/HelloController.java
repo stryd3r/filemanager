@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.filemanager.dto.UserDto;
 import com.filemanager.model.UserModel;
 import com.filemanager.repository.TestRepository;
 
@@ -15,7 +16,7 @@ public class HelloController {
 	@Autowired
 	private TestRepository repository;
 
-	@RequestMapping("hi")
+	@RequestMapping(value = "hi", produces = "application/json")
 	@ResponseBody
 	public String hi() {
 		return "Hello, world.";
@@ -28,11 +29,21 @@ public class HelloController {
 		return "test/index";
 	}
 
-	@RequestMapping("/findByID/{id}")
+	@RequestMapping("/findById/{id}")
 	@ResponseBody
 	public UserModel findUser(@PathVariable("id") int id) {
 
 		return repository.findById(id);
+	}
+
+	@RequestMapping(value = "/getUserDetails", produces = "application/json")
+	public @ResponseBody UserDto getUser() {
+
+		UserDto user = new UserDto();
+		user.setSurname("Adrian");
+		user.setName("Barna");
+
+		return user;
 	}
 
 }
