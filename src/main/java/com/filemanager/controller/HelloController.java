@@ -41,7 +41,7 @@ public class HelloController {
 
 		UserDto user = new UserDto();
 		user.setSurname("Adrian");
-		user.setName("Barnaa");
+		user.setName("Barna");
 
 		return user;
 	}
