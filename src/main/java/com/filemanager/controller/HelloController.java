@@ -3,12 +3,15 @@ package com.filemanager.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.filemanager.dto.UserDto;
+import com.filemanager.dto.WorkDetailsDto;
 import com.filemanager.model.UserModel;
 import com.filemanager.repository.TestRepository;
+import com.filemanager.transformers.UserTransformer;
 
 @Controller
 public class HelloController {
@@ -16,7 +19,7 @@ public class HelloController {
 	@Autowired
 	private TestRepository repository;
 
-	@RequestMapping(value = "hi", produces = "application/json")
+	@RequestMapping(value = "hi")
 	@ResponseBody
 	public String hi() {
 		return "Hello, world.";
@@ -39,11 +42,21 @@ public class HelloController {
 	@RequestMapping(value = "/getUserDetails", produces = "application/json")
 	public @ResponseBody UserDto getUser() {
 
-		UserDto user = new UserDto();
-		user.setSurname("Adrian");
-		user.setName("Barna");
+		UserDto userDto = new UserDto();
 
-		return user;
+		userDto.setId(1);
+		userDto.setName("Barna");
+		userDto.setSurname("Adrian");
+
+		return userDto;
+	}
+
+	@RequestMapping(value = "/getUserById", produces = "application/json")
+	public @ResponseBody UserDto getUserById(@RequestBody WorkDetailsDto workDetails) {
+
+		UserDto userDto = UserTransformer.modelToDto(repository.findById(1));
+
+		return userDto;
 	}
 
 }

@@ -1,19 +1,18 @@
 (function() {
 	var mainApp = angular.module('mainApp', ['ui.bootstrap']);
 	
-	angular.module('mainApp').service('serviceProvider', [ '$http',  function($http) {
-		
-		 this.firstService = function(){
-	            return $http.post("http://localhost:8080/filemanager/getUserDetails");
-	        }
-	}]);
-
+	
 	mainApp.controller('mainController', [ '$scope','serviceProvider', function($scope, serviceProvider) {
 
 		function init(){
-			serviceProvider.firstService().then(function(data) {
+			
+			 var workDetails = new Object();
+			 workDetails.occupation = "Programmer";
+			 workDetails.experience = "2";
+	            
+			serviceProvider.secondService(workDetails).then(function(data) {
 		            
-						alert(data.data.name);
+						alert(data.data.surname);
 		            }, function(error) {
 		            	alert("not-ok");
 		            });

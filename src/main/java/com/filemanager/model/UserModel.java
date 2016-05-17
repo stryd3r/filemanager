@@ -1,23 +1,32 @@
 package com.filemanager.model;
 
 public class UserModel {
-	private int index;
-	private String nume;
+	private int id;
+	private String name;
+	private String surname;
 
-	public int getIndex() {
-		return index;
+	public int getId() {
+		return id;
 	}
 
-	public void setIndex(int index) {
-		this.index = index;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getNume() {
-		return nume;
+	public String getName() {
+		return name;
 	}
 
-	public void setNume(String nume) {
-		this.nume = nume;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 }

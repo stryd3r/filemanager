@@ -1,6 +1,5 @@
 package com.filemanager.repository;
 
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -20,14 +19,15 @@ public class TestRepository {
 	private class UserMapper implements RowMapper<UserModel> {
 		public UserModel mapRow(ResultSet row, int rowNum) throws SQLException {
 			UserModel user = new UserModel();
-			user.setIndex(row.getInt("id"));
-			user.setNume(row.getString("nume"));
+			user.setId(row.getInt("id"));
+			user.setName(row.getString("name"));
+			user.setSurname(row.getString("surname"));
 			return user;
 		}
 	}
 
 	public UserModel findById(int id) {
-		String sql = "select * from test where id=?";
+		String sql = "select * from users where id=?";
 		UserModel user = jdbcTemplate.queryForObject(sql, new Object[] { id }, new UserMapper());
 		return user;
 	}
