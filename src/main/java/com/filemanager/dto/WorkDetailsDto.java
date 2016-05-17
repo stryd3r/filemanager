@@ -10,7 +10,7 @@ public class WorkDetailsDto implements Serializable {
 	private static final long serialVersionUID = 7985658832179932715L;
 
 	private String occupation;
-	private int experience;
+	private int experience; 
 
 	public String getOccupation() {
 		return occupation;

@@ -14,7 +14,7 @@ import com.filemanager.model.UserModel;
 public class TestRepository {
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate; 
 
 	private class UserMapper implements RowMapper<UserModel> {
 		public UserModel mapRow(ResultSet row, int rowNum) throws SQLException {

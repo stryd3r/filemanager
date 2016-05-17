@@ -5,7 +5,7 @@
 	mainApp.controller('mainController', [ '$scope','serviceProvider', function($scope, serviceProvider) {
 
 		function init(){
-			
+			 
 			 var workDetails = new Object();
 			 workDetails.occupation = "Programmer";
 			 workDetails.experience = "2";

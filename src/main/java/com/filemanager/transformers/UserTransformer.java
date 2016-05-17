@@ -12,7 +12,7 @@ public class UserTransformer {
 
 		UserDto dto = new UserDto();
 
-		dto.setId(model.getId());
+		dto.setId(model.getId()); 
 		dto.setName(model.getName());
 		dto.setSurname(model.getSurname());
 
