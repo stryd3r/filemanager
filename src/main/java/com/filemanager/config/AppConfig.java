@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "com.filemanager.controller", "com.filemanager.repository" })
+@ComponentScan(basePackages = { "com.filemanager.controller", "com.filemanager.repository","com.filemanager.repositoryInterfaces" })
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Override
@@ -37,7 +37,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/internalproject");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/stomato");
 		dataSource.setUsername("root");
 		dataSource.setPassword("mysql");
 		return dataSource;

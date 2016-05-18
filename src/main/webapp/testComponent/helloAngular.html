@@ -5,15 +5,21 @@
 <title>Insert title here</title>
 <script src="../shared/angular.min.js"></script>
 <script src="../shared/ui-bootstrap-tpls.js"></script>
-<script src="../angularServices/angular.services.js"></script>
 <script src="angular.controller/controller.js"></script>
+<script src="../angularServices/angular.services.js"></script>
+
 </head>
 <body ng-app="mainApp" ng-controller="mainController">
 
 
-	Name: {{name}}
+	Name: {{name}} 
 	<br />
 	<input type="text" ng-model="name" />
+	<input type="button" ng-click="getUserWithDtoInput()" value="call UserWithDtoInput()"></input>
+	<input type="button" ng-click="getQuestions()" value="call getQuestions()"></input>
+	<input type="button" ng-click="insertQuestion()" value="call insertQuestion()"></input>
+	<input type="button" ng-click="updateQuestion()" value="call updateQuestion()"></input>
+	<input type="button" ng-click="removeQuestion()" value="call removeQuestion()"></input>
 
 </body>
 </html>
