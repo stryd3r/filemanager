@@ -5,8 +5,8 @@
 			return $http.post("http://localhost:8080/filemanager/getUserDetails");
 		}
 
-		this.secondService = function(input) {
-			return $http.post("http://localhost:8080/filemanager/getUserById", input);
+		this.getQuestions = function(input) {
+			return $http.post("http://localhost:8080/filemanager/getQuestions", input);
 		}
 
 		this.insertQuestion = function(input) {

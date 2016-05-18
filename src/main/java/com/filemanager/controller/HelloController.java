@@ -52,7 +52,7 @@ public class HelloController {
 		return userDto;
 	}
 
-	@RequestMapping(value = "/getUsedQuestions", produces = "application/json")
+	@RequestMapping(value = "/getQuestions", produces = "application/json")
 	@ResponseBody
 	public List<QuestionDto> getQuestions(@RequestBody boolean onlyUsed) {
 

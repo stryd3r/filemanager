@@ -29,7 +29,7 @@
 
 		$scope.getQuestions = function() {
 
-			serviceProvider.getUsedQuestions(true).then(function(data) {
+			serviceProvider.getQuestions(true).then(function(data) {
 
 				alert(data.data.surname);
 			}, function(error) {
