@@ -9,12 +9,13 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.filemanager.model.UserModel;
+import com.filemanager.repositoryInterfaces.UserRepository;
 
 @Repository
-public class TestRepository {
+public class UserRepositoryImpl implements UserRepository {
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate; 
+	private JdbcTemplate jdbcTemplate;
 
 	private class UserMapper implements RowMapper<UserModel> {
 		public UserModel mapRow(ResultSet row, int rowNum) throws SQLException {
