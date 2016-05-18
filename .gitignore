@@ -1,3 +1,5 @@
 /target/
 /.classpath
 /.gitignore
+/.settings/
+/.tern-project
