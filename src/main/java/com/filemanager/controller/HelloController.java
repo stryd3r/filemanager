@@ -25,13 +25,6 @@ public class HelloController {
 	@Autowired
 	private QuestionRepository questionRepository;
 
-	@RequestMapping("/index")
-	public String userList() {
-
-		System.out.println("in index");
-		return "test/index";
-	}
-
 	@RequestMapping(value = "/getUserDetails", produces = "application/json")
 	public @ResponseBody UserDto getUser() {
 
