@@ -6,6 +6,9 @@
     	$routeProvider.when('/login', {
             templateUrl : 'loginComponent/login.html',
             controller : 'loginController'
+        }).when('/createAccount', {
+            templateUrl : 'createAccountComponent/createAccount.html',
+            controller : 'createAccountController'
         }).otherwise({
             redirectTo : '/welcome'
         });

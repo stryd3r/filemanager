@@ -1,4 +1,4 @@
-package com.filemanager.model;
+package com.filemanager.transporters.model;
 
 public class UserModel {
 	private int id;

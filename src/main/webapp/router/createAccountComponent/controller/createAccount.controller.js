@@ -1,6 +1,6 @@
 (function() {
 
-	angular.module('mainApp').controller('loginController', [ '$scope', 'serviceProvider', 'globalVariables', function($scope, serviceProvider, globalVariables) {
+	angular.module('mainApp').controller('createAccountController', [ '$scope', 'serviceProvider', 'globalVariables', function($scope, serviceProvider, globalVariables) {
 
 		$scope.pageTitle = 'LogIn to your Account';
 

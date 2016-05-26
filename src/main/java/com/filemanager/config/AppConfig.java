@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "com.filemanager.controller", "com.filemanager.repository","com.filemanager.repositoryInterfaces" })
+@ComponentScan(basePackages = { "com.filemanager.controller","com.filemanager.service", "com.filemanager.repository"})
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Override

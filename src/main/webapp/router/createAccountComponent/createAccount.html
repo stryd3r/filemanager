@@ -1,4 +1,5 @@
 <div class="tab-content col-md-7 text-center centred marginLeft21p">
+<compare-to></compare-to>
 	<div class="login-section">
 		<div class="login-content">
 			<div class="section-title">
@@ -13,12 +14,19 @@
 					</div>
 				</div>
 
-				<div class="row marginBottom3">
+				<div class="row marginBottom2">
 					<div class="input-group col-md-12">
-						<span class="input-group-addon"><i class="icon-key icon-color"></i></span> <input type="password"
-							ng-model="password" ng-focus class="form-control" required="true" placeholder="Password"> <span class="field_msg"></span>
+						<span class="input-group-addon"><i class="icon-key icon-color"></i></span> <input type="password" ng-model="password" ng-focus
+							class="form-control" required="true" placeholder="Password"> <span class="field_msg"></span>
 					</div>
 				</div>
+				<div class="row marginBottom3">
+					<div class="input-group col-md-12">
+						<span class="input-group-addon"><i class="icon-key icon-color"></i></span> <input type="password" ng-model="password2" ng-focus
+							class="form-control" required="true" placeholder="Retype Password"> <span class="field_msg"></span>
+					</div>
+				</div>
+				<div ng-messages="registrationForm.confirmPassword.$error" ng-messages-include="messages.html"></div>
 
 				<div class="login-form-action clearfix">
 					<button type="submit" class="btn btn-success pull-right green-btn">

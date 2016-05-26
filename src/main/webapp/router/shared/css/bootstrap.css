@@ -2439,7 +2439,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 .input-group-addon,
 .input-group-btn {
-    width: 1%;
+    width: 39px;
     white-space: nowrap;
     vertical-align: middle;
 }

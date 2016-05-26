@@ -1,7 +1,7 @@
-package com.filemanager.transformers;
+package com.filemanager.transporters.transformers;
 
-import com.filemanager.dto.QuestionDto;
-import com.filemanager.model.QuestionModel;
+import com.filemanager.transporters.dto.QuestionDto;
+import com.filemanager.transporters.model.QuestionModel;
 import com.filemanager.utils.BeanMapper;
 
 public class QuestionTransformer extends BeanMapper<QuestionModel, QuestionDto>{

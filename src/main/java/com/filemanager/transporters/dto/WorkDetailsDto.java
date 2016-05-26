@@ -1,4 +1,4 @@
-package com.filemanager.dto;
+package com.filemanager.transporters.dto;
 
 import java.io.Serializable;
 

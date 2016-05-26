@@ -1,13 +1,13 @@
-package com.filemanager.repositoryInterfaces;
+package com.filemanager.service.interfaces;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-import com.filemanager.model.QuestionModel;
+import com.filemanager.transporters.model.QuestionModel;
 
-@Repository
-public interface QuestionRepository {
+@Service
+public interface QuestionService {
 
 	List<QuestionModel> getQuestions(boolean onlyUsed);
 

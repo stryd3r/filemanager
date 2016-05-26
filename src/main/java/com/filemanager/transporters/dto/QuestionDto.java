@@ -1,6 +1,13 @@
-package com.filemanager.model;
+package com.filemanager.transporters.dto;
 
-public class QuestionModel {
+import java.io.Serializable;
+
+public class QuestionDto implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7903184187281503757L;
 
 	private int id;
 	private String question;
@@ -38,5 +45,4 @@ public class QuestionModel {
 	public void setUsed(boolean used) {
 		this.used = used;
 	}
-
 }

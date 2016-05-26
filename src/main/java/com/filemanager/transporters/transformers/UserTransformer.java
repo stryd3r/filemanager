@@ -1,7 +1,7 @@
-package com.filemanager.transformers;
+package com.filemanager.transporters.transformers;
 
-import com.filemanager.dto.UserDto;
-import com.filemanager.model.UserModel;
+import com.filemanager.transporters.dto.UserDto;
+import com.filemanager.transporters.model.UserModel;
 
 public class UserTransformer {
 
