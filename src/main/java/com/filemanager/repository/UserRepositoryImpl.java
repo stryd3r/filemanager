@@ -8,8 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.filemanager.model.UserModel;
-import com.filemanager.repositoryInterfaces.UserRepository;
+import com.filemanager.repository.interfaces.UserRepository;
+import com.filemanager.transporters.model.UserModel;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {

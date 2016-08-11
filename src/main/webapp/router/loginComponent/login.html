@@ -1,0 +1,45 @@
+<div class="tab-content col-md-7 text-center centred marginLeft21p">
+	<div class="login-section">
+		<div class="login-content">
+			<div class="section-title">
+				<h3>{{pageTitle}}</h3>
+			</div>
+
+			<form ng-submit="login();" role="form">
+				<div class="row marginBottom2">
+					<div class="input-group col-md-12">
+						<span class="input-group-addon "> <i class="icon-user icon-color"></i></span> <input type="text" ng-model="user" ng-focus
+							placeholder="User" required="true" class="form-control"> <span class="field_msg"></span>
+					</div>
+				</div>
+
+				<div class="row marginBottom3">
+					<div class="input-group col-md-12">
+						<span class="input-group-addon"><i class="icon-key icon-color"></i></span> <input type="password"
+							ng-model="password" ng-focus class="form-control" required="true" placeholder="Password"> <span class="field_msg"></span>
+					</div>
+				</div>
+
+				<div class="login-form-action clearfix">
+					<button type="submit" class="btn btn-success pull-right green-btn">
+						LogIn &nbsp; <i class="icon-chevron-right"></i>
+					</button>
+				</div>
+			</form>
+		</div>
+
+		<div class="login-form-links link1">
+			<h4 class="blue">Don't have an Account?</h4>
+			<a href="#" class="blue">Click Here</a> <span>to Register</span>
+		</div>
+
+		<div class="login-form-links link2">
+			<h4 class="blue">Forget your Password?</h4>
+			<a href="#" class="blue">Click Here</a> <span>to Get New One</span>
+		</div>
+
+		<footer style="font-size: 10px; margin-top: 25px; text-align: center;">
+			<Copyright> Copyright 2016, Barna Adrian- All Rights Reserved </Copyright>
+		</footer>
+	</div>
+</div>
