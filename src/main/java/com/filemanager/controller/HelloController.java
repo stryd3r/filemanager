@@ -1,25 +1,11 @@
 package com.filemanager.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.filemanager.service.interfaces.QuestionService;
-import com.filemanager.service.interfaces.UserService;
-import com.filemanager.transporters.dto.QuestionDto;
-import com.filemanager.transporters.dto.UserDto;
-import com.filemanager.transporters.dto.WorkDetailsDto;
-import com.filemanager.transporters.transformers.QuestionTransformer;
-import com.filemanager.transporters.transformers.UserTransformer;
 
 @RestController
 public class HelloController {
 
-	@Autowired
+	/*@Autowired
 	private UserService userService;
 
 	@Autowired
@@ -79,5 +65,5 @@ public class HelloController {
 		boolean success = questionService.removeQuestion(questionId);
 
 		return success;
-	}
+	}*/
 }
