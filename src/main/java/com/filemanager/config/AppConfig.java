@@ -3,6 +3,7 @@ package com.filemanager.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -12,7 +13,8 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "com.filemanager.controller","com.filemanager.service", "com.filemanager.repository"})
+@EnableTransactionManagement
+@ComponentScan(basePackages = { "com.filemanager.frontend","com.filemanager.backend"})
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Override

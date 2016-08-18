@@ -35,7 +35,7 @@ public class DataSourceConfig {
 	public SessionFactory sessionFactory() throws IOException {
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 		factory.setDataSource(dataSource());
-		factory.setPackagesToScan("com.filemanager.entities");
+		factory.setPackagesToScan("com.filemanager.backend.entities");
 
 		Properties hibernateProperties = new Properties();
 
