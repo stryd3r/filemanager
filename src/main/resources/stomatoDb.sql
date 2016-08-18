@@ -30,7 +30,7 @@ CREATE TABLE consultatii (
 
 -- Table: detalii_pacient
 CREATE TABLE detalii_pacient (
-    id_pacient int NOT NULL,
+    id_pacient int NOT NULL AUTO_INCREMENT,
     adresa varchar(300) NOT NULL,
     CONSTRAINT detalii_pacient_pk PRIMARY KEY (id_pacient)
 ) ENGINE InnoDB;

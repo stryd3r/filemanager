@@ -19,6 +19,7 @@ public class PacientiDaoImpl implements PacientiDao {
 		Pacienti pacient = new Pacienti();
 		pacient.setNume("adrian");
 		pacient.setPrenume("barna");
+		pacient.getDetaliiPacient().setAdresa("Lalelelor");
 		sessionFactory.getCurrentSession().save(pacient);
 		return true;
 	}
