@@ -1,6 +1,6 @@
 (function() {
 
-	angular.module('mainApp').controller('loginController', [ '$scope', 'serviceProvider', 'globalVariables', function($scope, serviceProvider, globalVariables) {
+	angular.module('mainApp').controller('createAccountCtrl', [ '$scope', function($scope) {
 
 		$scope.pageTitle = 'LogIn to your Account';
 
@@ -10,12 +10,12 @@
 			credentials.user = $scope.user;
 			credentials.password = $scope.password;
 
-			serviceProvider.login(credentials).then(function(data) {
+			/*serviceProvider.login(credentials).then(function(data) {
 
 				alert(data.data);
 			}, function(error) {
 				alert("not-ok");
-			});
+			});*/
 		}
 
 	} ]);
