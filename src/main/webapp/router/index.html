@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Calendar</title>
+<title>Management Pacienti</title>
 <!-- app framework -->
 <script src="shared/libs/angular/angular.js"></script>
 <script src="shared/libs/angular/angular-route.js"></script>
@@ -19,7 +19,8 @@
 <!-- calendar -->
 <script type="text/javascript"
 	src="shared/libs/angular/angular-bootstrap-calendar-tpls.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/js/bootstrap-colorpicker-module.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/js/bootstrap-colorpicker-module.min.js"></script>
 <script src="app/calendar/lib/calendarConfig.js"></script>
 <script src="app/calendar/lib/helpers.js"></script>
 
@@ -34,34 +35,43 @@
 <link href="shared/css/style.css" rel="stylesheet" />
 <link href="shared/css/angular-bootstrap-calendar.min.css"
 	rel="stylesheet" type="text/css">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/css/colorpicker.min.css" rel="stylesheet">
-
+<link href="shared/css/bootstrap-theme.css" rel="stylesheet"
+	type="text/css">
+<link
+	href="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/css/colorpicker.min.css"
+	rel="stylesheet">
+<link rel="shortcut icon" href="http://example.com/favicon.ico">
 
 
 </head>
-<body ng-app="mainApp" ng-controller="routerController" class="viewport">
-
-	<div class="container">
-
-		<div class="row marginTop20">
-			<div class="col-md-4 section-title">
-				<h3>File Manager Application</h3>
+<body ng-app="mainApp" ng-controller="routerController" style="background-image: url('shared/img/background.jpg')">
+	<div class="tab-content col-md-8 text-center centred marginLeft21p" style="background-color: white;">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<img src="shared/img/People-Doctor-Female-icon.png">
+				</div>
+				<ul class="nav navbar-nav">
+					<li ng-class="activeClass === 'home'?'active':''"><a href="#"
+						ng-click="routePage('home')">Home</a></li>
+					<li ng-class="activeClass === 'calendar'?'active':''"><a href="#"
+						ng-click="routePage('calendar')">Calendar</a></li>
+				</ul>
 			</div>
-			<div class="col-md-8 text-right marginTop10">
-				<button type="button" ng-click="goHome()"
-					class="btn btn-default noBackground removeBorder fontSize30 borderRadius10"
-					aria-label="Left Align">
-					<i class="icon-home icon-large "></i>
-				</button>
-			</div>
-		</div>
+		</nav>
 
 		<div ng-show="showPage">
 			<div class="container">
 				<div ui-view></div>
 			</div>
 		</div>
-
 	</div>
 </body>
 </html>

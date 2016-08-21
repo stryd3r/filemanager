@@ -16,8 +16,8 @@ angular
 						label : '<i class=\'glyphicon glyphicon-pencil\'></i>',
 						onClick : function(args) {
 							modalInstance = alert.show('Edited', args.calendarEvent);
-							modalInstance.result.then(function (selectedItem) {
-							    scope.selected = selectedItem;
+							modalInstance.result.then(function (yourData) {
+							    $scope.selected = yourData;
 							  }, function () {
 							    $log.info('Modal dismissed at: ' + new Date());
 							  });
