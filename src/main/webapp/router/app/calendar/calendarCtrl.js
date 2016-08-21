@@ -1,7 +1,12 @@
 /*var angular = require('angular');*/
-angular.module('mainApp').controller('calendarCtrl',function($scope, moment, calendarConfig) {
+angular
+		.module('mainApp')
+		.controller(
+				'calendarCtrl',
+				function($scope, alert, moment, calendarConfig) {
 
 					var vm = this;
+					var modalInstance = null;
 
 					// These variables MUST be set as a minimum for the calendar
 					// to work
@@ -10,12 +15,17 @@ angular.module('mainApp').controller('calendarCtrl',function($scope, moment, cal
 					var actions = [ {
 						label : '<i class=\'glyphicon glyphicon-pencil\'></i>',
 						onClick : function(args) {
-							alert('Edited', args.calendarEvent);
+							modalInstance = alert.show('Edited', args.calendarEvent);
+							modalInstance.result.then(function (selectedItem) {
+							    scope.selected = selectedItem;
+							  }, function () {
+							    $log.info('Modal dismissed at: ' + new Date());
+							  });
 						}
 					}, {
 						label : '<i class=\'glyphicon glyphicon-remove\'></i>',
 						onClick : function(args) {
-							alert('Deleted', args.calendarEvent);
+							alert.show('Deleted', args.calendarEvent);
 						}
 					} ];
 					$scope.events = [
@@ -67,19 +77,19 @@ angular.module('mainApp').controller('calendarCtrl',function($scope, moment, cal
 					};
 
 					$scope.eventClicked = function(event) {
-						alert('Clicked', event);
+						alert.show('Clicked', event);
 					};
 
 					$scope.eventEdited = function(event) {
-						alert('Edited', event);
+						alert.show('Edited', event);
 					};
 
 					$scope.eventDeleted = function(event) {
-						alert('Deleted', event);
+						alert.show('Deleted', event);
 					};
 
 					$scope.eventTimesChanged = function(event) {
-						alert('Dropped or resized', event);
+						alert.show('Dropped or resized', event);
 					};
 
 					$scope.toggle = function($event, field, event) {
