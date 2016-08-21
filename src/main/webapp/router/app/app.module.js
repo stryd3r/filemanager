@@ -1,5 +1,5 @@
 (function() {
-	angular.module('mainApp', [ 'ui.bootstrap', 'ui.router','mwl.calendar', 'ngAnimate' ]).controller(
+	angular.module('mainApp', [ 'mwl.calendar', 'ui.bootstrap', 'ui.router', 'ngAnimate', 'angularMoment', 'colorpicker.module' ]).controller(
 			'routerController',
 			[ '$scope','$state', function($scope,$state) {
 

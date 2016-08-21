@@ -28,7 +28,7 @@
 												{
 													url : '/calendar',
 													templateUrl : 'app/calendar/calendar.html',
-													controller : 'homePageCtrl'
+													controller : 'calendarCtrl'
 												});
 
 							} ]);

@@ -1,78 +1,83 @@
-<div ng-controller="KitchenSinkCtrl as vm" style="padding: 0px 40px 0px 40px;">
-	<div class="panel panel-primary">
-		<div class="panel-heading">CALENDAR</div>
-		<div class="panel-body">
-			<h2 class="text-center">{{ vm.calendarTitle }}</h2>
+<div>
+  <h2 class="text-center">{{ calendarTitle }}</h2>
 
-			<div class="row">
+  <div class="row">
 
-				<div class="col-md-6 text-center">
-					<div class="btn-group">
+    <div class="col-md-6 text-center">
+      <div class="btn-group">
 
-						<button class="btn btn-primary" mwl-date-modifier
-							date="vm.viewDate" decrement="vm.calendarView">
-							Previous</button>
-						<button class="btn btn-default" mwl-date-modifier
-							date="vm.viewDate" set-to-today>Today</button>
-						<button class="btn btn-primary" mwl-date-modifier
-							date="vm.viewDate" increment="vm.calendarView">Next</button>
-					</div>
-				</div>
+        <button
+          class="btn btn-primary"
+          mwl-date-modifier
+          date="viewDate"
+          decrement="calendarView">
+          Previous
+        </button>
+        <button
+          class="btn btn-default"
+          mwl-date-modifier
+          date="viewDate"
+          set-to-today>
+          Today
+        </button>
+        <button
+          class="btn btn-primary"
+          mwl-date-modifier
+          date="viewDate"
+          increment="calendarView">
+          Next
+        </button>
+      </div>
+    </div>
 
-				<br class="visible-xs visible-sm">
+    <br class="visible-xs visible-sm">
 
-				<div class="col-md-6 text-center">
-					<div class="btn-group">
-						<label class="btn btn-primary" ng-model="vm.calendarView"
-							uib-btn-radio="'year'">Year</label> <label
-							class="btn btn-primary" ng-model="vm.calendarView"
-							uib-btn-radio="'month'">Month</label> <label
-							class="btn btn-primary" ng-model="vm.calendarView"
-							uib-btn-radio="'week'">Week</label> <label
-							class="btn btn-primary" ng-model="vm.calendarView"
-							uib-btn-radio="'day'">Day</label>
-					</div>
-				</div>
+    <div class="col-md-6 text-center">
+      <div class="btn-group">
+        <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'year'">Year</label>
+        <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'month'">Month</label>
+        <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'week'">Week</label>
+        <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'day'">Day</label>
+      </div>
+    </div>
 
-			</div>
+  </div>
 
-			<br>
+  <br>
 
-			<mwl-calendar events="vm.events" view="vm.calendarView"
-				view-title="vm.calendarTitle" view-date="vm.viewDate"
-				on-event-click="vm.eventClicked(calendarEvent)"
-				on-event-times-changed="vm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
-				edit-event-html="'<i class=\'glyphicon glyphicon-pencil\'></i>'"
-				delete-event-html="'<i class=\'glyphicon glyphicon-remove\'></i>'"
-				on-edit-event-click="vm.eventEdited(calendarEvent)"
-				on-delete-event-click="vm.eventDeleted(calendarEvent)"
-				cell-is-open="vm.isCellOpen" day-view-start="06:00"
-				day-view-end="22:00" day-view-split="30"
-				cell-modifier="vm.modifyCell(calendarCell)"> </mwl-calendar>
+  <mwl-calendar
+    events="events"
+    view="calendarView"
+    view-title="calendarTitle"
+    view-date="viewDate"
+    on-event-click="eventClicked(calendarEvent)"
+    on-event-times-changed="eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+    cell-is-open="isCellOpen"
+    day-view-start="06:00"
+    day-view-end="22:59"
+    day-view-split="30"
+    cell-modifier="modifyCell(calendarCell)">
+  </mwl-calendar>
 
-			<br>
-			<br>
-			<br>
+  <br><br><br>
 
-			<h3 id="event-editor">
-
-				<!--button
+  <h3 id="event-editor">
+    Edit events
+    <button
       class="btn btn-primary pull-right"
-      ng-click="vm.events.push({title: 'New event', type: 'important', draggable: true, resizable: true})">
+      ng-click="addEvent()">
       Add new
-    </button-->
+    </button>
+    <div class="clearfix"></div>
+  </h3>
 
-				<button class="btn btn-primary pull-right"
-					ng-click="vm.addNewEvent(calendarEvent)">Add new</button>
-				<div class="clearfix"></div>
-			</h3>
-
-			<!--table class="table table-bordered">
+  <table class="table table-bordered">
 
     <thead>
       <tr>
         <th>Title</th>
-        <th>Type</th>
+        <th>Primary color</th>
+        <th>Secondary color</th>
         <th>Starts at</th>
         <th>Ends at</th>
         <th>Remove</th>
@@ -80,7 +85,7 @@
     </thead>
 
     <tbody>
-      <tr ng-repeat="event in vm.events track by $index">
+      <tr ng-repeat="event in events track by $index">
         <td>
           <input
             type="text"
@@ -88,14 +93,10 @@
             ng-model="event.title">
         </td>
         <td>
-          <select ng-model="event.type" class="form-control">
-            <option value="important">Important</option>
-            <option value="warning">Warning</option>
-            <option value="info">Info</option>
-            <option value="inverse">Inverse</option>
-            <option value="success">Success</option>
-            <option value="special">Special</option>
-          </select>
+          <input class="form-control" colorpicker type="text" ng-model="event.color.primary">
+        </td>
+        <td>
+          <input class="form-control" colorpicker type="text" ng-model="event.color.secondary">
         </td>
         <td>
           <p class="input-group" style="max-width: 250px">
@@ -111,17 +112,18 @@
               <button
                 type="button"
                 class="btn btn-default"
-                ng-click="vm.toggle($event, 'startOpen', event)">
+                ng-click="toggle($event, 'startOpen', event)">
                 <i class="glyphicon glyphicon-calendar"></i>
               </button>
             </span>
           </p>
-          <uib-timepicker
+          <div
+            uib-timepicker
             ng-model="event.startsAt"
             hour-step="1"
             minute-step="15"
             show-meridian="true">
-          </uib-timepicker>
+          </div>
         </td>
         <td>
           <p class="input-group" style="max-width: 250px">
@@ -137,29 +139,28 @@
               <button
                 type="button"
                 class="btn btn-default"
-                ng-click="vm.toggle($event, 'endOpen', event)">
+                ng-click="toggle($event, 'endOpen', event)">
                 <i class="glyphicon glyphicon-calendar"></i>
               </button>
             </span>
           </p>
-          <uib-timepicker
+          <div
+            uib-timepicker
             ng-model="event.endsAt"
             hour-step="1"
             minute-step="15"
             show-meridian="true">
-          </uib-timepicker>
+          </div>
         </td>
         <td>
           <button
             class="btn btn-danger"
-            ng-click="vm.events.splice($index, 1)">
+            ng-click="events.splice($index, 1)">
             Delete
           </button>
         </td>
       </tr>
     </tbody>
 
-  </table-->
-		</div>
-	</div>
+  </table>
 </div>
