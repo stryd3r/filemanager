@@ -44,8 +44,10 @@
 
 
 </head>
-<body ng-app="mainApp" ng-controller="routerController" style="background-image: url('shared/img/background.jpg')">
-	<div class="tab-content col-md-10 text-center centred marginLeft" style="background-color: white;">
+<body ng-app="mainApp" ng-controller="routerController"
+	style="background-image: url('shared/img/background.jpg')">
+	<div class="tab-content col-md-10 text-center centred marginLeft"
+		style="background-color: white;">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -59,10 +61,8 @@
 					<img src="shared/img/People-Doctor-Female-icon.png">
 				</div>
 				<ul class="nav navbar-nav">
-					<li ng-class="activeClass === 'home'?'active':''"><a href="#"
-						ng-click="routePage('home')">Home</a></li>
-					<li ng-class="activeClass === 'calendar'?'active':''"><a href="#"
-						ng-click="routePage('calendar')">Calendar</a></li>
+					<li ui-sref-active="active"><a ui-sref="home" href="">home</a></li>
+					<li ui-sref-active="active"><a ui-sref="calendar" href="">calendar</a></li>
 				</ul>
 			</div>
 		</nav>
