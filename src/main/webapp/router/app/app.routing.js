@@ -3,7 +3,7 @@
 			.module('mainApp')
 			.config(
 					function($stateProvider, $urlRouterProvider) {
-						
+
 						$urlRouterProvider.otherwise('/home');
 						$stateProvider
 								.state(
@@ -25,7 +25,11 @@
 									controller : 'calendarCtrl'
 								}).state('home', {
 									url : '/home',
-									templateUrl : 'weBuild.html'
+									templateUrl : 'app/homePage/homePage.html'
+								}).state('manage', {
+									url : '/manage',
+									templateUrl : 'app/manage/manage.html',
+									controller : 'manageCtrl'
 								});
 					});
 }());

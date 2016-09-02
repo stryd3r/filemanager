@@ -29,6 +29,7 @@
 <script src="app/createAccountComponent/createAccountCtrl.js"></script>
 <script src="app/calendar/calendarCtrl.js"></script>
 <script src="app/calendar/editEventCtrl.js"></script>
+<script src="app/manage/manageCtrl.js"></script>
 
 <!-- CSS -->
 <link href="shared/css/bootstrap.css" rel="stylesheet" />
@@ -63,15 +64,17 @@
 				<ul class="nav navbar-nav">
 					<li ui-sref-active="active"><a ui-sref="home" href="">home</a></li>
 					<li ui-sref-active="active"><a ui-sref="calendar" href="">calendar</a></li>
+					<li ui-sref-active="active"><a ui-sref="manage" href="">manage</a></li>
 				</ul>
 			</div>
 		</nav>
 
-		<div ng-show="showPage">
+		<div class="row">
 			<div class="container">
 				<div ui-view></div>
 			</div>
 		</div>
 	</div>
+	<div style="text-align: center;" class="row" ng-include="'shared/html/footer.html'"></div>
 </body>
 </html>

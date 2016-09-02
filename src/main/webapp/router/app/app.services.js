@@ -6,8 +6,8 @@ angular.module('mainApp')
 	//var dateT = "";
 	var addAbsenceType = null;
 	
-	this.getOvertimeDetails = function(){
-		return $http.get('asset/json/overtime.json');
+	this.getPacients = function(){
+		return $http.get('shared/mock/json/pacienti.json');
 	}
 	
 	this.getAllAbsences = function(){

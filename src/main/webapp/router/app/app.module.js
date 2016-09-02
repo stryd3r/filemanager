@@ -6,7 +6,7 @@
 			'routerController', [ '$scope', '$state', function($scope, $state) {
 
 				$scope.name = "Hbk";
-				$scope.showPage = true;
+				//$scope.showPage = true;
 				$scope.goToRegisterPage = function() {
 					alert(1);
 				}
