@@ -63,7 +63,7 @@ angular.module('mainApp')
 	}
 	
 } ])
-/*.service('modalService', [ 'APPCONST', '$modal', '$q', function(APPCONST, $modal, $q) {
+.service('modalService', [ 'APPCONST', '$modal', '$q', function(APPCONST, $modal, $q) {
         this.openModal = function(modalName, modalContext, additiveStyle) {
             var deferred = $q.defer();
             var currentModalContext = modalContext || {};
@@ -98,4 +98,4 @@ angular.module('mainApp')
 
             return deferred.promise;
         };
-    } ]);*/
+    } ]);

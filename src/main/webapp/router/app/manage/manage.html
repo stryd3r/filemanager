@@ -17,16 +17,27 @@
 		</thead>
 		<tr ng-repeat="pacient in pacientsList | filter:searchPacient">
 			<td ng-if="pacient.editMode === false" style="text-align: left;">{{pacient.firstName}}</td>
-			<td ng-if="pacient.editMode === true"><input type="text"
-				value=pacient.firstName ng-model="editPacient.firstName"></td>
-			<td style="text-align: left;">{{pacient.lastName}}</td>
-			<td style="text-align: left;">{{pacient.seria}}</td>
-			<td style="text-align: left;"><button>
+			<td style="text-align: left;" ng-if="pacient.editMode === true"><input type="text"
+				ng-init="pacient.editPacient.firstName = pacient.firstName" ng-model="pacient.editPacient.firstName"></td>
+			<td ng-if="pacient.editMode === false" style="text-align: left;">{{pacient.lastName}}</td>
+			<td style="text-align: left;" ng-if="pacient.editMode === true"><input type="text"
+				ng-init="pacient.editPacient.lastName = pacient.lastName" ng-model="pacient.editPacient.lastName"></td>
+			<td ng-if="pacient.editMode === false" style="text-align: left;">{{pacient.seria}}</td>
+			<td style="text-align: left;" ng-if="pacient.editMode === true"><input type="text"
+				ng-init="pacient.editPacient.seria = pacient.seria" ng-model="pacient.editPacient.seria"></td>
+			<td style="text-align: left;"><button ng-click="editPacient(pacient)">
 					<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
 				</button>
-				<button>
+				<button ng-if="pacient.editMode === false" ng-click="openInfo()">
 					<i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
-				</button></td>
+				</button>
+				<button ng-if="pacient.editMode === true" ng-click="saveEdit(pacient, $index)">
+					<i class="glyphicon glyphicon-floppy-saved" aria-hidden = "true"></i>
+				</button>
+				<button ng-if="pacient.editMode === true" ng-click="undoEdit(pacient)">
+					<img src="shared/img/Undo.png">
+				</button>
+				</td>
 		</tr>
 	</table>
 </div>
