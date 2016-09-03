@@ -44,7 +44,7 @@ angular
 								$scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex
 										: 0;
 							};
-							$interval($scope.prevSlide, 3000);
+							$interval($scope.prevSlide, 4000);
 							$scope.nextSlide = function() {
 								$scope.direction = 'right';
 								$scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex
