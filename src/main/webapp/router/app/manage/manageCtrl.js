@@ -26,8 +26,11 @@ angular.module('mainApp').controller('manageCtrl',
 			
 			$scope.openAddPacientModal = function(){
 				console.log(APPCONST.MODALS);
-				modalSrv.openModal("addPacient").then(function(res){
+				modalSrv.openModal("addPacient",$scope.pacientsList).then(function(res){
 					console.log(res);
+					var newPacient = {editMode: false, original: res.resultContext};
+					if(res.resultContext.operationPerformed != 'ABORTED')
+					$scope.pacientsList.push(newPacient);
 				});
 			}
 			
