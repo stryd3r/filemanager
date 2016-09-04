@@ -63,12 +63,12 @@ angular.module('mainApp')
 	}
 	
 } ])
-.service('modalService', [ 'APPCONST', '$modal', '$q', function(APPCONST, $modal, $q) {
+.service('modalService', [ 'APPCONST', '$uibModal', '$q', function(APPCONST, $uibModal, $q) {
         this.openModal = function(modalName, modalContext, additiveStyle) {
             var deferred = $q.defer();
             var currentModalContext = modalContext || {};
 
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 animation : APPCONST.MODALS.PROPERTIES.ANIMATIONS_ENABLED,
                 templateUrl : APPCONST.MODALS.PROPERTIES.RESOURCES_PATH + modalName + '.html',
                 controller : modalName + 'Ctrl',

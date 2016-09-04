@@ -3,6 +3,13 @@ angular.module('mainApp').controller('manageCtrl',
 			srv.getPacients().then(function(res) {
 				angular.forEach(res.data, function(elem) {
 					elem.editMode = false;
+					elem.original = {};
+					elem.original.firstName = elem.firstName;
+					elem.original.lastName = elem.lastName;
+					elem.original.seria = elem.seria;
+					delete elem.firstName;
+					delete elem.lastName;
+					delete elem.seria;
 				});
 				$scope.pacientsList = res.data;
 			});
@@ -16,9 +23,10 @@ angular.module('mainApp').controller('manageCtrl',
 			}
 			
 			$scope.saveEdit = function(pacient, index){
-				$scope.pacientsList[index].firstName = angular.copy(pacient.editPacient.firstName);
-				$scope.pacientsList[index].lastName = angular.copy(pacient.editPacient.lastName);
-				$scope.pacientsList[index].seria = angular.copy(pacient.editPacient.seria);
+				//TODO create saving pacient object
+				$scope.pacientsList[index].original.firstName = angular.copy(pacient.editPacient.firstName);
+				$scope.pacientsList[index].original.lastName = angular.copy(pacient.editPacient.lastName);
+				$scope.pacientsList[index].original.seria = angular.copy(pacient.editPacient.seria);
 				pacient.editMode = false;
 			}
 			
