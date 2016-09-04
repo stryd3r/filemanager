@@ -24,6 +24,11 @@ angular.module('mainApp').controller('manageCtrl',
 				pacient.editMode = false;
 			}
 			
+			$scope.deletePacient = function(pacient){
+				var index = $scope.pacientsList.indexOf(pacient);
+				$scope.pacientsList.splice(index, 1);
+			}
+			
 			$scope.openAddPacientModal = function(){
 				console.log(APPCONST.MODALS);
 				modalSrv.openModal("addPacient",$scope.pacientsList).then(function(res){
