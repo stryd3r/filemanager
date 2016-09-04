@@ -1,5 +1,7 @@
 angular.module('mainApp').controller('manageCtrl',
 		[ '$scope', '$state', 'mainService', function($scope, $state, srv) {
+			
+			//init list of pacients
 			srv.getPacients().then(function(res) {
 				angular.forEach(res.data, function(elem) {
 					elem.editMode = false;
@@ -13,14 +15,6 @@ angular.module('mainApp').controller('manageCtrl',
 				});
 				$scope.pacientsList = res.data;
 			});
-			
-			$scope.editPacient = function(pacient){
-				pacient.editMode = true;
-			}
-			
-			$scope.undoEdit = function(pacient){
-				pacient.editMode = false;
-			}
 			
 			$scope.saveEdit = function(pacient, index){
 				//TODO create saving pacient object
