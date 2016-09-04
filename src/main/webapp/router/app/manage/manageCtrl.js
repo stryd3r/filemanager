@@ -1,5 +1,5 @@
 angular.module('mainApp').controller('manageCtrl',
-		[ '$scope', 'APPCONST', 'mainService','modalService', function($scope, APPCONST, srv, modalSrv) {
+		[ '$scope', 'APPCONST', 'mainService','modalService','$filter', function($scope, APPCONST, srv, modalSrv,$filter) {
 			
 			//init list of pacients
 			srv.getPacients().then(function(res) {
@@ -16,11 +16,11 @@ angular.module('mainApp').controller('manageCtrl',
 				$scope.pacientsList = res.data;
 			});
 			
-			$scope.saveEdit = function(pacient, index){
+			$scope.saveEdit = function(pacient){
 				//TODO create saving pacient object
-				$scope.pacientsList[index].original.firstName = angular.copy(pacient.editPacient.firstName);
-				$scope.pacientsList[index].original.lastName = angular.copy(pacient.editPacient.lastName);
-				$scope.pacientsList[index].original.seria = angular.copy(pacient.editPacient.seria);
+				var index = $scope.pacientsList.indexOf(pacient);
+				$scope.pacientsList[index].original = angular.copy(pacient.editPacient);
+				//$scope.pacientsList = $filter('filter')($scope.pacientsList,$scope.searchPacient);
 				pacient.editMode = false;
 			}
 			
