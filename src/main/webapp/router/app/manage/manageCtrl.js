@@ -1,5 +1,5 @@
 angular.module('mainApp').controller('manageCtrl',
-		[ '$scope', '$state', 'mainService', function($scope, $state, srv) {
+		[ '$scope', 'APPCONST', 'mainService','modalService', function($scope, APPCONST, srv, modalSrv) {
 			
 			//init list of pacients
 			srv.getPacients().then(function(res) {
@@ -22,6 +22,13 @@ angular.module('mainApp').controller('manageCtrl',
 				$scope.pacientsList[index].original.lastName = angular.copy(pacient.editPacient.lastName);
 				$scope.pacientsList[index].original.seria = angular.copy(pacient.editPacient.seria);
 				pacient.editMode = false;
+			}
+			
+			$scope.openAddPacientModal = function(){
+				console.log(APPCONST.MODALS);
+				modalSrv.openModal("addPacient").then(function(res){
+					console.log(res);
+				});
 			}
 			
 			$scope.openInfo = function(pacient){
