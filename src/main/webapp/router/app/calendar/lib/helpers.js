@@ -19,7 +19,7 @@ angular.module('mainApp').factory('alert', function($uibModal) {
 			}
 		});
 		modalInstance.result.then(function (selectedItem) {
-		    scope.selected = selectedItem;
+		    //scope.selected = selectedItem;
 		  }, function () {
 		    $log.info('Modal dismissed at: ' + new Date());
 		  });

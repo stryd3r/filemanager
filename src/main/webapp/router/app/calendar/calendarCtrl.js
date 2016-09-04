@@ -3,7 +3,7 @@ angular
 		.module('mainApp')
 		.controller(
 				'calendarCtrl',
-				function($scope, alert, moment, calendarConfig) {
+				function($scope, alert, moment, calendarConfig, modalService) {
 
 					var vm = this;
 					var modalInstance = null;
@@ -12,22 +12,30 @@ angular
 					// to work
 					$scope.calendarView = 'month';
 					$scope.viewDate = new Date();
-					var actions = [ {
-						label : '<i class=\'glyphicon glyphicon-pencil\'></i>',
-						onClick : function(args) {
-							modalInstance = alert.show('Edited', args.calendarEvent);
-							modalInstance.result.then(function (yourData) {
-							    $scope.selected = yourData;
-							  }, function () {
-							    $log.info('Modal dismissed at: ' + new Date());
-							  });
-						}
-					}, {
-						label : '<i class=\'glyphicon glyphicon-remove\'></i>',
-						onClick : function(args) {
-							alert.show('Deleted', args.calendarEvent);
-						}
-					} ];
+					var actions = [
+							{
+								label : '<i class=\'glyphicon glyphicon-pencil\'></i>',
+								onClick : function(args) {
+									modalInstance = alert.show('Edited',
+											args.calendarEvent);
+									modalInstance.result
+											.then(
+													function(yourData) {
+														$scope.selected = yourData;
+													},
+													function() {
+														$log
+																.info('Modal dismissed at: '
+																		+ new Date());
+													});
+								}
+							},
+							{
+								label : '<i class=\'glyphicon glyphicon-remove\'></i>',
+								onClick : function(args) {
+									alert.show('Deleted', args.calendarEvent);
+								}
+							} ];
 					$scope.events = [
 							{
 								title : 'An event',
@@ -66,14 +74,25 @@ angular
 					$scope.isCellOpen = true;
 
 					$scope.addEvent = function() {
-						$scope.events.push({
-							title : 'New event',
-							startsAt : moment().startOf('day').toDate(),
-							endsAt : moment().endOf('day').toDate(),
-							color : calendarConfig.colorTypes.important,
-							draggable : true,
-							resizable : true
-						});
+						modalService
+								.openModal("addNewEvent")
+								.then(
+										function(res) {
+											console.log(res);
+											if (res.resultContext.operationPerformed != 'ABORTED')
+												var newEv = res.resultContext;
+											newEv.actions = actions;
+											$scope.events
+													.push(res.resultContext);
+										});
+
+						/*
+						 * $scope.events.push({ title : 'New event', startsAt :
+						 * moment().startOf('day').toDate(), endsAt :
+						 * moment().endOf('day').toDate(), color :
+						 * calendarConfig.colorTypes.important, draggable :
+						 * true, resizable : true });
+						 */
 					};
 
 					$scope.eventClicked = function(event) {
