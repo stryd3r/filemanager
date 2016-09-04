@@ -34,7 +34,9 @@ angular.module('mainApp').controller('manageCtrl',
 				});
 			}
 			
-			$scope.openInfo = function(pacient){
-				alert('Va urma ...');
+			$scope.openInfoPacientModal = function(pacient){
+				modalSrv.openModal("infoPacient",pacient).then(function(res){
+					console.log(res);
+				});
 			}
 		} ]);
