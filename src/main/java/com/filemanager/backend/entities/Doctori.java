@@ -3,44 +3,33 @@ package com.filemanager.backend.entities;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Pacienti implements Serializable{
+public class Doctori implements Serializable {
 
-	private static final long serialVersionUID = 6635717949381968011L;
+	private static final long serialVersionUID = 466868757207463484L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String nume;
 	private String prenume;
 
-	@OneToOne(mappedBy="pacient",fetch=FetchType.LAZY)
-	private DetaliiPacient detaliiPacient = new DetaliiPacient();
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+	private List<Pacienti> pacienti;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Doctori doctor;
-
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name="id")
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
 	private List<Consultatii> consultatii;
 
-	public List<Consultatii> getConsultatii() {
-		return consultatii;
-	}
-
-	public void setConsultatii(List<Consultatii> consultatii) {
-		this.consultatii = consultatii;
-	}
+	@OneToOne
+	private Calendar calendar;
 
 	public int getId() {
 		return id;
@@ -66,20 +55,12 @@ public class Pacienti implements Serializable{
 		this.prenume = prenume;
 	}
 
-	public DetaliiPacient getDetaliiPacient() {
-		return detaliiPacient;
+	public List<Pacienti> getPacienti() {
+		return pacienti;
 	}
 
-	public void setDetaliiPacient(DetaliiPacient detaliiPacient) {
-		this.detaliiPacient = detaliiPacient;
-	}
-
-	public Doctori getDoctor() {
-		return doctor;
-	}
-
-	public void setDoctor(Doctori doctor) {
-		this.doctor = doctor;
+	public void setPacienti(List<Pacienti> pacienti) {
+		this.pacienti = pacienti;
 	}
 
 }
