@@ -21,7 +21,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Override
 	public boolean login(CredentialModel credentialModel) {
 
-		repository.save(new PacientModel());
 		return authenticationRepository.login(credentialModel);
 	}
 
