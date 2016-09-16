@@ -5,11 +5,11 @@ import java.util.List;
 
 public abstract class BeanMapper<M, D> {
 
-	public abstract M dtoToModel(D dto);
+	public abstract M dtoToEntity(D dto);
 
-	public abstract D modelToDto(M model);
+	public abstract D entityToDto(M model);
 
-	public List<M> dtoToModelAsList(List<D> dtos) {
+	public List<M> dtoToEntityAsList(List<D> dtos) {
 
 		List<M> models = new ArrayList<M>();
 
@@ -18,13 +18,13 @@ public abstract class BeanMapper<M, D> {
 		}
 
 		for (D dto : dtos) {
-			models.add(dtoToModel(dto));
+			models.add(dtoToEntity(dto));
 		}
 
 		return models;
 	}
 
-	public List<D> modelToDtoAsList(List<M> models) {
+	public List<D> entityToDtoAsList(List<M> models) {
 
 		List<D> dtos = new ArrayList<D>();
 
@@ -33,7 +33,7 @@ public abstract class BeanMapper<M, D> {
 		}
 
 		for (M model : models) {
-			dtos.add(modelToDto(model));
+			dtos.add(entityToDto(model));
 		}
 
 		return dtos;

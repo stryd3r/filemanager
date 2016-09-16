@@ -8,9 +8,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name="detalii_pacient")
@@ -23,7 +24,7 @@ public class DetaliiPacient implements Serializable{
 	private int idPacient;
 	private String adresa;
 	
-	@OneToOne(mappedBy="doctor",fetch=FetchType.LAZY)
+	@OneToOne(mappedBy="doctor")
 	private Pacienti pacient;
 	
 

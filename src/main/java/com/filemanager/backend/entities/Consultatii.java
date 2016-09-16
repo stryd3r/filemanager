@@ -7,11 +7,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @Entity
-public class Consultatii implements Serializable{
+public class Consultatii implements Serializable {
 
 	private static final long serialVersionUID = -7304535812360848960L;
 	@Id
@@ -22,11 +23,12 @@ public class Consultatii implements Serializable{
 	private String pret;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private Pacienti pacient;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private Doctori doctor;
-
 
 	public int getId() {
 		return id;

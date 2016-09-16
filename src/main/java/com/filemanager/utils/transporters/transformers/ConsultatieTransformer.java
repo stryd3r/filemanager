@@ -23,7 +23,7 @@ public class ConsultatieTransformer extends BeanMapper<ConsultatieModel, Consult
 	}
 
 	@Override
-	public ConsultatieModel dtoToModel(ConsultatieDto dto) {
+	public ConsultatieModel dtoToEntity(ConsultatieDto dto) {
 
 		ConsultatieModel model = new ConsultatieModel();
 		model.setId(dto.getId());
@@ -36,7 +36,7 @@ public class ConsultatieTransformer extends BeanMapper<ConsultatieModel, Consult
 	}
 
 	@Override
-	public ConsultatieDto modelToDto(ConsultatieModel model) {
+	public ConsultatieDto entityToDto(ConsultatieModel model) {
 
 		ConsultatieDto dto = new ConsultatieDto();
 		dto.setId(model.getId());

@@ -23,7 +23,7 @@ public class CredentialTransformer extends BeanMapper<CredentialModel, Credentia
 	}
 
 	@Override
-	public CredentialModel dtoToModel(CredentialDto dto) {
+	public CredentialModel dtoToEntity(CredentialDto dto) {
 
 		CredentialModel model = new CredentialModel();
 		model.setUser(dto.getUser());
@@ -33,7 +33,7 @@ public class CredentialTransformer extends BeanMapper<CredentialModel, Credentia
 	}
 
 	@Override
-	public CredentialDto modelToDto(CredentialModel model) {
+	public CredentialDto entityToDto(CredentialModel model) {
 
 		CredentialDto dto = new CredentialDto();
 		dto.setUser(model.getUser());

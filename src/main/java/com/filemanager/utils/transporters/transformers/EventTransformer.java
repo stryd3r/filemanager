@@ -23,7 +23,7 @@ public class EventTransformer extends BeanMapper<EventModel, EventDto> {
 	}
 
 	@Override
-	public EventModel dtoToModel(EventDto dto) {
+	public EventModel dtoToEntity(EventDto dto) {
 
 		EventModel model = new EventModel();
 		model.setId(dto.getId());
@@ -38,7 +38,7 @@ public class EventTransformer extends BeanMapper<EventModel, EventDto> {
 	}
 
 	@Override
-	public EventDto modelToDto(EventModel model) {
+	public EventDto entityToDto(EventModel model) {
 
 		EventDto dto = new EventDto();
 		dto.setId(model.getId());

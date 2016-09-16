@@ -3,7 +3,6 @@ package com.filemanager.backend.entities;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,8 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @Entity
-public class Pacienti implements Serializable{
+public class Pacienti implements Serializable {
 
 	private static final long serialVersionUID = 6635717949381968011L;
 	@Id
@@ -24,23 +25,18 @@ public class Pacienti implements Serializable{
 	private String nume;
 	private String prenume;
 
-	@OneToOne(mappedBy="pacient",fetch=FetchType.LAZY)
+	@OneToOne(mappedBy = "pacient", fetch = FetchType.LAZY)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private DetaliiPacient detaliiPacient = new DetaliiPacient();
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id", insertable = false, updatable = false)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private Doctori doctor;
 
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name="id")
+	@OneToMany(mappedBy = "pacient", fetch = FetchType.LAZY)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<Consultatii> consultatii;
-
-	public List<Consultatii> getConsultatii() {
-		return consultatii;
-	}
-
-	public void setConsultatii(List<Consultatii> consultatii) {
-		this.consultatii = consultatii;
-	}
 
 	public int getId() {
 		return id;
@@ -80,6 +76,14 @@ public class Pacienti implements Serializable{
 
 	public void setDoctor(Doctori doctor) {
 		this.doctor = doctor;
+	}
+
+	public List<Consultatii> getConsultatii() {
+		return consultatii;
+	}
+
+	public void setConsultatii(List<Consultatii> consultatii) {
+		this.consultatii = consultatii;
 	}
 
 }

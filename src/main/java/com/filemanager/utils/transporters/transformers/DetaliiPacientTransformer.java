@@ -23,7 +23,7 @@ public class DetaliiPacientTransformer extends BeanMapper<DetaliiPacientModel, D
 	}
 
 	@Override
-	public DetaliiPacientModel dtoToModel(DetaliiPacientDto dto) {
+	public DetaliiPacientModel dtoToEntity(DetaliiPacientDto dto) {
 
 		DetaliiPacientModel model = new DetaliiPacientModel();
 		model.setIdPacient(dto.getIdPacient());
@@ -33,7 +33,7 @@ public class DetaliiPacientTransformer extends BeanMapper<DetaliiPacientModel, D
 	}
 
 	@Override
-	public DetaliiPacientDto modelToDto(DetaliiPacientModel model) {
+	public DetaliiPacientDto entityToDto(DetaliiPacientModel model) {
 
 		DetaliiPacientDto dto = new DetaliiPacientDto();
 		dto.setIdPacient(model.getIdPacient());

@@ -3,15 +3,15 @@ package com.filemanager.backend.entities;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 public class Calendar  implements Serializable{
@@ -26,6 +26,7 @@ public class Calendar  implements Serializable{
 	private Doctori doctor;
 
 	@OneToMany(mappedBy="calendar",fetch=FetchType.LAZY)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<Events> events;
 
 	public int getId() {

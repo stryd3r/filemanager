@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @Entity
 public class Doctori implements Serializable {
 
@@ -22,13 +24,17 @@ public class Doctori implements Serializable {
 	private String nume;
 	private String prenume;
 
-	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JoinColumn(name="id", insertable=false,updatable=false)
 	private List<Pacienti> pacienti;
 
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<Consultatii> consultatii;
 
 	@OneToOne
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private Calendar calendar;
 
 	public int getId() {
@@ -61,6 +67,22 @@ public class Doctori implements Serializable {
 
 	public void setPacienti(List<Pacienti> pacienti) {
 		this.pacienti = pacienti;
+	}
+
+	public List<Consultatii> getConsultatii() {
+		return consultatii;
+	}
+
+	public void setConsultatii(List<Consultatii> consultatii) {
+		this.consultatii = consultatii;
+	}
+
+	public Calendar getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(Calendar calendar) {
+		this.calendar = calendar;
 	}
 
 }

@@ -23,7 +23,7 @@ public class DoctorTransformer extends BeanMapper<DoctorModel, DoctorDto> {
 	}
 
 	@Override
-	public DoctorModel dtoToModel(DoctorDto dto) {
+	public DoctorModel dtoToEntity(DoctorDto dto) {
 
 		DoctorModel model = new DoctorModel();
 		model.setId(dto.getId());
@@ -33,7 +33,7 @@ public class DoctorTransformer extends BeanMapper<DoctorModel, DoctorDto> {
 	}
 
 	@Override
-	public DoctorDto modelToDto(DoctorModel model) {
+	public DoctorDto entityToDto(DoctorModel model) {
 
 		DoctorDto dto = new DoctorDto();
 		dto.setId(model.getId());

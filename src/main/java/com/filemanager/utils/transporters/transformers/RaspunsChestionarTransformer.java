@@ -23,7 +23,7 @@ public class RaspunsChestionarTransformer extends BeanMapper<RaspunsChestionarMo
 	}
 
 	@Override
-	public RaspunsChestionarModel dtoToModel(RaspunsChestionarDto dto) {
+	public RaspunsChestionarModel dtoToEntity(RaspunsChestionarDto dto) {
 
 		RaspunsChestionarModel model = new RaspunsChestionarModel();
 		model.setIdPacient(dto.getIdPacient());
@@ -34,7 +34,7 @@ public class RaspunsChestionarTransformer extends BeanMapper<RaspunsChestionarMo
 	}
 
 	@Override
-	public RaspunsChestionarDto modelToDto(RaspunsChestionarModel model) {
+	public RaspunsChestionarDto entityToDto(RaspunsChestionarModel model) {
 
 		RaspunsChestionarDto dto = new RaspunsChestionarDto();
 		dto.setIdPacient(model.getIdPacient());

@@ -18,7 +18,7 @@ public class AuthenticationController {
 	@RequestMapping(value = "/login", produces = "application/json")
 	public boolean removeQuestion(@RequestBody CredentialDto credentialDto) {
 
-		return authenticationService.login(CredentialTransformer.getInstance().dtoToModel(credentialDto));
+		return authenticationService.login(CredentialTransformer.getInstance().dtoToEntity(credentialDto));
 	}
 
 }

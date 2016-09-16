@@ -23,7 +23,7 @@ public class ChestionarTransformer extends BeanMapper<ChestionarModel, Chestiona
 	}
 
 	@Override
-	public ChestionarModel dtoToModel(ChestionarDto dto) {
+	public ChestionarModel dtoToEntity(ChestionarDto dto) {
 
 		ChestionarModel model = new ChestionarModel();
 		model.setId(dto.getId());
@@ -33,7 +33,7 @@ public class ChestionarTransformer extends BeanMapper<ChestionarModel, Chestiona
 	}
 
 	@Override
-	public ChestionarDto modelToDto(ChestionarModel model) {
+	public ChestionarDto entityToDto(ChestionarModel model) {
 
 		ChestionarDto dto = new ChestionarDto();
 		dto.setId(model.getId());

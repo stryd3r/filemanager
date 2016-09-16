@@ -23,7 +23,7 @@ public class CalendarTransformer extends BeanMapper<CalendarModel, CalendarDto> 
 	}
 
 	@Override
-	public CalendarModel dtoToModel(CalendarDto dto) {
+	public CalendarModel dtoToEntity(CalendarDto dto) {
 
 		CalendarModel model = new CalendarModel();
 		model.setId(dto.getId());
@@ -32,7 +32,7 @@ public class CalendarTransformer extends BeanMapper<CalendarModel, CalendarDto> 
 	}
 
 	@Override
-	public CalendarDto modelToDto(CalendarModel model) {
+	public CalendarDto entityToDto(CalendarModel model) {
 
 		CalendarDto dto = new CalendarDto();
 		dto.setId(model.getId());
