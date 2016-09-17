@@ -30,6 +30,10 @@
 									url : '/manage',
 									templateUrl : 'app/manage/manage.html',
 									controller : 'manageCtrl'
+								}).state('testRest', {
+									url : '/testRest',
+									templateUrl : 'app/testRest/restTest.html',
+									controller : 'testRestCtrl'
 								});
 					});
 }());
