@@ -3,6 +3,8 @@ package com.filemanager.utils.transporters;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 /**
  * The persistent class for the raspuns_chestionar database table.
@@ -22,13 +24,15 @@ public class RaspunsChestionar implements Serializable {
 	//bi-directional many-to-one association to Chestionare
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumns({
-		@JoinColumn(name="id_chestionar", referencedColumnName="id"),
-		@JoinColumn(name="id_intrebare", referencedColumnName="id_intrebare")
+		@JoinColumn(name="id_chestionar", referencedColumnName="id",insertable=false, updatable=false),
+		@JoinColumn(name="id_intrebare", referencedColumnName="id_intrebare",insertable=false, updatable=false)
 		})
+	@JsonBackReference(value="rasChe")
 	private Chestionare chestionare;
 
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pacient")
+	@JoinColumn(name="id_pacient",insertable=false, updatable=false)
+	@JsonBackReference
 	private Pacienti pacienti;
 
 	public RaspunsChestionar() {

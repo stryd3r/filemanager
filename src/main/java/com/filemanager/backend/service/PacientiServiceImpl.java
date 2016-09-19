@@ -16,8 +16,23 @@ public class PacientiServiceImpl implements PacientiService {
 	private PacientiRepository repository;
 
 	@Override
-	public List<Pacienti> getPacienti() {
-		return repository.getPacienti();
+	public List<Pacienti> getPacienti(boolean withDoctor, boolean withConsultatii) {
+		return repository.getPacienti(withDoctor, withConsultatii);
+	}
+
+	@Override
+	public boolean insert(Pacienti pacient) {
+		return repository.insert(pacient);
+	}
+
+	@Override
+	public boolean update(Pacienti pacient) {
+		return repository.update(pacient);
+	}
+
+	@Override
+	public boolean delete(Pacienti pacient) {
+		return repository.delete(pacient);
 	}
 
 }

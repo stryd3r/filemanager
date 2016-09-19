@@ -1,8 +1,19 @@
 package com.filemanager.utils.transporters;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  * The persistent class for the pacienti database table.
@@ -21,18 +32,22 @@ public class Pacienti implements Serializable {
 	private String prenume;
 
 	// bi-directional many-to-one association to Consultatii
-	@OneToMany(mappedBy = "pacienti")
-	private List<Consultatii> consultatiis;
+	@OneToMany(mappedBy = "pacienti", fetch=FetchType.LAZY)
+	@Cascade({CascadeType.ALL})
+	private List<Consultatii> consultatii;
 
 	@OneToOne(mappedBy = "pacienti")
+	@Cascade({CascadeType.ALL})
 	private DetaliiPacient detaliiPacient;
 
 	// bi-directional many-to-one association to Doctori
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_doctor")
+	@Cascade({CascadeType.ALL})
 	private Doctori doctori;
 
 	@OneToOne(mappedBy = "pacienti")
+	@Cascade({CascadeType.ALL})
 	private RaspunsChestionar raspunsChestionar;
 
 	public Pacienti() {
@@ -62,23 +77,23 @@ public class Pacienti implements Serializable {
 		this.prenume = prenume;
 	}
 
-	public List<Consultatii> getConsultatiis() {
-		return this.consultatiis;
+	public List<Consultatii> getConsultatii() {
+		return this.consultatii;
 	}
 
-	public void setConsultatiis(List<Consultatii> consultatiis) {
-		this.consultatiis = consultatiis;
+	public void setConsultatii(List<Consultatii> consultatii) {
+		this.consultatii = consultatii;
 	}
 
 	public Consultatii addConsultatii(Consultatii consultatii) {
-		getConsultatiis().add(consultatii);
+		getConsultatii().add(consultatii);
 		consultatii.setPacienti(this);
 
 		return consultatii;
 	}
 
 	public Consultatii removeConsultatii(Consultatii consultatii) {
-		getConsultatiis().remove(consultatii);
+		getConsultatii().remove(consultatii);
 		consultatii.setPacienti(null);
 
 		return consultatii;

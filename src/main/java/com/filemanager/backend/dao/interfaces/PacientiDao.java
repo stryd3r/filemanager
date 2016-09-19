@@ -6,6 +6,11 @@ import com.filemanager.utils.transporters.Pacienti;
 
 public interface PacientiDao {
 
-	boolean save(Pacienti input);
-	List<Pacienti> getPacienti();
+	boolean insert(Pacienti pacient);
+
+	List<Pacienti> getPacienti(boolean withDoctor, boolean withConsultatii);
+
+	boolean update(Pacienti pacient);
+
+	boolean delete(Pacienti pacient);
 }

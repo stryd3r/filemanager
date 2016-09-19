@@ -1,7 +1,16 @@
 package com.filemanager.utils.transporters;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * The persistent class for the detalii_pacient database table.
@@ -18,8 +27,9 @@ public class DetaliiPacient implements Serializable {
 
 	private String adresa;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne()
 	@JoinColumn(name = "id_pacient")
+	@JsonBackReference(value="detPac")
 	private Pacienti pacienti;
 
 	public DetaliiPacient() {

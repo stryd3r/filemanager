@@ -18,19 +18,17 @@ public class PacientiController {
 	private PacientiService service;
 
 	@RequestMapping(value = "/getPacienti", produces = "application/json")
-	public List<Pacienti> getPacienti() {
-		List<Pacienti> result = service.getPacienti();
+	public List<Pacienti> getPacienti(boolean withDoctor, boolean withConsultatii) {
+		List<Pacienti> result = service.getPacienti(withDoctor,withConsultatii);
 		System.out.println("ok");
 
 		return result;
 	}
 
 	@RequestMapping(value = "/insertPacient", method = RequestMethod.POST, produces = "application/json")
-	public List<Pacienti> getPacienti(@RequestBody Pacienti pacient) {
-		List<Pacienti> result = service.getPacienti();
-		System.out.println("ok");
+	public void insertPacienti(@RequestBody Pacienti pacient) {
 
-		return result;
+		service.insert(pacient);
 	}
 
 }

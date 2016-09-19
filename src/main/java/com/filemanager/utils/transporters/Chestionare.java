@@ -4,13 +4,12 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the chestionare database table.
  * 
  */
 @Entity
-@NamedQuery(name="Chestionare.findAll", query="SELECT c FROM Chestionare c")
+@NamedQuery(name = "Chestionare.findAll", query = "SELECT c FROM Chestionare c")
 public class Chestionare implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,9 +18,9 @@ public class Chestionare implements Serializable {
 
 	private String intrebare;
 
-	//bi-directional many-to-one association to RaspunsChestionar
-	@OneToMany(mappedBy="chestionare")
-	private List<RaspunsChestionar> raspunsChestionars;
+	// bi-directional many-to-one association to RaspunsChestionar
+	@OneToMany(mappedBy = "chestionare")
+	private List<RaspunsChestionar> raspunsChestionare;
 
 	public Chestionare() {
 	}
@@ -42,23 +41,27 @@ public class Chestionare implements Serializable {
 		this.intrebare = intrebare;
 	}
 
-	public List<RaspunsChestionar> getRaspunsChestionars() {
-		return this.raspunsChestionars;
+	public List<RaspunsChestionar> getRaspunsChestionare() {
+		return raspunsChestionare;
 	}
 
-	public void setRaspunsChestionars(List<RaspunsChestionar> raspunsChestionars) {
-		this.raspunsChestionars = raspunsChestionars;
+	public void setRaspunsChestionare(List<RaspunsChestionar> raspunsChestionare) {
+		this.raspunsChestionare = raspunsChestionare;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public RaspunsChestionar addRaspunsChestionar(RaspunsChestionar raspunsChestionar) {
-		getRaspunsChestionars().add(raspunsChestionar);
+		getRaspunsChestionare().add(raspunsChestionar);
 		raspunsChestionar.setChestionare(this);
 
 		return raspunsChestionar;
 	}
 
 	public RaspunsChestionar removeRaspunsChestionar(RaspunsChestionar raspunsChestionar) {
-		getRaspunsChestionars().remove(raspunsChestionar);
+		getRaspunsChestionare().remove(raspunsChestionar);
 		raspunsChestionar.setChestionare(null);
 
 		return raspunsChestionar;

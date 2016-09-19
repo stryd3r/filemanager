@@ -3,13 +3,14 @@ package com.filemanager.utils.transporters;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * The persistent class for the consultatii database table.
  * 
  */
 @Entity
-@NamedQuery(name="Consultatii.findAll", query="SELECT c FROM Consultatii c")
+@NamedQuery(name = "Consultatii.findAll", query = "SELECT c FROM Consultatii c")
 public class Consultatii implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,14 +23,16 @@ public class Consultatii implements Serializable {
 
 	private String pret;
 
-	//bi-directional many-to-one association to Pacienti
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pacient")
+	// bi-directional many-to-one association to Pacienti
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_pacient", insertable = false, updatable = false)
+	@JsonBackReference(value="conPac")
 	private Pacienti pacienti;
 
-	//bi-directional many-to-one association to Doctori
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_doctor")
+	// bi-directional many-to-one association to Doctori
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_doctor", insertable = false, updatable = false)
+	@JsonBackReference(value="conDoc")
 	private Doctori doctori;
 
 	public Consultatii() {

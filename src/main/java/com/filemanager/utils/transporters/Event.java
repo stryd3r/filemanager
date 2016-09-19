@@ -2,6 +2,9 @@ package com.filemanager.utils.transporters;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.sql.Timestamp;
 
 
@@ -34,6 +37,7 @@ public class Event implements Serializable {
 	//bi-directional many-to-one association to Calendar
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_calendar")
+	@JsonBackReference(value="eveCal")
 	private Calendar calendar;
 
 	public Event() {

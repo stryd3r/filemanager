@@ -26,11 +26,11 @@ public class Doctori implements Serializable {
 
 	// bi-directional many-to-one association to Consultatii
 	@OneToMany(mappedBy = "doctori")
-	private List<Consultatii> consultatiis;
+	private List<Consultatii> consultatii;
 
 	// bi-directional many-to-one association to Pacienti
 	@OneToMany(mappedBy = "doctori")
-	private List<Pacienti> pacientis;
+	private List<Pacienti> pacienti;
 
 	public Doctori() {
 	}
@@ -67,45 +67,46 @@ public class Doctori implements Serializable {
 		this.calendar = calendar;
 	}
 
-	public List<Consultatii> getConsultatiis() {
-		return this.consultatiis;
+	public List<Consultatii> getConsultatii() {
+		return consultatii;
 	}
 
-	public void setConsultatiis(List<Consultatii> consultatiis) {
-		this.consultatiis = consultatiis;
+	public void setConsultatii(List<Consultatii> consultatii) {
+		this.consultatii = consultatii;
+	}
+
+	public List<Pacienti> getPacienti() {
+		return pacienti;
+	}
+
+	public void setPacienti(List<Pacienti> pacienti) {
+		this.pacienti = pacienti;
 	}
 
 	public Consultatii addConsultatii(Consultatii consultatii) {
-		getConsultatiis().add(consultatii);
+		getConsultatii().add(consultatii);
 		consultatii.setDoctori(this);
 
 		return consultatii;
 	}
 
 	public Consultatii removeConsultatii(Consultatii consultatii) {
-		getConsultatiis().remove(consultatii);
+		getConsultatii().remove(consultatii);
 		consultatii.setDoctori(null);
 
 		return consultatii;
 	}
 
-	public List<Pacienti> getPacientis() {
-		return this.pacientis;
-	}
-
-	public void setPacientis(List<Pacienti> pacientis) {
-		this.pacientis = pacientis;
-	}
 
 	public Pacienti addPacienti(Pacienti pacienti) {
-		getPacientis().add(pacienti);
+		getPacienti().add(pacienti);
 		pacienti.setDoctori(this);
 
 		return pacienti;
 	}
 
 	public Pacienti removePacienti(Pacienti pacienti) {
-		getPacientis().remove(pacienti);
+		getPacienti().remove(pacienti);
 		pacienti.setDoctori(null);
 
 		return pacienti;

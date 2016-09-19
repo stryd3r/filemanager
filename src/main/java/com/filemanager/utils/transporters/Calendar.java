@@ -2,6 +2,9 @@ package com.filemanager.utils.transporters;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.List;
 
 
@@ -20,6 +23,7 @@ public class Calendar implements Serializable {
 	//bi-directional many-to-one association to Doctori
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_doctor")
+	@JsonBackReference
 	private Doctori doctori;
 
 	//bi-directional many-to-one association to Event
