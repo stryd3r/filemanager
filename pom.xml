@@ -60,7 +60,6 @@
 		</dependency>
 
 
-
 		<!-- Rest service -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

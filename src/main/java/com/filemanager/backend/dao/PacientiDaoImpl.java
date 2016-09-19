@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.filemanager.backend.dao.interfaces.PacientiDao;
-import com.filemanager.backend.entities.Pacienti;
-import com.filemanager.utils.transporters.model.PacientModel;
+import com.filemanager.utils.transporters.generatedEntities.Pacienti;
 
 @Repository
 public class PacientiDaoImpl implements PacientiDao {
@@ -18,7 +17,7 @@ public class PacientiDaoImpl implements PacientiDao {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public boolean save(PacientModel input) {
+	public boolean save(Pacienti input) {
 		Pacienti pacient = new Pacienti();
 		pacient.setNume("adrian");
 		pacient.setPrenume("barna");
@@ -33,7 +32,6 @@ public class PacientiDaoImpl implements PacientiDao {
 		Query queryResult = sessionFactory.getCurrentSession().createQuery("from Pacienti");
 		@SuppressWarnings("unchecked")
 		List<Pacienti> resultEntities = queryResult.list();
-		resultEntities.get(0).getDetaliiPacient().getAdresa();
 		return resultEntities;
 	}
 

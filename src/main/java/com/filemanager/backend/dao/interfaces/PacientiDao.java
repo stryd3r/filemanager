@@ -2,11 +2,10 @@ package com.filemanager.backend.dao.interfaces;
 
 import java.util.List;
 
-import com.filemanager.backend.entities.Pacienti;
-import com.filemanager.utils.transporters.model.PacientModel;
+import com.filemanager.utils.transporters.generatedEntities.Pacienti;
 
 public interface PacientiDao {
 
-	boolean save(PacientModel input);
+	boolean save(Pacienti input);
 	List<Pacienti> getPacienti();
 }
