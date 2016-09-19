@@ -1,0 +1,18 @@
+<div>
+	<div class="modal-header">
+		<h3 class="modal-title" id="modal-title">Adauga pacient</h3>
+	</div>
+	<div class="modal-body" id="modal-body" ng-form="addPacientForm">
+		<div class="form-group">
+			<label>Nume:</label> <input type="text"
+				ng-model="addPacientObj.firstName" class="form-control"> <label>Prenume:</label>
+			<input type="text" ng-model="addPacientObj.lastName"
+				class="form-control"> <label>Seria:</label> <input
+				type="text" ng-model="addPacientObj.seria" class="form-control">
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="ok(this.addPacientObj)">Adauga</button>
+		<button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

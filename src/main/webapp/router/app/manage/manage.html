@@ -1,0 +1,63 @@
+<div class="panel panel-default">
+	<!-- Default panel contents -->
+	<div class="panel-heading">
+		<div class="inner-addon left-addon">
+			<i class="glyphicon glyphicon-search"></i> <input type="text"
+				class="form-control" ng-model="searchPacient" placeholder="Search" />
+		</div>
+		<button class="btn btn-primary btn-md"
+			ng-click="openAddPacientModal()"
+			style="margin-top: -56px; margin-right: 500px;">Adauga
+			pacient</button>
+	</div>
+	<!-- Table -->
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Nume</th>
+				<th>Prenume</th>
+				<th>Seria</th>
+				<th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="pacient in pacientsList | filter:searchPacient">
+				<td ng-if="!pacient.editMode" style="text-align: left;">{{pacient.original.firstName}}</td>
+				<td style="text-align: left;" ng-if="pacient.editMode"><input
+					type="text"
+					ng-init="pacient.editPacient.firstName = pacient.original.firstName"
+					ng-model="pacient.editPacient.firstName"></td>
+				<td ng-if="!pacient.editMode" style="text-align: left;">{{pacient.original.lastName}}</td>
+				<td style="text-align: left;" ng-if="pacient.editMode"><input
+					type="text"
+					ng-init="pacient.editPacient.lastName = pacient.original.lastName"
+					ng-model="pacient.editPacient.lastName"></td>
+				<td ng-if="!pacient.editMode" style="text-align: left;">{{pacient.original.seria}}</td>
+				<td style="text-align: left;" ng-if="pacient.editMode"><input
+					type="text"
+					ng-init="pacient.editPacient.seria = pacient.original.seria"
+					ng-model="pacient.editPacient.seria"></td>
+				<td style="text-align: left;"><button ng-if="!pacient.editMode"
+						ng-click="pacient.editMode = true">
+						<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+					</button>
+					<button ng-if="!pacient.editMode"
+						ng-click="openInfoPacientModal(pacient)">
+						<i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
+					</button>
+					<button ng-if="pacient.editMode"
+						ng-click="saveEdit(pacient)">
+						<i class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></i>
+					</button>
+					<button ng-if="!pacient.editMode"
+						ng-click="deletePacient(pacient)">
+						<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+					</button>
+					<button ng-if="pacient.editMode"
+						ng-click="pacient.editMode = false">
+						<img src="shared/img/Undo.png">
+					</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

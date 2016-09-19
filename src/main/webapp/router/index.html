@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Management Pacienti</title>
+<!-- app framework -->
+<script src="shared/libs/angular/angular.js"></script>
+<script src="shared/libs/angular/angular-route.js"></script>
+<script src="shared/libs/bootstrap/ui-bootstrap-tpls-2.1.1.js"></script>
+<script src="shared/libs/angular/interact.js"></script>
+<script src="shared/libs/angular/moment.js"></script>
+<script src="shared/libs/angular/angular-animate.js"></script>
+<script src="shared/libs/angular/angular-moment.min.js"></script>
+<!-- <script src="shared/libs/bootstrap/bootstrap.js"></script> -->
+<!-- photo slider -->
+<script src="shared/libs/slider/jquery-3.1.0.min.js"></script>
+<script src="shared/libs/slider/TweenMax.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-touch.min.js"></script>
+
+<!-- app main jars -->
+<script src="app/app.module.js"></script>
+<script src="app/app.routing.js"></script>
+<script src="app/app.services.js"></script>
+<script src="app/app.constants.js"></script>
+<!-- calendar -->
+<script type="text/javascript"
+	src="shared/libs/angular/angular-bootstrap-calendar-tpls.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/js/bootstrap-colorpicker-module.min.js"></script>
+<script src="app/calendar/lib/calendarConfig.js"></script>
+<script src="app/calendar/lib/helpers.js"></script>
+
+<!-- app controllers -->
+<script src="app/loginComponent/loginCtrl.js"></script>
+<script src="app/createAccountComponent/createAccountCtrl.js"></script>
+<script src="app/calendar/calendarCtrl.js"></script>
+<script src="app/manage/manageCtrl.js"></script>
+<!-- modal ctrls -->
+<script src="app/modals/addPacientCtrl.js"></script>
+<script src="app/modals/infoPacientCtrl.js"></script>
+<script src="app/modals/addNewEventCtrl.js"></script>
+<script src="app/calendar/editEventCtrl.js"></script>
+<script src="app/modals/editEvCtrl.js"></script>
+
+<!-- testRest temp -->
+<script src="app/testRest/testRestCtrl.js"></script>
+
+<!-- Components -->
+<script src="shared/component/photoSlider/photoSliderCtrl.js"></script>
+
+<!-- CSS -->
+<link href="shared/css/bootstrap.css" rel="stylesheet" />
+<link href="shared/css/style.css" rel="stylesheet" />
+<link href="shared/css/slider.css" rel="stylesheet" />
+<link href="shared/css/angular-bootstrap-calendar.min.css"
+	rel="stylesheet" type="text/css">
+<link href="shared/css/bootstrap-theme.css" rel="stylesheet"
+	type="text/css">
+<link
+	href="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/css/colorpicker.min.css"
+	rel="stylesheet">
+<link rel="shortcut icon" href="http://example.com/favicon.ico">
+
+
+</head>
+<body ng-app="mainApp" ng-controller="routerController"
+	style="background-image: url('shared/img/background.jpg')">
+	<div class="tab-content col-md-10 text-center centred marginLeft"
+		style="background-color: #EEEAE9;">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<img src="shared/img/People-Doctor-Female-icon.png">
+				</div>
+				<ul class="nav navbar-nav">
+					<li ui-sref-active="active"><a ui-sref="home" href="">home</a></li>
+					<li ui-sref-active="active"><a ui-sref="calendar" href="">calendar</a></li>
+					<li ui-sref-active="active"><a ui-sref="manage" href="">manage</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="row">
+			<div class="container">
+				<div ui-view></div>
+			</div>
+		</div>
+	</div>
+	<div style="text-align: center;" class="row" ng-include="'shared/html/footer.html'"></div>
+</body>
+</html>
