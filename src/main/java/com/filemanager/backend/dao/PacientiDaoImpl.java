@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.filemanager.backend.dao.interfaces.PacientiDao;
-import com.filemanager.utils.transporters.generatedEntities.Pacienti;
+import com.filemanager.utils.transporters.Pacienti;
 
 @Repository
 public class PacientiDaoImpl implements PacientiDao {

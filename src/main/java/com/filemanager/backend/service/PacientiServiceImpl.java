@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.filemanager.backend.repository.interfaces.PacientiRepository;
 import com.filemanager.backend.service.interfaces.PacientiService;
-import com.filemanager.utils.transporters.generatedEntities.Pacienti;
+import com.filemanager.utils.transporters.Pacienti;
 
 @Service
 public class PacientiServiceImpl implements PacientiService {

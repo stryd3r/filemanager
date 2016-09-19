@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.filemanager.backend.dao.interfaces.PacientiDao;
 import com.filemanager.backend.repository.interfaces.PacientiRepository;
-import com.filemanager.utils.transporters.generatedEntities.Pacienti;
+import com.filemanager.utils.transporters.Pacienti;
 
 @Repository
 public class PacientiRepositoryImpl implements PacientiRepository {

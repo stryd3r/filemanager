@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.filemanager.backend.service.interfaces.PacientiService;
-import com.filemanager.utils.transporters.generatedEntities.Pacienti;
+import com.filemanager.utils.transporters.Pacienti;
 
 @RestController
 public class PacientiController {
