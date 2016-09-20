@@ -6,6 +6,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Environment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -40,6 +41,7 @@ public class DataSourceConfig {
 		Properties hibernateProperties = new Properties();
 
 		hibernateProperties.put("dialect", "org.hibernate.dialect.MySQLInnoDBDialect");
+		hibernateProperties.put(Environment.SHOW_SQL,"true");
 		factory.setHibernateProperties(hibernateProperties);
 		factory.afterPropertiesSet();
 		return factory.getObject();
