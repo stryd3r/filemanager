@@ -18,7 +18,7 @@ public class Calendar implements Serializable {
 	private int id;
 
 	//bi-directional many-to-one association to Doctori
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_doctor")
 	private Doctori doctori;
 
