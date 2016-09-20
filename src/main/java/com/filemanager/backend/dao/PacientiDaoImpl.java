@@ -22,7 +22,6 @@ public class PacientiDaoImpl implements PacientiDao {
 
 	@Override
 	public boolean insert(Pacienti input) {
-		Session session = sessionFactory.getCurrentSession();
 		sessionFactory.getCurrentSession().persist(input);
 
 		return true;
@@ -30,8 +29,6 @@ public class PacientiDaoImpl implements PacientiDao {
 
 	@Override
 	public List<Pacienti> getPacienti(boolean withDoctor, boolean withConsultatii) {
-
-		Pacienti p = new Pacienti();
 
 		Query queryResult = sessionFactory.getCurrentSession().createQuery("from Pacienti");
 		@SuppressWarnings("unchecked")

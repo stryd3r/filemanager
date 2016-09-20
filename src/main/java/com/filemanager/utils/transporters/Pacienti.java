@@ -43,7 +43,6 @@ public class Pacienti implements Serializable {
 	// bi-directional many-to-one association to Doctori
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_doctor")
-	@Cascade({CascadeType.ALL})
 	private Doctori doctori;
 
 	@OneToOne(mappedBy = "pacienti")
