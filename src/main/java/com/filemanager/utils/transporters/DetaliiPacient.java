@@ -3,7 +3,6 @@ package com.filemanager.utils.transporters;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
@@ -26,11 +25,20 @@ public class DetaliiPacient implements Serializable {
 	private int id;
 
 	private String adresa;
+	private int id_pacient;
 
 	@OneToOne()
-	@JoinColumn(name = "id_pacient")
-	@JsonBackReference(value="detPac")
+	@JoinColumn(name = "id_pacient", updatable = false, insertable = false)
+	@JsonBackReference(value = "detPac")
 	private Pacienti pacienti;
+
+	public int getId_pacient() {
+		return id_pacient;
+	}
+
+	public void setId_pacient(int id_pacient) {
+		this.id_pacient = id_pacient;
+	}
 
 	public DetaliiPacient() {
 	}
