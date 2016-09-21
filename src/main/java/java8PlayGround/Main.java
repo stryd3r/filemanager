@@ -1,9 +1,9 @@
-package java8PlayGround.predicates;
+package java8PlayGround;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import java8PlayGround.Apple;
+import java8PlayGround.predicates.Predicate;
 
 public class Main {
 
