@@ -4,49 +4,37 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-
 /**
  * The persistent class for the events database table.
  * 
  */
 @Entity
-@Table(name="events")
-@NamedQuery(name="Event.findAll", query="SELECT e FROM Event e")
+@Table(name = "events")
+@NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e")
 public class Event implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_events")
-	private int idEvents;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int eventId;
 
-	@Column(name="all_day")
+	@Column(name = "all_day")
 	private byte allDay;
 
-	private String culoare;
+	private String color;
 
-	@Column(name="end_date")
 	private Timestamp endDate;
 
-	private String observatie;
+	private String observation;
 
-	@Column(name="start_date")
 	private Timestamp startDate;
 
-	//bi-directional many-to-one association to Calendar
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_calendar")
+	// bi-directional many-to-one association to Calendar
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "calendarId")
 	private Calendar calendar;
 
 	public Event() {
-	}
-
-	public int getIdEvents() {
-		return this.idEvents;
-	}
-
-	public void setIdEvents(int idEvents) {
-		this.idEvents = idEvents;
 	}
 
 	public byte getAllDay() {
@@ -57,28 +45,12 @@ public class Event implements Serializable {
 		this.allDay = allDay;
 	}
 
-	public String getCuloare() {
-		return this.culoare;
-	}
-
-	public void setCuloare(String culoare) {
-		this.culoare = culoare;
-	}
-
 	public Timestamp getEndDate() {
 		return this.endDate;
 	}
 
 	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
-	}
-
-	public String getObservatie() {
-		return this.observatie;
-	}
-
-	public void setObservatie(String observatie) {
-		this.observatie = observatie;
 	}
 
 	public Timestamp getStartDate() {
@@ -95,6 +67,30 @@ public class Event implements Serializable {
 
 	public void setCalendar(Calendar calendar) {
 		this.calendar = calendar;
+	}
+
+	public int getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getObservation() {
+		return observation;
+	}
+
+	public void setObservation(String observation) {
+		this.observation = observation;
 	}
 
 }

@@ -2,15 +2,15 @@ package com.filemanager.backend.service.interfaces;
 
 import java.util.List;
 
-import com.filemanager.utils.transporters.Doctori;
+import com.filemanager.utils.transporters.Doctors;
 
 public interface DoctorService {
 
-	boolean insert(Doctori doctor);
+	boolean insertDoctor(Doctors doctor);
 
-	List<Doctori> getDoctor();
+	List<Doctors> getDoctor();
 
-	boolean update(Doctori doctor);
+	boolean updateDoctor(Doctors doctor);
 
-	boolean delete(Doctori doctor);
+	boolean deleteDoctor(Doctors doctor);
 }

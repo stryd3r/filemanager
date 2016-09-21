@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.filemanager.backend.repository.interfaces.DoctorRepository;
 import com.filemanager.backend.service.interfaces.DoctorService;
-import com.filemanager.utils.transporters.Doctori;
+import com.filemanager.utils.transporters.Doctors;
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
@@ -16,23 +16,23 @@ public class DoctorServiceImpl implements DoctorService {
 	private DoctorRepository doctorRepository;
 
 	@Override
-	public boolean insert(Doctori doctor) {
-		return doctorRepository.insert(doctor);
+	public boolean insertDoctor(Doctors doctor) {
+		return doctorRepository.insertDoctor(doctor);
 	}
 
 	@Override
-	public List<Doctori> getDoctor() {
+	public List<Doctors> getDoctor() {
 		return doctorRepository.getDoctor();
 	}
 
 	@Override
-	public boolean update(Doctori doctor) {
-		return doctorRepository.update(doctor);
+	public boolean updateDoctor(Doctors doctor) {
+		return doctorRepository.updateDoctor(doctor);
 	}
 
 	@Override
-	public boolean delete(Doctori doctor) {
-		return doctorRepository.delete(doctor);
+	public boolean deleteDoctor(Doctors doctor) {
+		return doctorRepository.deleteDoctor(doctor);
 	}
 
 

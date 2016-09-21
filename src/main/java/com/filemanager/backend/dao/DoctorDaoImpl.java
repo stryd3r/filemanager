@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.filemanager.backend.dao.interfaces.DoctorDao;
-import com.filemanager.utils.transporters.Doctori;
+import com.filemanager.utils.transporters.Doctors;
 
 @Repository
 @Transactional
@@ -18,26 +18,26 @@ public class DoctorDaoImpl implements DoctorDao {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public boolean insert(Doctori doctor) {
+	public boolean insertDoctor(Doctors doctor) {
 		
 		sessionFactory.getCurrentSession().persist(doctor);
 		return true;
 	}
 
 	@Override
-	public List<Doctori> getDoctor() {
+	public List<Doctors> getDoctor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean update(Doctori doctor) {
+	public boolean updateDoctor(Doctors doctor) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(Doctori doctor) {
+	public boolean deleteDoctor(Doctors doctor) {
 		// TODO Auto-generated method stub
 		return false;
 	}

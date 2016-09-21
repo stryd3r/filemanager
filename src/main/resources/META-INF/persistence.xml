@@ -4,13 +4,13 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="filemanagerPU">
 		<class>com.filemanager.utils.transporters.Calendar</class>
-		<class>com.filemanager.utils.transporters.Chestionare</class>
-		<class>com.filemanager.utils.transporters.ChestionarePK</class>
-		<class>com.filemanager.utils.transporters.Consultatii</class>
-		<class>com.filemanager.utils.transporters.DetaliiPacient</class>
-		<class>com.filemanager.utils.transporters.Doctori</class>
+		<class>com.filemanager.utils.transporters.Questionnaire</class>
+		<class>com.filemanager.utils.transporters.QuestionnairePK</class>
+		<class>com.filemanager.utils.transporters.Consultations</class>
+		<class>com.filemanager.utils.transporters.PacientsDetails</class>
+		<class>com.filemanager.utils.transporters.Doctors</class>
 		<class>com.filemanager.utils.transporters.Event</class>
-		<class>com.filemanager.utils.transporters.Pacienti</class>
-		<class>com.filemanager.utils.transporters.RaspunsChestionar</class>
+		<class>com.filemanager.utils.transporters.Pacients</class>
+		<class>com.filemanager.utils.transporters.QuestionnaireAnswers</class>
 	</persistence-unit>
 </persistence>

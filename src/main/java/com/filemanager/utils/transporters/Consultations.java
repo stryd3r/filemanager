@@ -8,14 +8,13 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name = "Consultatii.findAll", query = "SELECT c FROM Consultatii c")
-public class Consultatii implements Serializable {
+@NamedQuery(name = "Consultations.findAll", query = "SELECT c FROM Consultations c")
+public class Consultations implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_consultatii")
-	private int idConsultatii;
+	private int consultationId;
 
 	private String diagnostic;
 
@@ -25,23 +24,23 @@ public class Consultatii implements Serializable {
 
 	// bi-directional many-to-one association to Doctori
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_doctor")
-	private Doctori doctor;
+	@JoinColumn(name = "doctorId")
+	private Doctors doctor;
 
 	// bi-directional many-to-one association to Pacienti
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_pacient")
-	private Pacienti pacient;
+	@JoinColumn(name = "pacientId")
+	private Pacients pacient;
 
-	public Consultatii() {
+	public Consultations() {
 	}
 
-	public int getIdConsultatii() {
-		return idConsultatii;
+	public int getConsultationId() {
+		return consultationId;
 	}
 
-	public void setIdConsultatii(int idConsultatii) {
-		this.idConsultatii = idConsultatii;
+	public void setConsultationId(int consultationId) {
+		this.consultationId = consultationId;
 	}
 
 	public String getDiagnostic() {
@@ -68,19 +67,19 @@ public class Consultatii implements Serializable {
 		this.pret = pret;
 	}
 
-	public Doctori getDoctor() {
+	public Doctors getDoctor() {
 		return doctor;
 	}
 
-	public void setDoctor(Doctori doctor) {
+	public void setDoctor(Doctors doctor) {
 		this.doctor = doctor;
 	}
 
-	public Pacienti getPacient() {
+	public Pacients getPacient() {
 		return pacient;
 	}
 
-	public void setPacient(Pacienti pacient) {
+	public void setPacient(Pacients pacient) {
 		this.pacient = pacient;
 	}
 

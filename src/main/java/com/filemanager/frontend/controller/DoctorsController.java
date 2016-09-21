@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.filemanager.backend.service.interfaces.DoctorService;
 import com.filemanager.exceptions.InvalidInput;
 import com.filemanager.utils.StomatoUtils;
-import com.filemanager.utils.transporters.Doctori;
+import com.filemanager.utils.transporters.Doctors;
 
 @RestController
-public class DoctoriController {
+public class DoctorsController {
 
 	@Autowired
 	private DoctorService doctoriService;
 
 	@RequestMapping(value = "/insertDoctor", method = RequestMethod.POST, produces = "application/json")
-	public void insertDoctor(@RequestBody Doctori doctor) throws InvalidInput {
+	public void insertDoctor(@RequestBody Doctors doctor) throws InvalidInput {
 
 		validateInput(doctor);
-		doctoriService.insert(doctor);
+		doctoriService.insertDoctor(doctor);
 	}
 
-	private void validateInput(Doctori doctor) throws InvalidInput {
-		if (StomatoUtils.isNullOrEmpty(doctor.getNume()) || StomatoUtils.isNullOrEmpty(doctor.getPrenume())) {
+	private void validateInput(Doctors doctor) throws InvalidInput {
+		if (StomatoUtils.isNullOrEmpty(doctor.getName()) || StomatoUtils.isNullOrEmpty(doctor.getSurname())) {
 			throw new InvalidInput("Numele sau prenumele nu este completat!");
 		}
 	}

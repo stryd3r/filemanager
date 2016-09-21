@@ -8,39 +8,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.filemanager.backend.service.interfaces.PacientiService;
-import com.filemanager.utils.transporters.Pacienti;
+import com.filemanager.backend.service.interfaces.PacientsService;
+import com.filemanager.utils.transporters.Pacients;
 
 @RestController
-public class PacientiController {
+public class PacientsController {
 
 	@Autowired
-	private PacientiService pacientiService;
+	private PacientsService pacientiService;
 
-	@RequestMapping(value = "/getPacienti", produces = "application/json")
-	public List<Pacienti> getPacienti(boolean withDoctor, boolean withConsultatii) {
-		List<Pacienti> result = pacientiService.getPacienti(withDoctor, withConsultatii);
+	@RequestMapping(value = "/getPacients", produces = "application/json")
+	public List<Pacients> getPacienti(boolean withDoctor, boolean withConsultation) {
+		List<Pacients> result = pacientiService.getPacients(withDoctor, withConsultation);
 		System.out.println("ok");
 
 		return result;
 	}
 
 	@RequestMapping(value = "/insertPacient", method = RequestMethod.POST, produces = "application/json")
-	public boolean insertPacienti(@RequestBody Pacienti pacient) {
+	public boolean insertPacienti(@RequestBody Pacients pacient) {
 
-		return pacientiService.insert(pacient);
+		return pacientiService.insertPacient(pacient);
 	}
 
 	@RequestMapping(value = "/updatePacient", method = RequestMethod.POST, produces = "application/json")
-	public boolean updatePacient(@RequestBody Pacienti pacient) {
+	public boolean updatePacient(@RequestBody Pacients pacient) {
 
-		return pacientiService.update(pacient);
+		return pacientiService.updatePacient(pacient);
 	}
 
 	@RequestMapping(value = "/deletePacient", method = RequestMethod.POST, produces = "application/json")
-	public boolean removePacient(@RequestBody Pacienti pacient) {
+	public boolean removePacient(@RequestBody Pacients pacient) {
 
-		return pacientiService.delete(pacient);
+		return pacientiService.deletePacient(pacient);
 	}
 
 }

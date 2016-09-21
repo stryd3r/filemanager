@@ -15,13 +15,12 @@ public class Calendar implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_calendar")
-	private int idCalendar;
+	private int calendarId;
 
 	// bi-directional many-to-one association to Doctori
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_doctor")
-	private Doctori doctor;
+	@JoinColumn(name = "doctorId")
+	private Doctors doctor;
 
 	// bi-directional many-to-one association to Event
 	@OneToMany(mappedBy = "calendar")
@@ -30,19 +29,19 @@ public class Calendar implements Serializable {
 	public Calendar() {
 	}
 
-	public int getIdCalendar() {
-		return this.idCalendar;
+	public int getCalendarId() {
+		return calendarId;
 	}
 
-	public void setIdCalendar(int idCalendar) {
-		this.idCalendar = idCalendar;
+	public void setCalendarId(int calendarId) {
+		this.calendarId = calendarId;
 	}
 
-	public Doctori getDoctor() {
+	public Doctors getDoctor() {
 		return doctor;
 	}
 
-	public void setDoctor(Doctori doctor) {
+	public void setDoctor(Doctors doctor) {
 		this.doctor = doctor;
 	}
 

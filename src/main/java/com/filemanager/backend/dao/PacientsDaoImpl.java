@@ -9,46 +9,46 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.filemanager.backend.dao.interfaces.PacientiDao;
-import com.filemanager.utils.transporters.DetaliiPacient;
-import com.filemanager.utils.transporters.Pacienti;
+import com.filemanager.backend.dao.interfaces.PacientsDao;
+import com.filemanager.utils.transporters.PacientsDetails;
+import com.filemanager.utils.transporters.Pacients;
 
 @Repository
-public class PacientiDaoImpl implements PacientiDao {
+public class PacientsDaoImpl implements PacientsDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
-	public boolean insert(Pacienti pacient) {
+	public boolean insertPacient(Pacients pacient) {
 		sessionFactory.getCurrentSession().persist(pacient);
 
 		return true;
 	}
 
 	@Override
-	public List<Pacienti> getPacienti(boolean withDoctor, boolean withConsultatii) {
+	public List<Pacients> getPacients(boolean withDoctor, boolean withConsultation) {
 
-		Query queryResult = sessionFactory.getCurrentSession().createQuery("from Pacienti");
+		Query queryResult = sessionFactory.getCurrentSession().createQuery("from Pacients");
 		@SuppressWarnings("unchecked")
-		List<Pacienti> resultEntities = queryResult.list();
+		List<Pacients> resultEntities = queryResult.list();
 
 		if (withDoctor) {
 			Hibernate.initialize(resultEntities.get(0).getDoctor());
 		}
-		if (withConsultatii) {
-			Hibernate.initialize(resultEntities.get(0).getConsultatii());
+		if (withConsultation) {
+			Hibernate.initialize(resultEntities.get(0).getConsultations());
 		}
 
 		return resultEntities;
 	}
 
 	@Override
-	public boolean update(Pacienti input) {
+	public boolean updatePacient(Pacients input) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			Pacienti pacient = (Pacienti) session.load(Pacienti.class, new Integer(input.getIdPacient()));
-			pacient.setNume(input.getNume());
+			Pacients pacient = (Pacients) session.load(Pacients.class, new Integer(input.getPacientId()));
+			pacient.setName(input.getName());
 			session.update(pacient);
 			return true;
 		} catch (Exception e) {
@@ -57,27 +57,27 @@ public class PacientiDaoImpl implements PacientiDao {
 	}
 
 	@Override
-	public boolean delete(Pacienti input) {
+	public boolean deletePacient(Pacients input) {
 		Session session = sessionFactory.getCurrentSession();
-		Pacienti pacient = (Pacienti) session.load(Pacienti.class, new Integer(input.getIdPacient()));
+		Pacients pacient = (Pacients) session.load(Pacients.class, new Integer(input.getPacientId()));
 		session.delete(pacient);
 		return true;
 	}
 
 	@Override
-	public boolean insertDetalii(DetaliiPacient input) {
+	public boolean insertDetalii(PacientsDetails input) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean updateDetalii(DetaliiPacient input) {
+	public boolean updateDetalii(PacientsDetails input) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean removeDetalii(DetaliiPacient input) {
+	public boolean removeDetalii(PacientsDetails input) {
 		// TODO Auto-generated method stub
 		return false;
 	}

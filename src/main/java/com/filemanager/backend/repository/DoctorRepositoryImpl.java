@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.filemanager.backend.dao.interfaces.DoctorDao;
 import com.filemanager.backend.repository.interfaces.DoctorRepository;
-import com.filemanager.utils.transporters.Doctori;
+import com.filemanager.utils.transporters.Doctors;
 
 @Repository
 @Transactional
@@ -18,23 +18,23 @@ public class DoctorRepositoryImpl implements DoctorRepository {
 	private DoctorDao doctorDao;
 
 	@Override
-	public boolean insert(Doctori doctor) {
-		return doctorDao.insert(doctor);
+	public boolean insertDoctor(Doctors doctor) {
+		return doctorDao.insertDoctor(doctor);
 	}
 
 	@Override
-	public List<Doctori> getDoctor() {
+	public List<Doctors> getDoctor() {
 		return doctorDao.getDoctor();
 	}
 
 	@Override
-	public boolean update(Doctori doctor) {
-		return doctorDao.update(doctor);
+	public boolean updateDoctor(Doctors doctor) {
+		return doctorDao.updateDoctor(doctor);
 	}
 
 	@Override
-	public boolean delete(Doctori doctor) {
-		return doctorDao.delete(doctor);
+	public boolean deleteDoctor(Doctors doctor) {
+		return doctorDao.deleteDoctor(doctor);
 	}
 
 
