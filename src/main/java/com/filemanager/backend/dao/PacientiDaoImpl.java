@@ -8,13 +8,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.filemanager.backend.dao.interfaces.PacientiDao;
+import com.filemanager.utils.transporters.DetaliiPacient;
 import com.filemanager.utils.transporters.Pacienti;
 
 @Repository
-@Transactional
 public class PacientiDaoImpl implements PacientiDao {
 
 	@Autowired
@@ -45,9 +44,11 @@ public class PacientiDaoImpl implements PacientiDao {
 	}
 
 	@Override
-	public boolean update(Pacienti pacient) {
+	public boolean update(Pacienti input) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			Pacienti pacient = (Pacienti) session.load(Pacienti.class, new Integer(input.getIdPacient()));
+			pacient.setNume(input.getNume());
 			session.update(pacient);
 			return true;
 		} catch (Exception e) {
@@ -56,7 +57,27 @@ public class PacientiDaoImpl implements PacientiDao {
 	}
 
 	@Override
-	public boolean delete(Pacienti pacient) {
+	public boolean delete(Pacienti input) {
+		Session session = sessionFactory.getCurrentSession();
+		Pacienti pacient = (Pacienti) session.load(Pacienti.class, new Integer(input.getIdPacient()));
+		session.delete(pacient);
+		return true;
+	}
+
+	@Override
+	public boolean insertDetalii(DetaliiPacient input) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateDetalii(DetaliiPacient input) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean removeDetalii(DetaliiPacient input) {
 		// TODO Auto-generated method stub
 		return false;
 	}

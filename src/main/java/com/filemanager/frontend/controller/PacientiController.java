@@ -26,9 +26,21 @@ public class PacientiController {
 	}
 
 	@RequestMapping(value = "/insertPacient", method = RequestMethod.POST, produces = "application/json")
-	public void insertPacienti(@RequestBody Pacienti pacient) {
+	public boolean insertPacienti(@RequestBody Pacienti pacient) {
 
-		pacientiService.insert(pacient);
+		return pacientiService.insert(pacient);
+	}
+
+	@RequestMapping(value = "/updatePacient", method = RequestMethod.POST, produces = "application/json")
+	public boolean updatePacient(@RequestBody Pacienti pacient) {
+
+		return pacientiService.update(pacient);
+	}
+
+	@RequestMapping(value = "/deletePacient", method = RequestMethod.POST, produces = "application/json")
+	public boolean removePacient(@RequestBody Pacienti pacient) {
+
+		return pacientiService.delete(pacient);
 	}
 
 }

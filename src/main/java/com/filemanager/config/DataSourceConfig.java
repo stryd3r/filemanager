@@ -17,6 +17,8 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 @Configuration
 public class DataSourceConfig {
 
+	private static final String PACKAGES_TO_SCAN = "com.filemanager.utils.transporters";
+
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -36,12 +38,12 @@ public class DataSourceConfig {
 	public SessionFactory sessionFactory() throws IOException {
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 		factory.setDataSource(dataSource());
-		factory.setPackagesToScan("com.filemanager.utils.transporters");
+		factory.setPackagesToScan(PACKAGES_TO_SCAN);
 
 		Properties hibernateProperties = new Properties();
 
 		hibernateProperties.put("dialect", "org.hibernate.dialect.MySQLInnoDBDialect");
-		hibernateProperties.put(Environment.SHOW_SQL,"true");
+		hibernateProperties.put(Environment.SHOW_SQL, "true");
 		factory.setHibernateProperties(hibernateProperties);
 		factory.afterPropertiesSet();
 		return factory.getObject();
@@ -53,5 +55,5 @@ public class DataSourceConfig {
 
 		return transactionManager;
 	}
-	
+
 }
