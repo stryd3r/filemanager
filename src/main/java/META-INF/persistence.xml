@@ -5,12 +5,10 @@
 		<class>com.filemanager.utils.transporters.Chestionare</class>
 		<class>com.filemanager.utils.transporters.ChestionarePK</class>
 		<class>com.filemanager.utils.transporters.Consultatii</class>
-		<class>com.filemanager.utils.transporters.ConsultatiiPK</class>
 		<class>com.filemanager.utils.transporters.DetaliiPacient</class>
 		<class>com.filemanager.utils.transporters.Doctori</class>
 		<class>com.filemanager.utils.transporters.Event</class>
 		<class>com.filemanager.utils.transporters.Pacienti</class>
 		<class>com.filemanager.utils.transporters.RaspunsChestionar</class>
-		<class>com.filemanager.utils.transporters.RaspunsChestionarPK</class>
 	</persistence-unit>
 </persistence>

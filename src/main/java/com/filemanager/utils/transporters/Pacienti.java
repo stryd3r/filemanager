@@ -3,6 +3,7 @@ package com.filemanager.utils.transporters;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,40 +28,41 @@ public class Pacienti implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_pacient")
+	private int idPacient;
 
 	private String nume;
 
 	private String prenume;
 
 	// bi-directional many-to-one association to Consultatii
-	@OneToMany(mappedBy = "pacienti", fetch=FetchType.LAZY)
-	@Cascade({CascadeType.ALL})
+	@OneToMany(mappedBy = "pacient")
 	private List<Consultatii> consultatii;
 
-	@OneToOne(mappedBy = "pacienti")
+	// bi-directional many-to-one association to DetaliiPacient
+	@OneToOne(mappedBy = "pacient")
 	@Cascade({CascadeType.ALL})
 	private DetaliiPacient detaliiPacient;
 
 	// bi-directional many-to-one association to Doctori
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_doctor")
-	private Doctori doctori;
+	private Doctori doctor;
 
+	// bi-directional many-to-one association to RaspunsChestionar
 	@OneToOne(mappedBy = "pacienti")
-	@Cascade({CascadeType.ALL})
 	private RaspunsChestionar raspunsChestionar;
 
 	public Pacienti() {
 	}
 
-	public int getId() {
-		return this.id;
+	public int getIdPacient() {
+		return this.idPacient;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdPacient(int idPacient) {
+		this.idPacient = idPacient;
 	}
 
 	public String getNume() {
@@ -79,34 +81,26 @@ public class Pacienti implements Serializable {
 		this.prenume = prenume;
 	}
 
-	public List<Consultatii> getConsultatii() {
-		return this.consultatii;
-	}
-
-	public void setConsultatii(List<Consultatii> consultatii) {
-		this.consultatii = consultatii;
-	}
-
 	public Consultatii addConsultatii(Consultatii consultatii) {
 		getConsultatii().add(consultatii);
-		consultatii.setPacienti(this);
+		consultatii.setPacient(this);
 
 		return consultatii;
 	}
 
 	public Consultatii removeConsultatii(Consultatii consultatii) {
 		getConsultatii().remove(consultatii);
-		consultatii.setPacienti(null);
+		consultatii.setPacient(null);
 
 		return consultatii;
 	}
 
-	public Doctori getDoctori() {
-		return this.doctori;
+	public List<Consultatii> getConsultatii() {
+		return consultatii;
 	}
 
-	public void setDoctori(Doctori doctori) {
-		this.doctori = doctori;
+	public void setConsultatii(List<Consultatii> consultatii) {
+		this.consultatii = consultatii;
 	}
 
 	public DetaliiPacient getDetaliiPacient() {
@@ -117,12 +111,24 @@ public class Pacienti implements Serializable {
 		this.detaliiPacient = detaliiPacient;
 	}
 
+	public Doctori getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctori doctor) {
+		this.doctor = doctor;
+	}
+
 	public RaspunsChestionar getRaspunsChestionar() {
 		return raspunsChestionar;
 	}
 
 	public void setRaspunsChestionar(RaspunsChestionar raspunsChestionar) {
 		this.raspunsChestionar = raspunsChestionar;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

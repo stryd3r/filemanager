@@ -3,8 +3,6 @@ package com.filemanager.utils.transporters;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 /**
  * The persistent class for the consultatii database table.
  * 
@@ -14,8 +12,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class Consultatii implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private ConsultatiiPK id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_consultatii")
+	private int idConsultatii;
 
 	private String diagnostic;
 
@@ -23,27 +23,25 @@ public class Consultatii implements Serializable {
 
 	private String pret;
 
-	// bi-directional many-to-one association to Pacienti
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_pacient", insertable = false, updatable = false)
-	@JsonBackReference(value="conPac")
-	private Pacienti pacienti;
-
 	// bi-directional many-to-one association to Doctori
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_doctor", insertable = false, updatable = false)
-	@JsonBackReference(value="conDoc")
-	private Doctori doctori;
+	@JoinColumn(name = "id_doctor")
+	private Doctori doctor;
+
+	// bi-directional many-to-one association to Pacienti
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_pacient")
+	private Pacienti pacient;
 
 	public Consultatii() {
 	}
 
-	public ConsultatiiPK getId() {
-		return this.id;
+	public int getIdConsultatii() {
+		return idConsultatii;
 	}
 
-	public void setId(ConsultatiiPK id) {
-		this.id = id;
+	public void setIdConsultatii(int idConsultatii) {
+		this.idConsultatii = idConsultatii;
 	}
 
 	public String getDiagnostic() {
@@ -70,20 +68,20 @@ public class Consultatii implements Serializable {
 		this.pret = pret;
 	}
 
-	public Pacienti getPacienti() {
-		return this.pacienti;
+	public Doctori getDoctor() {
+		return doctor;
 	}
 
-	public void setPacienti(Pacienti pacienti) {
-		this.pacienti = pacienti;
+	public void setDoctor(Doctori doctor) {
+		this.doctor = doctor;
 	}
 
-	public Doctori getDoctori() {
-		return this.doctori;
+	public Pacienti getPacient() {
+		return pacient;
 	}
 
-	public void setDoctori(Doctori doctori) {
-		this.doctori = doctori;
+	public void setPacient(Pacienti pacient) {
+		this.pacient = pacient;
 	}
 
 }

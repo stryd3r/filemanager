@@ -2,9 +2,6 @@ package com.filemanager.utils.transporters;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import java.sql.Timestamp;
 
 
@@ -20,7 +17,8 @@ public class Event implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	@Column(name="id_events")
+	private int idEvents;
 
 	@Column(name="all_day")
 	private byte allDay;
@@ -38,18 +36,17 @@ public class Event implements Serializable {
 	//bi-directional many-to-one association to Calendar
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_calendar")
-	@JsonBackReference(value="eveCal")
 	private Calendar calendar;
 
 	public Event() {
 	}
 
-	public int getId() {
-		return this.id;
+	public int getIdEvents() {
+		return this.idEvents;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdEvents(int idEvents) {
+		this.idEvents = idEvents;
 	}
 
 	public byte getAllDay() {

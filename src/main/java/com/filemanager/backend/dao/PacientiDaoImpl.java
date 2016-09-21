@@ -21,8 +21,8 @@ public class PacientiDaoImpl implements PacientiDao {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public boolean insert(Pacienti input) {
-		sessionFactory.getCurrentSession().persist(input);
+	public boolean insert(Pacienti pacient) {
+		sessionFactory.getCurrentSession().persist(pacient);
 
 		return true;
 	}
@@ -35,7 +35,7 @@ public class PacientiDaoImpl implements PacientiDao {
 		List<Pacienti> resultEntities = queryResult.list();
 
 		if (withDoctor) {
-			Hibernate.initialize(resultEntities.get(0).getDoctori());
+			Hibernate.initialize(resultEntities.get(0).getDoctor());
 		}
 		if (withConsultatii) {
 			Hibernate.initialize(resultEntities.get(0).getConsultatii());

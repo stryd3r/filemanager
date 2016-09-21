@@ -15,11 +15,11 @@ import com.filemanager.utils.transporters.Pacienti;
 public class PacientiController {
 
 	@Autowired
-	private PacientiService service;
+	private PacientiService pacientiService;
 
 	@RequestMapping(value = "/getPacienti", produces = "application/json")
 	public List<Pacienti> getPacienti(boolean withDoctor, boolean withConsultatii) {
-		List<Pacienti> result = service.getPacienti(withDoctor,withConsultatii);
+		List<Pacienti> result = pacientiService.getPacienti(withDoctor, withConsultatii);
 		System.out.println("ok");
 
 		return result;
@@ -28,7 +28,7 @@ public class PacientiController {
 	@RequestMapping(value = "/insertPacient", method = RequestMethod.POST, produces = "application/json")
 	public void insertPacienti(@RequestBody Pacienti pacient) {
 
-		service.insert(pacient);
+		pacientiService.insert(pacient);
 	}
 
 }

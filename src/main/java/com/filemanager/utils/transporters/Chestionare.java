@@ -19,8 +19,8 @@ public class Chestionare implements Serializable {
 	private String intrebare;
 
 	// bi-directional many-to-one association to RaspunsChestionar
-	@OneToMany(mappedBy = "chestionare")
-	private List<RaspunsChestionar> raspunsChestionare;
+	@OneToMany(mappedBy = "chestionar")
+	private List<RaspunsChestionar> raspunsChestionar;
 
 	public Chestionare() {
 	}
@@ -41,28 +41,24 @@ public class Chestionare implements Serializable {
 		this.intrebare = intrebare;
 	}
 
-	public List<RaspunsChestionar> getRaspunsChestionare() {
-		return raspunsChestionare;
+	public List<RaspunsChestionar> getRaspunsChestionar() {
+		return raspunsChestionar;
 	}
 
-	public void setRaspunsChestionare(List<RaspunsChestionar> raspunsChestionare) {
-		this.raspunsChestionare = raspunsChestionare;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public void setRaspunsChestionar(List<RaspunsChestionar> raspunsChestionar) {
+		this.raspunsChestionar = raspunsChestionar;
 	}
 
 	public RaspunsChestionar addRaspunsChestionar(RaspunsChestionar raspunsChestionar) {
-		getRaspunsChestionare().add(raspunsChestionar);
-		raspunsChestionar.setChestionare(this);
+		getRaspunsChestionar().add(raspunsChestionar);
+		raspunsChestionar.setChestionar(this);
 
 		return raspunsChestionar;
 	}
 
 	public RaspunsChestionar removeRaspunsChestionar(RaspunsChestionar raspunsChestionar) {
-		getRaspunsChestionare().remove(raspunsChestionar);
-		raspunsChestionar.setChestionare(null);
+		getRaspunsChestionar().remove(raspunsChestionar);
+		raspunsChestionar.setChestionar(null);
 
 		return raspunsChestionar;
 	}

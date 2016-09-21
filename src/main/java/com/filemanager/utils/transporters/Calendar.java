@@ -2,52 +2,48 @@ package com.filemanager.utils.transporters;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import java.util.List;
-
 
 /**
  * The persistent class for the calendar database table.
  * 
  */
 @Entity
-@NamedQuery(name="Calendar.findAll", query="SELECT c FROM Calendar c")
+@NamedQuery(name = "Calendar.findAll", query = "SELECT c FROM Calendar c")
 public class Calendar implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_calendar")
+	private int idCalendar;
 
-	//bi-directional many-to-one association to Doctori
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_doctor")
-	@JsonBackReference
-	private Doctori doctori;
+	// bi-directional many-to-one association to Doctori
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_doctor")
+	private Doctori doctor;
 
-	//bi-directional many-to-one association to Event
-	@OneToMany(mappedBy="calendar")
+	// bi-directional many-to-one association to Event
+	@OneToMany(mappedBy = "calendar")
 	private List<Event> events;
 
 	public Calendar() {
 	}
 
-	public int getId() {
-		return this.id;
+	public int getIdCalendar() {
+		return this.idCalendar;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdCalendar(int idCalendar) {
+		this.idCalendar = idCalendar;
 	}
 
-	public Doctori getDoctori() {
-		return this.doctori;
+	public Doctori getDoctor() {
+		return doctor;
 	}
 
-	public void setDoctori(Doctori doctori) {
-		this.doctori = doctori;
+	public void setDoctor(Doctori doctor) {
+		this.doctor = doctor;
 	}
 
 	public List<Event> getEvents() {

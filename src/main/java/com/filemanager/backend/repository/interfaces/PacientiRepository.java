@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.filemanager.utils.transporters.Pacienti;
 
-
 public interface PacientiRepository {
 
 	boolean insert(Pacienti pacient);

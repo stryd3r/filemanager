@@ -12,19 +12,19 @@ public class ChestionarePK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	@Column(name="id_chestionar")
+	private int idChestionar;
 
 	@Column(name="id_intrebare")
 	private int idIntrebare;
 
 	public ChestionarePK() {
 	}
-	public int getId() {
-		return this.id;
+	public int getIdChestionar() {
+		return this.idChestionar;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setIdChestionar(int idChestionar) {
+		this.idChestionar = idChestionar;
 	}
 	public int getIdIntrebare() {
 		return this.idIntrebare;
@@ -42,14 +42,14 @@ public class ChestionarePK implements Serializable {
 		}
 		ChestionarePK castOther = (ChestionarePK)other;
 		return 
-			(this.id == castOther.id)
+			(this.idChestionar == castOther.idChestionar)
 			&& (this.idIntrebare == castOther.idIntrebare);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.id;
+		hash = hash * prime + this.idChestionar;
 		hash = hash * prime + this.idIntrebare;
 		
 		return hash;

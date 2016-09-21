@@ -3,47 +3,42 @@ package com.filemanager.utils.transporters;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-
 /**
  * The persistent class for the raspuns_chestionar database table.
  * 
  */
 @Entity
-@Table(name="raspuns_chestionar")
-@NamedQuery(name="RaspunsChestionar.findAll", query="SELECT r FROM RaspunsChestionar r")
+@Table(name = "raspuns_chestionar")
+@NamedQuery(name = "RaspunsChestionar.findAll", query = "SELECT r FROM RaspunsChestionar r")
 public class RaspunsChestionar implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private RaspunsChestionarPK id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_raspuns_chestionar")
+	private int idRaspunsChestionar;
 
 	private String raspuns;
 
-	//bi-directional many-to-one association to Chestionare
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(name="id_chestionar", referencedColumnName="id",insertable=false, updatable=false),
-		@JoinColumn(name="id_intrebare", referencedColumnName="id_intrebare",insertable=false, updatable=false)
-		})
-	@JsonBackReference(value="rasChe")
-	private Chestionare chestionare;
+	// bi-directional many-to-one association to Chestionare
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({ @JoinColumn(name = "id_chestionar", referencedColumnName = "id_chestionar"), @JoinColumn(name = "id_intrebare", referencedColumnName = "id_intrebare") })
+	private Chestionare chestionar;
 
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pacient",insertable=false, updatable=false)
-	@JsonBackReference
+	// bi-directional many-to-one association to Pacienti
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_pacient")
 	private Pacienti pacienti;
 
 	public RaspunsChestionar() {
 	}
 
-	public RaspunsChestionarPK getId() {
-		return this.id;
+	public int getIdRaspunsChestionar() {
+		return this.idRaspunsChestionar;
 	}
 
-	public void setId(RaspunsChestionarPK id) {
-		this.id = id;
+	public void setIdRaspunsChestionar(int idRaspunsChestionar) {
+		this.idRaspunsChestionar = idRaspunsChestionar;
 	}
 
 	public String getRaspuns() {
@@ -54,12 +49,12 @@ public class RaspunsChestionar implements Serializable {
 		this.raspuns = raspuns;
 	}
 
-	public Chestionare getChestionare() {
-		return this.chestionare;
+	public Chestionare getChestionar() {
+		return chestionar;
 	}
 
-	public void setChestionare(Chestionare chestionare) {
-		this.chestionare = chestionare;
+	public void setChestionar(Chestionare chestionar) {
+		this.chestionar = chestionar;
 	}
 
 	public Pacienti getPacienti() {

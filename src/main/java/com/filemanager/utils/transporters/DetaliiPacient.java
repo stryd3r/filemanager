@@ -1,17 +1,7 @@
 package com.filemanager.utils.transporters;
 
 import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.*;
 
 /**
  * The persistent class for the detalii_pacient database table.
@@ -24,34 +14,26 @@ public class DetaliiPacient implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_detalii_pacient")
+	private int idDetaliiPacient;
 
 	private String adresa;
-	private int id_pacient;
 
-	@OneToOne()
-	@JoinColumn(name = "id_pacient", updatable = false, insertable = false)
-	@JsonBackReference(value = "detPac")
-	private Pacienti pacienti;
-
-	public int getId_pacient() {
-		return id_pacient;
-	}
-
-	public void setId_pacient(int id_pacient) {
-		this.id_pacient = id_pacient;
-	}
+	// bi-directional many-to-one association to Pacienti
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_pacient")
+	private Pacienti pacient;
 
 	public DetaliiPacient() {
 	}
 
-	public int getId() {
-		return this.id;
+	public int getIdDetaliiPacient() {
+		return this.idDetaliiPacient;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdDetaliiPacient(int idDetaliiPacient) {
+		this.idDetaliiPacient = idDetaliiPacient;
 	}
 
 	public String getAdresa() {
@@ -62,12 +44,12 @@ public class DetaliiPacient implements Serializable {
 		this.adresa = adresa;
 	}
 
-	public Pacienti getPacienti() {
-		return this.pacienti;
+	public Pacienti getPacient() {
+		return pacient;
 	}
 
-	public void setPacienti(Pacienti pacienti) {
-		this.pacienti = pacienti;
+	public void setPacient(Pacienti pacient) {
+		this.pacient = pacient;
 	}
 
 }
