@@ -4,45 +4,45 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the calendar database table.
  * 
  */
 @Entity
-@NamedQuery(name="Calendar.findAll", query="SELECT c FROM Calendar c")
+@NamedQuery(name = "Calendar.findAll", query = "SELECT c FROM Calendar c")
 public class Calendar implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int calendarId;
 
-	//bi-directional many-to-one association to Doctori
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_doctor")
-	private Doctori doctori;
+	// bi-directional many-to-one association to Doctori
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "doctorId")
+	private Doctors doctor;
 
-	//bi-directional many-to-one association to Event
-	@OneToMany(mappedBy="calendar")
+	// bi-directional many-to-one association to Event
+	@OneToMany(mappedBy = "calendar")
 	private List<Event> events;
 
 	public Calendar() {
 	}
 
-	public int getId() {
-		return this.id;
+	public int getCalendarId() {
+		return calendarId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCalendarId(int calendarId) {
+		this.calendarId = calendarId;
 	}
 
-	public Doctori getDoctori() {
-		return this.doctori;
+	public Doctors getDoctor() {
+		return doctor;
 	}
 
-	public void setDoctori(Doctori doctori) {
-		this.doctori = doctori;
+	public void setDoctor(Doctors doctor) {
+		this.doctor = doctor;
 	}
 
 	public List<Event> getEvents() {

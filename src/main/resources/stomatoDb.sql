@@ -1,104 +1,163 @@
--- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2016-08-17 17:34:25.245
+-- MySQL Workbench Forward Engineering
 
--- tables
--- Table: calendar
-CREATE TABLE calendar (
-    id int NOT NULL,
-    id_doctor int NOT NULL,
-    CONSTRAINT calendar_pk PRIMARY KEY (id)
-) ENGINE InnoDB;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
--- Table: chestionare
-CREATE TABLE chestionare (
-    id int NOT NULL AUTO_INCREMENT,
-    id_intrebare int NOT NULL,
-    intrebare varchar(300) NOT NULL,
-    CONSTRAINT chestionare_pk PRIMARY KEY (id,id_intrebare)
-) ENGINE InnoDB;
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema stomato
+-- -----------------------------------------------------
 
--- Table: consultatii
-CREATE TABLE consultatii (
-    id int NOT NULL AUTO_INCREMENT,
-    id_pacient int NOT NULL,
-    id_doctor int NOT NULL,
-    diagnostic varchar(300) NULL,
-    observatii varchar(500) NULL,
-    pret varchar(100) NULL,
-    CONSTRAINT consultatii_pk PRIMARY KEY (id,id_pacient,id_doctor)
-) ENGINE InnoDB;
+-- -----------------------------------------------------
+-- Schema stomato
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `stomato` DEFAULT CHARACTER SET utf8 ;
+USE `stomato` ;
 
--- Table: detalii_pacient
-CREATE TABLE detalii_pacient (
-    id_pacient int NOT NULL AUTO_INCREMENT,
-    adresa varchar(300) NOT NULL,
-    CONSTRAINT detalii_pacient_pk PRIMARY KEY (id_pacient)
-) ENGINE InnoDB;
+-- -----------------------------------------------------
+-- Table `stomato`.`doctors`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `stomato`.`doctors` (
+  `doctorId` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `surname` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`doctorId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
--- Table: doctori
-CREATE TABLE doctori (
-    id int NOT NULL AUTO_INCREMENT,
-    nume varchar(100) NOT NULL,
-    prenume varchar(100) NOT NULL,
-    CONSTRAINT doctori_pk PRIMARY KEY (id)
-) ENGINE InnoDB;
 
--- Table: events
-CREATE TABLE events (
-    id int NOT NULL AUTO_INCREMENT,
-    calendar_id int NOT NULL,
-    observatie varchar(300) NULL,
-    start_date timestamp NOT NULL,
-    end_date timestamp NOT NULL,
-    all_day bool NOT NULL,
-    CONSTRAINT events_pk PRIMARY KEY (id)
-) ENGINE InnoDB;
+-- -----------------------------------------------------
+-- Table `stomato`.`calendar`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `stomato`.`calendar` (
+  `calendarId` INT(11) NOT NULL AUTO_INCREMENT,
+  `doctorId` INT(11) NOT NULL,
+  PRIMARY KEY (`calendarId`),
+  INDEX `Calendar_utilizatori` (`doctorId` ASC),
+  CONSTRAINT `Calendar_utilizatori`
+    FOREIGN KEY (`doctorId`)
+    REFERENCES `stomato`.`doctors` (`doctorId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
--- Table: pacienti
-CREATE TABLE pacienti (
-    id int NOT NULL AUTO_INCREMENT,
-    nume varchar(20) NOT NULL,
-    prenume varchar(20) NOT NULL,
-    CONSTRAINT pacienti_pk PRIMARY KEY (id)
-) ENGINE InnoDB;
 
--- Table: raspuns_chestionar
-CREATE TABLE raspuns_chestionar (
-    id_pacient int NOT NULL,
-    id_chestionar int NOT NULL,
-    id_intrebare int NOT NULL,
-    raspuns int NULL,
-    CONSTRAINT raspuns_chestionar_pk PRIMARY KEY (id_pacient,id_chestionar,id_intrebare)
-) ENGINE InnoDB;
+-- -----------------------------------------------------
+-- Table `stomato`.`pacients`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `stomato`.`pacients` (
+  `pacientId` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(20) NOT NULL,
+  `surname` VARCHAR(20) NOT NULL,
+  `doctorId` INT(11) NOT NULL,
+  PRIMARY KEY (`pacientId`),
+  INDEX `fk_pacienti_doctori1_idx` (`doctorId` ASC),
+  CONSTRAINT `fk_pacienti_doctori1`
+    FOREIGN KEY (`doctorId`)
+    REFERENCES `stomato`.`doctors` (`doctorId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
--- foreign keys
--- Reference: Calendar_utilizatori (table: calendar)
-ALTER TABLE calendar ADD CONSTRAINT Calendar_utilizatori FOREIGN KEY Calendar_utilizatori (id_doctor)
-    REFERENCES doctori (id);
 
--- Reference: Events_Calendar (table: events)
-ALTER TABLE events ADD CONSTRAINT Events_Calendar FOREIGN KEY Events_Calendar (calendar_id)
-    REFERENCES calendar (id);
+-- -----------------------------------------------------
+-- Table `stomato`.`consultations`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `stomato`.`consultations` (
+  `consultationId` INT(11) NOT NULL AUTO_INCREMENT,
+  `pacientId` INT(11) NOT NULL,
+  `doctorId` INT(11) NOT NULL,
+  `diagnostic` VARCHAR(300) NULL DEFAULT NULL,
+  `observations` VARCHAR(500) NULL,
+  `price` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`consultationId`),
+  INDEX `Vizite_clienti` (`pacientId` ASC),
+  INDEX `doctori_Vizite` (`doctorId` ASC),
+  CONSTRAINT `Vizite_clienti`
+    FOREIGN KEY (`pacientId`)
+    REFERENCES `stomato`.`pacients` (`pacientId`),
+  CONSTRAINT `doctori_Vizite`
+    FOREIGN KEY (`doctorId`)
+    REFERENCES `stomato`.`doctors` (`doctorId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
--- Reference: Vizite_clienti (table: consultatii)
-ALTER TABLE consultatii ADD CONSTRAINT Vizite_clienti FOREIGN KEY Vizite_clienti (id_pacient)
-    REFERENCES pacienti (id);
 
--- Reference: detalii_client_clienti (table: detalii_pacient)
-ALTER TABLE detalii_pacient ADD CONSTRAINT detalii_client_clienti FOREIGN KEY detalii_client_clienti (id_pacient)
-    REFERENCES pacienti (id);
+-- -----------------------------------------------------
+-- Table `stomato`.`events`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `stomato`.`events` (
+  `eventId` INT(11) NOT NULL AUTO_INCREMENT,
+  `calendarId` INT(11) NOT NULL,
+  `color` VARCHAR(50) NULL,
+  `observation` VARCHAR(300) NULL DEFAULT NULL,
+  `startDate` TIMESTAMP NULL DEFAULT NULL,
+  `endDate` TIMESTAMP NULL DEFAULT NULL,
+  `allDay` TINYINT(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`eventId`),
+  INDEX `Events_Calendar` (`calendarId` ASC),
+  CONSTRAINT `Events_Calendar`
+    FOREIGN KEY (`calendarId`)
+    REFERENCES `stomato`.`calendar` (`calendarId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
--- Reference: doctori_Vizite (table: consultatii)
-ALTER TABLE consultatii ADD CONSTRAINT doctori_Vizite FOREIGN KEY doctori_Vizite (id_doctor)
-    REFERENCES doctori (id);
 
--- Reference: raspuns_chestionar_chestionare (table: raspuns_chestionar)
-ALTER TABLE raspuns_chestionar ADD CONSTRAINT raspuns_chestionar_chestionare FOREIGN KEY raspuns_chestionar_chestionare (id_chestionar,id_intrebare)
-    REFERENCES chestionare (id,id_intrebare);
+-- -----------------------------------------------------
+-- Table `stomato`.`pacientsDetails`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `stomato`.`pacientsDetails` (
+  `pacientDetailsId` INT(11) NOT NULL AUTO_INCREMENT,
+  `address` VARCHAR(300) NOT NULL,
+  `pacientId` INT(11) NOT NULL,
+  PRIMARY KEY (`pacientDetailsId`),
+  INDEX `fk_detalii_pacient_pacienti1_idx` (`pacientId` ASC),
+  CONSTRAINT `fk_detalii_pacient_pacienti1`
+    FOREIGN KEY (`pacientId`)
+    REFERENCES `stomato`.`pacients` (`pacientId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
--- Reference: raspuns_chestionar_clienti (table: raspuns_chestionar)
-ALTER TABLE raspuns_chestionar ADD CONSTRAINT raspuns_chestionar_clienti FOREIGN KEY raspuns_chestionar_clienti (id_pacient)
-    REFERENCES pacienti (id);
 
--- End of file.
+-- -----------------------------------------------------
+-- Table `stomato`.`questionnaire`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `stomato`.`questionnaire` (
+  `questionnaireId` INT(11) NOT NULL,
+  `questionId` INT(11) NOT NULL,
+  `question` VARCHAR(301) NOT NULL,
+  PRIMARY KEY (`questionnaireId`, `questionId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
+
+-- -----------------------------------------------------
+-- Table `stomato`.`questionnaireAnswers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `stomato`.`questionnaireAnswers` (
+  `questionnaireAnswerId` INT(3) NOT NULL AUTO_INCREMENT,
+  `pacientId` INT(11) NOT NULL,
+  `questionnaireId` INT(11) NOT NULL,
+  `questionId` INT(11) NOT NULL,
+  `answer` VARCHAR(500) NULL,
+  PRIMARY KEY (`questionnaireAnswerId`),
+  INDEX `raspuns_chestionar_chestionare` (`questionnaireId` ASC, `questionId` ASC),
+  INDEX `raspuns_chestionar_clienti` (`pacientId` ASC),
+  CONSTRAINT `raspuns_chestionar_chestionare`
+    FOREIGN KEY (`questionnaireId` , `questionId`)
+    REFERENCES `stomato`.`questionnaire` (`questionnaireId` , `questionId`),
+  CONSTRAINT `raspuns_chestionar_clienti`
+    FOREIGN KEY (`pacientId`)
+    REFERENCES `stomato`.`pacients` (`pacientId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

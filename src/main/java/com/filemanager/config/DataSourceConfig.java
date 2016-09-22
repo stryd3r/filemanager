@@ -6,6 +6,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Environment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,6 +16,8 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 @Configuration
 public class DataSourceConfig {
+
+	private static final String PACKAGES_TO_SCAN = "com.filemanager.utils.transporters";
 
 	@Bean
 	public DataSource dataSource() {
@@ -35,11 +38,12 @@ public class DataSourceConfig {
 	public SessionFactory sessionFactory() throws IOException {
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 		factory.setDataSource(dataSource());
-		factory.setPackagesToScan("com.filemanager.utils.transporters.generatedEntities");
+		factory.setPackagesToScan(PACKAGES_TO_SCAN);
 
 		Properties hibernateProperties = new Properties();
 
 		hibernateProperties.put("dialect", "org.hibernate.dialect.MySQLInnoDBDialect");
+		hibernateProperties.put(Environment.SHOW_SQL, "true");
 		factory.setHibernateProperties(hibernateProperties);
 		factory.afterPropertiesSet();
 		return factory.getObject();
@@ -51,5 +55,5 @@ public class DataSourceConfig {
 
 		return transactionManager;
 	}
-	
+
 }
