@@ -41,7 +41,7 @@
 <setting id="org.eclipse.wst.jsdt.core.formatter.insert_space_after_unary_operator" value="do not insert"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.alignment_for_arguments_in_enum_constant" value="16"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.insert_space_after_opening_angle_bracket_in_type_arguments" value="do not insert"/>
-<setting id="org.eclipse.wst.jsdt.core.formatter.indentation.size" value="4"/>
+<setting id="org.eclipse.wst.jsdt.core.formatter.indentation.size" value="2"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.brace_position_for_annotation_type_declaration" value="end_of_line"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.insert_space_before_comma_in_enum_constant_arguments" value="do not insert"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.insert_space_before_closing_paren_in_switch" value="do not insert"/>
@@ -222,7 +222,7 @@
 <setting id="org.eclipse.wst.jsdt.core.formatter.brace_position_for_array_initializer" value="end_of_line"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.lineSplit" value="80"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.insert_space_before_closing_paren_in_constructor_declaration" value="do not insert"/>
-<setting id="org.eclipse.wst.jsdt.core.formatter.tabulation.char" value="tab"/>
+<setting id="org.eclipse.wst.jsdt.core.formatter.tabulation.char" value="mixed"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.insert_space_before_opening_brace_in_enum_declaration" value="insert"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.insert_space_after_at_in_annotation" value="do not insert"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.alignment_for_throws_clause_in_method_declaration" value="16"/>

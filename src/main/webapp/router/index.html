@@ -35,12 +35,13 @@
 <script src="app/createAccountComponent/createAccountCtrl.js"></script>
 <script src="app/calendar/calendarCtrl.js"></script>
 <script src="app/manage/manageCtrl.js"></script>
+<script src="app/pacientPage/pacientDetailCtrl.js"></script>
 <!-- modal ctrls -->
 <script src="app/modals/addPacientCtrl.js"></script>
 <script src="app/modals/infoPacientCtrl.js"></script>
 <script src="app/modals/addNewEventCtrl.js"></script>
 <script src="app/calendar/editEventCtrl.js"></script>
-<script src="app/modals/editEvCtrl.js"></script>
+<!-- <script src="app/modals/editEvCtrl.js"></script> -->
 
 <!-- testRest temp -->
 <script src="app/testRest/testRestCtrl.js"></script>
@@ -84,6 +85,7 @@
 					<li ui-sref-active="active"><a ui-sref="calendar" href="">calendar</a></li>
 					<li ui-sref-active="active"><a ui-sref="manage" href="">manage</a></li>
 				</ul>
+				<a href="" ng-click="goBack()" ng-if="stateHasChanged">BACK</a>
 			</div>
 		</nav>
 

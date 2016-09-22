@@ -22,17 +22,17 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="pacient in pacientsList | filter:searchPacient">
-				<td ng-if="!pacient.editMode" style="text-align: left;">{{pacient.original.firstName}}</td>
+				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.original.firstName}}</td>
 				<td style="text-align: left;" ng-if="pacient.editMode"><input
 					type="text"
 					ng-init="pacient.editPacient.firstName = pacient.original.firstName"
 					ng-model="pacient.editPacient.firstName"></td>
-				<td ng-if="!pacient.editMode" style="text-align: left;">{{pacient.original.lastName}}</td>
+				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.original.lastName}}</td>
 				<td style="text-align: left;" ng-if="pacient.editMode"><input
 					type="text"
 					ng-init="pacient.editPacient.lastName = pacient.original.lastName"
 					ng-model="pacient.editPacient.lastName"></td>
-				<td ng-if="!pacient.editMode" style="text-align: left;">{{pacient.original.seria}}</td>
+				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.original.seria}}</td>
 				<td style="text-align: left;" ng-if="pacient.editMode"><input
 					type="text"
 					ng-init="pacient.editPacient.seria = pacient.original.seria"
