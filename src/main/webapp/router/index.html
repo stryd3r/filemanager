@@ -66,7 +66,7 @@
 </head>
 <body ng-app="mainApp" ng-controller="routerController"
 	style="background-image: url('shared/img/background.jpg')">
-	<div class="tab-content col-md-10 text-center centred marginLeft"
+	<div class="tab-content col-md-11 text-center centred marginLeft"
 		style="background-color: #EEEAE9;">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
@@ -89,12 +89,12 @@
 			</div>
 		</nav>
 
-		<div class="row">
+		<div>
 			<div class="container">
 				<div ui-view></div>
 			</div>
 		</div>
 	</div>
-	<div style="text-align: center;" class="row" ng-include="'shared/html/footer.html'"></div>
+	<div style="text-align: center;" ng-include="'shared/html/footer.html'"></div>
 </body>
 </html>
