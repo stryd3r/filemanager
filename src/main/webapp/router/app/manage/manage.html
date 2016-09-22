@@ -3,7 +3,7 @@
 	<div class="panel-heading">
 		<div class="inner-addon left-addon">
 			<i class="glyphicon glyphicon-search"></i> <input type="text"
-				class="form-control" ng-model="searchPacient" placeholder="Search" />
+				class="form-control" ng-model="searchPacient" placeholder="Search" ng-change="pageChanged()"/>
 		</div>
 		<button class="btn btn-primary btn-md"
 			ng-click="openAddPacientModal()"
@@ -21,7 +21,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="pacient in pacientsList | filter:searchPacient">
+			<tr ng-repeat="pacient in paginatedPacientsList">
 				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.original.firstName}}</td>
 				<td style="text-align: left;" ng-if="pacient.editMode"><input
 					type="text"
@@ -60,4 +60,6 @@
 			</tr>
 		</tbody>
 	</table>
+	<div uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true" ng-change="pageChanged()" num-pages="numPages"></div>
+	<pre>Page: {{currentPage}} of {{numPages}}</pre>
 </div>
