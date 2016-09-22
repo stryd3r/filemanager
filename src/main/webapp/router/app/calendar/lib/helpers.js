@@ -2,13 +2,13 @@ angular.module('mainApp').factory('alert', function($uibModal, modalService) {
 
 	function show(action, event) {
 		var modal = null
-		if (action === 'Edited') {
+		if (action === 'Edited' || action === 'Clicked') {
 			modal = 'editEv';
 		}
-		/*modalService.openModal("editEv",event,'lg').then(function(res){
-			console.log(res);
-			return res;
-		});*/
+		/*
+		 * modalService.openModal("editEv",event,'lg').then(function(res){
+		 * console.log(res); return res; });
+		 */
 		var modalInstance = $uibModal.open({
 			animation : true,
 			templateUrl : 'app/modals/' + modal + '.html',
@@ -22,11 +22,11 @@ angular.module('mainApp').factory('alert', function($uibModal, modalService) {
 				}
 			}
 		});
-		modalInstance.result.then(function (selectedItem) {
-		    //scope.selected = selectedItem;
-		  }, function () {
-		    $log.info('Modal dismissed at: ' + new Date());
-		  });
+		modalInstance.result.then(function(selectedItem) {
+			scope.selected = selectedItem;
+		}, function() {
+			$log.info('Modal dismissed at: ' + new Date());
+		});
 		return modalInstance;
 	}
 

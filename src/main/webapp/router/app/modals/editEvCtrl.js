@@ -4,9 +4,9 @@ angular.module('mainApp').controller(
 				function($scope, APPCONST, srv, $uibModalInstance,alert, item) {
 					console.log(item);
 					//alert.show('EDIT EVENT', item.calendarItem);
-					$scope.calendarEv = item.calendarEvent;
-					$scope.ok = function(event) {
-						$uibModalInstance.close(event);
+					$scope.eventEdit= angular.copy(item);
+					$scope.ok = function() {
+						$uibModalInstance.close($scope.eventEdit);
 					};
 					$scope.cancel = function() {
 						$uibModalInstance.dismiss('cancel');
