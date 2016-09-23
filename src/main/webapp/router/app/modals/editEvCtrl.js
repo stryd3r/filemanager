@@ -11,6 +11,10 @@ angular.module('mainApp').controller(
 					$scope.cancel = function() {
 						$uibModalInstance.dismiss('cancel');
 					};
+					
+					$scope.deleteEvent = function(){
+						$uibModalInstance.close();
+					}
 
 					$scope.toggle = function($event, field, event) {
 						$event.preventDefault();

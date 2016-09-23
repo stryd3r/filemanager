@@ -33,13 +33,13 @@
 	</div>
 
 	<br>
-
+<!-- calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd -->
 	<mwl-calendar events="events" view="calendarView"
 		view-title="calendarTitle" view-date="viewDate"
 		on-event-click="eventClicked(calendarEvent)"
-		on-event-times-changed="eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+		on-event-times-changed="eventTimesChanged(calendarEvent); newEvStart = calendarNewEventStart; newEvEnd = calendarNewEventEnd;"
 		cell-is-open="isCellOpen" day-view-start="06:00" day-view-end="22:59"
-		day-view-split="30" cell-modifier="modifyCell(calendarCell)">
+		day-view-split="30">
 	</mwl-calendar>
 	<div class="clearfix"></div>
 	<br> <br> <br>

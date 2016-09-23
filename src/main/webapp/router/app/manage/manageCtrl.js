@@ -10,6 +10,7 @@ angular
 					'$state',
 					'$filter',
 					function($scope, APPCONST, srv, modalSrv, $state, $filter) {
+						var filteredList = null
 						var initPagination = function() {
 							$scope.currentPage = 1;
 							$scope.itemsPerPage = 10;
@@ -36,17 +37,19 @@ angular
 						});
 						$scope.saveEdit = function(pacient) {
 							// TODO create saving pacient object
-							var index = $scope.pacientsList.indexOf(pacient);
-							$scope.pacientsList[index].original = angular
+							var index = $scope.paginatedPacientsList.indexOf(pacient);
+							$scope.paginatedPacientsList[index].original = angular
 									.copy(pacient.editPacient);
 							// $scope.pacientsList =
 							// $filter('filter')($scope.pacientsList,$scope.searchPacient);
 							pacient.editMode = false;
+							// $scope.pageChanged();
 						}
 
 						$scope.deletePacient = function(pacient) {
 							var index = $scope.pacientsList.indexOf(pacient);
 							$scope.pacientsList.splice(index, 1);
+							$scope.pageChanged();
 						}
 
 						$scope.openAddPacientModal = function() {
@@ -80,9 +83,10 @@ angular
 						}
 
 						$scope.pageChanged = function() {
-							var filteredList = $filter('filter')($scope.pacientsList,
+							filteredList = $filter('filter')($scope.pacientsList,
 									$scope.searchPacient);
-							filteredList = $filter('orderBy')(filteredList, 'original.firstName');
+							filteredList = $filter('orderBy')(filteredList,
+									'original.firstName');
 							performPagination(filteredList);
 							$scope.totalItems = filteredList.length;
 						}

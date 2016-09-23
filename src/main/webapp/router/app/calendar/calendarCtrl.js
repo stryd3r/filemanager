@@ -12,25 +12,19 @@ angular
 					// to work
 					$scope.calendarView = 'month';
 					$scope.viewDate = new Date();
-					var actions = [
-						{
-							label : '<i class=\'glyphicon glyphicon-pencil\'></i>',
-							onClick : function(args) {
-								modalService
-										.openModal("editEv", args.calendarEvent, 'lg')
-										.then(
-												function(res) {
-													console.log(res);
-													if (res.resultContext.operationPerformed != 'ABORTED')
-														$scope.events[$scope.events.indexOf(args.calendarEvent)] = res.resultContext;
-												});
-							}
-						}, {
-							label : '<i class=\'glyphicon glyphicon-remove\'></i>',
-							onClick : function(args) {
-								alert.show('Deleted', args.calendarEvent);
-							}
-						} ];
+					var actions = [ {
+						label : '<i class=\'glyphicon glyphicon-pencil\'></i>',
+						onClick : function(args) {
+							$scope.eventEdited(args.calendarEvent);
+						}
+					}, {
+						label : '<i class=\'glyphicon glyphicon-remove\'></i>',
+						onClick : function(args) {
+							// alert.show('Deleted', args.calendarEvent);
+							// if (res.resultContext.operationPerformed != 'ABORTED')
+							$scope.eventDeleted(args.calendarEvent);
+						}
+					} ];
 					$scope.events = [];
 					$scope.events = [ {
 						title : 'An event',
@@ -101,16 +95,42 @@ angular
 										});
 					};
 
-					$scope.eventEdited = function(event) {
-						alert.show('Edited', event);
+					$scope.eventEdited = function(calendarEv) {
+						// alert.show('Edited', event);
+						modalService
+								.openModal("editEv", calendarEv, 'lg')
+								.then(
+										function(res) {
+											console.log(res);
+											if (res.resultContext.operationPerformed != 'ABORTED')
+												$scope.events[$scope.events.indexOf(args.calendarEvent)] = res.resultContext;
+										});
 					};
 
-					$scope.eventDeleted = function(event) {
-						alert.show('Deleted', event);
+					$scope.eventDeleted = function(calendarEv) {
+						// alert.show('Deleted', event);
+						modalService.openModal('confirmation').then(function(resp) {
+							if ("OK" === resp.resultContext) {
+								$scope.events.splice($scope.events.indexOf(calendarEv), 1);
+							} else {
+								$uibModalInstance.dismiss('cancel');
+							}
+
+						});
 					};
 
 					$scope.eventTimesChanged = function(event) {
-						alert.show('Dropped or resized', event);
+						console.log(event);
+						modalService.openModal('confirmation').then(function(resp) {
+							if ("OK" === resp.resultContext) {
+								event.startsAt = $scope.newEvStart; 
+								event.endsAt = $scope.newEvEnd;
+							} else {
+								$uibModalInstance.dismiss('cancel');
+							}
+
+						});
+						//alert.show('Dropped or resized', event);
 					};
 
 					$scope.toggle = function($event, field, event) {
