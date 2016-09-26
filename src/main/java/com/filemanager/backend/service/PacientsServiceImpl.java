@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.filemanager.backend.repository.interfaces.PacientsRepository;
 import com.filemanager.backend.service.interfaces.PacientsService;
-import com.filemanager.utils.transporters.Pacients;
+import com.filemanager.utils.transporters.dto.PacientsDto;
+import com.filemanager.utils.transporters.entities.Pacients;
 
 @Service
 public class PacientsServiceImpl implements PacientsService {
@@ -16,7 +17,7 @@ public class PacientsServiceImpl implements PacientsService {
 	private PacientsRepository repository;
 
 	@Override
-	public List<Pacients> getPacients(boolean withDoctor, boolean withConsultation) {
+	public List<PacientsDto> getPacients(boolean withDoctor, boolean withConsultation) {
 		return repository.getPacient(withDoctor, withConsultation);
 	}
 

@@ -10,4 +10,13 @@ public class StomatoUtils {
 
 		return false;
 	}
+
+	public static boolean isNull(String input) {
+
+		if (input == null) {
+			return true;
+		}
+
+		return false;
+	}
 }

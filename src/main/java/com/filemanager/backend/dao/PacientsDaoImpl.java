@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.filemanager.backend.dao.interfaces.PacientsDao;
-import com.filemanager.utils.transporters.PacientsDetails;
-import com.filemanager.utils.transporters.Pacients;
+import com.filemanager.utils.transporters.dto.PacientsDto;
+import com.filemanager.utils.transporters.entities.Pacients;
+import com.filemanager.utils.transporters.entities.PacientsDetails;
+import com.filemanager.utils.transporters.transformers.PacientTransformer;
 
 @Repository
 public class PacientsDaoImpl implements PacientsDao {
@@ -27,20 +29,24 @@ public class PacientsDaoImpl implements PacientsDao {
 	}
 
 	@Override
-	public List<Pacients> getPacients(boolean withDoctor, boolean withConsultation) {
+	public List<PacientsDto> getPacients(boolean withDoctor, boolean withConsultation) {
 
 		Query queryResult = sessionFactory.getCurrentSession().createQuery("from Pacients");
 		@SuppressWarnings("unchecked")
 		List<Pacients> resultEntities = queryResult.list();
 
-		if (withDoctor) {
-			Hibernate.initialize(resultEntities.get(0).getDoctor());
-		}
-		if (withConsultation) {
-			Hibernate.initialize(resultEntities.get(0).getConsultations());
-		}
+		for (Pacients pacient : resultEntities) {
 
-		return resultEntities;
+			if (withDoctor) {
+				Hibernate.initialize(pacient.getDoctor());
+			}
+			if (withConsultation) {
+				Hibernate.initialize(pacient.getConsultations());
+			}
+		}
+		List<PacientsDto> result = PacientTransformer.getInstance().entityToDtoAsList(resultEntities);
+
+		return result;
 	}
 
 	@Override

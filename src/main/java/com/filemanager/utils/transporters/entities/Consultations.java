@@ -1,4 +1,4 @@
-package com.filemanager.utils.transporters;
+package com.filemanager.utils.transporters.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -18,9 +18,9 @@ public class Consultations implements Serializable {
 
 	private String diagnostic;
 
-	private String observatii;
+	private String observations;
 
-	private String pret;
+	private String price;
 
 	// bi-directional many-to-one association to Doctori
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -51,20 +51,20 @@ public class Consultations implements Serializable {
 		this.diagnostic = diagnostic;
 	}
 
-	public String getObservatii() {
-		return this.observatii;
+	public String getObservations() {
+		return observations;
 	}
 
-	public void setObservatii(String observatii) {
-		this.observatii = observatii;
+	public void setObservations(String observations) {
+		this.observations = observations;
 	}
 
-	public String getPret() {
-		return this.pret;
+	public String getPrice() {
+		return price;
 	}
 
-	public void setPret(String pret) {
-		this.pret = pret;
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	public Doctors getDoctor() {

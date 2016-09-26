@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.filemanager.backend.service.interfaces.DoctorService;
 import com.filemanager.exceptions.InvalidInput;
 import com.filemanager.utils.StomatoUtils;
-import com.filemanager.utils.transporters.Doctors;
+import com.filemanager.utils.transporters.entities.Doctors;
 
 @RestController
 public class DoctorsController {

@@ -2,13 +2,14 @@ package com.filemanager.backend.repository.interfaces;
 
 import java.util.List;
 
-import com.filemanager.utils.transporters.Pacients;
+import com.filemanager.utils.transporters.dto.PacientsDto;
+import com.filemanager.utils.transporters.entities.Pacients;
 
 public interface PacientsRepository {
 
 	boolean insertPacient(Pacients pacient);
 
-	List<Pacients> getPacient(boolean withDoctor, boolean withConsultation);
+	List<PacientsDto> getPacient(boolean withDoctor, boolean withConsultation);
 
 	boolean updatePacient(Pacients pacient);
 

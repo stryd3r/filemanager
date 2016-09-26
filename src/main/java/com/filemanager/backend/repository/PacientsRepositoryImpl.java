@@ -8,7 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.filemanager.backend.dao.interfaces.PacientsDao;
 import com.filemanager.backend.repository.interfaces.PacientsRepository;
-import com.filemanager.utils.transporters.Pacients;
+import com.filemanager.utils.transporters.dto.PacientsDto;
+import com.filemanager.utils.transporters.entities.Pacients;
 
 @Repository
 @Transactional
@@ -18,7 +19,7 @@ public class PacientsRepositoryImpl implements PacientsRepository {
 	private PacientsDao pacientiDao;
 
 	@Override
-	public List<Pacients> getPacient(boolean withDoctor, boolean withConsultation) {
+	public List<PacientsDto> getPacient(boolean withDoctor, boolean withConsultation) {
 		return pacientiDao.getPacients(withDoctor, withConsultation);
 	}
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.filemanager.backend.dao.interfaces.DoctorDao;
-import com.filemanager.utils.transporters.Doctors;
+import com.filemanager.utils.transporters.entities.Doctors;
 
 @Repository
 @Transactional

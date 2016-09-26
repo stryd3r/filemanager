@@ -1,24 +1,16 @@
-package com.filemanager.utils.transporters;
+package com.filemanager.utils.transporters.dto;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * The persistent class for the events database table.
  * 
  */
-@Entity
-@Table(name = "events")
-@NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e")
-public class Event implements Serializable {
+public class EventDto implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int eventId;
 
-	@Column(name = "all_day")
 	private byte allDay;
 
 	private String color;
@@ -29,12 +21,9 @@ public class Event implements Serializable {
 
 	private Timestamp startDate;
 
-	// bi-directional many-to-one association to Calendar
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "calendarId")
-	private Calendar calendar;
+	private CalendarDto calendar;
 
-	public Event() {
+	public EventDto() {
 	}
 
 	public byte getAllDay() {
@@ -61,11 +50,11 @@ public class Event implements Serializable {
 		this.startDate = startDate;
 	}
 
-	public Calendar getCalendar() {
+	public CalendarDto getCalendar() {
 		return this.calendar;
 	}
 
-	public void setCalendar(Calendar calendar) {
+	public void setCalendar(CalendarDto calendar) {
 		this.calendar = calendar;
 	}
 

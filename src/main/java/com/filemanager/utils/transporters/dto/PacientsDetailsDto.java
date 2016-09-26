@@ -1,37 +1,28 @@
-package com.filemanager.utils.transporters;
+package com.filemanager.utils.transporters.dto;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
 /**
  * The persistent class for the detalii_pacient database table.
  * 
  */
-@Entity
-@Table
-@NamedQuery(name = "PacientsDetails.findAll", query = "SELECT d FROM PacientsDetails d")
-public class PacientsDetails implements Serializable {
+public class PacientsDetailsDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int pacientDetailsId;
 
 	private String address;
 
-	// bi-directional many-to-one association to Pacienti
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "pacientId")
-	private Pacients pacient;
+	private PacientsDto pacient;
 
-	public PacientsDetails() {
+	public PacientsDetailsDto() {
 	}
 
-	public Pacients getPacient() {
+	public PacientsDto getPacient() {
 		return pacient;
 	}
 
-	public void setPacient(Pacients pacient) {
+	public void setPacient(PacientsDto pacient) {
 		this.pacient = pacient;
 	}
 

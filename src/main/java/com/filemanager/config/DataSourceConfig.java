@@ -17,7 +17,7 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 @Configuration
 public class DataSourceConfig {
 
-	private static final String PACKAGES_TO_SCAN = "com.filemanager.utils.transporters";
+	private static final String PACKAGES_TO_SCAN = "com.filemanager.utils.transporters.entities";
 
 	@Bean
 	public DataSource dataSource() {

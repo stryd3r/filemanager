@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.filemanager.backend.dao.interfaces.DoctorDao;
 import com.filemanager.backend.repository.interfaces.DoctorRepository;
-import com.filemanager.utils.transporters.Doctors;
+import com.filemanager.utils.transporters.entities.Doctors;
 
 @Repository
 @Transactional

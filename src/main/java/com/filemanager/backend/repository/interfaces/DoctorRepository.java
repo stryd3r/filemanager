@@ -2,7 +2,7 @@ package com.filemanager.backend.repository.interfaces;
 
 import java.util.List;
 
-import com.filemanager.utils.transporters.Doctors;
+import com.filemanager.utils.transporters.entities.Doctors;
 
 public interface DoctorRepository {
 

@@ -1,4 +1,4 @@
-package com.filemanager.utils.transporters;
+package com.filemanager.utils.transporters.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;

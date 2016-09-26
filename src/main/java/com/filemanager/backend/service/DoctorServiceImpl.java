@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.filemanager.backend.repository.interfaces.DoctorRepository;
 import com.filemanager.backend.service.interfaces.DoctorService;
-import com.filemanager.utils.transporters.Doctors;
+import com.filemanager.utils.transporters.entities.Doctors;
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
