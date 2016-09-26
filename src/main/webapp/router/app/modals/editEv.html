@@ -1,0 +1,63 @@
+<div>
+	<div class="modal-header">
+		<h3 class="modal-title" id="modal-title">{{eventEdit.title}}</h3>
+	</div>
+	<div class="modal-body" id="modal-body">
+		<div class="row">
+			<div class="col-sm-4">
+				<label>Title</label> <input type="text" class="form-control"
+					ng-model="eventEdit.title">
+			</div>
+			<div class="col-sm-2">
+				<label>Color 1</label> <input class="form-control" colorpicker
+					type="text" ng-model="eventEdit.color.primary">
+			</div>
+			<div class="col-sm-2">
+				<label>Color 2</label> <input class="form-control" colorpicker
+					type="text" ng-model="eventEdit.color.secondary">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<label>From</label>
+				<p class="input-group" style="max-width: 250px">
+					<input type="text" class="form-control" readonly
+						uib-datepicker-popup="dd MMMM yyyy" ng-model="eventEdit.startsAt"
+						is-open="eventEdit.startOpen" close-text="Close"> <span
+						class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							ng-click="toggle($eventEdit, 'startOpen', eventEdit)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+				<label>Starts at</label>
+				<div uib-timepicker ng-model="eventEdit.startsAt" hour-step="1"
+					minute-step="15" show-meridian="true"></div>
+			</div>
+			<div class="col-sm-4">
+				<label>To</label>
+				<p class="input-group" style="max-width: 250px">
+					<input type="text" class="form-control" readonly
+						uib-datepicker-popup="dd MMMM yyyy" ng-model="eventEdit.endsAt"
+						is-open="eventEdit.endOpen" close-text="Close"> <span
+						class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							ng-click="toggle($eventEdit, 'endOpen', eventEdit)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+				<label>Ends at</label>
+				<div uib-timepicker ng-model="eventEdit.endsAt" hour-step="1"
+					minute-step="15" show-meridian="true"></div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+			<button class="btn btn-danger" ng-click="deleteEvent()">
+				Delete</button>
+			<button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+		</div>
+	</div>
+</div>
