@@ -104,13 +104,6 @@
 		</dependency>
 
 		<!-- SMS dependencies -->
-		<dependency>
-			<groupId>swsms</groupId>
-			<artifactId>com.simplewire.sms</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/resources/swsms-4.4.1.jar</systemPath>
-		</dependency>
 
 		<dependency>
 			<groupId>com.twilio.sdk</groupId>
