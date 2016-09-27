@@ -7,26 +7,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.filemanager.backend.service.interfaces.DoctorService;
-import com.filemanager.exceptions.InvalidInput;
+import com.filemanager.exceptions.InvalidInputException;
 import com.filemanager.utils.StomatoUtils;
-import com.filemanager.utils.transporters.entities.Doctors;
+import com.filemanager.utils.transporters.entities.Doctor;
 
 @RestController
-public class DoctorsController {
+public class DoctorController {
 
 	@Autowired
 	private DoctorService doctoriService;
 
 	@RequestMapping(value = "/insertDoctor", method = RequestMethod.POST, produces = "application/json")
-	public void insertDoctor(@RequestBody Doctors doctor) throws InvalidInput {
+	public void insertDoctor(@RequestBody Doctor doctor) throws InvalidInputException {
 
 		validateInput(doctor);
 		doctoriService.insertDoctor(doctor);
 	}
 
-	private void validateInput(Doctors doctor) throws InvalidInput {
+	private void validateInput(Doctor doctor) throws InvalidInputException {
 		if (StomatoUtils.isNullOrEmpty(doctor.getName()) || StomatoUtils.isNullOrEmpty(doctor.getSurname())) {
-			throw new InvalidInput("Numele sau prenumele nu este completat!");
+			throw new InvalidInputException("Numele sau prenumele nu este completat!");
 		}
 	}
 

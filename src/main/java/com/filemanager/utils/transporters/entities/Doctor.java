@@ -2,6 +2,10 @@ package com.filemanager.utils.transporters.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import java.util.List;
 
 /**
@@ -9,8 +13,8 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name = "Doctors.findAll", query = "SELECT d FROM Doctors d")
-public class Doctors implements Serializable {
+@NamedQuery(name = "Doctor.findAll", query = "SELECT d FROM Doctor d")
+public class Doctor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -23,17 +27,20 @@ public class Doctors implements Serializable {
 
 	// bi-directional many-to-one association to Calendar
 	@OneToOne(mappedBy = "doctor")
+	@Cascade(value = { CascadeType.ALL})
 	private Calendar calendar;
 
 	// bi-directional many-to-one association to Consultatii
 	@OneToMany(mappedBy = "doctor")
-	private List<Consultations> consultations;
+	@Cascade(value = { CascadeType.ALL})
+	private List<Consultation> consultations;
 
 	// bi-directional many-to-one association to Pacienti
 	@OneToMany(mappedBy = "doctor")
-	private List<Pacients> pacients;
+	@Cascade(value = { CascadeType.ALL})
+	private List<Pacient> pacients;
 
-	public Doctors() {
+	public Doctor() {
 	}
 
 	public int getDoctorId() {
@@ -44,28 +51,28 @@ public class Doctors implements Serializable {
 		this.doctorId = doctorId;
 	}
 
-	public Consultations addConsultatii(Consultations consultatii) {
+	public Consultation addConsultatii(Consultation consultatii) {
 		getConsultations().add(consultatii);
 		consultatii.setDoctor(this);
 
 		return consultatii;
 	}
 
-	public Consultations removeConsultatii(Consultations consultatii) {
+	public Consultation removeConsultatii(Consultation consultatii) {
 		getConsultations().remove(consultatii);
 		consultatii.setDoctor(null);
 
 		return consultatii;
 	}
 
-	public Pacients addPacienti(Pacients pacienti) {
+	public Pacient addPacienti(Pacient pacienti) {
 		getPacients().add(pacienti);
 		pacienti.setDoctor(this);
 
 		return pacienti;
 	}
 
-	public Pacients removePacienti(Pacients pacienti) {
+	public Pacient removePacienti(Pacient pacienti) {
 		getPacients().remove(pacienti);
 		pacienti.setDoctor(null);
 
@@ -96,19 +103,19 @@ public class Doctors implements Serializable {
 		this.surname = surname;
 	}
 
-	public List<Consultations> getConsultations() {
+	public List<Consultation> getConsultations() {
 		return consultations;
 	}
 
-	public void setConsultations(List<Consultations> consultations) {
+	public void setConsultations(List<Consultation> consultations) {
 		this.consultations = consultations;
 	}
 
-	public List<Pacients> getPacients() {
+	public List<Pacient> getPacients() {
 		return pacients;
 	}
 
-	public void setPacients(List<Pacients> pacients) {
+	public void setPacients(List<Pacient> pacients) {
 		this.pacients = pacients;
 	}
 

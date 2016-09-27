@@ -2,6 +2,10 @@ package com.filemanager.utils.transporters.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import java.util.List;
 
 /**
@@ -20,7 +24,8 @@ public class Questionnaire implements Serializable {
 
 	// bi-directional many-to-one association to RaspunsChestionar
 	@OneToMany(mappedBy = "questionnaire")
-	private List<QuestionnaireAnswers> questionnaireAnswer;
+	@Cascade(value = { CascadeType.MERGE})
+	private List<QuestionnaireAnswer> questionnaireAnswer;
 
 	public Questionnaire() {
 	}
@@ -41,22 +46,22 @@ public class Questionnaire implements Serializable {
 		this.question = question;
 	}
 
-	public List<QuestionnaireAnswers> getQuestionnaireAnswer() {
+	public List<QuestionnaireAnswer> getQuestionnaireAnswer() {
 		return questionnaireAnswer;
 	}
 
-	public void setQuestionnaireAnswer(List<QuestionnaireAnswers> questionnaireAnswer) {
+	public void setQuestionnaireAnswer(List<QuestionnaireAnswer> questionnaireAnswer) {
 		this.questionnaireAnswer = questionnaireAnswer;
 	}
 
-	public QuestionnaireAnswers addRaspunsChestionar(QuestionnaireAnswers raspunsChestionar) {
+	public QuestionnaireAnswer addRaspunsChestionar(QuestionnaireAnswer raspunsChestionar) {
 		getQuestionnaireAnswer().add(raspunsChestionar);
 		raspunsChestionar.setQuestionnaire(this);
 
 		return raspunsChestionar;
 	}
 
-	public QuestionnaireAnswers removeRaspunsChestionar(QuestionnaireAnswers raspunsChestionar) {
+	public QuestionnaireAnswer removeRaspunsChestionar(QuestionnaireAnswer raspunsChestionar) {
 		getQuestionnaireAnswer().remove(raspunsChestionar);
 		raspunsChestionar.setQuestionnaire(null);
 

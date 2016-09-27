@@ -2,16 +2,17 @@ package com.filemanager.backend.dao.interfaces;
 
 import java.util.List;
 
-import com.filemanager.utils.transporters.entities.Doctors;
+import com.filemanager.utils.transporters.entities.Doctor;
 
 public interface DoctorDao {
 
-	boolean insertDoctor(Doctors doctor);
+	boolean insertDoctor(Doctor doctor);
 
-	List<Doctors> getDoctor();
+	List<Doctor> getDoctor(boolean withCalendar, boolean withConsultations, boolean withPacients);
 
-	boolean updateDoctor(Doctors doctor);
+	boolean updateDoctor(Doctor doctor);
 
-	boolean deleteDoctor(Doctors doctor);
+	boolean deleteDoctor(Doctor doctor);
+
 	
 }

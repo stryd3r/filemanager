@@ -2,23 +2,22 @@ package com.filemanager.backend.dao.interfaces;
 
 import java.util.List;
 
-import com.filemanager.utils.transporters.dto.PacientsDto;
-import com.filemanager.utils.transporters.entities.Pacients;
-import com.filemanager.utils.transporters.entities.PacientsDetails;
+import com.filemanager.utils.transporters.entities.Pacient;
 
 public interface PacientsDao {
 
-	boolean insertPacient(Pacients input);
+	boolean insertPacient(Pacient input) throws Exception;
 
-	List<PacientsDto> getPacients(boolean withDoctor, boolean withConsultatii);
+	List<Pacient> getPacients(boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers);
 
-	boolean updatePacient(Pacients input);
+	boolean updatePacient(Pacient input);
 
-	boolean deletePacient(Pacients input);
+	boolean deletePacient(Pacient input);
 
-	boolean insertDetalii(PacientsDetails input);
+	boolean insertPacientDetails(Pacient pacient);
 
-	boolean updateDetalii(PacientsDetails input);
+	boolean updatePacientDetails(Pacient pacient);
 
-	boolean removeDetalii(PacientsDetails input);
+	boolean removePacientDetails(Pacient pacient);
+
 }

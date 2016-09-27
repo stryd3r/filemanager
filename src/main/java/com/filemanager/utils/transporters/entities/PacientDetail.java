@@ -1,7 +1,17 @@
 package com.filemanager.utils.transporters.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * The persistent class for the detalii_pacient database table.
@@ -9,8 +19,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table
-@NamedQuery(name = "PacientsDetails.findAll", query = "SELECT d FROM PacientsDetails d")
-public class PacientsDetails implements Serializable {
+@NamedQuery(name = "PacientDetail.findAll", query = "SELECT d FROM PacientDetail d")
+public class PacientDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -19,19 +29,19 @@ public class PacientsDetails implements Serializable {
 
 	private String address;
 
-	// bi-directional many-to-one association to Pacienti
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "pacientId")
-	private Pacients pacient;
+	@OneToOne
+	@JoinColumn(name = "pacientId",referencedColumnName="pacientId")
+	@JsonBackReference
+	private Pacient pacient;
 
-	public PacientsDetails() {
+	public PacientDetail() {
 	}
 
-	public Pacients getPacient() {
+	public Pacient getPacient() {
 		return pacient;
 	}
 
-	public void setPacient(Pacients pacient) {
+	public void setPacient(Pacient pacient) {
 		this.pacient = pacient;
 	}
 

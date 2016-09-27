@@ -2,6 +2,10 @@ package com.filemanager.utils.transporters.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import java.util.List;
 
 /**
@@ -20,10 +24,12 @@ public class Calendar implements Serializable {
 	// bi-directional many-to-one association to Doctori
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
-	private Doctors doctor;
+	@Cascade(value = { CascadeType.MERGE})
+	private Doctor doctor;
 
 	// bi-directional many-to-one association to Event
 	@OneToMany(mappedBy = "calendar")
+	@Cascade(value = { CascadeType.MERGE})
 	private List<Event> events;
 
 	public Calendar() {
@@ -37,11 +43,11 @@ public class Calendar implements Serializable {
 		this.calendarId = calendarId;
 	}
 
-	public Doctors getDoctor() {
+	public Doctor getDoctor() {
 		return doctor;
 	}
 
-	public void setDoctor(Doctors doctor) {
+	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
 

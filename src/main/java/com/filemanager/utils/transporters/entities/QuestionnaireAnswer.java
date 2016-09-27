@@ -3,14 +3,17 @@ package com.filemanager.utils.transporters.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 /**
  * The persistent class for the raspuns_chestionar database table.
  * 
  */
 @Entity
 @Table
-@NamedQuery(name = "QuestionnaireAnswers.findAll", query = "SELECT r FROM QuestionnaireAnswers r")
-public class QuestionnaireAnswers implements Serializable {
+@NamedQuery(name = "QuestionnaireAnswer.findAll", query = "SELECT r FROM QuestionnaireAnswer r")
+public class QuestionnaireAnswer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -22,14 +25,16 @@ public class QuestionnaireAnswers implements Serializable {
 	// bi-directional many-to-one association to Chestionare
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "questionnaireId", referencedColumnName = "questionnaireId"), @JoinColumn(name = "questionId", referencedColumnName = "questionId") })
+	@Cascade(value = { CascadeType.MERGE})
 	private Questionnaire questionnaire;
 
 	// bi-directional many-to-one association to Pacienti
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pacientId")
-	private Pacients pacient;
+	@Cascade(value = { CascadeType.MERGE})
+	private Pacient pacient;
 
-	public QuestionnaireAnswers() {
+	public QuestionnaireAnswer() {
 	}
 
 	public Questionnaire getQuestionnaire() {
@@ -56,11 +61,11 @@ public class QuestionnaireAnswers implements Serializable {
 		this.answer = answer;
 	}
 
-	public Pacients getPacient() {
+	public Pacient getPacient() {
 		return pacient;
 	}
 
-	public void setPacient(Pacients pacient) {
+	public void setPacient(Pacient pacient) {
 		this.pacient = pacient;
 	}
 

@@ -22,12 +22,12 @@ import org.hibernate.annotations.CascadeType;
  * 
  */
 @Entity
-@NamedQuery(name = "Pacients.findAll", query = "SELECT p FROM Pacients p")
-public class Pacients implements Serializable {
+@NamedQuery(name = "Pacient.findAll", query = "SELECT p FROM Pacient p")
+public class Pacient implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int pacientId;
 
 	private String name;
@@ -36,52 +36,52 @@ public class Pacients implements Serializable {
 
 	// bi-directional many-to-one association to Consultatii
 	@OneToMany(mappedBy = "pacient")
-	private List<Consultations> consultations;
+	private List<Consultation> consultations;
 
 	// bi-directional many-to-one association to DetaliiPacient
 	@OneToOne(mappedBy = "pacient")
-	@Cascade({ CascadeType.ALL })
-	private PacientsDetails pacientDetail;
+	@Cascade(value = { CascadeType.ALL})
+	private PacientDetail pacientDetail;
 
 	// bi-directional many-to-one association to Doctori
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
-	private Doctors doctor;
+	private Doctor doctor;
 
 	// bi-directional many-to-one association to RaspunsChestionar
 	@OneToOne(mappedBy = "pacient")
-	private QuestionnaireAnswers questionnaireAnswer;
+	private QuestionnaireAnswer questionnaireAnswer;
 
-	public Pacients() {
+	public Pacient() {
 	}
 
-	public Consultations addConsultatii(Consultations consultatii) {
+	public Consultation addConsultation(Consultation consultatii) {
 		getConsultations().add(consultatii);
 		consultatii.setPacient(this);
 
 		return consultatii;
 	}
 
-	public Consultations removeConsultatii(Consultations consultatii) {
+	public Consultation removeConsultation(Consultation consultatii) {
 		getConsultations().remove(consultatii);
 		consultatii.setPacient(null);
 
 		return consultatii;
 	}
 
-	public Doctors getDoctor() {
+	public Doctor getDoctor() {
 		return doctor;
 	}
 
-	public void setDoctor(Doctors doctor) {
+	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
 
-	public QuestionnaireAnswers getQuestionnaireAnswer() {
+	public QuestionnaireAnswer getQuestionnaireAnswer() {
 		return questionnaireAnswer;
 	}
 
-	public void setQuestionnaireAnswer(QuestionnaireAnswers questionnaireAnswer) {
+	public void setQuestionnaireAnswer(QuestionnaireAnswer questionnaireAnswer) {
 		this.questionnaireAnswer = questionnaireAnswer;
 	}
 
@@ -109,20 +109,21 @@ public class Pacients implements Serializable {
 		this.surname = surname;
 	}
 
-	public List<Consultations> getConsultations() {
+	public List<Consultation> getConsultations() {
 		return consultations;
 	}
 
-	public void setConsultations(List<Consultations> consultations) {
+	public void setConsultations(List<Consultation> consultations) {
 		this.consultations = consultations;
 	}
 
-	public PacientsDetails getPacientDetail() {
+	public PacientDetail getPacientDetail() {
 		return pacientDetail;
 	}
 
-	public void setPacientDetail(PacientsDetails pacientDetail) {
+	public void setPacientDetail(PacientDetail pacientDetail) {
 		this.pacientDetail = pacientDetail;
+		this.pacientDetail.setPacient(this);
 	}
 
 }

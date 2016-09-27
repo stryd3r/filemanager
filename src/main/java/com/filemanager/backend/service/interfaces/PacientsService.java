@@ -2,16 +2,22 @@ package com.filemanager.backend.service.interfaces;
 
 import java.util.List;
 
-import com.filemanager.utils.transporters.dto.PacientsDto;
-import com.filemanager.utils.transporters.entities.Pacients;
+import com.filemanager.utils.transporters.entities.Pacient;
 
 public interface PacientsService {
 
-	boolean insertPacient(Pacients pacient);
+	boolean insertPacient(Pacient pacient) throws Exception;
 
-	List<PacientsDto> getPacients(boolean withDoctor, boolean withConsultation);
+	List<Pacient> getPacients(boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers);
+	
+	boolean updatePacient(Pacient pacient);
 
-	boolean updatePacient(Pacients pacient);
+	boolean deletePacient(Pacient pacient);
 
-	boolean deletePacient(Pacients pacient);
+	boolean insertPacientDetails(Pacient pacient);
+
+	boolean updatePacientDetails(Pacient pacient);
+
+	boolean removePacientDetails(Pacient pacient);
+
 }

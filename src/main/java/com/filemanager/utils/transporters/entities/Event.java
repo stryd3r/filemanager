@@ -2,6 +2,10 @@ package com.filemanager.utils.transporters.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import java.sql.Timestamp;
 
 /**
@@ -9,7 +13,6 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@Table(name = "events")
 @NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e")
 public class Event implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -32,6 +35,7 @@ public class Event implements Serializable {
 	// bi-directional many-to-one association to Calendar
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId")
+	@Cascade(value = { CascadeType.MERGE})
 	private Calendar calendar;
 
 	public Event() {

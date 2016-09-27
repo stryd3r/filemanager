@@ -18,9 +18,9 @@ CREATE SCHEMA IF NOT EXISTS `stomato` DEFAULT CHARACTER SET utf8 ;
 USE `stomato` ;
 
 -- -----------------------------------------------------
--- Table `stomato`.`doctors`
+-- Table `stomato`.`doctor`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `stomato`.`doctors` (
+CREATE TABLE IF NOT EXISTS `stomato`.`doctor` (
   `doctorId` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `surname` VARCHAR(100) NOT NULL,
@@ -39,15 +39,15 @@ CREATE TABLE IF NOT EXISTS `stomato`.`calendar` (
   INDEX `Calendar_utilizatori` (`doctorId` ASC),
   CONSTRAINT `Calendar_utilizatori`
     FOREIGN KEY (`doctorId`)
-    REFERENCES `stomato`.`doctors` (`doctorId`))
+    REFERENCES `stomato`.`doctor` (`doctorId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `stomato`.`pacients`
+-- Table `stomato`.`pacient`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `stomato`.`pacients` (
+CREATE TABLE IF NOT EXISTS `stomato`.`pacient` (
   `pacientId` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(20) NOT NULL,
   `surname` VARCHAR(20) NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`pacients` (
   INDEX `fk_pacienti_doctori1_idx` (`doctorId` ASC),
   CONSTRAINT `fk_pacienti_doctori1`
     FOREIGN KEY (`doctorId`)
-    REFERENCES `stomato`.`doctors` (`doctorId`)
+    REFERENCES `stomato`.`doctor` (`doctorId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -64,9 +64,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `stomato`.`consultations`
+-- Table `stomato`.`consultation`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `stomato`.`consultations` (
+CREATE TABLE IF NOT EXISTS `stomato`.`consultation` (
   `consultationId` INT(11) NOT NULL AUTO_INCREMENT,
   `pacientId` INT(11) NOT NULL,
   `doctorId` INT(11) NOT NULL,
@@ -78,18 +78,18 @@ CREATE TABLE IF NOT EXISTS `stomato`.`consultations` (
   INDEX `doctori_Vizite` (`doctorId` ASC),
   CONSTRAINT `Vizite_clienti`
     FOREIGN KEY (`pacientId`)
-    REFERENCES `stomato`.`pacients` (`pacientId`),
+    REFERENCES `stomato`.`pacient` (`pacientId`),
   CONSTRAINT `doctori_Vizite`
     FOREIGN KEY (`doctorId`)
-    REFERENCES `stomato`.`doctors` (`doctorId`))
+    REFERENCES `stomato`.`doctor` (`doctorId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `stomato`.`events`
+-- Table `stomato`.`event`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `stomato`.`events` (
+CREATE TABLE IF NOT EXISTS `stomato`.`event` (
   `eventId` INT(11) NOT NULL AUTO_INCREMENT,
   `calendarId` INT(11) NOT NULL,
   `color` VARCHAR(50) NULL,
@@ -107,9 +107,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `stomato`.`pacientsDetails`
+-- Table `stomato`.`pacientDetail`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `stomato`.`pacientsDetails` (
+CREATE TABLE IF NOT EXISTS `stomato`.`pacientDetail` (
   `pacientDetailsId` INT(11) NOT NULL AUTO_INCREMENT,
   `address` VARCHAR(300) NOT NULL,
   `pacientId` INT(11) NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`pacientsDetails` (
   INDEX `fk_detalii_pacient_pacienti1_idx` (`pacientId` ASC),
   CONSTRAINT `fk_detalii_pacient_pacienti1`
     FOREIGN KEY (`pacientId`)
-    REFERENCES `stomato`.`pacients` (`pacientId`)
+    REFERENCES `stomato`.`pacient` (`pacientId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -137,9 +137,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `stomato`.`questionnaireAnswers`
+-- Table `stomato`.`questionnaireAnswer`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `stomato`.`questionnaireAnswers` (
+CREATE TABLE IF NOT EXISTS `stomato`.`questionnaireAnswer` (
   `questionnaireAnswerId` INT(3) NOT NULL AUTO_INCREMENT,
   `pacientId` INT(11) NOT NULL,
   `questionnaireId` INT(11) NOT NULL,
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`questionnaireAnswers` (
     REFERENCES `stomato`.`questionnaire` (`questionnaireId` , `questionId`),
   CONSTRAINT `raspuns_chestionar_clienti`
     FOREIGN KEY (`pacientId`)
-    REFERENCES `stomato`.`pacients` (`pacientId`))
+    REFERENCES `stomato`.`pacient` (`pacientId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 

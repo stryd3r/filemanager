@@ -3,13 +3,16 @@ package com.filemanager.utils.transporters.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 /**
  * The persistent class for the consultatii database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Consultations.findAll", query = "SELECT c FROM Consultations c")
-public class Consultations implements Serializable {
+@NamedQuery(name = "Consultation.findAll", query = "SELECT c FROM Consultation c")
+public class Consultation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,14 +28,16 @@ public class Consultations implements Serializable {
 	// bi-directional many-to-one association to Doctori
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
-	private Doctors doctor;
+	@Cascade(value = { CascadeType.MERGE})
+	private Doctor doctor;
 
 	// bi-directional many-to-one association to Pacienti
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pacientId")
-	private Pacients pacient;
+	@Cascade(value = { CascadeType.MERGE})
+	private Pacient pacient;
 
-	public Consultations() {
+	public Consultation() {
 	}
 
 	public int getConsultationId() {
@@ -67,19 +72,19 @@ public class Consultations implements Serializable {
 		this.price = price;
 	}
 
-	public Doctors getDoctor() {
+	public Doctor getDoctor() {
 		return doctor;
 	}
 
-	public void setDoctor(Doctors doctor) {
+	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
 
-	public Pacients getPacient() {
+	public Pacient getPacient() {
 		return pacient;
 	}
 
-	public void setPacient(Pacients pacient) {
+	public void setPacient(Pacient pacient) {
 		this.pacient = pacient;
 	}
 

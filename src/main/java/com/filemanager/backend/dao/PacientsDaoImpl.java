@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.filemanager.backend.dao.interfaces.PacientsDao;
-import com.filemanager.utils.transporters.dto.PacientsDto;
-import com.filemanager.utils.transporters.entities.Pacients;
-import com.filemanager.utils.transporters.entities.PacientsDetails;
-import com.filemanager.utils.transporters.transformers.PacientTransformer;
+import com.filemanager.utils.transporters.entities.Pacient;
 
 @Repository
 public class PacientsDaoImpl implements PacientsDao {
@@ -22,20 +19,20 @@ public class PacientsDaoImpl implements PacientsDao {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public boolean insertPacient(Pacients pacient) {
+	public boolean insertPacient(Pacient pacient) throws Exception {
 		sessionFactory.getCurrentSession().persist(pacient);
 
 		return true;
 	}
 
 	@Override
-	public List<PacientsDto> getPacients(boolean withDoctor, boolean withConsultation) {
+	public List<Pacient> getPacients(boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers) {
 
-		Query queryResult = sessionFactory.getCurrentSession().createQuery("from Pacients");
+		Query queryResult = sessionFactory.getCurrentSession().createQuery("from Pacient");
 		@SuppressWarnings("unchecked")
-		List<Pacients> resultEntities = queryResult.list();
+		List<Pacient> resultEntities = queryResult.list();
 
-		for (Pacients pacient : resultEntities) {
+		for (Pacient pacient : resultEntities) {
 
 			if (withDoctor) {
 				Hibernate.initialize(pacient.getDoctor());
@@ -43,17 +40,19 @@ public class PacientsDaoImpl implements PacientsDao {
 			if (withConsultation) {
 				Hibernate.initialize(pacient.getConsultations());
 			}
+			if (withQuestionnaireAnswers) {
+				Hibernate.initialize(pacient.getQuestionnaireAnswer());
+			}
 		}
-		List<PacientsDto> result = PacientTransformer.getInstance().entityToDtoAsList(resultEntities);
 
-		return result;
+		return resultEntities;
 	}
 
 	@Override
-	public boolean updatePacient(Pacients input) {
+	public boolean updatePacient(Pacient input) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			Pacients pacient = (Pacients) session.load(Pacients.class, new Integer(input.getPacientId()));
+			Pacient pacient = (Pacient) session.load(Pacient.class, new Integer(input.getPacientId()));
 			pacient.setName(input.getName());
 			session.update(pacient);
 			return true;
@@ -63,29 +62,46 @@ public class PacientsDaoImpl implements PacientsDao {
 	}
 
 	@Override
-	public boolean deletePacient(Pacients input) {
+	public boolean deletePacient(Pacient input) {
 		Session session = sessionFactory.getCurrentSession();
-		Pacients pacient = (Pacients) session.load(Pacients.class, new Integer(input.getPacientId()));
+		Pacient pacient = (Pacient) session.load(Pacient.class, new Integer(input.getPacientId()));
 		session.delete(pacient);
 		return true;
 	}
 
 	@Override
-	public boolean insertDetalii(PacientsDetails input) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean insertPacientDetails(Pacient pacient) {
+		Session session = sessionFactory.getCurrentSession();
+		session.persist(pacient.getPacientDetail());
+
+		return true;
 	}
 
 	@Override
-	public boolean updateDetalii(PacientsDetails input) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updatePacientDetails(Pacient pacient) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("update PacientsDetails set address = :address" + " where pacientId = :pacientId");
+		query.setParameter("address", pacient.getPacientDetail().getAddress());
+		query.setParameter("pacientId", pacient.getPacientId());
+		int result = query.executeUpdate();
+		if (result == 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public boolean removeDetalii(PacientsDetails input) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean removePacientDetails(Pacient pacient) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("delete PacientsDetails where pacientId = :pacientId");
+		query.setParameter("pacientId", pacient.getPacientId());
+		int result = query.executeUpdate();
+		if (result == 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
