@@ -24,7 +24,9 @@ CREATE TABLE IF NOT EXISTS `stomato`.`doctor` (
   `doctorId` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `surname` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`doctorId`))
+  `color` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`doctorId`),
+  UNIQUE INDEX `color_UNIQUE` (`color` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -92,11 +94,11 @@ DEFAULT CHARACTER SET = latin1;
 CREATE TABLE IF NOT EXISTS `stomato`.`event` (
   `eventId` INT(11) NOT NULL AUTO_INCREMENT,
   `calendarId` INT(11) NOT NULL,
-  `color` VARCHAR(50) NULL,
   `observation` VARCHAR(300) NULL DEFAULT NULL,
   `startDate` TIMESTAMP NULL DEFAULT NULL,
   `endDate` TIMESTAMP NULL DEFAULT NULL,
   `allDay` TINYINT(1) NOT NULL DEFAULT '0',
+  `color` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`eventId`),
   INDEX `Events_Calendar` (`calendarId` ASC),
   CONSTRAINT `Events_Calendar`

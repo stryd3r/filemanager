@@ -8,11 +8,11 @@ public interface DoctorDao {
 
 	boolean insertDoctor(Doctor doctor);
 
-	List<Doctor> getDoctor(boolean withCalendar, boolean withConsultations, boolean withPacients);
+	List<Doctor> getDoctors(boolean withCalendar, boolean withConsultations, boolean withPacients);
 
 	boolean updateDoctor(Doctor doctor);
 
-	boolean deleteDoctor(Doctor doctor);
+	boolean removeDoctor(Doctor doctor);
 
 	
 }

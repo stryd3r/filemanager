@@ -15,50 +15,56 @@ import com.filemanager.utils.transporters.entities.Pacient;
 public class PacientController {
 
 	@Autowired
-	private PacientsService pacientiService;
+	private PacientsService pacientService;
 
 	@RequestMapping(value = "/getPacients", produces = "application/json")
-	public List<Pacient> getPacienti(boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers) {
-		List<Pacient> result = pacientiService.getPacients(withDoctor, withConsultation, withQuestionnaireAnswers);
-		System.out.println("ok");
+	public List<Pacient> getPacients(boolean withDoctors, boolean withConsultations, boolean withQuestionnaireAnswers) {
+		List<Pacient> result = pacientService.getPacients(withDoctors, withConsultations, withQuestionnaireAnswers);
 
 		return result;
 	}
 
-	@RequestMapping(value = "/insertPacient", method = RequestMethod.POST, produces = "application/json")
-	public boolean insertPacienti(@RequestBody Pacient pacient) throws Exception {
+	@RequestMapping(value = "/getPacientById", produces = "application/json")
+	public Pacient getPacientById(int pacientId, boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers) {
+		Pacient pacient = pacientService.getPacientById(pacientId, withDoctor, withConsultation, withQuestionnaireAnswers);
 
-		return pacientiService.insertPacient(pacient);
+		return pacient;
+	}
+
+	@RequestMapping(value = "/insertPacient", method = RequestMethod.POST, produces = "application/json")
+	public boolean insertPacient(@RequestBody Pacient pacient) throws Exception {
+
+		return pacientService.insertPacient(pacient);
 	}
 
 	@RequestMapping(value = "/updatePacient", method = RequestMethod.POST, produces = "application/json")
 	public boolean updatePacient(@RequestBody Pacient pacient) {
 
-		return pacientiService.updatePacient(pacient);
+		return pacientService.updatePacient(pacient);
 	}
 
-	@RequestMapping(value = "/deletePacient", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/removePacient", method = RequestMethod.POST, produces = "application/json")
 	public boolean removePacient(@RequestBody Pacient pacient) {
 
-		return pacientiService.deletePacient(pacient);
+		return pacientService.deletePacient(pacient);
 	}
 
 	@RequestMapping(value = "/insertPacientDetails", method = RequestMethod.POST, produces = "application/json")
 	public boolean insertPacientDetails(@RequestBody Pacient pacient) {
 
-		return pacientiService.insertPacientDetails(pacient);
+		return pacientService.insertPacientDetails(pacient);
 	}
 
 	@RequestMapping(value = "/updatePacientDetails", method = RequestMethod.POST, produces = "application/json")
 	public boolean updatePacientDetails(@RequestBody Pacient pacient) {
 
-		return pacientiService.updatePacientDetails(pacient);
+		return pacientService.updatePacientDetails(pacient);
 	}
 
 	@RequestMapping(value = "/removePacientDetails", method = RequestMethod.POST, produces = "application/json")
 	public boolean removePacientDetails(@RequestBody Pacient pacient) {
 
-		return pacientiService.removePacientDetails(pacient);
+		return pacientService.removePacientDetails(pacient);
 	}
 
 }

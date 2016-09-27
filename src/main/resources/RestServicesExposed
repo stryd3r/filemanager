@@ -1,0 +1,38 @@
+	<!-------------- PACIENT services --------------->
+	@RequestMapping(value = "/getPacients")
+	List<Pacient> getPacients(boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers)
+
+	@RequestMapping(value = "/getPacientById")
+	Pacient getPacientById(int pacientId, boolean withDoctors, boolean withConsultations, boolean withQuestionnaireAnswers)
+
+	@RequestMapping(value = "/insertPacient")
+	boolean insertPacienti(@RequestBody Pacient pacient)
+
+	@RequestMapping(value = "/updatePacient")
+	boolean updatePacient(@RequestBody Pacient pacient) 
+
+	@RequestMapping(value = "/removePacient")
+	boolean removePacient(@RequestBody Pacient pacient) 
+
+	@RequestMapping(value = "/insertPacientDetails")
+	boolean insertPacientDetails(@RequestBody Pacient pacient) 
+
+	@RequestMapping(value = "/updatePacientDetails")
+	boolean updatePacientDetails(@RequestBody Pacient pacient) 
+
+	@RequestMapping(value = "/removePacientDetails")
+	boolean removePacientDetails(@RequestBody Pacient pacient) 
+	
+	
+	<!-------------- DOCTOR services --------------->
+	@RequestMapping(value = "/insertDoctor")
+	public void insertDoctor(@RequestBody Doctor doctor) throws InvalidInputException 
+
+	@RequestMapping(value = "/updateDoctor")
+	public void updateDoctor(@RequestBody Doctor doctor) throws InvalidInputException 
+	
+	@RequestMapping(value = "/getDoctors")
+	public List<Doctor> getDoctors(boolean withCalendar, boolean withConsultations, boolean withPacients) throws InvalidInputException
+	
+	@RequestMapping(value = "/remoteDoctor")
+	public boolean getDoctors(Doctor doctor) throws InvalidInputException

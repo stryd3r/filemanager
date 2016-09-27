@@ -1,12 +1,22 @@
 package com.filemanager.utils.transporters.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * The persistent class for the events database table.
@@ -21,7 +31,7 @@ public class Event implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int eventId;
 
-	@Column(name = "all_day")
+	@Column(name = "allDay")
 	private byte allDay;
 
 	private String color;
@@ -35,7 +45,8 @@ public class Event implements Serializable {
 	// bi-directional many-to-one association to Calendar
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId")
-	@Cascade(value = { CascadeType.MERGE})
+	@Cascade(value = { CascadeType.ALL})
+	@JsonBackReference
 	private Calendar calendar;
 
 	public Event() {

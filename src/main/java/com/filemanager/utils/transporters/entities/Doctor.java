@@ -25,19 +25,20 @@ public class Doctor implements Serializable {
 
 	private String surname;
 
+	private String color;
+
 	// bi-directional many-to-one association to Calendar
-	@OneToOne(mappedBy = "doctor")
-	@Cascade(value = { CascadeType.ALL})
+	@OneToOne(mappedBy = "doctor", fetch = FetchType.LAZY)
+	@Cascade(value = { CascadeType.ALL })
 	private Calendar calendar;
 
 	// bi-directional many-to-one association to Consultatii
-	@OneToMany(mappedBy = "doctor")
-	@Cascade(value = { CascadeType.ALL})
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+	@Cascade(value = { CascadeType.ALL })
 	private List<Consultation> consultations;
 
 	// bi-directional many-to-one association to Pacienti
-	@OneToMany(mappedBy = "doctor")
-	@Cascade(value = { CascadeType.ALL})
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
 	private List<Pacient> pacients;
 
 	public Doctor() {
@@ -117,6 +118,14 @@ public class Doctor implements Serializable {
 
 	public void setPacients(List<Pacient> pacients) {
 		this.pacients = pacients;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 }

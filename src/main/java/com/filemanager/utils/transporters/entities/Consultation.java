@@ -6,6 +6,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * The persistent class for the consultatii database table.
  * 
@@ -29,12 +31,14 @@ public class Consultation implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
 	@Cascade(value = { CascadeType.MERGE})
+	@JsonBackReference
 	private Doctor doctor;
 
 	// bi-directional many-to-one association to Pacienti
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pacientId")
 	@Cascade(value = { CascadeType.MERGE})
+	@JsonBackReference
 	private Pacient pacient;
 
 	public Consultation() {
@@ -86,6 +90,7 @@ public class Consultation implements Serializable {
 
 	public void setPacient(Pacient pacient) {
 		this.pacient = pacient;
+		this.pacient.addConsultation(this);
 	}
 
 }

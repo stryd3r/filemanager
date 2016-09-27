@@ -6,10 +6,12 @@ import com.filemanager.utils.transporters.entities.Pacient;
 
 public interface PacientsService {
 
-	boolean insertPacient(Pacient pacient) throws Exception;
+	boolean insertPacient(Pacient pacient);
 
 	List<Pacient> getPacients(boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers);
-	
+
+	Pacient getPacientById(int id, boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers);
+
 	boolean updatePacient(Pacient pacient);
 
 	boolean deletePacient(Pacient pacient);

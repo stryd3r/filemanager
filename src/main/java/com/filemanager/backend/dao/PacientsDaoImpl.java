@@ -13,13 +13,14 @@ import com.filemanager.backend.dao.interfaces.PacientsDao;
 import com.filemanager.utils.transporters.entities.Pacient;
 
 @Repository
+@SuppressWarnings("unchecked")
 public class PacientsDaoImpl implements PacientsDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
-	public boolean insertPacient(Pacient pacient) throws Exception {
+	public boolean insertPacient(Pacient pacient){
 		sessionFactory.getCurrentSession().persist(pacient);
 
 		return true;
@@ -28,8 +29,8 @@ public class PacientsDaoImpl implements PacientsDao {
 	@Override
 	public List<Pacient> getPacients(boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers) {
 
-		Query queryResult = sessionFactory.getCurrentSession().createQuery("from Pacient");
-		@SuppressWarnings("unchecked")
+		Session session = sessionFactory.getCurrentSession();
+		Query queryResult = session.createQuery("from Pacient");
 		List<Pacient> resultEntities = queryResult.list();
 
 		for (Pacient pacient : resultEntities) {
@@ -49,11 +50,33 @@ public class PacientsDaoImpl implements PacientsDao {
 	}
 
 	@Override
-	public boolean updatePacient(Pacient input) {
+	public Pacient getPacientById(int id, boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers) {
+		Session session = sessionFactory.getCurrentSession();
+		Pacient pacient = new Pacient();
+		String hql = "FROM Pacient p WHERE p.pacientId = " + id;
+		Query query = session.createQuery(hql);
+		List<Pacient> results = query.list();
+		if (results.size() > 0) {
+			pacient = results.get(0);
+			if (withDoctor) {
+				Hibernate.initialize(pacient.getDoctor());
+			}
+			if (withConsultation) {
+				Hibernate.initialize(pacient.getConsultations());
+			}
+			if (withQuestionnaireAnswers) {
+				Hibernate.initialize(pacient.getQuestionnaireAnswer());
+			}
+			return pacient;
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public boolean updatePacient(Pacient pacient) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			Pacient pacient = (Pacient) session.load(Pacient.class, new Integer(input.getPacientId()));
-			pacient.setName(input.getName());
 			session.update(pacient);
 			return true;
 		} catch (Exception e) {
@@ -64,7 +87,7 @@ public class PacientsDaoImpl implements PacientsDao {
 	@Override
 	public boolean deletePacient(Pacient input) {
 		Session session = sessionFactory.getCurrentSession();
-		Pacient pacient = (Pacient) session.load(Pacient.class, new Integer(input.getPacientId()));
+		Pacient pacient = (Pacient) session.load(Pacient.class, input.getPacientId());
 		session.delete(pacient);
 		return true;
 	}
@@ -80,7 +103,7 @@ public class PacientsDaoImpl implements PacientsDao {
 	@Override
 	public boolean updatePacientDetails(Pacient pacient) {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("update PacientsDetails set address = :address" + " where pacientId = :pacientId");
+		Query query = session.createQuery("update PacientDetail set address = :address" + " where pacientId = :pacientId");
 		query.setParameter("address", pacient.getPacientDetail().getAddress());
 		query.setParameter("pacientId", pacient.getPacientId());
 		int result = query.executeUpdate();
@@ -94,8 +117,22 @@ public class PacientsDaoImpl implements PacientsDao {
 	@Override
 	public boolean removePacientDetails(Pacient pacient) {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("delete PacientsDetails where pacientId = :pacientId");
+		Query query = session.createQuery("delete PacientDetail where pacientId = :pacientId");
 		query.setParameter("pacientId", pacient.getPacientId());
+		int result = query.executeUpdate();
+		if (result == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean changeDoctor(int pacientId, int doctorId) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("update Pacient set doctorId = :doctorId" + " where pacientId = :pacientId");
+		query.setParameter("doctorId", doctorId);
+		query.setParameter("pacientId", pacientId);
 		int result = query.executeUpdate();
 		if (result == 1) {
 			return true;

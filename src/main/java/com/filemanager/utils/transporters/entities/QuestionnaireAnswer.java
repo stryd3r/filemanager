@@ -6,6 +6,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * The persistent class for the raspuns_chestionar database table.
  * 
@@ -26,6 +28,7 @@ public class QuestionnaireAnswer implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "questionnaireId", referencedColumnName = "questionnaireId"), @JoinColumn(name = "questionId", referencedColumnName = "questionId") })
 	@Cascade(value = { CascadeType.MERGE})
+	@JsonBackReference
 	private Questionnaire questionnaire;
 
 	// bi-directional many-to-one association to Pacienti

@@ -6,6 +6,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.List;
 
 /**
@@ -24,12 +26,13 @@ public class Calendar implements Serializable {
 	// bi-directional many-to-one association to Doctori
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
-	@Cascade(value = { CascadeType.MERGE})
+	@Cascade(value = { CascadeType.ALL})
+	@JsonBackReference
 	private Doctor doctor;
 
 	// bi-directional many-to-one association to Event
 	@OneToMany(mappedBy = "calendar")
-	@Cascade(value = { CascadeType.MERGE})
+	@Cascade(value = { CascadeType.ALL})
 	private List<Event> events;
 
 	public Calendar() {

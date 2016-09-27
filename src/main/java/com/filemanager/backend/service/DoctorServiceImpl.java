@@ -23,8 +23,8 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public List<Doctor> getDoctor(boolean withCalendar, boolean withConsultations, boolean withPacients) {
-		return doctorDao.getDoctor(withCalendar, withConsultations, withPacients);
+	public List<Doctor> getDoctors(boolean withCalendar, boolean withConsultations, boolean withPacients) {
+		return doctorDao.getDoctors(withCalendar, withConsultations, withPacients);
 	}
 
 	@Override
@@ -33,8 +33,8 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public boolean deleteDoctor(Doctor doctor) {
-		return doctorDao.deleteDoctor(doctor);
+	public boolean removeDoctor(Doctor doctor) {
+		return doctorDao.removeDoctor(doctor);
 	}
 
 }

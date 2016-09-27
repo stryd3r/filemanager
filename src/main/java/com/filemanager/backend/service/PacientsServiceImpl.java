@@ -23,7 +23,7 @@ public class PacientsServiceImpl implements PacientsService {
 	}
 
 	@Override
-	public boolean insertPacient(Pacient pacient) throws Exception {
+	public boolean insertPacient(Pacient pacient) {
 		boolean result = dao.insertPacient(pacient);
 		return result;
 	}
@@ -51,6 +51,11 @@ public class PacientsServiceImpl implements PacientsService {
 	@Override
 	public boolean removePacientDetails(Pacient pacient) {
 		return dao.removePacientDetails(pacient);
+	}
+
+	@Override
+	public Pacient getPacientById(int id, boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers) {
+		return dao.getPacientById(id, withDoctor, withConsultation, withQuestionnaireAnswers);
 	}
 
 }
