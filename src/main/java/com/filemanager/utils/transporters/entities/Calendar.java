@@ -1,14 +1,19 @@
 package com.filemanager.utils.transporters.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.List;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import java.util.List;
 
 /**
  * The persistent class for the calendar database table.
@@ -26,13 +31,11 @@ public class Calendar implements Serializable {
 	// bi-directional many-to-one association to Doctori
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
-	@Cascade(value = { CascadeType.ALL})
 	@JsonBackReference
 	private Doctor doctor;
 
 	// bi-directional many-to-one association to Event
 	@OneToMany(mappedBy = "calendar")
-	@Cascade(value = { CascadeType.ALL})
 	private List<Event> events;
 
 	public Calendar() {

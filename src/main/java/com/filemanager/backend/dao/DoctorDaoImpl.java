@@ -60,9 +60,8 @@ public class DoctorDaoImpl implements DoctorDao {
 	}
 
 	@Override
-	public boolean removeDoctor(Doctor input) {
+	public boolean removeDoctor(Doctor doctor) {
 		Session session = sessionFactory.getCurrentSession();
-		Doctor doctor = (Doctor) session.load(Doctor.class, input.getDoctorId());
 		session.delete(doctor);
 		return true;
 	}

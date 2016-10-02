@@ -13,9 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
@@ -45,7 +42,6 @@ public class Event implements Serializable {
 	// bi-directional many-to-one association to Calendar
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId")
-	@Cascade(value = { CascadeType.ALL})
 	@JsonBackReference
 	private Calendar calendar;
 

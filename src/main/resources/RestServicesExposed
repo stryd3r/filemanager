@@ -36,3 +36,26 @@
 	
 	@RequestMapping(value = "/remoteDoctor")
 	public boolean getDoctors(Doctor doctor) throws InvalidInputException
+	
+	<!-------------- CALENDAR services -------------->
+	@RequestMapping(value = "/addCalendarForDoctor", produces = "application/json")
+	public Calendar addCalendarForDoctor(int doctorId) 
+
+	@RequestMapping(value = "/deleteCalendar", produces = "application/json")
+	public boolean deleteCalendar(Calendar calendar) 
+
+	@RequestMapping(value = "/addEvent", produces = "application/json")
+	public Event addEvent(Event event) 
+
+	@RequestMapping(value = "/updateEvent", produces = "application/json")
+	public boolean updateEvent(Event event) 
+
+	@RequestMapping(value = "/getEvents", produces = "application/json")
+	public List<Event> getEvents(int calendarId) 
+
+	@RequestMapping(value = "/getEventById", produces = "application/json")
+	public Event getEventById(int eventId) 
+
+	@RequestMapping(value = "/removeEvent", produces = "application/json")
+	public boolean removeEvent(Event event) 
+	

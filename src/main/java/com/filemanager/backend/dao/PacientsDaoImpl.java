@@ -85,9 +85,8 @@ public class PacientsDaoImpl implements PacientsDao {
 	}
 
 	@Override
-	public boolean deletePacient(Pacient input) {
+	public boolean deletePacient(Pacient pacient) {
 		Session session = sessionFactory.getCurrentSession();
-		Pacient pacient = (Pacient) session.load(Pacient.class, input.getPacientId());
 		session.delete(pacient);
 		return true;
 	}
