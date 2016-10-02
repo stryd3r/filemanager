@@ -24,21 +24,22 @@ public class PacientTest {
 	@Autowired
 	private PacientsService pacientService;
 	int validPacientId = 11;
-	int validDoctorId = 16;
-	
+	int validDoctorId = 1;
+
 	@Test
 	public void insertPacient() {
 		Pacient pacient = new Pacient();
 		pacient.setName("test");
 		pacient.setSurname("test");
-		Doctor doctor=new Doctor();
-		doctor.setDoctorId(validDoctorId);
+		Doctor doctor = new Doctor(validDoctorId);
 		pacient.setDoctor(doctor);
 		PacientDetail pacientDetail = new PacientDetail();
 		pacientDetail.setAddress("test");
 		pacient.setPacientDetail(pacientDetail);
-		boolean result = pacientService.insertPacient(pacient);
-		assert(result);
+		pacientService.insertPacient(pacient);
+
+		boolean success = pacientService.deletePacient(pacient);
+		assert (success);
 	}
 
 	@Test
@@ -64,11 +65,8 @@ public class PacientTest {
 
 		assert (pacientIsSet && pacientDetailsIsSet && doctorIsSet);
 	}
-	
-/*	@Test
-	public void deletePacient(){
-		Pacient pacient=new Pacient();
-		pacient.setPacientId(validPacientId);
-		pacientService.deletePacient(pacient);
-	}*/
+
+	/*
+	 * @Test public void deletePacient(){ Pacient pacient=new Pacient(); pacient.setPacientId(validPacientId); pacientService.deletePacient(pacient); }
+	 */
 }

@@ -30,9 +30,46 @@ public class PacientDetail implements Serializable {
 	private String address;
 
 	@OneToOne
-	@JoinColumn(name = "pacientId",referencedColumnName="pacientId")
+	@JoinColumn(name = "pacientId", referencedColumnName = "pacientId")
 	@JsonBackReference
 	private Pacient pacient;
+
+	private String zipCode;
+	private String phone;
+	private int age;
+	private String sex;
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 
 	public PacientDetail() {
 	}

@@ -6,7 +6,7 @@ import com.filemanager.utils.transporters.entities.Doctor;
 
 public interface DoctorService {
 
-	boolean insertDoctor(Doctor doctor);
+	Doctor insertDoctor(Doctor doctor);
 
 	List<Doctor> getDoctors(boolean withCalendar, boolean withConsultations, boolean withPacients);
 

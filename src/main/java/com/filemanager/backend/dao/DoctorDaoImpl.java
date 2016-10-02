@@ -19,10 +19,10 @@ public class DoctorDaoImpl implements DoctorDao {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public boolean insertDoctor(Doctor doctor) {
+	public Doctor insertDoctor(Doctor doctor) {
 
 		sessionFactory.getCurrentSession().persist(doctor);
-		return true;
+		return doctor;
 	}
 
 	@Override

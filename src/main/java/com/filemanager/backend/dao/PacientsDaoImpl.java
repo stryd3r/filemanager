@@ -20,10 +20,10 @@ public class PacientsDaoImpl implements PacientsDao {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public boolean insertPacient(Pacient pacient){
+	public Pacient insertPacient(Pacient pacient){
 		sessionFactory.getCurrentSession().persist(pacient);
 
-		return true;
+		return pacient;
 	}
 
 	@Override
@@ -92,11 +92,11 @@ public class PacientsDaoImpl implements PacientsDao {
 	}
 
 	@Override
-	public boolean insertPacientDetails(Pacient pacient) {
+	public Pacient insertPacientDetails(Pacient pacient) {
 		Session session = sessionFactory.getCurrentSession();
 		session.persist(pacient.getPacientDetail());
 
-		return true;
+		return pacient;
 	}
 
 	@Override

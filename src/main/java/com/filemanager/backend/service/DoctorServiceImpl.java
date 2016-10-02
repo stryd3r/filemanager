@@ -18,7 +18,7 @@ public class DoctorServiceImpl implements DoctorService {
 	private DoctorDao doctorDao;
 
 	@Override
-	public boolean insertDoctor(Doctor doctor) {
+	public Doctor insertDoctor(Doctor doctor) {
 		return doctorDao.insertDoctor(doctor);
 	}
 

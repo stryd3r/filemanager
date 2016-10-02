@@ -23,7 +23,7 @@ public class DoctorTest {
 	@Autowired
 	private DoctorService doctorService;
 
-	int validDoctorId = 16;
+	int validDoctorId = 1;
 
 	@Test
 	public void insertDoctor() {
@@ -32,7 +32,9 @@ public class DoctorTest {
 		doctor.setSurname("test");
 		// the color from below has to be unique
 		doctor.setColor("red".concat(String.valueOf(validDoctorId)));
-		boolean result = doctorService.insertDoctor(doctor);
+		doctorService.insertDoctor(doctor);
+		
+		boolean result = doctorService.removeDoctor(doctor);
 		assert (result);
 	}
 

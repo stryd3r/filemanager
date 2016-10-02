@@ -32,7 +32,7 @@ public class PacientController {
 	}
 
 	@RequestMapping(value = "/insertPacient", method = RequestMethod.POST, produces = "application/json")
-	public boolean insertPacient(@RequestBody Pacient pacient) throws Exception {
+	public Pacient insertPacient(@RequestBody Pacient pacient) throws Exception {
 
 		return pacientService.insertPacient(pacient);
 	}
@@ -50,7 +50,7 @@ public class PacientController {
 	}
 
 	@RequestMapping(value = "/insertPacientDetails", method = RequestMethod.POST, produces = "application/json")
-	public boolean insertPacientDetails(@RequestBody Pacient pacient) {
+	public Pacient insertPacientDetails(@RequestBody Pacient pacient) {
 
 		return pacientService.insertPacientDetails(pacient);
 	}

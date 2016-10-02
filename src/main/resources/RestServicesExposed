@@ -6,7 +6,7 @@
 	Pacient getPacientById(int pacientId, boolean withDoctors, boolean withConsultations, boolean withQuestionnaireAnswers)
 
 	@RequestMapping(value = "/insertPacient")
-	boolean insertPacienti(@RequestBody Pacient pacient)
+	Pacient insertPacienti(@RequestBody Pacient pacient)
 
 	@RequestMapping(value = "/updatePacient")
 	boolean updatePacient(@RequestBody Pacient pacient) 
@@ -15,7 +15,7 @@
 	boolean removePacient(@RequestBody Pacient pacient) 
 
 	@RequestMapping(value = "/insertPacientDetails")
-	boolean insertPacientDetails(@RequestBody Pacient pacient) 
+	Pacient insertPacientDetails(@RequestBody Pacient pacient) 
 
 	@RequestMapping(value = "/updatePacientDetails")
 	boolean updatePacientDetails(@RequestBody Pacient pacient) 
@@ -26,7 +26,7 @@
 	
 	<!-------------- DOCTOR services --------------->
 	@RequestMapping(value = "/insertDoctor")
-	public void insertDoctor(@RequestBody Doctor doctor) throws InvalidInputException 
+	public Doctor insertDoctor(@RequestBody Doctor doctor) throws InvalidInputException 
 
 	@RequestMapping(value = "/updateDoctor")
 	public void updateDoctor(@RequestBody Doctor doctor) throws InvalidInputException 

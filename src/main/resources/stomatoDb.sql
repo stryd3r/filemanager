@@ -115,6 +115,10 @@ CREATE TABLE IF NOT EXISTS `stomato`.`pacientDetail` (
   `pacientDetailsId` INT(11) NOT NULL AUTO_INCREMENT,
   `address` VARCHAR(300) NOT NULL,
   `pacientId` INT(11) NOT NULL,
+  `zipCode` VARCHAR(45) NULL,
+  `phone` VARCHAR(45) NULL,
+  `age` INT(3) NULL,
+  `sex` VARCHAR(1) NULL,
   PRIMARY KEY (`pacientDetailsId`),
   INDEX `fk_detalii_pacient_pacienti1_idx` (`pacientId` ASC),
   CONSTRAINT `fk_detalii_pacient_pacienti1`

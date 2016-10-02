@@ -6,7 +6,7 @@ import com.filemanager.utils.transporters.entities.Pacient;
 
 public interface PacientsDao {
 
-	boolean insertPacient(Pacient input);
+	Pacient insertPacient(Pacient input);
 
 	List<Pacient> getPacients(boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers);
 
@@ -16,7 +16,7 @@ public interface PacientsDao {
 
 	boolean deletePacient(Pacient input);
 
-	boolean insertPacientDetails(Pacient pacient);
+	Pacient insertPacientDetails(Pacient pacient);
 
 	boolean updatePacientDetails(Pacient pacient);
 
