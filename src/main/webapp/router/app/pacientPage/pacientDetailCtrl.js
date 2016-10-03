@@ -52,6 +52,11 @@ angular.module('mainApp').controller(
 					$scope.pacient.original.consultations[index].original = cons.edit;
 					cons.editMode = false;
 				}
+				
+				$scope.saveEditPacient = function(pacient){
+					$scope.pacient.original = pacient.edit;
+					pacient.editMode = false;
+				}
 
 				$scope.resetDefault = function() {
 					init(angular.copy(originalO));
