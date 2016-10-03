@@ -103,7 +103,7 @@ angular
 										function(res) {
 											console.log(res);
 											if (res.resultContext.operationPerformed != 'ABORTED')
-												$scope.events[$scope.events.indexOf(args.calendarEvent)] = res.resultContext;
+												$scope.events[$scope.events.indexOf(res.calendarEvent)] = res.resultContext;
 										});
 					};
 
