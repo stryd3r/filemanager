@@ -23,12 +23,12 @@
 					templateUrl : 'app/manage/manage.html',
 					controller : 'manageCtrl'
 				}).state('pacient', {
-					url : '/pacient/:name',
+					url : '/pacient?:idPacient&:name',
 					templateUrl : 'app/pacientPage/pacientDetail.html',
 					controller : 'pacientDetailCtrl',
 					resolve : {
-						pacientName : [ '$stateParams', function($stateParams) {
-							return $stateParams.name;
+						pacientDetResp : [ '$stateParams','mainService', function($stateParams, srv) {
+							return srv.getPacientById($stateParams.idPacient);
 						} ]
 					}
 				}).state('testRest', {

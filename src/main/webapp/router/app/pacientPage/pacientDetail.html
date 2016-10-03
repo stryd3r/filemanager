@@ -1,79 +1,83 @@
-<h2>Pacientul {{pacientN}}</h2>
-<div class="form-group row">
-  <label for="example-text-input" class="col-xs-2 col-form-label">Text</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
-  </div>
+<h2>Pacientul {{pacient.original.name + ' ' + pacient.original.surname}}</h2>
+<uib-accordion close-others="oneAtATime" class='col-sm-9'>
+<div uib-accordion-group class="panel-default" is-open="status.open">
+	<uib-accordion-heading> Detalii <i
+		class="pull-right glyphicon"
+		ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+	</uib-accordion-heading>
+	<label ng-if="!pacient.editMode" class="form-control">Nume: {{pacient.original.name}}</label>
+	<input ng-if="pacient.editMode" type="text" ng-model="pacient.edit.name" class="form-control" placeholder="Nume"> 
+	<label ng-if="!pacient.editMode" class="form-control">Prenume: {{pacient.original.surname}}</label>
+	<input ng-if="pacient.editMode" type="text" ng-model="pacient.edit.surname" class="form-control" placeholder="Prenume">
+	<label ng-if="!pacient.editMode" class="form-control">Adresa: {{pacient.original.address}}</label>
+	<textarea ng-if="pacient.editMode" ng-model="pacient.edit.address" class="form-control" placeholder="Adresa"></textarea>
+	<label ng-if="!pacient.editMode" class="form-control">Zip Code: {{pacient.original.zipCode}}</label>
+	<input ng-if="pacient.editMode" type="text" ng-model="pacient.edit.zipCode" class="form-control" placeholder="Zip Code">
+	<label ng-if="!pacient.editMode" class="form-control">Telefon: {{pacient.original.phone}}</label>
+	<input ng-if="pacient.editMode" type="text" ng-model="pacient.edit.phone" class="form-control" placeholder="Telefon">
+	<label ng-if="!pacient.editMode" class="form-control">Varsta: {{pacient.original.age}}</label>
+	<input ng-if="pacient.editMode" type="number" ng-model="pacient.edit.age" class="form-control" maxlength="3" placeholder="Varsta"> 
+	<select ng-disabled="!pacient.editMode" class="form-control" ng-model="pacient.edit.sex">
+		<option value="M">M</option>
+		<option value="F">F</option>
+	</select>
+	<button ng-if="!pacient.editMode" ng-click="pacient.editMode = true" style="float: right;">
+		<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+	</button>
+	<button ng-if="pacient.editMode" ng-click="pacient.editMode = false" style="float: right;">
+		<img src="shared/img/Undo.png">
+	</button>
+	<button ng-if="pacient.editMode" ng-click="saveEdit(pacient)" style="float: right;">
+		<i class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></i>
+	</button>
 </div>
-<div class="form-group row">
-  <label for="example-search-input" class="col-xs-2 col-form-label">Search</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="search" value="How do I shoot web" id="example-search-input">
-  </div>
+<div uib-accordion-group class="panel-default" is-open="status.openDet">
+	<uib-accordion-heading>Consultatii <span
+		class="badge">{{pacient.original.consultations.length}}</span>
+	</a>
+	<i class="pull-right glyphicon"
+		ng-class="{'glyphicon-chevron-down': status.openDet, 'glyphicon-chevron-right': !status.openDet}"></i>
+	</uib-accordion-heading>
+		<table class="table">
+		<thead>
+			<tr>
+				<th>Diagnostic</th>
+				<th>Observatii</th>
+				<th>Pret</th>
+				<th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="cons in pacient.original.consultations">
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.diagnostic}}</td>
+				<td style="text-align: left;" ng-if="cons.editMode"><input
+					type="text" ng-model="cons.edit.diagnostic"></td>
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.observations}}</td>
+				<td style="text-align: left;" ng-if="cons.editMode"><input
+					type="text" ng-model="cons.edit.observations"></td>
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.price}}</td>
+				<td style="text-align: left;" ng-if="cons.editMode"><input
+					type="text" ng-model="cons.edit.price"></td>
+				<td style="text-align: left;"><button ng-if="!cons.editMode"
+						ng-click="cons.editMode = true">
+						<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+					</button>
+					<button ng-if="cons.editMode"
+						ng-click="saveConsult(cons)">
+						<i class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></i>
+					</button>
+					<button ng-if="!cons.editMode"
+						ng-click="deleteConsult(cons)">
+						<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+					</button>
+					<button ng-if="cons.editMode"
+						ng-click="cons.editMode = false">
+						<img src="shared/img/Undo.png">
+					</button></td>
+			</tr>
+		</tbody>
+	</table>
 </div>
-<div class="form-group row">
-  <label for="example-email-input" class="col-xs-2 col-form-label">Email</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="email" value="bootstrap@example.com" id="example-email-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-url-input" class="col-xs-2 col-form-label">URL</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="url" value="http://getbootstrap.com" id="example-url-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-tel-input" class="col-xs-2 col-form-label">Telephone</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="tel" value="1-(555)-555-5555" id="example-tel-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-password-input" class="col-xs-2 col-form-label">Password</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="password" value="hunter2" id="example-password-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-number-input" class="col-xs-2 col-form-label">Number</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="number" value="42" id="example-number-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-datetime-local-input" class="col-xs-2 col-form-label">Date and time</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-date-input" class="col-xs-2 col-form-label">Date</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-month-input" class="col-xs-2 col-form-label">Month</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="month" value="2011-08" id="example-month-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-week-input" class="col-xs-2 col-form-label">Week</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="week" value="2011-W33" id="example-week-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-time-input" class="col-xs-2 col-form-label">Time</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="time" value="13:45:00" id="example-time-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-color-input" class="col-xs-2 col-form-label">Color</label>
-  <div class="col-xs-10">
-    <input class="form-control" type="color" value="#563d7c" id="example-color-input">
-  </div>
-</div>
+<button type="button" class="btn btn-default btn-sm" ng-click="saveChangesDb(pacient);">Salveaza schimbari</button>
+<button type="button" class="btn btn-default btn-sm" ng-click="resetDefault();">Reset</button>
+</uib-accordion>

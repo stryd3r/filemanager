@@ -23,12 +23,12 @@ angular
 							angular.forEach(res.data, function(elem) {
 								elem.editMode = false;
 								elem.original = {};
-								elem.original.firstName = elem.firstName;
-								elem.original.lastName = elem.lastName;
-								elem.original.seria = elem.seria;
-								delete elem.firstName;
-								delete elem.lastName;
-								delete elem.seria;
+								elem.original.firstName = elem.name;
+								elem.original.lastName = elem.surname;
+								//elem.original.seria = elem.seria;
+								delete elem.name;
+								delete elem.surname;
+								//delete elem.seria;
 							});
 							$scope.pacientsList = res.data;
 							$scope.paginatedPacientsList = res.data;
@@ -71,8 +71,8 @@ angular
 							$state.go('pacient',
 									{
 										'name' : pacient.original.firstName
-												+ pacient.original.lastName,
-										'pac' : pacient
+												+ '_' + pacient.original.lastName,
+										'idPacient' : pacient.pacientId
 									});
 						}
 
