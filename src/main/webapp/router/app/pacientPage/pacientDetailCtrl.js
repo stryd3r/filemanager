@@ -53,11 +53,16 @@ angular.module('mainApp').controller(
 					cons.editMode = false;
 				}
 				
+				$scope.deleteConsult = function(cons) {
+					var index = $scope.pacient.original.consultations.indexOf(cons);
+					$scope.pacient.original.consultations.splice(index, 1);
+				}
+				
 				$scope.saveEditPacient = function(pacient){
 					$scope.pacient.original = pacient.edit;
 					pacient.editMode = false;
 				}
-
+				
 				$scope.resetDefault = function() {
 					init(angular.copy(originalO));
 					$scope.status.openDet = true;
