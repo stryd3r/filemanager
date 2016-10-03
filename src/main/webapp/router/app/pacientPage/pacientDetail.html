@@ -50,13 +50,13 @@
 		<tbody>
 			<tr ng-repeat="cons in pacient.original.consultations">
 				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.diagnostic}}</td>
-				<td style="text-align: left;" ng-if="cons.editMode"><input
+				<td style="text-align: left;" ng-if="cons.editMode"><input class="form-control"
 					type="text" ng-model="cons.edit.diagnostic"></td>
 				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.observations}}</td>
-				<td style="text-align: left;" ng-if="cons.editMode"><input
+				<td style="text-align: left;" ng-if="cons.editMode"><input class="form-control"
 					type="text" ng-model="cons.edit.observations"></td>
 				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.price}}</td>
-				<td style="text-align: left;" ng-if="cons.editMode"><input
+				<td style="text-align: left;" ng-if="cons.editMode"><input class="form-control"
 					type="text" ng-model="cons.edit.price"></td>
 				<td style="text-align: left;"><button ng-if="!cons.editMode"
 						ng-click="cons.editMode = true">
