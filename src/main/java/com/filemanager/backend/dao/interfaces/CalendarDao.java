@@ -7,7 +7,7 @@ import com.filemanager.utils.transporters.entities.Event;
 
 public interface CalendarDao {
 
-	Calendar addCalendarForDoctor(int doctorId);
+	Calendar insertCalendarForDoctor(int doctorId);
 
 	Event addEvent(Event event);
 

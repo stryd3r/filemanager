@@ -19,9 +19,9 @@ public class CalendarServiceImpl implements CalendarService {
 	private CalendarDao dao;
 
 	@Override
-	public Calendar addCalendarForDoctor(int doctorId) {
+	public Calendar insertCalendarForDoctor(int doctorId) {
 
-		return dao.addCalendarForDoctor(doctorId);
+		return dao.insertCalendarForDoctor(doctorId);
 	}
 
 	@Override
