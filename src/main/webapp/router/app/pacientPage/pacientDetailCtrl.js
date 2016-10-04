@@ -14,6 +14,7 @@ angular.module('mainApp').controller(
 				// var declarations
 				var originalO = angular.copy(pacientDetResp.data);
 				var pacientObj = {};
+				var originalCopy;
 				init(pacientDetResp.data);
 
 				function init(object) {
@@ -45,6 +46,7 @@ angular.module('mainApp').controller(
 					};
 					pacientObj.edit = angular.copy(pacientObj.original);
 					$scope.pacient = pacientObj;
+					originalCopy = angular.copy($scope.pacient.original);
 				}
 				// others
 				$scope.saveConsult = function(cons) {
@@ -61,7 +63,7 @@ angular.module('mainApp').controller(
 				}
 
 				function checkForChanges() {
-					$scope.hasChanged = !angular.equals($scope.pacient.original,
+					$scope.hasChanged = !angular.equals(originalCopy,
 							$scope.pacient.edit);
 				}
 
