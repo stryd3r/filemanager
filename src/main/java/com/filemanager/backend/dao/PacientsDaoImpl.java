@@ -20,7 +20,7 @@ public class PacientsDaoImpl implements PacientsDao {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public Pacient insertPacient(Pacient pacient){
+	public Pacient insertPacient(Pacient pacient) {
 		sessionFactory.getCurrentSession().persist(pacient);
 
 		return pacient;
@@ -85,8 +85,12 @@ public class PacientsDaoImpl implements PacientsDao {
 	}
 
 	@Override
-	public boolean deletePacient(Pacient pacient) {
+	public boolean removePacient(Pacient pacient) {
 		Session session = sessionFactory.getCurrentSession();
+
+		Query query = session.createQuery("delete from Consultation " + " where pacientId = :pacientId");
+		query.setParameter("pacientId", pacient.getPacientId());
+		query.executeUpdate();
 		session.delete(pacient);
 		return true;
 	}

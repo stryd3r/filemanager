@@ -46,7 +46,7 @@ public class PacientController {
 	@RequestMapping(value = "/removePacient", method = RequestMethod.POST, produces = "application/json")
 	public boolean removePacient(@RequestBody Pacient pacient) {
 
-		return pacientService.deletePacient(pacient);
+		return pacientService.removePacient(pacient);
 	}
 
 	@RequestMapping(value = "/insertPacientDetails", method = RequestMethod.POST, produces = "application/json")

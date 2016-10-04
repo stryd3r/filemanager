@@ -38,9 +38,17 @@ public class PacientTest {
 		pacient.setPacientDetail(pacientDetail);
 		pacientService.insertPacient(pacient);
 
-		boolean success = pacientService.deletePacient(pacient);
+		boolean success = pacientService.removePacient(pacient);
 		assert (success);
 	}
+	
+	/*@Test
+	public void deletePacient(){
+		Pacient pacient=new Pacient();
+		pacient.setPacientId(3);
+		boolean success = pacientService.removePacient(pacient);
+		assert (success);
+	}*/
 
 	@Test
 	public void getOnlyPacientsTest() {

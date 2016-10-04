@@ -14,7 +14,7 @@ public interface PacientsDao {
 
 	boolean updatePacient(Pacient input);
 
-	boolean deletePacient(Pacient input);
+	boolean removePacient(Pacient input);
 
 	Pacient insertPacientDetails(Pacient pacient);
 

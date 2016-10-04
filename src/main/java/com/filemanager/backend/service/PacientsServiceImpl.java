@@ -34,8 +34,8 @@ public class PacientsServiceImpl implements PacientsService {
 	}
 
 	@Override
-	public boolean deletePacient(Pacient pacient) {
-		return dao.deletePacient(pacient);
+	public boolean removePacient(Pacient pacient) {
+		return dao.removePacient(pacient);
 	}
 
 	@Override

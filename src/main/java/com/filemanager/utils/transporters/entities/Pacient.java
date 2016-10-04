@@ -58,18 +58,18 @@ public class Pacient implements Serializable {
 	public Pacient() {
 	}
 
-	public Consultation addConsultation(Consultation consultatii) {
-		getConsultations().add(consultatii);
-		consultatii.setPacient(this);
+	public Consultation addConsultation(Consultation consultation) {
+		getConsultations().add(consultation);
+		consultation.setPacient(this);
 
-		return consultatii;
+		return consultation;
 	}
 
-	public Consultation removeConsultation(Consultation consultatii) {
-		getConsultations().remove(consultatii);
-		consultatii.setPacient(null);
+	public Consultation removeConsultation(Consultation consultation) {
+		getConsultations().remove(consultation);
+		consultation.setPacient(null);
 
-		return consultatii;
+		return consultation;
 	}
 
 	public Doctor getDoctor() {
