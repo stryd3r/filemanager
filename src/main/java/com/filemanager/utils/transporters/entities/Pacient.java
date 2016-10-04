@@ -17,8 +17,6 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 /**
  * The persistent class for the pacienti database table.
  * 
@@ -48,7 +46,6 @@ public class Pacient implements Serializable {
 	// bi-directional many-to-one association to Doctori
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
-	@JsonBackReference
 	private Doctor doctor;
 
 	// bi-directional many-to-one association to RaspunsChestionar
