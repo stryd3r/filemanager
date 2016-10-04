@@ -3,4 +3,5 @@ TODO LIST
 1. Am vazut ca la delete este doar deletePacient, adica de tot.
    - m-am gandit sa putem sterge tot pacientul din pagina de manage dar sa putem sterge si doar 
      consultatiile unui pacient din pagina fiecaruia. Can we do that ?
-2. Vor mai urma ... :)
+2. Ma gandeam la servicii care sa salveze/aduca si poza unui pacient si sa o afisam gen ca un dosar pe pagina.
+3. Vor mai urma ... :)
