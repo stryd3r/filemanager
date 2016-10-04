@@ -15,7 +15,8 @@
 <!-- photo slider -->
 <script src="shared/libs/slider/jquery-3.1.0.min.js"></script>
 <script src="shared/libs/slider/TweenMax.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-touch.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-touch.min.js"></script>
 <!-- loading bar -->
 <script src="shared/libs/angular/loading-bar.js"></script>
 
@@ -51,6 +52,7 @@
 
 <!-- Components -->
 <script src="shared/component/photoSlider/photoSliderCtrl.js"></script>
+<script src="shared/component/alertMsg/alertMsgCtrl.js"></script>
 
 <!-- CSS -->
 <link href="shared/css/bootstrap.css" rel="stylesheet" />
@@ -70,6 +72,7 @@
 </head>
 <body ng-app="mainApp" ng-controller="routerController"
 	style="background-image: url('shared/img/background.jpg')">
+	<div alert-msg></div>
 	<div class="tab-content col-md-11 text-center centred marginLeft"
 		style="background-color: #EEEAE9;">
 		<nav class="navbar navbar-default">

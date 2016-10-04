@@ -7,16 +7,22 @@ angular.module('mainApp').constant('APPCONST', (function() {
 			PROPERTIES : {
 				ANIMATIONS_ENABLED : true,
 				RESOURCES_PATH : 'app/modals/'
+			},
+			RETURN_VALUES : {
+				ABORTED : 'ABORTED'
 			}
-		},
-		RETURN_VALUES : {
-			ABORTED : 'ABORTED'
 		},
 		ENDPOINT : {
 			PACIENTS : {
 				GET_PACIENTS : defEndpoint + 'getPacients',
-				GET_PACIENTS_BY_ID : defEndpoint + 'getPacientById'
+				GET_PACIENTS_BY_ID : defEndpoint + 'getPacientById',
+				SAVE_PACIENT_IN_DB : defEndpoint + 'updatePacient'
 			}
+		},
+		ALERT : {
+			SUCCESS : 'success',
+			WARNING : 'warning',
+			ERROR : 'error'
 		}
 	}
 })());

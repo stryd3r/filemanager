@@ -13,6 +13,12 @@ angular.module('mainApp').service(
 				this.getPacients = function() {
 					return $http.get(appConst.ENDPOINT.PACIENTS.GET_PACIENTS);
 				}
+				
+				this.saveAllPacientInDb = function(param){
+					//var params = [{pName:'pacient',pValue:param}];
+					//var url = urlCreator(appConst.ENDPOINT.PACIENTS.SAVE_PACIENT_IN_DB, params);
+					return $http.post(appConst.ENDPOINT.PACIENTS.SAVE_PACIENT_IN_DB, param);
+				}
 
 				var urlCreator = function(endpoint, params) {
 					var urlRet = endpoint;

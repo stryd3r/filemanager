@@ -1,4 +1,5 @@
 <h2>Pacientul {{pacient.original.name + ' ' + pacient.original.surname}}</h2>
+<label><p ng-if="hasChanged" style="color: red;font-size: 200%;">Schimbari efectuare dar inca nesalvate!</p></label>
 <uib-accordion close-others="oneAtATime" class='col-sm-9'>
 <div uib-accordion-group class="panel-default" is-open="status.open">
 	<uib-accordion-heading> Detalii <i
@@ -78,6 +79,6 @@
 		</tbody>
 	</table>
 </div>
-<button type="button" class="btn btn-default btn-sm" ng-click="saveChangesDb(pacient);">Salveaza schimbari</button>
+<button type="button" ng-disabled="!hasChanged" class="btn btn-default btn-sm" ng-click="saveChangesDb(pacient);">Salveaza schimbari</button>
 <button type="button" class="btn btn-default btn-sm" ng-click="resetDefault();">Reset</button>
 </uib-accordion>

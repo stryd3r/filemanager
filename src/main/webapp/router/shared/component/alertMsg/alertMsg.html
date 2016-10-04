@@ -1,0 +1,26 @@
+<div ng-controller="alertMsgCtrl">
+	<div class="alert alert-warning" role="alert"
+		ng-if="alertIsOn === 'warning'">
+		<button type="button" class="close" ng-click="closeAlert()"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<strong>Atentie!</strong> Verifica datele de intrare !
+	</div>
+	<div class="alert alert-success" role="alert"
+		ng-if="alertIsOn === 'success'">
+		<button type="button" class="close" ng-click="closeAlert()"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<strong>Succes!</strong> Operatiune terminata !
+	</div>
+	<div class="alert alert-danger" role="alert"
+		ng-if="alertIsOn === 'error'">
+		<button type="button" class="close" ng-click="closeAlert()"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<strong>Eroare !</strong> Operatiunea nu a putut fi efectuata !
+	</div>
+</div>

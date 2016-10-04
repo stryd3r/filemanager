@@ -51,21 +51,66 @@ angular.module('mainApp').controller(
 					var index = $scope.pacient.original.consultations.indexOf(cons);
 					$scope.pacient.original.consultations[index].original = cons.edit;
 					cons.editMode = false;
+					checkForChanges();
 				}
-				
+
 				$scope.deleteConsult = function(cons) {
 					var index = $scope.pacient.original.consultations.indexOf(cons);
 					$scope.pacient.original.consultations.splice(index, 1);
+					checkForChanges();
 				}
-				
-				$scope.saveEditPacient = function(pacient){
+
+				function checkForChanges() {
+					$scope.hasChanged = !angular.equals($scope.pacient.original,
+							$scope.pacient.edit);
+				}
+
+				$scope.saveEditPacient = function(pacient) {
+					checkForChanges();
 					$scope.pacient.original = pacient.edit;
 					pacient.editMode = false;
 				}
-				
+
 				$scope.resetDefault = function() {
 					init(angular.copy(originalO));
 					$scope.status.openDet = true;
+					checkForChanges();
+				}
+
+				$scope.saveChangesDb = function(pacient) {
+					modalSrv.openModal('confirmation').then(function(resp) {
+						if ("OK" === resp.resultContext) {
+							
+							srv.saveAllPacientInDb(createSavePacientObj(pacient)).then(function(response) {
+								$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
+							},function(err){
+								$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+							});
+						}
+					}), function(err) {
+						console.log(err);
+					};
+				}
+				
+				function createSavePacientObj(pacient){
+					var pacientObj = {};
+					var pacientDetObj = {};
+					pacientObj.name = pacient.original.name;
+					pacientObj.surname = pacient.original.surname;
+					pacientObj.id = originalO.pacientId;
+					var consArray = [];
+					angular.forEach(pacient.original.consultations, function(consult){
+						consArray.push(consult.original);
+					});
+					pacientObj.consultations = consArray;
+					//pacientDet
+					//pacientDetObj.pacient = pacientObj;
+					pacientDetObj.zipCode = pacient.original.zipCode;
+					pacientDetObj.phone = pacient.original.phone;
+					pacientDetObj.age = pacient.original.age;
+					pacientDetObj.sex = pacient.original.sex;
+					pacientObj.pacientDetail = pacientDetObj;
+					return pacientObj;
 				}
 				/*
 				 * $scope.hideShow = function(domId){ var elem =
