@@ -1,7 +1,15 @@
 package com.filemanager.utils.transporters.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -31,12 +39,14 @@ public class Consultation implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
 	@Cascade(value = { CascadeType.MERGE})
+	@JsonBackReference
 	private Doctor doctor;
 
 	// bi-directional many-to-one association to Pacienti
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pacientId")
 	@Cascade(value = { CascadeType.MERGE})
+	@JsonBackReference
 	private Pacient pacient;
 
 	public Consultation() {

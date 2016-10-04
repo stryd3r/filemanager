@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * The persistent class for the events database table.
  * 
@@ -40,6 +42,7 @@ public class Event implements Serializable {
 	// bi-directional many-to-one association to Calendar
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId")
+	@JsonBackReference
 	private Calendar calendar;
 
 	public Event() {

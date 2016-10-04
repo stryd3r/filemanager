@@ -17,6 +17,8 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * The persistent class for the pacienti database table.
  * 
@@ -50,6 +52,7 @@ public class Pacient implements Serializable {
 
 	// bi-directional many-to-one association to RaspunsChestionar
 	@OneToOne(mappedBy = "pacient")
+	@JsonBackReference
 	private QuestionnaireAnswer questionnaireAnswer;
 
 	public Pacient() {
