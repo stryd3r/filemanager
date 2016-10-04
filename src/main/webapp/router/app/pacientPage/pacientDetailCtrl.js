@@ -82,6 +82,7 @@ angular.module('mainApp').controller(
 						if ("OK" === resp.resultContext) {
 							
 							srv.saveAllPacientInDb(createSavePacientObj(pacient)).then(function(response) {
+								$scope.hasChanged = false;
 								$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
 							},function(err){
 								$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
@@ -95,16 +96,20 @@ angular.module('mainApp').controller(
 				function createSavePacientObj(pacient){
 					var pacientObj = {};
 					var pacientDetObj = {};
+					var doctorObj = {};
 					pacientObj.name = pacient.original.name;
 					pacientObj.surname = pacient.original.surname;
 					pacientObj.id = originalO.pacientId;
+					doctorObj.id = originalO.doctor.doctorId;
 					var consArray = [];
 					angular.forEach(pacient.original.consultations, function(consult){
 						consArray.push(consult.original);
 					});
 					pacientObj.consultations = consArray;
+					pacientObj.doctor = doctorObj;
 					//pacientDet
 					//pacientDetObj.pacient = pacientObj;
+					pacientDetObj.pacientDetailsId = originalO.pacientDetail.pacientDetailsId;
 					pacientDetObj.zipCode = pacient.original.zipCode;
 					pacientDetObj.phone = pacient.original.phone;
 					pacientDetObj.age = pacient.original.age;

@@ -9,7 +9,7 @@ angular.module('mainApp').controller(
 			
 				$scope.$watch(function() {
 					if($rootScope.alertIsOn){
-						$interval($scope.closeAlert, 5000);
+						$interval($scope.closeAlert, 10000);
 					}
 					return $rootScope.alertIsOn;
 				}, function() {
