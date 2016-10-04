@@ -26,10 +26,10 @@ public class DoctorDaoImpl implements DoctorDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Doctor> getDoctors(boolean withCalendar, boolean withConsultations, boolean withPacients) {
 
 		Query queryResult = sessionFactory.getCurrentSession().createQuery("from Doctor");
-		@SuppressWarnings("unchecked")
 		List<Doctor> resultEntities = queryResult.list();
 
 		for (Doctor doctor : resultEntities) {

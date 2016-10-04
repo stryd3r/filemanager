@@ -13,7 +13,6 @@ import com.filemanager.backend.dao.interfaces.PacientsDao;
 import com.filemanager.utils.transporters.entities.Pacient;
 
 @Repository
-@SuppressWarnings("unchecked")
 public class PacientsDaoImpl implements PacientsDao {
 
 	@Autowired
@@ -27,6 +26,7 @@ public class PacientsDaoImpl implements PacientsDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Pacient> getPacients(boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers) {
 
 		Session session = sessionFactory.getCurrentSession();
@@ -50,6 +50,7 @@ public class PacientsDaoImpl implements PacientsDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public Pacient getPacientById(int id, boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers) {
 		Session session = sessionFactory.getCurrentSession();
 		Pacient pacient = new Pacient();

@@ -38,8 +38,8 @@
 	public boolean getDoctors(Doctor doctor) throws InvalidInputException
 	
 	<!-------------- CALENDAR services -------------->
-	@RequestMapping(value = "/addCalendarForDoctor", produces = "application/json")
-	public Calendar addCalendarForDoctor(int doctorId) 
+	@RequestMapping(value = "/insertCalendarForDoctor", produces = "application/json")
+	public Calendar insertCalendarForDoctor(int doctorId) 
 
 	@RequestMapping(value = "/deleteCalendar", produces = "application/json")
 	public boolean deleteCalendar(Calendar calendar) 

@@ -14,14 +14,13 @@ import com.filemanager.utils.transporters.entities.Doctor;
 import com.filemanager.utils.transporters.entities.Event;
 
 @Repository
-@SuppressWarnings("unchecked")
 public class CalendarDaoImpl implements CalendarDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
-	public Calendar addCalendarForDoctor(int doctorId) {
+	public Calendar insertCalendarForDoctor(int doctorId) {
 		Calendar calendar = new Calendar();
 		calendar.setDoctor(new Doctor(doctorId));
 		sessionFactory.getCurrentSession().persist(calendar);
@@ -65,6 +64,7 @@ public class CalendarDaoImpl implements CalendarDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Event> getEvents(int calendarId) {
 
 		Session session = sessionFactory.getCurrentSession();
@@ -79,6 +79,7 @@ public class CalendarDaoImpl implements CalendarDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public Event getEventById(int eventId) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM Event e WHERE e.eventId = " + eventId;

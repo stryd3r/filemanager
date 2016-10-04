@@ -113,8 +113,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `stomato`.`pacientDetail` (
   `pacientDetailsId` INT(11) NOT NULL AUTO_INCREMENT,
-  `address` VARCHAR(300) NOT NULL,
   `pacientId` INT(11) NOT NULL,
+  `address` VARCHAR(300) NULL,
   `zipCode` VARCHAR(45) NULL,
   `phone` VARCHAR(45) NULL,
   `age` INT(3) NULL,
