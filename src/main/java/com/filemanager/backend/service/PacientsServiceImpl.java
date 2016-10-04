@@ -8,7 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.filemanager.backend.dao.interfaces.PacientsDao;
 import com.filemanager.backend.service.interfaces.PacientsService;
-import com.filemanager.utils.transporters.entities.Pacient;
+import com.filemanager.utils.transporters.dto.PacientDetailsDto;
+import com.filemanager.utils.transporters.dto.PacientDto;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -18,49 +19,48 @@ public class PacientsServiceImpl implements PacientsService {
 	private PacientsDao dao;
 
 	@Override
-	public List<Pacient> getPacients(boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers) {
-		return dao.getPacients(withDoctor, withConsultation, withQuestionnaireAnswers);
+	public List<PacientDto> getPacients() {
+		return dao.getPacients();
 	}
 
 	@Override
-	public Pacient insertPacient(Pacient pacient) {
-		dao.insertPacient(pacient);
-		return pacient;
+	public int insertPacient(PacientDto pacient) {
+		return dao.insertPacient(pacient);
 	}
 
 	@Override
-	public boolean updatePacient(Pacient pacient) {
+	public PacientDto getPacientById(int id) {
+		return dao.getPacientById(id);
+	}
+
+	@Override
+	public boolean removePacient(int pacientId) {
+		return dao.removePacient(pacientId);
+	}
+
+	@Override
+	public boolean updatePacient(PacientDto pacient) {
 		return dao.updatePacient(pacient);
 	}
 
 	@Override
-	public boolean removePacient(Pacient pacient) {
-		return dao.removePacient(pacient);
-	}
-
-	@Override
-	public Pacient insertPacientDetails(Pacient pacient) {
+	public boolean insertPacientDetails(PacientDetailsDto pacient) {
 		return dao.insertPacientDetails(pacient);
 	}
 
 	@Override
-	public boolean updatePacientDetails(Pacient pacient) {
+	public boolean updatePacientDetails(PacientDetailsDto pacient) {
 		return dao.updatePacientDetails(pacient);
 	}
 
 	@Override
-	public boolean removePacientDetails(Pacient pacient) {
-		return dao.removePacientDetails(pacient);
+	public boolean removePacientDetails(int pacientId) {
+		return dao.removePacientDetails(pacientId);
 	}
 
 	@Override
-	public Pacient getPacientById(int id, boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers) {
-		return dao.getPacientById(id, withDoctor, withConsultation, withQuestionnaireAnswers);
-	}
-
-	@Override
-	public boolean changeDoctor(int pacientId, int doctorId) {
-		return dao.changeDoctor(pacientId, doctorId);
+	public PacientDetailsDto getPacientDetails(int pacientId) {
+		return dao.getPacientDetails(pacientId);
 	}
 
 }

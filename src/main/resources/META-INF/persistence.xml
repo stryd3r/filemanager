@@ -3,14 +3,5 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="filemanagerPU" transaction-type="RESOURCE_LOCAL">
-		<class>com.filemanager.utils.transporters.entities.Calendar</class>
-		<class>com.filemanager.utils.transporters.entities.Questionnaire</class>
-		<class>com.filemanager.utils.transporters.entities.QuestionnairePK</class>
-		<class>com.filemanager.utils.transporters.entities.Consultation</class>
-		<class>com.filemanager.utils.transporters.entities.PacientDetail</class>
-		<class>com.filemanager.utils.transporters.entities.Doctor</class>
-		<class>com.filemanager.utils.transporters.entities.Event</class>
-		<class>com.filemanager.utils.transporters.entities.Pacient</class>
-		<class>com.filemanager.utils.transporters.entities.QuestionnaireAnswer</class>
 	</persistence-unit>
 </persistence>

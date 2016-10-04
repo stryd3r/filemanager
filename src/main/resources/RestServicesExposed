@@ -3,7 +3,7 @@
 	List<Pacient> getPacients(boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers)
 
 	@RequestMapping(value = "/getPacientById")
-	Pacient getPacientById(int pacientId, boolean withDoctors, boolean withConsultations, boolean withQuestionnaireAnswers)
+	Pacient getPacientById(int pacientId, boolean withDoctor, boolean withConsultations, boolean withQuestionnaireAnswers)
 
 	@RequestMapping(value = "/insertPacient")
 	Pacient insertPacienti(@RequestBody Pacient pacient)
@@ -58,4 +58,20 @@
 
 	@RequestMapping(value = "/removeEvent", produces = "application/json")
 	public boolean removeEvent(Event event) 
+	
+	<!--------------------CONSULTATION services ------------------>
+	@RequestMapping(value = "/insertConsultation", produces = "application/json")
+	public Consultation insertConsultation(Consultation consultation) 
+
+	@RequestMapping(value = "/updateConsultation", produces = "application/json")
+	public boolean updateConsultation(Consultation consultation) 
+
+	@RequestMapping(value = "/removeConsultation", produces = "application/json")
+	public boolean removeConsultation(Consultation consultation) 
+
+	@RequestMapping(value = "/getConsultations", produces = "application/json")
+	public List<Consultation> getConsultations(boolean withPacient, boolean withDoctor) 
+
+	@RequestMapping(value = "/getConsultationById", produces = "application/json")
+	public Consultation getConsultationById(int consultationId, boolean withPacient, boolean withDoctor) 
 	
