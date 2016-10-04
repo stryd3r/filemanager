@@ -6,6 +6,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.List;
 
 /**
@@ -39,6 +41,7 @@ public class Doctor implements Serializable {
 
 	// bi-directional many-to-one association to Pacienti
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<Pacient> pacients;
 
 	public Doctor() {
