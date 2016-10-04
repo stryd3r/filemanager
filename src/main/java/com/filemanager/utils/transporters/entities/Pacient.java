@@ -1,6 +1,7 @@
 package com.filemanager.utils.transporters.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -38,7 +39,7 @@ public class Pacient implements Serializable {
 
 	// bi-directional many-to-one association to Consultatii
 	@OneToMany(mappedBy = "pacient")
-	private List<Consultation> consultations;
+	private List<Consultation> consultations=new ArrayList<>();
 
 	// bi-directional many-to-one association to DetaliiPacient
 	@OneToOne(mappedBy = "pacient")
