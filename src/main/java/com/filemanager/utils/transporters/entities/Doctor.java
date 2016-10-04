@@ -41,7 +41,7 @@ public class Doctor implements Serializable {
 
 	// bi-directional many-to-one association to Pacienti
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
-	@JsonBackReference
+	@JsonBackReference(value="doctorPacients")
 	private List<Pacient> pacients;
 
 	public Doctor() {

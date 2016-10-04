@@ -28,7 +28,7 @@ public class QuestionnaireAnswer implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "questionnaireId", referencedColumnName = "questionnaireId"), @JoinColumn(name = "questionId", referencedColumnName = "questionId") })
 	@Cascade(value = { CascadeType.MERGE})
-	@JsonBackReference
+	@JsonBackReference(value="questionnaireAnswerQuestionnaire")
 	private Questionnaire questionnaire;
 
 	// bi-directional many-to-one association to Pacienti

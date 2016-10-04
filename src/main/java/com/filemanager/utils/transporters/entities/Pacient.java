@@ -52,7 +52,7 @@ public class Pacient implements Serializable {
 
 	// bi-directional many-to-one association to RaspunsChestionar
 	@OneToOne(mappedBy = "pacient")
-	@JsonBackReference
+	@JsonBackReference(value="pacientQuestionnaireAnswer")
 	private QuestionnaireAnswer questionnaireAnswer;
 
 	public Pacient() {

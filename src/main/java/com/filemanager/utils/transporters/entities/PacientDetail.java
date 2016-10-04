@@ -31,7 +31,7 @@ public class PacientDetail implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "pacientId", referencedColumnName = "pacientId")
-	@JsonBackReference
+	@JsonBackReference(value="pacientDetailPacient")
 	private Pacient pacient;
 
 	private String zipCode;

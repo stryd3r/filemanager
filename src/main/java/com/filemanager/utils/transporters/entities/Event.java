@@ -42,7 +42,7 @@ public class Event implements Serializable {
 	// bi-directional many-to-one association to Calendar
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId")
-	@JsonBackReference
+	@JsonBackReference(value="eventCalendar")
 	private Calendar calendar;
 
 	public Event() {

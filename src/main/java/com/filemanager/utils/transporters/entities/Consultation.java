@@ -39,14 +39,14 @@ public class Consultation implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
 	@Cascade(value = { CascadeType.MERGE})
-	@JsonBackReference
+	@JsonBackReference(value="consultationDoctor")
 	private Doctor doctor;
 
 	// bi-directional many-to-one association to Pacienti
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pacientId")
 	@Cascade(value = { CascadeType.MERGE})
-	@JsonBackReference
+	@JsonBackReference(value="consultationPacient")
 	private Pacient pacient;
 
 	public Consultation() {

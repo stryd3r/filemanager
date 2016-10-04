@@ -31,7 +31,7 @@ public class Calendar implements Serializable {
 	// bi-directional many-to-one association to Doctori
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
-	@JsonBackReference
+	@JsonBackReference(value="calendarDoctor")
 	private Doctor doctor;
 
 	// bi-directional many-to-one association to Event
