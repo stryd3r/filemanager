@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`consultation` (
   `diagnostic` VARCHAR(300) NULL DEFAULT NULL,
   `observation` VARCHAR(500) NULL,
   `price` VARCHAR(100) NULL DEFAULT NULL,
+  `consultationTime` TIMESTAMP NULL,
   PRIMARY KEY (`consultationId`),
   INDEX `Vizite_clienti` (`pacientId` ASC),
   INDEX `doctori_Vizite` (`doctorId` ASC),

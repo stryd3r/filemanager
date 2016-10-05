@@ -17,6 +17,7 @@ public class ConsultationMapper implements RowMapper<ConsultationDto> {
 		consultation.setDiagnostic(rs.getString("diagnostic"));
 		consultation.setObservation(rs.getString("observation"));
 		consultation.setPrice(rs.getString("price"));
+		consultation.setConsultationTime(rs.getTimestamp("consultationTime"));
 		return consultation;
 	}
 }

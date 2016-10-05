@@ -1,5 +1,7 @@
 package jUnits;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -21,7 +23,7 @@ public class ConsultationTest {
 
 	@Autowired
 	private ConsultationDao dao;
-	private static final int validConsultationId = 2;
+	private static final int validConsultationId = 3;
 	private static final int validDoctorId = 1;
 	private static final int validPacientId = 1;
 
@@ -34,6 +36,7 @@ public class ConsultationTest {
 		consultation.setPacientId(validPacientId);
 		consultation.setObservation("obs");
 		consultation.setPrice("100");
+		consultation.setConsultationTime(new Timestamp(new Date().getTime()));
 		int insertedId = dao.insertConsultation(consultation);
 
 		boolean result = dao.removeConsultation(insertedId);
@@ -44,11 +47,13 @@ public class ConsultationTest {
 	@Test
 	public void updateConsultation() {
 		ConsultationDto consultation = new ConsultationDto();
+		consultation.setConsultationId(validConsultationId);
 		consultation.setDiagnostic("sad1");
 		consultation.setDoctorId(validDoctorId);
 		consultation.setPacientId(validPacientId);
 		consultation.setObservation("obs2");
 		consultation.setPrice("111");
+		consultation.setConsultationTime(new Timestamp(new Date().getTime()));
 		boolean result = dao.updateConsultation(consultation);
 
 		assert (result);

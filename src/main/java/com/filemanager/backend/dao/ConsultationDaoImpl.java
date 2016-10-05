@@ -27,6 +27,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 	final private static String DIAGNOSTIC = "diagnostic";
 	final private static String OBSERVATION = "observation";
 	final private static String PRICE = "price";
+	final private static String CONSULTATION_TIME = "consultationTime";
 
 	@Override
 	public int insertConsultation(ConsultationDto consultation) {
@@ -38,6 +39,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 		parameters.put(DIAGNOSTIC, consultation.getDiagnostic());
 		parameters.put(OBSERVATION, consultation.getObservation());
 		parameters.put(PRICE, consultation.getPrice());
+		parameters.put(CONSULTATION_TIME, consultation.getConsultationTime());
 		// execute insert
 		Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
 		// convert Number to Int using ((Number) key).intValue()
@@ -46,11 +48,11 @@ public class ConsultationDaoImpl implements ConsultationDao {
 
 	@Override
 	public boolean updateConsultation(ConsultationDto consultation) {
-		String sql = "UPDATE " + CONSULTATTION_TABLE_NAME + " SET " + DOCTOR_ID + "=?," + PACIENT_ID + "=?, " + DIAGNOSTIC + "=?, " + OBSERVATION + "=? , " + PRICE + "=? WHERE " + CONSULTATION_ID
-				+ "=?";
+		String sql = "UPDATE " + CONSULTATTION_TABLE_NAME + " SET " + DOCTOR_ID + "=?," + PACIENT_ID + "=?, " + DIAGNOSTIC + "=?, " + OBSERVATION + "=? , " + CONSULTATION_TIME + "=? , " + PRICE
+				+ "=? WHERE " + CONSULTATION_ID + "=?";
 
-		Object[] args = new Object[] { consultation.getDoctorId(), consultation.getPacientId(), consultation.getDiagnostic(), consultation.getObservation(), consultation.getPrice(),
-				consultation.getConsultationId() };
+		Object[] args = new Object[] { consultation.getDoctorId(), consultation.getPacientId(), consultation.getDiagnostic(), consultation.getObservation(), consultation.getConsultationTime(),
+				consultation.getPrice(), consultation.getConsultationId() };
 		int success = jdbcTemplate.update(sql, args);
 
 		boolean result = (success == 1) ? true : false;
@@ -77,12 +79,12 @@ public class ConsultationDaoImpl implements ConsultationDao {
 
 	@Override
 	public ConsultationDto getConsultationById(int consultationId) {
-			String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + CONSULTATION_ID + "=?";
-			Object[] args = new Object[] { consultationId };
+		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + CONSULTATION_ID + "=?";
+		Object[] args = new Object[] { consultationId };
 
-			ConsultationDto consultation = jdbcTemplate.queryForObject(sql, args, new ConsultationMapper());
+		ConsultationDto consultation = jdbcTemplate.queryForObject(sql, args, new ConsultationMapper());
 
-			return consultation;
+		return consultation;
 	}
 
 	@Override

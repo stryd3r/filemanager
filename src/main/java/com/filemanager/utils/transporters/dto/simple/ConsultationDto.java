@@ -1,5 +1,7 @@
 package com.filemanager.utils.transporters.dto.simple;
 
+import java.sql.Timestamp;
+
 public class ConsultationDto {
 
 	private int consultationId;
@@ -8,6 +10,15 @@ public class ConsultationDto {
 	private String diagnostic;
 	private String observation;
 	private String price;
+	private Timestamp consultationTime;
+
+	public Timestamp getConsultationTime() {
+		return consultationTime;
+	}
+
+	public void setConsultationTime(Timestamp consultationTime) {
+		this.consultationTime = consultationTime;
+	}
 
 	public int getConsultationId() {
 		return consultationId;
