@@ -7,7 +7,7 @@ import com.filemanager.utils.transporters.entities.Event;
 
 public interface CalendarService {
 
-	Calendar addCalendarForDoctor(int doctorId);
+	Calendar insertCalendarForDoctor(int doctorId);
 
 	Event addEvent(Event event);
 

@@ -16,9 +16,9 @@ public class CalendarController {
 	@Autowired
 	private CalendarService service;
 
-	@RequestMapping(value = "/addCalendarForDoctor", produces = "application/json")
-	public Calendar addCalendarForDoctor(int doctorId) {
-		return service.addCalendarForDoctor(doctorId);
+	@RequestMapping(value = "/insertCalendarForDoctor", produces = "application/json")
+	public Calendar insertCalendarForDoctor(int doctorId) {
+		return service.insertCalendarForDoctor(doctorId);
 	}
 
 	@RequestMapping(value = "/deleteCalendar", produces = "application/json")

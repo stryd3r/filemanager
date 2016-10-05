@@ -9,72 +9,86 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import com.filemanager.backend.service.interfaces.PacientsService;
+import com.filemanager.backend.dao.PacientsDaoImpl;
 import com.filemanager.config.AppConfig;
 import com.filemanager.config.AppInitializer;
 import com.filemanager.config.DataSourceConfig;
-import com.filemanager.utils.transporters.entities.Doctor;
-import com.filemanager.utils.transporters.entities.Pacient;
-import com.filemanager.utils.transporters.entities.PacientDetail;
+import com.filemanager.utils.transporters.dto.PacientDetailsDto;
+import com.filemanager.utils.transporters.dto.PacientDto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { AppInitializer.class, AppConfig.class, DataSourceConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class PacientTest {
 
 	@Autowired
-	private PacientsService pacientService;
-	int validPacientId = 11;
+	private PacientsDaoImpl dao;
+	int validPacientId = 1;
 	int validDoctorId = 1;
 
 	@Test
-	public void insertPacient() {
-		Pacient pacient = new Pacient();
-		pacient.setName("test");
-		pacient.setSurname("test");
-		Doctor doctor = new Doctor(validDoctorId);
-		pacient.setDoctor(doctor);
-		PacientDetail pacientDetail = new PacientDetail();
-		pacientDetail.setAddress("test");
-		pacient.setPacientDetail(pacientDetail);
-		pacientService.insertPacient(pacient);
+	public void insertRemovePacient() {
+		PacientDto pacient = new PacientDto();
+		pacient.setName("Adrian");
+		pacient.setSurname("Barna");
+		pacient.setDoctorId(1);
+		int insertedId = dao.insertPacient(pacient);
 
-		boolean success = pacientService.removePacient(pacient);
-		assert (success);
+		boolean result = dao.removePacient(insertedId);
+
+		assert (result);
 	}
-	
-	/*@Test
-	public void deletePacient(){
-		Pacient pacient=new Pacient();
-		pacient.setPacientId(3);
-		boolean success = pacientService.removePacient(pacient);
-		assert (success);
-	}*/
 
 	@Test
-	public void getOnlyPacientsTest() {
-		List<Pacient> pacients = pacientService.getPacients(false, false, false);
+	public void updatePacient() {
+		PacientDto pacient = new PacientDto();
+		pacient.setPacientId(1);
+		pacient.setName("Adrian123");
+		pacient.setSurname("Barna");
+		pacient.setDoctorId(1);
+		boolean result = dao.updatePacient(pacient);
 
-		assert (pacients != null && pacients.size() > 0);
+		assert (result);
 	}
 
 	@Test
 	public void getPacientById() {
-		Pacient pacient = pacientService.getPacientById(validPacientId, true, true, true);
+
+		PacientDto pacient = dao.getPacientById(1);
 
 		assert (pacient != null);
 	}
 
 	@Test
-	public void getPacientsWithDoctorAndDetails() {
-		List<Pacient> pacients = pacientService.getPacients(true, true, true);
-		boolean pacientIsSet = pacients != null && pacients.size() > 0;
-		boolean pacientDetailsIsSet = pacients.get(0).getPacientDetail().getAddress() != null;
-		boolean doctorIsSet = pacients.get(0).getDoctor().getName() != null;
+	public void getPacients() {
 
-		assert (pacientIsSet && pacientDetailsIsSet && doctorIsSet);
+		List<PacientDto> pacients = dao.getPacients();
+
+		assert (pacients.size() > 0);
 	}
 
-	/*
-	 * @Test public void deletePacient(){ Pacient pacient=new Pacient(); pacient.setPacientId(validPacientId); pacientService.deletePacient(pacient); }
-	 */
+	@Test
+	public void insertPacientDetails() {
+		PacientDetailsDto pacientDetails = new PacientDetailsDto();
+		pacientDetails.setPacientId(1);
+		pacientDetails.setAddress("Lalelelor");
+		pacientDetails.setAge(28);
+		pacientDetails.setPhone("075 198 49 42");
+		pacientDetails.setSex("M");
+		pacientDetails.setZipCode("600125");
+		dao.insertPacientDetails(pacientDetails);
+
+		boolean success = dao.removePacientDetails(1);
+
+		assert (success);
+	}
+
+	@Test
+	public void getPacientDetails() {
+		PacientDetailsDto result = dao.getPacientDetails(1);
+
+		assert (result != null);
+	}
+	
+	//TODO test for updatePacientDetails and removePacientDetails
+
 }

@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.filemanager.backend.service.interfaces.PacientsService;
-import com.filemanager.utils.transporters.entities.Pacient;
+import com.filemanager.utils.transporters.dto.PacientDetailsDto;
+import com.filemanager.utils.transporters.dto.PacientDto;
 
 @RestController
 public class PacientController {
@@ -18,53 +19,54 @@ public class PacientController {
 	private PacientsService pacientService;
 
 	@RequestMapping(value = "/getPacients", produces = "application/json")
-	public List<Pacient> getPacients(boolean withDoctors, boolean withConsultations, boolean withQuestionnaireAnswers) {
-		List<Pacient> result = pacientService.getPacients(withDoctors, withConsultations, withQuestionnaireAnswers);
-
-		return result;
+	public List<PacientDto> getPacients() {
+		List<PacientDto> pacientsList = pacientService.getPacients();
+		return pacientsList;
 	}
 
 	@RequestMapping(value = "/getPacientById", produces = "application/json")
-	public Pacient getPacientById(int pacientId, boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers) {
-		Pacient pacient = pacientService.getPacientById(pacientId, withDoctor, withConsultation, withQuestionnaireAnswers);
+	public PacientDto getPacientById(int pacientId) {
+		PacientDto pacient = pacientService.getPacientById(pacientId);
 
 		return pacient;
 	}
 
 	@RequestMapping(value = "/insertPacient", method = RequestMethod.POST, produces = "application/json")
-	public Pacient insertPacient(@RequestBody Pacient pacient) throws Exception {
+	public int insertPacient(@RequestBody PacientDto pacient) throws Exception {
 
 		return pacientService.insertPacient(pacient);
 	}
 
 	@RequestMapping(value = "/updatePacient", method = RequestMethod.POST, produces = "application/json")
-	public boolean updatePacient(@RequestBody Pacient pacient) {
+	public boolean updatePacient(@RequestBody PacientDto pacient) {
 
 		return pacientService.updatePacient(pacient);
 	}
 
 	@RequestMapping(value = "/removePacient", method = RequestMethod.POST, produces = "application/json")
-	public boolean removePacient(@RequestBody Pacient pacient) {
+	public boolean removePacient(@RequestBody int pacientId) {
 
-		return pacientService.removePacient(pacient);
+		return pacientService.removePacient(pacientId);
 	}
 
 	@RequestMapping(value = "/insertPacientDetails", method = RequestMethod.POST, produces = "application/json")
-	public Pacient insertPacientDetails(@RequestBody Pacient pacient) {
+	public boolean insertPacientDetails(@RequestBody PacientDetailsDto pacientDetails) {
 
-		return pacientService.insertPacientDetails(pacient);
+		return pacientService.insertPacientDetails(pacientDetails);
 	}
 
 	@RequestMapping(value = "/updatePacientDetails", method = RequestMethod.POST, produces = "application/json")
-	public boolean updatePacientDetails(@RequestBody Pacient pacient) {
+	public boolean updatePacientDetails(@RequestBody PacientDetailsDto pacientDetails) {
 
-		return pacientService.updatePacientDetails(pacient);
+		return pacientService.updatePacientDetails(pacientDetails);
 	}
 
-	@RequestMapping(value = "/removePacientDetails", method = RequestMethod.POST, produces = "application/json")
-	public boolean removePacientDetails(@RequestBody Pacient pacient) {
+	@RequestMapping(value = "/removePacientDetails", produces = "application/json")
+	public boolean removePacientDetails(int pacientId) {
+		boolean success = pacientService.removePacientDetails(pacientId);
 
-		return pacientService.removePacientDetails(pacient);
+		return success;
 	}
+
 
 }
