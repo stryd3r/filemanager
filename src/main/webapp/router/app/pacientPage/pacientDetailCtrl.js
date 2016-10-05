@@ -36,13 +36,13 @@ angular.module('mainApp').controller(
 					});
 					pacientObj.original = {
 						name : object.name,
-						surname : object.surname,
-						address : object.pacientDetail.address,
+						surname : object.surname
+						/*address : object.pacientDetail.address,
 						zipCode : object.pacientDetail.zipCode,
 						phone : object.pacientDetail.phone,
 						age : object.pacientDetail.age,
 						sex : object.pacientDetail.sex,
-						consultations : object.consultations
+						consultations : object.consultations*/
 					};
 					pacientObj.edit = angular.copy(pacientObj.original);
 					$scope.pacient = pacientObj;

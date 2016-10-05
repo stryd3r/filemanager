@@ -72,7 +72,7 @@ angular
 									{
 										'name' : pacient.original.firstName
 												+ '_' + pacient.original.lastName,
-										'idPacient' : pacient.pacientId
+										idPacient : pacient.pacientId
 									});
 						}
 

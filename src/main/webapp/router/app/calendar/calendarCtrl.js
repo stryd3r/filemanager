@@ -71,6 +71,8 @@ angular
 							if (res.resultContext.operationPerformed != 'ABORTED')
 								var newEv = res.resultContext;
 							newEv.actions = actions;
+							newEv.draggable = true;
+							newEv.resizable = true;
 							$scope.events.push(res.resultContext);
 						});
 

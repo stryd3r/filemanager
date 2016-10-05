@@ -23,7 +23,7 @@
 					templateUrl : 'app/manage/manage.html',
 					controller : 'manageCtrl'
 				}).state('pacient', {
-					url : '/pacient?:idPacient&:name',
+					url : '/pacient/:idPacient/:name',
 					templateUrl : 'app/pacientPage/pacientDetail.html',
 					controller : 'pacientDetailCtrl',
 					resolve : {
