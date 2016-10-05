@@ -66,8 +66,8 @@
 		<br>
 		<div class="row">
 			<div class="col-sm-6">
-				<textarea ng-model="pacient.edit.address" class="form-control" style="max-width: 100%;"
-					placeholder="Adresa"></textarea>
+				<textarea ng-model="pacient.edit.address" class="form-control"
+					style="max-width: 100%;" placeholder="Adresa"></textarea>
 			</div>
 			<div class="col-sm-4">
 				<input type="text" ng-model="pacient.edit.zipCode"
@@ -147,6 +147,13 @@
 			</tr>
 		</tbody>
 	</table>
+</div>
+<div uib-accordion-group class="panel-default" is-open="status.openCh">
+	<uib-accordion-heading>Chestionar <i
+		class="pull-right glyphicon"
+		ng-class="{'glyphicon-chevron-down': status.openCh, 'glyphicon-chevron-right': !status.openCh}"></i>
+	</uib-accordion-heading>
+	<strong>Chestionar</strong>
 </div>
 <button type="button" ng-disabled="!hasChanged"
 	class="btn btn-default btn-sm" ng-click="saveChangesDb(pacient);">Salveaza
