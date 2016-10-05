@@ -107,7 +107,7 @@
 /* enable absolute positioning */
 .inner-addon {
 	position: relative;
-	width:200px;
+	width: 200px;
 }
 
 /* style glyph */
@@ -133,4 +133,8 @@
 
 .right-addon input {
 	padding-right: 30px;
+}
+
+.input-warning{
+	border-color: red;
 }

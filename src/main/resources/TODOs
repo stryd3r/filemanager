@@ -4,4 +4,7 @@ TODO LIST
    - m-am gandit sa putem sterge tot pacientul din pagina de manage dar sa putem sterge si doar 
      consultatiile unui pacient din pagina fiecaruia. Can we do that ?
 2. Ma gandeam la servicii care sa salveze/aduca si poza unui pacient si sa o afisam gen ca un dosar pe pagina.
-3. Vor mai urma ... :)
+3. De adaugat timestamp la consultatii.
+4. Inloc de varsta la pacient sa fie data nasterii, ori calculam noi varsta automat.
+5. Adaugat si CNP la pacient.
+6. Vor mai urma ... :)

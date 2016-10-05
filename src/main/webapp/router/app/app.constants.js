@@ -9,7 +9,8 @@ angular.module('mainApp').constant('APPCONST', (function() {
 				RESOURCES_PATH : 'app/modals/'
 			},
 			RETURN_VALUES : {
-				ABORTED : 'ABORTED'
+				ABORTED : 'ABORTED',
+				SUCCESS : 'SUCCESS'
 			}
 		},
 		ENDPOINT : {
