@@ -12,6 +12,9 @@ angular
 					// to work
 					$scope.calendarView = 'month';
 					$scope.viewDate = new Date();
+					calendarConfig.dateFormatter = 'moment'; // use moment instead of angular for formatting dates
+					calendarConfig.i18nStrings.weekNumber = 'Sapt {week}';
+					moment.locale('ro');
 					var actions = [ {
 						label : '<i class=\'glyphicon glyphicon-pencil\'></i>',
 						onClick : function(args) {
@@ -68,12 +71,18 @@ angular
 					$scope.addEvent = function() {
 						modalService.openModal("addNewEvent").then(function(res) {
 							console.log(res);
-							if (res.resultContext.operationPerformed != 'ABORTED')
+							if (res.resultContext.operationPerformed == 'SUCCESS') {
 								var newEv = res.resultContext;
-							newEv.actions = actions;
-							newEv.draggable = true;
-							newEv.resizable = true;
-							$scope.events.push(res.resultContext);
+								newEv.actions = actions;
+								newEv.draggable = true;
+								newEv.resizable = true;
+								if(angular.isUndefined(newEv.endsAt)){
+									var endTime = angular.copy(newEv.startsAt);
+									endTime.setMinutes(endTime.getMinutes() + 30)
+									newEv.endsAt = endTime;
+								}
+								$scope.events.push(res.resultContext);
+							}
 						});
 
 						/*
@@ -92,7 +101,7 @@ angular
 								.then(
 										function(res) {
 											console.log(res);
-											if (res.resultContext.operationPerformed != 'ABORTED')
+											if (res.resultContext.operationPerformed == 'SUCCESS')
 												$scope.events[$scope.events.indexOf(event)] = res.resultContext;
 										});
 					};
@@ -104,7 +113,7 @@ angular
 								.then(
 										function(res) {
 											console.log(res);
-											if (res.resultContext.operationPerformed != 'ABORTED')
+											if (res.resultContext.operationPerformed == 'SUCCESS')
 												$scope.events[$scope.events.indexOf(res.calendarEvent)] = res.resultContext;
 										});
 					};
@@ -114,8 +123,6 @@ angular
 						modalService.openModal('confirmation').then(function(resp) {
 							if ("OK" === resp.resultContext) {
 								$scope.events.splice($scope.events.indexOf(calendarEv), 1);
-							} else {
-								$uibModalInstance.dismiss('cancel');
 							}
 
 						});
@@ -125,14 +132,12 @@ angular
 						console.log(event);
 						modalService.openModal('confirmation').then(function(resp) {
 							if ("OK" === resp.resultContext) {
-								event.startsAt = $scope.newEvStart; 
+								event.startsAt = $scope.newEvStart;
 								event.endsAt = $scope.newEvEnd;
-							} else {
-								$uibModalInstance.dismiss('cancel');
 							}
 
 						});
-						//alert.show('Dropped or resized', event);
+						// alert.show('Dropped or resized', event);
 					};
 
 					$scope.toggle = function($event, field, event) {

@@ -67,6 +67,7 @@ angular.module('mainApp').service(
 					});
 
 					modalInstance.result.then(function(result) {
+						result.operationPerformed = APPCONST.MODALS.RETURN_VALUES.SUCCESS;
 						deferred.resolve({
 							callContext : currentModalContext,
 							resultContext : result
