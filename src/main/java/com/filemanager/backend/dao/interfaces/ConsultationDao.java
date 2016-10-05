@@ -2,18 +2,22 @@ package com.filemanager.backend.dao.interfaces;
 
 import java.util.List;
 
-import com.filemanager.utils.transporters.entities.Consultation;
+import com.filemanager.utils.transporters.dto.simple.ConsultationDto;
 
 public interface ConsultationDao {
 
-	Consultation insertConsultation(Consultation consultation);
+	int insertConsultation(ConsultationDto consultation);
+
+	boolean updateConsultation(ConsultationDto consultation);
+
+	List<ConsultationDto> getConsultations();
 	
-	boolean updateConsultation(Consultation consultation);
+	List<ConsultationDto> getConsultationsForPacient(int pacientId);
+
+	public ConsultationDto getConsultationById(int consultationId);
+
+	boolean removeConsultation(int consultationId);
 	
-	boolean removeConsultation(Consultation consultation);
-	
-	List<Consultation> getConsultations(boolean withPacient, boolean withDoctor);
-	
-	public Consultation getConsultationById(int consultationId, boolean withPacient, boolean withDoctor);
+	boolean removeConsultationForPacient(int pacientId);
 
 }

@@ -2,10 +2,10 @@ package com.filemanager.backend.dao.interfaces;
 
 import java.util.List;
 
-import com.filemanager.utils.transporters.dto.PacientDetailsDto;
-import com.filemanager.utils.transporters.dto.PacientDto;
+import com.filemanager.utils.transporters.dto.simple.PacientDetailsDto;
+import com.filemanager.utils.transporters.dto.simple.PacientDto;
 
-public interface PacientsDao {
+public interface PacientDao {
 
 	public List<PacientDto> getPacients();
 
@@ -17,9 +17,9 @@ public interface PacientsDao {
 
 	boolean updatePacient(PacientDto pacient);
 
-	boolean insertPacientDetails(PacientDetailsDto pacient);
+	boolean insertPacientDetails(PacientDetailsDto pacientDetails);
 
-	boolean updatePacientDetails(PacientDetailsDto pacient);
+	boolean updatePacientDetails(PacientDetailsDto pacientDetails);
 
 	boolean removePacientDetails(int pacientId);
 

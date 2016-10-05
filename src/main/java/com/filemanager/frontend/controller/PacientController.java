@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.filemanager.backend.service.interfaces.PacientsService;
-import com.filemanager.utils.transporters.dto.PacientDetailsDto;
-import com.filemanager.utils.transporters.dto.PacientDto;
+import com.filemanager.utils.transporters.dto.complex.PacientComplexDto;
+import com.filemanager.utils.transporters.dto.simple.PacientDetailsDto;
+import com.filemanager.utils.transporters.dto.simple.PacientDto;
 
 @RestController
 public class PacientController {
@@ -19,14 +20,14 @@ public class PacientController {
 	private PacientsService pacientService;
 
 	@RequestMapping(value = "/getPacients", produces = "application/json")
-	public List<PacientDto> getPacients() {
-		List<PacientDto> pacientsList = pacientService.getPacients();
+	public List<PacientComplexDto> getPacients(boolean withDetail, boolean withDoctor, boolean withConsultations) {
+		List<PacientComplexDto> pacientsList = pacientService.getPacients(withDetail, withDoctor, withConsultations);
 		return pacientsList;
 	}
 
 	@RequestMapping(value = "/getPacientById", produces = "application/json")
-	public PacientDto getPacientById(int pacientId) {
-		PacientDto pacient = pacientService.getPacientById(pacientId);
+	public PacientComplexDto getPacientById(int pacientId, boolean withDetail, boolean withDoctor, boolean withConsultations) {
+		PacientComplexDto pacient = pacientService.getPacientById(pacientId, withDetail, withDoctor, withConsultations);
 
 		return pacient;
 	}
@@ -37,16 +38,28 @@ public class PacientController {
 		return pacientService.insertPacient(pacient);
 	}
 
+	@RequestMapping(value = "/insertPacientWithDetails", method = RequestMethod.POST, produces = "application/json")
+	public int insertPacientWithDetails(@RequestBody PacientComplexDto pacient, boolean withDetail, boolean withDoctor, boolean withConsultations) throws Exception {
+
+		return pacientService.insertPacientWithDetails(pacient, withDetail, withDoctor, withConsultations);
+	}
+
 	@RequestMapping(value = "/updatePacient", method = RequestMethod.POST, produces = "application/json")
 	public boolean updatePacient(@RequestBody PacientDto pacient) {
 
 		return pacientService.updatePacient(pacient);
 	}
 
-	@RequestMapping(value = "/removePacient", method = RequestMethod.POST, produces = "application/json")
-	public boolean removePacient(@RequestBody int pacientId) {
+	@RequestMapping(value = "/updatePacientWithDetails", method = RequestMethod.POST, produces = "application/json")
+	public boolean updatePacientWithDetails(@RequestBody PacientComplexDto pacient, boolean withDetail, boolean withDoctor, boolean withConsultations) {
 
-		return pacientService.removePacient(pacientId);
+		return pacientService.updatePacientWithDetails(pacient, withDetail, withDoctor, withConsultations);
+	}
+
+	@RequestMapping(value = "/removePacient", produces = "application/json")
+	public boolean removePacient(int pacientId, boolean atomicDeletion) {
+
+		return pacientService.removePacient(pacientId,atomicDeletion);
 	}
 
 	@RequestMapping(value = "/insertPacientDetails", method = RequestMethod.POST, produces = "application/json")
@@ -67,6 +80,5 @@ public class PacientController {
 
 		return success;
 	}
-
 
 }

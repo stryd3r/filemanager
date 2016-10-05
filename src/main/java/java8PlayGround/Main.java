@@ -8,6 +8,7 @@ import java8PlayGround.predicates.Predicate;
 public class Main {
 
 	public static void main(String[] args) {
+
 		List<Apple> appleList = new ArrayList<>();
 		Apple a1 = new Apple("red", 100);
 		Apple a2 = new Apple("red", 150);

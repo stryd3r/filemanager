@@ -3,3 +3,5 @@
 /.gitignore
 /.settings/
 /.tern-project
+/.apt_generated/
+/.factorypath

@@ -1,77 +1,33 @@
 	<!-------------- PACIENT services --------------->
-	@RequestMapping(value = "/getPacients")
-	List<Pacient> getPacients(boolean withDoctor, boolean withConsultation, boolean withQuestionnaireAnswers)
 
-	@RequestMapping(value = "/getPacientById")
-	Pacient getPacientById(int pacientId, boolean withDoctor, boolean withConsultations, boolean withQuestionnaireAnswers)
+	@RequestMapping(value = "/getPacients", produces = "application/json")
+	public List<PacientComplexDto> getPacients(boolean withDetail, boolean withDoctor, boolean withConsultations) 
 
-	@RequestMapping(value = "/insertPacient")
-	Pacient insertPacienti(@RequestBody Pacient pacient)
+	@RequestMapping(value = "/getPacientById", produces = "application/json")
+	public PacientComplexDto getPacientById(int pacientId, boolean withDetail, boolean withDoctor, boolean withConsultations) 
 
-	@RequestMapping(value = "/updatePacient")
-	boolean updatePacient(@RequestBody Pacient pacient) 
+	@RequestMapping(value = "/insertPacient", method = RequestMethod.POST, produces = "application/json")
+	public int insertPacient(@RequestBody PacientDto pacient) throws Exception 
 
-	@RequestMapping(value = "/removePacient")
-	boolean removePacient(@RequestBody Pacient pacient) 
+	@RequestMapping(value = "/insertPacientWithDetails", method = RequestMethod.POST, produces = "application/json")
+	public int insertPacientWithDetails(@RequestBody PacientComplexDto pacient, boolean withDetail, boolean withDoctor, boolean withConsultations) throws Exception 
 
-	@RequestMapping(value = "/insertPacientDetails")
-	Pacient insertPacientDetails(@RequestBody Pacient pacient) 
+	@RequestMapping(value = "/updatePacient", method = RequestMethod.POST, produces = "application/json")
+	public boolean updatePacient(@RequestBody PacientDto pacient) 
 
-	@RequestMapping(value = "/updatePacientDetails")
-	boolean updatePacientDetails(@RequestBody Pacient pacient) 
+	@RequestMapping(value = "/updatePacientWithDetails", method = RequestMethod.POST, produces = "application/json")
+	public boolean updatePacientWithDetails(@RequestBody PacientComplexDto pacient, boolean withDetail, boolean withDoctor, boolean withConsultations) 
 
-	@RequestMapping(value = "/removePacientDetails")
-	boolean removePacientDetails(@RequestBody Pacient pacient) 
+	@RequestMapping(value = "/removePacient", produces = "application/json")
+	public boolean removePacient(int pacientId, boolean atomicDeletion) 
+
+	@RequestMapping(value = "/insertPacientDetails", method = RequestMethod.POST, produces = "application/json")
+	public boolean insertPacientDetails(@RequestBody PacientDetailsDto pacientDetails)
+
+	@RequestMapping(value = "/updatePacientDetails", method = RequestMethod.POST, produces = "application/json")
+	public boolean updatePacientDetails(@RequestBody PacientDetailsDto pacientDetails) 
+
+	@RequestMapping(value = "/removePacientDetails", produces = "application/json")
+	public boolean removePacientDetails(int pacientId) 
 	
-	
-	<!-------------- DOCTOR services --------------->
-	@RequestMapping(value = "/insertDoctor")
-	public Doctor insertDoctor(@RequestBody Doctor doctor) throws InvalidInputException 
-
-	@RequestMapping(value = "/updateDoctor")
-	public void updateDoctor(@RequestBody Doctor doctor) throws InvalidInputException 
-	
-	@RequestMapping(value = "/getDoctors")
-	public List<Doctor> getDoctors(boolean withCalendar, boolean withConsultations, boolean withPacients) throws InvalidInputException
-	
-	@RequestMapping(value = "/remoteDoctor")
-	public boolean getDoctors(Doctor doctor) throws InvalidInputException
-	
-	<!-------------- CALENDAR services -------------->
-	@RequestMapping(value = "/insertCalendarForDoctor", produces = "application/json")
-	public Calendar insertCalendarForDoctor(int doctorId) 
-
-	@RequestMapping(value = "/deleteCalendar", produces = "application/json")
-	public boolean deleteCalendar(Calendar calendar) 
-
-	@RequestMapping(value = "/addEvent", produces = "application/json")
-	public Event addEvent(Event event) 
-
-	@RequestMapping(value = "/updateEvent", produces = "application/json")
-	public boolean updateEvent(Event event) 
-
-	@RequestMapping(value = "/getEvents", produces = "application/json")
-	public List<Event> getEvents(int calendarId) 
-
-	@RequestMapping(value = "/getEventById", produces = "application/json")
-	public Event getEventById(int eventId) 
-
-	@RequestMapping(value = "/removeEvent", produces = "application/json")
-	public boolean removeEvent(Event event) 
-	
-	<!--------------------CONSULTATION services ------------------>
-	@RequestMapping(value = "/insertConsultation", produces = "application/json")
-	public Consultation insertConsultation(Consultation consultation) 
-
-	@RequestMapping(value = "/updateConsultation", produces = "application/json")
-	public boolean updateConsultation(Consultation consultation) 
-
-	@RequestMapping(value = "/removeConsultation", produces = "application/json")
-	public boolean removeConsultation(Consultation consultation) 
-
-	@RequestMapping(value = "/getConsultations", produces = "application/json")
-	public List<Consultation> getConsultations(boolean withPacient, boolean withDoctor) 
-
-	@RequestMapping(value = "/getConsultationById", produces = "application/json")
-	public Consultation getConsultationById(int consultationId, boolean withPacient, boolean withDoctor) 
 	

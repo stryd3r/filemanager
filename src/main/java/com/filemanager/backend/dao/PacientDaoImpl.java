@@ -10,14 +10,14 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import com.filemanager.backend.dao.interfaces.PacientsDao;
-import com.filemanager.utils.transporters.dto.PacientDetailsDto;
-import com.filemanager.utils.transporters.dto.PacientDto;
+import com.filemanager.backend.dao.interfaces.PacientDao;
+import com.filemanager.utils.transporters.dto.simple.PacientDetailsDto;
+import com.filemanager.utils.transporters.dto.simple.PacientDto;
 import com.filemanager.utils.transporters.mappers.PacientDetailsMapper;
 import com.filemanager.utils.transporters.mappers.PacientMapper;
 
 @Repository
-public class PacientsDaoImpl implements PacientsDao {
+public class PacientDaoImpl implements PacientDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -53,7 +53,6 @@ public class PacientsDaoImpl implements PacientsDao {
 	public List<PacientDto> getPacients() {
 
 		String sql = "SELECT * FROM " + PACIENT_TABLE_NAME;
-		System.out.println(sql);
 
 		List<PacientDto> pacientsList = jdbcTemplate.query(sql, new PacientMapper());
 
@@ -64,20 +63,17 @@ public class PacientsDaoImpl implements PacientsDao {
 	@Override
 	public PacientDto getPacientById(int pacientId) {
 
-		String sql = "SELECT * FROM " + PACIENT_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
-		System.out.println(sql);
+			String sql = "SELECT * FROM " + PACIENT_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
+			Object[] args = new Object[] { pacientId };
+			PacientDto pacient = jdbcTemplate.queryForObject(sql, args, new PacientMapper());
 
-		Object[] args = new Object[] { pacientId };
-		PacientDto pacient = jdbcTemplate.queryForObject(sql, args, new PacientMapper());
-
-		return pacient;
+			return pacient;
 
 	}
 
 	@Override
 	public boolean removePacient(int pacientId) {
 		String sql = "DELETE FROM " + PACIENT_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
-		System.out.println(sql);
 
 		Object[] args = new Object[] { pacientId };
 		int success = jdbcTemplate.update(sql, args);
@@ -89,11 +85,9 @@ public class PacientsDaoImpl implements PacientsDao {
 	@Override
 	public boolean updatePacient(PacientDto pacient) {
 
-		String sql = "UPDATE " + PACIENT_TABLE_NAME + " SET " + PACIENT_ID + "=?," + NAME + "=?, " + SURNAME + "=?, " + DOCTOR_ID + "=? WHERE " + PACIENT_ID + "=?";
+		String sql = "UPDATE " + PACIENT_TABLE_NAME + " SET " + NAME + "=?, " + SURNAME + "=?, " + DOCTOR_ID + "=? WHERE " + PACIENT_ID + "=?";
 
-		System.out.println(sql);
-
-		Object[] args = new Object[] { pacient.getPacientId(), pacient.getName(), pacient.getSurname(), pacient.getDoctorId(), pacient.getPacientId() };
+		Object[] args = new Object[] { pacient.getName(), pacient.getSurname(), pacient.getDoctorId(), pacient.getPacientId() };
 		int success = jdbcTemplate.update(sql, args);
 
 		boolean result = (success == 1) ? true : false;
@@ -119,12 +113,9 @@ public class PacientsDaoImpl implements PacientsDao {
 
 	@Override
 	public boolean updatePacientDetails(PacientDetailsDto pacientDetail) {
-		String sql = "UPDATE " + PACIENT_DETAIL_TABLE_NAME + " SET " + PACIENT_ID + "=?," + ADDRESS + "=?, " + ZIPCODE + "=?, " + PHONE + "=?, " + AGE + "=?, " + SEX + "=? WHERE " + PACIENT_ID + "=?";
+		String sql = "UPDATE " + PACIENT_DETAIL_TABLE_NAME + " SET " + ADDRESS + "=?, " + ZIPCODE + "=?, " + PHONE + "=?, " + AGE + "=?, " + SEX + "=? WHERE " + PACIENT_ID + "=?";
 
-		System.out.println(sql);
-
-		Object[] args = new Object[] { pacientDetail.getPacientId(), pacientDetail.getAddress(), pacientDetail.getZipCode(), pacientDetail.getPhone(), pacientDetail.getAge(), pacientDetail.getSex(),
-				pacientDetail.getPacientId() };
+		Object[] args = new Object[] { pacientDetail.getAddress(), pacientDetail.getZipCode(), pacientDetail.getPhone(), pacientDetail.getAge(), pacientDetail.getSex(), pacientDetail.getPacientId() };
 		int success = jdbcTemplate.update(sql, args);
 
 		boolean result = (success == 1) ? true : false;
@@ -144,13 +135,11 @@ public class PacientsDaoImpl implements PacientsDao {
 
 	@Override
 	public PacientDetailsDto getPacientDetails(int pacientId) {
-		String sql = "SELECT * FROM " + PACIENT_DETAIL_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
-		System.out.println(sql);
+			String sql = "SELECT * FROM " + PACIENT_DETAIL_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
+			Object[] args = new Object[] { pacientId };
+			PacientDetailsDto pacient = jdbcTemplate.queryForObject(sql, args, new PacientDetailsMapper());
 
-		Object[] args = new Object[] { pacientId };
-		PacientDetailsDto pacient = jdbcTemplate.queryForObject(sql, args, new PacientDetailsMapper());
-
-		return pacient;
+			return pacient;
 	}
 
 }

@@ -1,6 +1,4 @@
-package com.filemanager.utils.transporters.dto;
-
-import java.io.Serializable;
+package com.filemanager.utils.transporters.dto.simple;
 
 public class PacientDetailsDto {
 

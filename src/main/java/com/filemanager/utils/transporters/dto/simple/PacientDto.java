@@ -1,4 +1,4 @@
-package com.filemanager.utils.transporters.dto;
+package com.filemanager.utils.transporters.dto.simple;
 
 public class PacientDto {
 

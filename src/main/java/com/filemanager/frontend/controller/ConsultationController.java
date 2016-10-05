@@ -1,17 +1,10 @@
 package com.filemanager.frontend.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.filemanager.backend.service.interfaces.ConsultationService;
-import com.filemanager.utils.transporters.entities.Consultation;
 
 @RestController
 public class ConsultationController {
-
+/*
 	@Autowired
 	private ConsultationService service;
 
@@ -40,5 +33,5 @@ public class ConsultationController {
 	@RequestMapping(value = "/getConsultationById", produces = "application/json")
 	public Consultation getConsultationById(int consultationId, boolean withPacient, boolean withDoctor) {
 		return service.getConsultationById(consultationId, withPacient, withDoctor);
-	}
+	}*/
 }

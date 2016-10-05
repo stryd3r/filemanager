@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.filemanager.utils.transporters.dto.PacientDetailsDto;
+import com.filemanager.utils.transporters.dto.simple.PacientDetailsDto;
 
 public class PacientDetailsMapper implements RowMapper<PacientDetailsDto> {
 
