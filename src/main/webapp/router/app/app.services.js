@@ -14,12 +14,17 @@ angular.module('mainApp').service(
 					return $http.get(appConst.ENDPOINT.PACIENTS.GET_PACIENTS);
 				}
 
-				this.saveAllPacientInDb = function(param) {
-					// var params = [{pName:'pacient',pValue:param}];
-					// var url = urlCreator(appConst.ENDPOINT.PACIENTS.SAVE_PACIENT_IN_DB,
-					// params);
-					return $http.post(appConst.ENDPOINT.PACIENTS.SAVE_PACIENT_IN_DB,
-							param);
+				this.saveAllPacientInDb = function(param, withConsultations, withDetail) {
+					var params = [ {
+						pName : 'withConsultations',
+						pValue : withConsultations
+					}, {
+						pName : 'withDetail',
+						pValue : withDetail
+					} ];
+					var url = urlCreator(appConst.ENDPOINT.PACIENTS.SAVE_PACIENT_IN_DB,
+							params);
+					return $http.post(url, param);
 				}
 
 				var urlCreator = function(endpoint, params) {
@@ -34,7 +39,16 @@ angular.module('mainApp').service(
 				this.getPacientById = function(id) {
 					var params = [ {
 						pName : 'pacientId',
-						pValue : id
+						pValue : id,
+					}, {
+						pName : 'withDetail',
+						pValue : true
+					}, {
+						pName : 'withDoctor',
+						pValue : false
+					}, {
+						pName : 'withConsultations',
+						pValue : true
 					} ];
 					var url = urlCreator(appConst.ENDPOINT.PACIENTS.GET_PACIENTS_BY_ID,
 							params);

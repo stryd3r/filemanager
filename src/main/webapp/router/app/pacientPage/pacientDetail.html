@@ -117,25 +117,27 @@
 				<th>Diagnostic</th>
 				<th>Observatii</th>
 				<th>Pret</th>
+				<th>Date</th>
 				<th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="cons in pacient.original.consultations">
+			<tr ng-repeat="cons in pacient.edit.consultations">
 				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.diagnostic}}</td>
 				<td style="text-align: left;" ng-if="cons.editMode"><input
 					class="form-control" type="text" ng-model="cons.edit.diagnostic"></td>
-				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.observations}}</td>
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.observation}}</td>
 				<td style="text-align: left;" ng-if="cons.editMode"><input
-					class="form-control" type="text" ng-model="cons.edit.observations"></td>
+					class="form-control" type="text" ng-model="cons.edit.observation"></td>
 				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.price}}</td>
 				<td style="text-align: left;" ng-if="cons.editMode"><input
 					class="form-control" type="text" ng-model="cons.edit.price"></td>
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.consultationTime | date:'medium'}}</td>
 				<td style="text-align: left;"><button ng-if="!cons.editMode"
 						ng-click="cons.editMode = true">
 						<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
 					</button>
-					<button ng-if="cons.editMode" ng-click="saveConsult(cons)">
+					<button ng-if="cons.editMode" ng-click="saveConsult($index)">
 						<i class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></i>
 					</button>
 					<button ng-if="!cons.editMode" ng-click="deleteConsult(cons)">
