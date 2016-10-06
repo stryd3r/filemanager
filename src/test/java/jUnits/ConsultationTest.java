@@ -1,6 +1,7 @@
 package jUnits;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import com.filemanager.backend.dao.interfaces.ConsultationDao;
+import com.filemanager.backend.service.interfaces.ConsultationService;
 import com.filemanager.config.AppConfig;
 import com.filemanager.config.AppInitializer;
 import com.filemanager.config.DataSourceConfig;
@@ -23,6 +25,10 @@ public class ConsultationTest {
 
 	@Autowired
 	private ConsultationDao dao;
+
+	@Autowired
+	private ConsultationService service;
+
 	private static final int validConsultationId = 3;
 	private static final int validDoctorId = 1;
 	private static final int validPacientId = 1;
@@ -74,13 +80,28 @@ public class ConsultationTest {
 		System.out.println(consultations.size());
 		assert (consultations.size() > 0);
 	}
-	
+
 	@Test
 	public void getConsultationsForPacient() {
 
 		List<ConsultationDto> consultations = dao.getConsultationsForPacient(2);
 		System.out.println(consultations.size());
 		assert (consultations.size() > 0);
+	}
+
+	@Test
+	public void deleteConsultation() {
+		boolean result = service.removeConsultation(3);
+		assert (result);
+	}
+	
+	@Test
+	public void deleteConsultations() {
+		List<Integer> consultation= new ArrayList<>();
+		consultation.add(4);
+		consultation.add(5);
+		boolean result = service.removeConsultations(consultation);
+		assert (result);
 	}
 
 }
