@@ -944,11 +944,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    $scope.$on('calendar.refreshView', function() {
 	      vm.weekDays = calendarHelper.getWeekDayNames();
-	      if(moment.locale() == 'ro'){
-	      	vm.weekDays[1] = 'Marti';
-					vm.weekDays[5] = 'Sambata';
-					vm.weekDays[6] = 'Duminica';
-	      }
 	      var monthView = calendarHelper.getMonthView(vm.events, vm.viewDate, vm.cellModifier);
 	      vm.view = monthView.days;
 	      vm.monthOffsets = monthView.rowOffsets;
