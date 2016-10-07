@@ -1,10 +1,10 @@
-package com.filemanager.backend.dao.interfaces;
+package com.filemanager.backend.service.interfaces;
 
 import java.util.List;
 
 import com.filemanager.utils.transporters.dto.simple.QuestionnaireDto;
 
-public interface QuestionnaireDao {
+public interface QuestionnaireService {
 
 	boolean insertQuestionnaire(QuestionnaireDto questionnaire);
 
@@ -15,9 +15,9 @@ public interface QuestionnaireDao {
 	boolean removeQuestionFromQuestionnaire(int questionnaireId, int questionId);
 
 	QuestionnaireDto getQuestionFromQuestionnaire(int questionnaireId, int questionId);
-	
+
 	boolean removeQuestionnaire(int questionnaireId);
-	
+
 	List<QuestionnaireDto> getQuestionnaire(int questionnaireId);
 
 }

@@ -65,7 +65,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 		Object[] args = new Object[] { consultationId };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success > 0) ? true : false;
 		return result;
 	}
 
@@ -102,7 +102,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 		Object[] args = new Object[] { pacientId };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success > 0) ? true : false;
 		return result;
 	}
 

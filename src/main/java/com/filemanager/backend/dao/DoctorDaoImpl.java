@@ -50,13 +50,13 @@ public class DoctorDaoImpl implements DoctorDao {
 
 	@Override
 	public DoctorDto getDoctorById(int doctorId) {
-			String sql = "SELECT * FROM " + DOCTOR_TABLE_NAME + " WHERE " + DOCTOR_ID + "=?";
+		String sql = "SELECT * FROM " + DOCTOR_TABLE_NAME + " WHERE " + DOCTOR_ID + "=?";
 
-			Object[] args = new Object[] { doctorId };
+		Object[] args = new Object[] { doctorId };
 
-			DoctorDto doctor = jdbcTemplate.queryForObject(sql, args, new DoctorMapper());
+		DoctorDto doctor = jdbcTemplate.queryForObject(sql, args, new DoctorMapper());
 
-			return doctor;
+		return doctor;
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class DoctorDaoImpl implements DoctorDao {
 		Object[] args = new Object[] { doctorId };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success > 0) ? true : false;
 		return result;
 	}
 

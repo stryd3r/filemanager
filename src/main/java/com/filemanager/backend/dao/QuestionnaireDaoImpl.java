@@ -61,23 +61,43 @@ public class QuestionnaireDaoImpl implements QuestionnaireDao {
 	}
 
 	@Override
-	public boolean removeQuestionnaire(int questionnaireId, int questionId) {
+	public boolean removeQuestionFromQuestionnaire(int questionnaireId, int questionId) {
 		String sql = "DELETE FROM " + QUESTIONNAIRE_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + " =? AND " + QUESTION_ID + " =?";
 
 		Object[] args = new Object[] { questionnaireId, questionId };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success > 0) ? true : false;
 		return result;
 	}
 
 	@Override
-	public QuestionnaireDto getQuestionnaireById(int questionnaireId, int questionId) {
-			String sql = "SELECT * FROM " + QUESTIONNAIRE_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + "=? AND " + QUESTION_ID + "=?";
-			Object[] args = new Object[] { questionnaireId, questionId };
-			QuestionnaireDto questionnaire = jdbcTemplate.queryForObject(sql, args, new QuestionnaireMapper());
+	public QuestionnaireDto getQuestionFromQuestionnaire(int questionnaireId, int questionId) {
+		String sql = "SELECT * FROM " + QUESTIONNAIRE_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + "=? AND " + QUESTION_ID + "=?";
+		Object[] args = new Object[] { questionnaireId, questionId };
+		QuestionnaireDto questionnaire = jdbcTemplate.queryForObject(sql, args, new QuestionnaireMapper());
 
-			return questionnaire;
+		return questionnaire;
+	}
+
+	@Override
+	public boolean removeQuestionnaire(int questionnaireId) {
+		String sql = "DELETE FROM " + QUESTIONNAIRE_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + " =?";
+
+		Object[] args = new Object[] { questionnaireId };
+		int success = jdbcTemplate.update(sql, args);
+
+		boolean result = (success > 0) ? true : false;
+		return result;
+	}
+
+	@Override
+	public List<QuestionnaireDto> getQuestionnaire(int questionnaireId) {
+		String sql = "SELECT * FROM " + QUESTIONNAIRE_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + "=?";
+		Object[] args = new Object[] { questionnaireId };
+		List<QuestionnaireDto> questionnaires = jdbcTemplate.query(sql, args, new QuestionnaireMapper());
+
+		return questionnaires;
 	}
 
 }

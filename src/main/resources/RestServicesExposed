@@ -30,4 +30,99 @@
 	@RequestMapping(value = "/removePacientDetails", produces = "application/json")
 	public boolean removePacientDetails(int pacientId) 
 	
+	<!---------------- CONSULTATION services ----------->
+
+	@RequestMapping(value = "/deleteConsultation", produces = "application/json")
+	public boolean deleteConsultation(int consultationId) 
+
+	@RequestMapping(value = "/deleteConsultations", produces = "application/json")
+	public boolean deleteConsultations(List<Integer> consultationsId) 
+
+	@RequestMapping(value = "/insertConsultation", produces = "application/json")
+	public int insertConsultation(ConsultationDto consultation) 
+
+	@RequestMapping(value = "/updateConsultation", produces = "application/json")
+	public boolean updateConsultation(ConsultationDto consultation) 
+
+	@RequestMapping(value = "/getConsultations", produces = "application/json")
+	public List<ConsultationDto> getConsultations() 
+
+	@RequestMapping(value = "/getConsultationsForPacient", produces = "application/json")
+	public List<ConsultationDto> getConsultationsForPacient(int pacientId) 
+
+	@RequestMapping(value = "/getConsultationById", produces = "application/json")
+	public ConsultationDto getConsultationById(int consultationId) 
 	
+	<!------------ DOCTOR services ------------>
+	
+	@RequestMapping(value = "/insertDoctor", produces = "application/json")
+	public int insertDoctor(DoctorDto doctor) 
+
+	@RequestMapping(value = "/getDoctors", produces = "application/json")
+	public List<DoctorDto> getDoctors() 
+
+	@RequestMapping(value = "/updateDoctor", produces = "application/json")
+	public boolean updateDoctor(DoctorDto doctor) 
+
+	@RequestMapping(value = "/removeDoctor", produces = "application/json")
+	public boolean removeDoctor(int doctorId) 
+
+	@RequestMapping(value = "/getDoctorById", produces = "application/json")
+	public DoctorDto getDoctorById(int doctorId) 
+	
+	
+	<!--------------- EVENT services ------------->
+		@RequestMapping(value = "/insertEvent", produces = "application/json")
+	public int insertEvent(EventDto event) 
+
+	@RequestMapping(value = "/updateEvent", produces = "application/json")
+	public boolean updateEvent(EventDto event) 
+
+	@RequestMapping(value = "/getEvents", produces = "application/json")
+	public List<EventDto> getEvents() {
+
+	@RequestMapping(value = "/getEventById", produces = "application/json")
+	public EventDto getEventById(int eventId) 
+
+	@RequestMapping(value = "/removeEvent", produces = "application/json")
+	public boolean removeEvent(int eventId) 
+	
+	<!-------------- QUESTIONNAIRE services ----------------->
+	@RequestMapping(value = "/insertQuestionnaire", produces = "application/json")
+	public boolean insertQuestionnaire(QuestionnaireDto questionnaire) 
+
+	@RequestMapping(value = "/updateQuestionnaire", produces = "application/json")
+	public boolean updateQuestionnaire(QuestionnaireDto questionnaire, int oldQuestionnaireId, int oldQuestionId) 
+
+	@RequestMapping(value = "/getQuestionnaires", produces = "application/json")
+	public List<QuestionnaireDto> getQuestionnaires() 
+
+	@RequestMapping(value = "/removeQuestionnaire", produces = "application/json")
+	public boolean removeQuestionFromQuestionnaire(int questionnaireId, int questionId) 
+
+	@RequestMapping(value = "/getQuestionnaireById", produces = "application/json")
+	public QuestionnaireDto getQuestionFromQuestionnaire(int questionnaireId, int questionId) 
+
+	@RequestMapping(value = "/removeQuestionnaire", produces = "application/json")
+	public boolean removeQuestionnaire(int questionnaireId) 
+
+	@RequestMapping(value = "/getQuestionnaire", produces = "application/json")
+	public List<QuestionnaireDto> getQuestionnaire(int questionnaireId) 
+	
+	@RequestMapping(value = "/insertQuestionnaireAnswer", produces = "application/json")
+	public boolean insertQuestionnaireAnswer(QuestionnaireAnswerDto questionnaireAnswer) 
+
+	@RequestMapping(value = "/updateQuestionnaireAnswer", produces = "application/json")
+	public boolean updateQuestionnaireAnswer(QuestionnaireAnswerDto questionnaireAnswer, int oldQuestionnaireId, int oldQuestionId, int oldPacientId) 
+
+	@RequestMapping(value = "/getQuestionnaireAnswers", produces = "application/json")
+	public List<QuestionnaireAnswerDto> getQuestionnaireAnswers() 
+
+	@RequestMapping(value = "/removeQuestionnaireAnswer", produces = "application/json")
+	public boolean removeQuestionnaireAnswer(int questionnaireAnswerId, int questionId, int pacientId) 
+
+	@RequestMapping(value = "/getAnswer", produces = "application/json")
+	public QuestionnaireAnswerDto getAnswer(int questionnaireAnswerId, int questionId, int pacientId) 
+
+	@RequestMapping(value = "/getAnswersForQuestionnaire", produces = "application/json")
+	public List<QuestionnaireAnswerDto> getAnswersForQuestionnaire(int questionnaireAnswerId, int pacientId) 

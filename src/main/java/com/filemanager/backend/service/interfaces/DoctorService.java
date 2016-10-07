@@ -1,13 +1,19 @@
 package com.filemanager.backend.service.interfaces;
 
+import java.util.List;
+
+import com.filemanager.utils.transporters.dto.simple.DoctorDto;
+
 public interface DoctorService {
-/*
-	Doctor insertDoctor(Doctor doctor);
 
-	List<Doctor> getDoctors(boolean withCalendar, boolean withConsultations, boolean withPacients);
+	int insertDoctor(DoctorDto doctor);
 
-	boolean updateDoctor(Doctor doctor);
+	List<DoctorDto> getDoctors();
 
-	boolean removeDoctor(Doctor doctor);*/
+	boolean updateDoctor(DoctorDto doctor);
+
+	boolean removeDoctor(int doctorId);
+
+	DoctorDto getDoctorById(int doctorId);
 
 }

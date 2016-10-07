@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.filemanager.backend.dao.interfaces.ConsultationDao;
 import com.filemanager.backend.service.interfaces.ConsultationService;
+import com.filemanager.utils.transporters.dto.simple.ConsultationDto;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -30,17 +31,30 @@ public class ConsultationServiceImpl implements ConsultationService {
 
 		return true;
 	}
-	/*
-	 * 
-	 * @Override public Consultation insertConsultation(Consultation consultation) { return null; }
-	 * 
-	 * @Override public boolean updateConsultation(Consultation consultation) { return false; }
-	 * 
-	 * @Override public boolean removeConsultation(Consultation consultation) { return false; }
-	 * 
-	 * @Override public List<Consultation> getConsultations(boolean withPacient, boolean withDoctor) { return null; }
-	 * 
-	 * @Override public Consultation getConsultationById(int consultationId, boolean withPacient, boolean withDoctor) { return null; }
-	 */
+
+	@Override
+	public int insertConsultation(ConsultationDto consultation) {
+		return dao.insertConsultation(consultation);
+	}
+
+	@Override
+	public boolean updateConsultation(ConsultationDto consultation) {
+		return dao.updateConsultation(consultation);
+	}
+
+	@Override
+	public List<ConsultationDto> getConsultations() {
+		return dao.getConsultations();
+	}
+
+	@Override
+	public List<ConsultationDto> getConsultationsForPacient(int pacientId) {
+		return dao.getConsultationsForPacient(pacientId);
+	}
+
+	@Override
+	public ConsultationDto getConsultationById(int consultationId) {
+		return dao.getConsultationById(consultationId);
+	}
 
 }

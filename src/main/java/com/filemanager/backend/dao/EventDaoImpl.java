@@ -71,11 +71,11 @@ public class EventDaoImpl implements EventDao {
 
 	@Override
 	public EventDto getEventById(int eventId) {
-			String sql = "SELECT * FROM " + EVENT_TABLE_NAME + " WHERE " + EVENT_ID + "=?";
-			Object[] args = new Object[] { eventId };
-			EventDto event = jdbcTemplate.queryForObject(sql, args, new EventMapper());
+		String sql = "SELECT * FROM " + EVENT_TABLE_NAME + " WHERE " + EVENT_ID + "=?";
+		Object[] args = new Object[] { eventId };
+		EventDto event = jdbcTemplate.queryForObject(sql, args, new EventMapper());
 
-			return event;
+		return event;
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public class EventDaoImpl implements EventDao {
 		Object[] args = new Object[] { eventId };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success > 0) ? true : false;
 		return result;
 	}
 

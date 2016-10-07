@@ -63,12 +63,12 @@ public class QuestionnaireAnswerDaoImpl implements QuestionnaireAnswerDao {
 	}
 
 	@Override
-	public QuestionnaireAnswerDto getQuestionnaireAnswerById(int questionnaireId, int questionId, int pacientId) {
-			String sql = "SELECT * FROM " + QUESTIONNAIRE_ANSWER_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + "=? AND " + QUESTION_ID + "=? AND " + PACIENT_ID + "=?";
-			Object[] args = new Object[] { questionnaireId, questionId, pacientId };
-			QuestionnaireAnswerDto questionnaireAnswer = jdbcTemplate.queryForObject(sql, args, new QuestionnaireAnswerMapper());
+	public QuestionnaireAnswerDto getAnswer(int questionnaireId, int questionId, int pacientId) {
+		String sql = "SELECT * FROM " + QUESTIONNAIRE_ANSWER_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + "=? AND " + QUESTION_ID + "=? AND " + PACIENT_ID + "=?";
+		Object[] args = new Object[] { questionnaireId, questionId, pacientId };
+		QuestionnaireAnswerDto questionnaireAnswer = jdbcTemplate.queryForObject(sql, args, new QuestionnaireAnswerMapper());
 
-			return questionnaireAnswer;
+		return questionnaireAnswer;
 	}
 
 	@Override
@@ -78,8 +78,17 @@ public class QuestionnaireAnswerDaoImpl implements QuestionnaireAnswerDao {
 		Object[] args = new Object[] { questionnaireId, questionId, pacientId };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success > 0) ? true : false;
 		return result;
+	}
+
+	@Override
+	public List<QuestionnaireAnswerDto> getAnswersForQuestionnaire(int questionnaireId, int pacientId) {
+		String sql = "SELECT * FROM " + QUESTIONNAIRE_ANSWER_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + "=? AND " + PACIENT_ID + "=?";
+		Object[] args = new Object[] { questionnaireId, pacientId };
+		List<QuestionnaireAnswerDto> answers = jdbcTemplate.query(sql, args, new QuestionnaireAnswerMapper());
+
+		return answers;
 	}
 
 }

@@ -63,11 +63,11 @@ public class PacientDaoImpl implements PacientDao {
 	@Override
 	public PacientDto getPacientById(int pacientId) {
 
-			String sql = "SELECT * FROM " + PACIENT_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
-			Object[] args = new Object[] { pacientId };
-			PacientDto pacient = jdbcTemplate.queryForObject(sql, args, new PacientMapper());
+		String sql = "SELECT * FROM " + PACIENT_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
+		Object[] args = new Object[] { pacientId };
+		PacientDto pacient = jdbcTemplate.queryForObject(sql, args, new PacientMapper());
 
-			return pacient;
+		return pacient;
 
 	}
 
@@ -78,7 +78,7 @@ public class PacientDaoImpl implements PacientDao {
 		Object[] args = new Object[] { pacientId };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success > 0) ? true : false;
 		return result;
 	}
 
@@ -129,17 +129,17 @@ public class PacientDaoImpl implements PacientDao {
 		Object[] args = new Object[] { pacientId };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success > 0) ? true : false;
 		return result;
 	}
 
 	@Override
 	public PacientDetailsDto getPacientDetails(int pacientId) {
-			String sql = "SELECT * FROM " + PACIENT_DETAIL_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
-			Object[] args = new Object[] { pacientId };
-			PacientDetailsDto pacient = jdbcTemplate.queryForObject(sql, args, new PacientDetailsMapper());
+		String sql = "SELECT * FROM " + PACIENT_DETAIL_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
+		Object[] args = new Object[] { pacientId };
+		PacientDetailsDto pacient = jdbcTemplate.queryForObject(sql, args, new PacientDetailsMapper());
 
-			return pacient;
+		return pacient;
 	}
 
 }

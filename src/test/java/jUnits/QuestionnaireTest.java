@@ -31,7 +31,7 @@ public class QuestionnaireTest {
 		questionnaire.setQuestion("ce?");
 		boolean resultInserted = dao.insertQuestionnaire(questionnaire);
 
-		boolean resultDeleted = dao.removeQuestionnaire(3, 3);
+		boolean resultDeleted = dao.removeQuestionFromQuestionnaire(3, 3);
 
 		assert (resultInserted && resultDeleted);
 	}
@@ -50,17 +50,30 @@ public class QuestionnaireTest {
 	@Test
 	public void getQuestionnaireById() {
 
-		QuestionnaireDto questionnaireAnswerDto = dao.getQuestionnaireById(4, 5);
+		QuestionnaireDto questionnaireAnswerDto = dao.getQuestionFromQuestionnaire(4, 5);
 
 		assert (questionnaireAnswerDto != null);
 	}
 
 	@Test
-	public void getQuestionnaire() {
+	public void getQuestionnaires() {
 
 		List<QuestionnaireDto> questionnaireAnswers = dao.getQuestionnaires();
 		System.out.println(questionnaireAnswers.size());
-		assert (questionnaireAnswers.size() > 0);
+		assert (!questionnaireAnswers.isEmpty());
+	}
+
+	@Test
+	public void removeQuestionnaire() {
+		boolean result = dao.removeQuestionnaire(1);
+		assert result;
+	}
+
+	@Test
+	public void getQuestionnaire() {
+		List<QuestionnaireDto> questionsForQuestionnaire = dao.getQuestionnaire(1);
+		System.out.println(questionsForQuestionnaire.size());
+		assert !questionsForQuestionnaire.isEmpty();
 	}
 
 }

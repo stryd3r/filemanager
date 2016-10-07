@@ -53,9 +53,9 @@ public class QuestionnaireAnswerTest {
 	}
 
 	@Test
-	public void getQuestionnaireAnswerById() {
+	public void getAnswer() {
 
-		QuestionnaireAnswerDto questionnaireAnswerDto = dao.getQuestionnaireAnswerById(2, 2, 1);
+		QuestionnaireAnswerDto questionnaireAnswerDto = dao.getAnswer(2, 2, 1);
 
 		assert (questionnaireAnswerDto != null);
 	}
@@ -66,6 +66,13 @@ public class QuestionnaireAnswerTest {
 		List<QuestionnaireAnswerDto> questionnaireAnswers = dao.getQuestionnaireAnswers();
 		System.out.println(questionnaireAnswers.size());
 		assert (questionnaireAnswers.size() > 0);
+	}
+
+	@Test
+	public void getAnswersForQuestionnaire() {
+		List<QuestionnaireAnswerDto> answers = dao.getAnswersForQuestionnaire(1, 1);
+		System.out.println(answers.size());
+		assert !answers.isEmpty();
 	}
 
 }

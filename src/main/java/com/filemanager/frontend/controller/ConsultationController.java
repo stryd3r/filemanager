@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.filemanager.backend.service.interfaces.ConsultationService;
+import com.filemanager.utils.transporters.dto.simple.ConsultationDto;
 
 @RestController
 public class ConsultationController {
@@ -27,20 +28,29 @@ public class ConsultationController {
 
 		return result;
 	}
-	/*
-	 * @RequestMapping(value = "/insertConsultation", produces = "application/json") public Consultation insertConsultation(Consultation consultation) { Consultation result =
-	 * service.insertConsultation(consultation);
-	 * 
-	 * return result; }
-	 * 
-	 * @RequestMapping(value = "/updateConsultation", produces = "application/json") public boolean updateConsultation(Consultation consultation) { return service.updateConsultation(consultation); }
-	 * 
-	 * @RequestMapping(value = "/removeConsultation", produces = "application/json") public boolean removeConsultation(Consultation consultation) { return service.removeConsultation(consultation); }
-	 * 
-	 * @RequestMapping(value = "/getConsultations", produces = "application/json") public List<Consultation> getConsultations(boolean withPacient, boolean withDoctor) { return
-	 * service.getConsultations(withPacient, withDoctor); }
-	 * 
-	 * @RequestMapping(value = "/getConsultationById", produces = "application/json") public Consultation getConsultationById(int consultationId, boolean withPacient, boolean withDoctor) { return
-	 * service.getConsultationById(consultationId, withPacient, withDoctor); }
-	 */
+
+	@RequestMapping(value = "/insertConsultation", produces = "application/json")
+	public int insertConsultation(ConsultationDto consultation) {
+		return service.insertConsultation(consultation);
+	}
+
+	@RequestMapping(value = "/updateConsultation", produces = "application/json")
+	public boolean updateConsultation(ConsultationDto consultation) {
+		return service.updateConsultation(consultation);
+	}
+
+	@RequestMapping(value = "/getConsultations", produces = "application/json")
+	public List<ConsultationDto> getConsultations() {
+		return service.getConsultations();
+	}
+
+	@RequestMapping(value = "/getConsultationsForPacient", produces = "application/json")
+	public List<ConsultationDto> getConsultationsForPacient(int pacientId) {
+		return service.getConsultationsForPacient(pacientId);
+	}
+
+	@RequestMapping(value = "/getConsultationById", produces = "application/json")
+	public ConsultationDto getConsultationById(int consultationId) {
+		return service.getConsultationById(consultationId);
+	}
 }
