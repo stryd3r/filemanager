@@ -1,12 +1,14 @@
 package com.filemanager.utils.transporters.dto.simple;
 
+import java.sql.Timestamp;
+
 public class PacientDetailsDto {
 
 	private int pacientId;
 	private String address;
 	private String zipCode;
 	private String phone;
-	private int age;
+	private Timestamp birthdate;
 	private String sex;
 
 	public String getSex() {
@@ -49,12 +51,12 @@ public class PacientDetailsDto {
 		this.phone = phone;
 	}
 
-	public int getAge() {
-		return age;
+	public Timestamp getBirthdate() {
+		return birthdate;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setBirthdate(Timestamp birthdate) {
+		this.birthdate = birthdate;
 	}
 
 }

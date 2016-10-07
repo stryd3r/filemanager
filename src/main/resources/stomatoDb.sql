@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`pacientDetail` (
   `address` VARCHAR(300) NULL,
   `zipCode` VARCHAR(45) NULL,
   `phone` VARCHAR(45) NULL,
-  `age` INT(3) NULL,
+  `birthdate` TIMESTAMP NULL,
   `sex` VARCHAR(1) NULL,
   INDEX `fk_detalii_pacient_pacienti1_idx` (`pacientId` ASC),
   UNIQUE INDEX `pacientId_UNIQUE` (`pacientId` ASC),

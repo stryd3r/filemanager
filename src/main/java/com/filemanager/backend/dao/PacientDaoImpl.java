@@ -32,7 +32,7 @@ public class PacientDaoImpl implements PacientDao {
 	final private static String ADDRESS = "address";
 	final private static String ZIPCODE = "zipcode";
 	final private static String PHONE = "phone";
-	final private static String AGE = "age";
+	final private static String BIRTHDATE = "birthdate";
 	final private static String SEX = "sex";
 
 	@Override
@@ -103,7 +103,7 @@ public class PacientDaoImpl implements PacientDao {
 		parameters.put(ADDRESS, pacientDetails.getAddress());
 		parameters.put(ZIPCODE, pacientDetails.getZipCode());
 		parameters.put(PHONE, pacientDetails.getPhone());
-		parameters.put(AGE, pacientDetails.getAge());
+		parameters.put(BIRTHDATE, pacientDetails.getBirthdate());
 		parameters.put(SEX, pacientDetails.getSex());
 		// execute insert
 		jdbcInsert.execute(new MapSqlParameterSource(parameters));
@@ -113,9 +113,10 @@ public class PacientDaoImpl implements PacientDao {
 
 	@Override
 	public boolean updatePacientDetails(PacientDetailsDto pacientDetail) {
-		String sql = "UPDATE " + PACIENT_DETAIL_TABLE_NAME + " SET " + ADDRESS + "=?, " + ZIPCODE + "=?, " + PHONE + "=?, " + AGE + "=?, " + SEX + "=? WHERE " + PACIENT_ID + "=?";
+		String sql = "UPDATE " + PACIENT_DETAIL_TABLE_NAME + " SET " + ADDRESS + "=?, " + ZIPCODE + "=?, " + PHONE + "=?, " + BIRTHDATE + "=?, " + SEX + "=? WHERE " + PACIENT_ID + "=?";
 
-		Object[] args = new Object[] { pacientDetail.getAddress(), pacientDetail.getZipCode(), pacientDetail.getPhone(), pacientDetail.getAge(), pacientDetail.getSex(), pacientDetail.getPacientId() };
+		Object[] args = new Object[] { pacientDetail.getAddress(), pacientDetail.getZipCode(), pacientDetail.getPhone(), pacientDetail.getBirthdate(), pacientDetail.getSex(),
+				pacientDetail.getPacientId() };
 		int success = jdbcTemplate.update(sql, args);
 
 		boolean result = (success == 1) ? true : false;

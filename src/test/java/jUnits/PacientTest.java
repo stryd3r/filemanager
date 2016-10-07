@@ -1,5 +1,7 @@
 package jUnits;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -67,15 +69,15 @@ public class PacientTest {
 	}
 
 	@Test
-	public void insertPacientDetails() {
-		PacientDetailsDto pacientDetails = new PacientDetailsDto();
-		pacientDetails.setPacientId(validPacientId);
-		pacientDetails.setAddress("Lalelelor");
-		pacientDetails.setAge(28);
-		pacientDetails.setPhone("075 198 49 42");
-		pacientDetails.setSex("M");
-		pacientDetails.setZipCode("600125");
-		dao.insertPacientDetails(pacientDetails);
+	public void insertRemovePacientDetails() {
+		PacientDetailsDto pacientDetail = new PacientDetailsDto();
+		pacientDetail.setPacientId(validPacientId);
+		pacientDetail.setAddress("Lalelelor");
+		pacientDetail.setBirthdate(new Timestamp(new Date().getTime()));
+		pacientDetail.setPhone("075 198 49 42");
+		pacientDetail.setSex("M");
+		pacientDetail.setZipCode("600125");
+		dao.insertPacientDetails(pacientDetail);
 
 		boolean success = dao.removePacientDetails(validPacientId);
 
@@ -93,7 +95,7 @@ public class PacientTest {
 	public void updatePacientDetails() {
 		PacientDetailsDto pacientDetail = new PacientDetailsDto();
 		pacientDetail.setPacientId(validPacientId);
-		pacientDetail.setAge(30);
+		pacientDetail.setBirthdate(new Timestamp(new Date().getTime()));
 		pacientDetail.setPhone("000");
 		pacientDetail.setAddress("Lalelor");
 		pacientDetail.setZipCode("600125");
