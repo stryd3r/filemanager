@@ -15,6 +15,7 @@ angular
 							$stateParams, pacientDetResp) {
 						// var declarations
 						var originalO = angular.copy(pacientDetResp.data);
+						$scope.originalO = originalO;
 						var pacientObj = {};
 						var originalCopy;
 						init(pacientDetResp.data);
@@ -98,6 +99,7 @@ angular
 									var withDetail = $scope.hasChanged;
 									srv.saveAllPacientInDb(toUpdate, withConsultations, withDetail).then(function(response) {
 										originalO = angular.copy(toUpdate);
+										$scope.originalO = originalO;
 										$scope.resetDefault();
 										$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
 									}, function(err) {

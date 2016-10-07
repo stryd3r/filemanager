@@ -12,25 +12,25 @@
 	<div ng-if="!pacient.editMode">
 		<div class="row">
 			<div class="col-sm-4">
-				<label class="form-control">Nume: {{pacient.original.name}}</label>
+				<label class="form-control" ng-class="{'input-modified': pacient.original.name !== originalO.name}">Nume: {{pacient.original.name}}</label>
 			</div>
 			<div class="col-sm-4">
-				<label class="form-control">Prenume:
+				<label class="form-control" ng-class="{'input-modified': pacient.original.surname !== originalO.surname}">Prenume:
 					{{pacient.original.surname}}</label>
 			</div>
 			<div class="col-sm-4">
-				<label class="form-control">Telefon:
+				<label class="form-control" ng-class="{'input-modified': pacient.original.phone !== originalO.pacientDetailsDto.phone}">Telefon:
 					{{pacient.original.phone}}</label>
 			</div>
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-sm-6">
-				<label class="form-control">Adresa:
+				<label class="form-control" ng-class="{'input-modified': pacient.original.address !== originalO.pacientDetailsDto.address}">Adresa:
 					{{pacient.original.address}}</label>
 			</div>
 			<div class="col-sm-4">
-				<label class="form-control">Zip Code:
+				<label class="form-control" ng-class="{'input-modified': pacient.original.zipCode !== originalO.pacientDetailsDto.zipCode}">Zip Code:
 					{{pacient.original.zipCode}}</label>
 			</div>
 		</div>
@@ -40,10 +40,10 @@
 				<label class="form-control">Cnp: {{pacient.original.cnp}}</label>
 			</div>
 			<div class="col-sm-4">
-				<label class="form-control">Varsta: {{pacient.original.age}}</label>
+				<label class="form-control" ng-class="{'input-modified': pacient.original.age !== originalO.pacientDetailsDto.age}">Varsta: {{pacient.original.age}}</label>
 			</div>
 			<div class="col-sm-4">
-				<label class="form-control">Sex: {{pacient.original.sex}}</label>
+				<label class="form-control" ng-class="{'input-modified': pacient.original.sex !== originalO.pacientDetailsDto.sex}">Sex: {{pacient.original.sex}}</label>
 			</div>
 		</div>
 		<br>
@@ -51,26 +51,26 @@
 	<div ng-if="pacient.editMode">
 		<div class="row">
 			<div class="col-sm-4">
-				<input type="text" ng-model="pacient.edit.name" class="form-control"
+				<input type="text" ng-model="pacient.edit.name" class="form-control" ng-class="{'input-modified': pacient.original.name !== originalO.name}"
 					placeholder="Nume">
 			</div>
 			<div class="col-sm-4">
-				<input type="text" ng-model="pacient.edit.surname"
+				<input type="text" ng-model="pacient.edit.surname" ng-class="{'input-modified': pacient.original.surname !== originalO.surname}"
 					class="form-control" placeholder="Prenume">
 			</div>
 			<div class="col-sm-4">
-				<input type="text" ng-model="pacient.edit.phone"
+				<input type="text" ng-model="pacient.edit.phone" ng-class="{'input-modified': pacient.original.phone !== originalO.pacientDetailsDto.phone}"
 					class="form-control" placeholder="Telefon">
 			</div>
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-sm-6">
-				<textarea ng-model="pacient.edit.address" class="form-control"
+				<textarea ng-model="pacient.edit.address" class="form-control" ng-class="{'input-modified': pacient.original.address !== originalO.pacientDetailsDto.address}"
 					style="max-width: 100%;" placeholder="Adresa"></textarea>
 			</div>
 			<div class="col-sm-4">
-				<input type="text" ng-model="pacient.edit.zipCode"
+				<input type="text" ng-model="pacient.edit.zipCode" ng-class="{'input-modified': pacient.original.zipCode !== originalO.pacientDetailsDto.zipCode}"
 					class="form-control" placeholder="Zip Code">
 			</div>
 		</div>
@@ -81,11 +81,11 @@
 					maxlength="13" placeholder="CNP">
 			</div>
 			<div class="col-sm-4">
-				<input type="number" ng-model="pacient.edit.age"
+				<input type="number" ng-model="pacient.edit.age" ng-class="{'input-modified': pacient.original.age !== originalO.pacientDetailsDto.age}"
 					class="form-control" maxlength="3" placeholder="Varsta">
 			</div>
 			<div class="col-sm-4">
-				<select class="form-control" ng-model="pacient.edit.sex">
+				<select class="form-control" ng-model="pacient.edit.sex" ng-class="{'input-modified': pacient.original.sex !== originalO.pacientDetailsDto.sex}">
 					<option value="M">M</option>
 					<option value="F">F</option>
 				</select>

@@ -13,7 +13,7 @@ angular
 					$scope.calendarView = 'month';
 					$scope.viewDate = new Date();
 					calendarConfig.dateFormatter = 'moment'; // use moment instead of angular for formatting dates
-					calendarConfig.i18nStrings.weekNumber = 'Sapt {week}';
+					calendarConfig.i18nStrings.weekNumber = 'Săpt {week}';
 					moment.locale('ro');
 					var actions = [ {
 						label : '<i class=\'glyphicon glyphicon-pencil\'></i>',
