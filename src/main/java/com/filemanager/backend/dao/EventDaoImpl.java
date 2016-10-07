@@ -57,7 +57,7 @@ public class EventDaoImpl implements EventDao {
 				event.getEventId() };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success >= 1) ? true : false;
 		return result;
 	}
 

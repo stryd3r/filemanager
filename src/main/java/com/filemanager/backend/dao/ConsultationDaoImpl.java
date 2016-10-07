@@ -55,7 +55,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 				consultation.getPrice(), consultation.getConsultationId() };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success >= 1) ? true : false;
 		return result;
 	}
 

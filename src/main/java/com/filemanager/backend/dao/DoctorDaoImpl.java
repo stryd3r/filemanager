@@ -66,7 +66,7 @@ public class DoctorDaoImpl implements DoctorDao {
 		Object[] args = new Object[] { doctor.getName(), doctor.getSurname(), doctor.getColor(), doctor.getDoctorId() };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success >= 1) ? true : false;
 		return result;
 	}
 

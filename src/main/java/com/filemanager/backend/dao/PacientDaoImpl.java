@@ -91,7 +91,7 @@ public class PacientDaoImpl implements PacientDao {
 		Object[] args = new Object[] { pacient.getName(), pacient.getSurname(), pacient.getDoctorId(), pacient.getPacientId() };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success >= 1) ? true : false;
 		return result;
 	}
 
@@ -121,7 +121,7 @@ public class PacientDaoImpl implements PacientDao {
 				pacientDetail.getPacientId() };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success >= 1) ? true : false;
 		return result;
 	}
 

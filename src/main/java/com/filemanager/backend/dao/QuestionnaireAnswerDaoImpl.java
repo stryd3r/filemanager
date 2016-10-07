@@ -49,7 +49,7 @@ public class QuestionnaireAnswerDaoImpl implements QuestionnaireAnswerDao {
 		Object[] args = new Object[] { questionnaireAnswer.getPacientId(), questionnaireAnswer.getQuestionnaireId(), questionnaireAnswer.getQuestionId(), questionnaireAnswer.getAnswer() };
 		int success = jdbcTemplate.update(sql, args);
 
-		boolean result = (success == 1) ? true : false;
+		boolean result = (success >= 1) ? true : false;
 		return result;
 	}
 
