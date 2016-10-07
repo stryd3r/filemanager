@@ -34,6 +34,7 @@ public class PacientDaoImpl implements PacientDao {
 	final private static String PHONE = "phone";
 	final private static String BIRTHDATE = "birthdate";
 	final private static String SEX = "sex";
+	final private static String CNP = "cnp";
 
 	@Override
 	public int insertPacient(PacientDto pacient) {
@@ -105,6 +106,7 @@ public class PacientDaoImpl implements PacientDao {
 		parameters.put(PHONE, pacientDetails.getPhone());
 		parameters.put(BIRTHDATE, pacientDetails.getBirthdate());
 		parameters.put(SEX, pacientDetails.getSex());
+		parameters.put(CNP, pacientDetails.getCnp());
 		// execute insert
 		jdbcInsert.execute(new MapSqlParameterSource(parameters));
 		// convert Number to Int using ((Number) key).intValue()
@@ -113,9 +115,9 @@ public class PacientDaoImpl implements PacientDao {
 
 	@Override
 	public boolean updatePacientDetails(PacientDetailsDto pacientDetail) {
-		String sql = "UPDATE " + PACIENT_DETAIL_TABLE_NAME + " SET " + ADDRESS + "=?, " + ZIPCODE + "=?, " + PHONE + "=?, " + BIRTHDATE + "=?, " + SEX + "=? WHERE " + PACIENT_ID + "=?";
+		String sql = "UPDATE " + PACIENT_DETAIL_TABLE_NAME + " SET " + ADDRESS + "=?, " + ZIPCODE + "=?, " + PHONE + "=?, " + BIRTHDATE + "=?, " + SEX + "=?, " + CNP + "=? WHERE " + PACIENT_ID + "=?";
 
-		Object[] args = new Object[] { pacientDetail.getAddress(), pacientDetail.getZipCode(), pacientDetail.getPhone(), pacientDetail.getBirthdate(), pacientDetail.getSex(),
+		Object[] args = new Object[] { pacientDetail.getAddress(), pacientDetail.getZipCode(), pacientDetail.getPhone(), pacientDetail.getBirthdate(), pacientDetail.getSex(), pacientDetail.getCnp(),
 				pacientDetail.getPacientId() };
 		int success = jdbcTemplate.update(sql, args);
 

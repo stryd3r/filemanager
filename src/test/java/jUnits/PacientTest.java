@@ -77,6 +77,7 @@ public class PacientTest {
 		pacientDetail.setPhone("075 198 49 42");
 		pacientDetail.setSex("M");
 		pacientDetail.setZipCode("600125");
+		pacientDetail.setCnp("1881213046690");
 		dao.insertPacientDetails(pacientDetail);
 
 		boolean success = dao.removePacientDetails(validPacientId);
@@ -100,6 +101,7 @@ public class PacientTest {
 		pacientDetail.setAddress("Lalelor");
 		pacientDetail.setZipCode("600125");
 		pacientDetail.setSex("m");
+		pacientDetail.setCnp("1881213046699");
 		boolean success = dao.updatePacientDetails(pacientDetail);
 		assert (success);
 	}

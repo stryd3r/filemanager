@@ -1,6 +1,5 @@
 TODO LIST
-4. Inloc de varsta la pacient sa fie data nasterii, ori calculam noi varsta automat.
-5. Adaugat si CNP la pacient.
+
 
 
 SOLVED:
@@ -9,6 +8,7 @@ SOLVED:
      consultatiile unui pacient din pagina fiecaruia. Can we do that ?
 3. De adaugat timestamp la consultatii. 
 4. Inloc de varsta la pacient sa fie data nasterii, ori calculam noi varsta automat.
+5. Adaugat si CNP la pacient.
 
 
 

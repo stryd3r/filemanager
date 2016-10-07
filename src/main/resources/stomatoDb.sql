@@ -107,6 +107,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`pacientDetail` (
   `phone` VARCHAR(45) NULL,
   `birthdate` TIMESTAMP NULL,
   `sex` VARCHAR(1) NULL,
+  `cnp` VARCHAR(13) NULL,
   INDEX `fk_detalii_pacient_pacienti1_idx` (`pacientId` ASC),
   UNIQUE INDEX `pacientId_UNIQUE` (`pacientId` ASC),
   CONSTRAINT `fk_detalii_pacient_pacienti1`

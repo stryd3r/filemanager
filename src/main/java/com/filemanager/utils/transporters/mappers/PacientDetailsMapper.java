@@ -17,6 +17,7 @@ public class PacientDetailsMapper implements RowMapper<PacientDetailsDto> {
 		pacientDetails.setPhone(rs.getString("phone"));
 		pacientDetails.setSex(rs.getString("sex"));
 		pacientDetails.setZipCode(rs.getString("zipcode"));
+		pacientDetails.setCnp(rs.getString("cnp"));
 		return pacientDetails;
 	}
 }

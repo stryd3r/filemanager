@@ -10,6 +10,15 @@ public class PacientDetailsDto {
 	private String phone;
 	private Timestamp birthdate;
 	private String sex;
+	private String cnp;
+
+	public String getCnp() {
+		return cnp;
+	}
+
+	public void setCnp(String cnp) {
+		this.cnp = cnp;
+	}
 
 	public String getSex() {
 		return sex;
