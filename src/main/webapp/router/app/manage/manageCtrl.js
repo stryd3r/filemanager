@@ -4,46 +4,62 @@ angular
 				'manageCtrl',
 				[
 					'$scope',
+					'$rootScope',
 					'APPCONST',
 					'mainService',
 					'modalService',
 					'$state',
 					'$filter',
-					function($scope, APPCONST, srv, modalSrv, $state, $filter) {
-						var filteredList = null
-						var initPagination = function() {
+					function($scope, $rootScope, APPCONST, srv, modalSrv, $state, $filter) {
+						var filteredList = null;
+						init();
+						function init() {
+							initPagination();
+							// init list of pacients
+							srv.getPacients().then(function(res) {
+								angular.forEach(res.data, function(elem) {
+									elem.editMode = false;
+									elem.original = {};
+									elem.original.name = elem.name;
+									elem.original.surname = elem.surname;
+									delete elem.name;
+									delete elem.surname;
+									delete elem.doctorId;
+									delete elem.consultations;
+									delete elem.pacientDetailsDto;
+									delete doctorId;
+								});
+								$scope.pacientsList = res.data;
+								$scope.paginatedPacientsList = res.data;
+								$scope.totalItems = res.data.length;
+								performPagination($scope.paginatedPacientsList);
+							});
+						}
+						
+						function initPagination() {
 							$scope.currentPage = 1;
 							$scope.itemsPerPage = 10;
 							$scope.maxNumPage = 1;
 							$scope.maxSize = 10;
 						};
-						initPagination();
-						// init list of pacients
-						srv.getPacients().then(function(res) {
-							angular.forEach(res.data, function(elem) {
-								elem.editMode = false;
-								elem.original = {};
-								elem.original.firstName = elem.name;
-								elem.original.lastName = elem.surname;
-								//elem.original.seria = elem.seria;
-								delete elem.name;
-								delete elem.surname;
-								//delete elem.seria;
-							});
-							$scope.pacientsList = res.data;
-							$scope.paginatedPacientsList = res.data;
-							$scope.totalItems = res.data.length;
-							performPagination($scope.paginatedPacientsList);
-						});
+
 						$scope.saveEdit = function(pacient) {
-							// TODO create saving pacient object
+							var pacientToUp = angular.copy(pacient.edit);
+							pacientToUp.doctorId = pacient.doctor.doctorId;
+							pacientToUp.pacientId = pacient.pacientId;
 							var index = $scope.paginatedPacientsList.indexOf(pacient);
-							$scope.paginatedPacientsList[index].original = angular
-									.copy(pacient.editPacient);
-							// $scope.pacientsList =
-							// $filter('filter')($scope.pacientsList,$scope.searchPacient);
-							pacient.editMode = false;
-							// $scope.pageChanged();
+							modalSrv.openModal("confirmation").then(function(resp) {
+								if ("OK" === resp.resultContext) {
+									srv.updatePacient(pacientToUp).then(function(resp) {
+										$scope.paginatedPacientsList[index].original = pacientToUp;
+										pacient.editMode = false;
+										$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
+									}, function(err) {
+										$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+									});
+								}
+							});
+							$scope.pageChanged();
 						}
 
 						$scope.deletePacient = function(pacient) {
@@ -61,7 +77,7 @@ angular
 											editMode : false,
 											original : res.resultContext
 										};
-										if (res.resultContext.operationPerformed != 'ABORTED') {
+										if (res.operationPerformed == 'SUCCESS') {
 											$scope.pacientsList.push(newPacient);
 											$scope.pageChanged();
 										}
@@ -70,8 +86,8 @@ angular
 						$scope.goToPacientPage = function(pacient) {
 							$state.go('pacient',
 									{
-										'name' : pacient.original.firstName
-												+ '_' + pacient.original.lastName,
+										'name' : pacient.original.name + '_'
+												+ pacient.original.surname,
 										idPacient : pacient.pacientId
 									});
 						}
@@ -85,8 +101,7 @@ angular
 						$scope.pageChanged = function() {
 							filteredList = $filter('filter')($scope.pacientsList,
 									$scope.searchPacient);
-							filteredList = $filter('orderBy')(filteredList,
-									'original.firstName');
+							filteredList = $filter('orderBy')(filteredList, 'original.name');
 							performPagination(filteredList);
 							$scope.totalItems = filteredList.length;
 						}

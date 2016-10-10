@@ -11,11 +11,16 @@ angular.module('mainApp').service(
 				 */
 
 				this.getPacients = function() {
-					return $http.get(appConst.ENDPOINT.PACIENTS.GET_PACIENTS);
+					var url = urlCreator(appConst.ENDPOINT.PACIENTS.GET_PACIENTS, [{pName:'withDoctor',pValue:true}])
+					return $http.get(url);
 				}
 				
 				this.getDoctors = function(){
 					return $http.get(appConst.ENDPOINT.PACIENTS.GET_DOCTORS);
+				}
+				
+				this.updatePacient = function(param){
+					return $http.post(appConst.ENDPOINT.PACIENTS.UPDATE_PACIENT, param);
 				}
 
 				this.saveAllPacientInDb = function(param, withConsultations, withDetail) {
@@ -58,7 +63,7 @@ angular.module('mainApp').service(
 					return $http.post(appConst.ENDPOINT.PACIENTS.INSERT_CONSULTATION, param);
 				}
 				
-				//utility to create query url
+				// utility to create query url
 				var urlCreator = function(endpoint, params) {
 					var urlRet = endpoint;
 					for (var i = 0; i < params.length; i++) {
@@ -95,7 +100,8 @@ angular.module('mainApp').service(
 					});
 
 					modalInstance.result.then(function(result) {
-						//result.operationPerformed = APPCONST.MODALS.RETURN_VALUES.SUCCESS;
+						// result.operationPerformed =
+						// APPCONST.MODALS.RETURN_VALUES.SUCCESS;
 						deferred.resolve({
 							callContext : currentModalContext,
 							operationPerformed : APPCONST.MODALS.RETURN_VALUES.SUCCESS,

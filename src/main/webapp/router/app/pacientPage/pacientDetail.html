@@ -82,7 +82,7 @@
 			</div>
 			<div class="col-sm-4">
 				<p class="input-group">
-	          		<input type="text" popup-placement="bottom" readonly class="form-control" ng-class="{'input-modified': pacient.original.birthdate !== originalO.pacientDetailsDto.birthdate}" uib-datepicker-popup="{{format}}" ng-model="pacient.edit.birthdate" is-open="birthDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+	          		<input type="text" popup-placement="bottom" readonly class="form-control" ng-class="{'input-modified': pacient.original.birthdate !== originalO.pacientDetailsDto.birthdate}" uib-datepicker-popup="{{'dd-MM-yyyy'}}" ng-model="pacient.edit.birthdate" is-open="birthDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
 	          			<span class="input-group-btn">
 	            		<button type="button" class="btn btn-default" ng-click="birthDateOpened = true;"><i class="glyphicon glyphicon-calendar"></i></button>
 	         		 </span>
@@ -113,7 +113,7 @@
 <div uib-accordion-group class="panel-default" is-open="status.openDet">
 <label><p ng-if="changesInConsultations"
 		style="color: red; font-size: 150%;"><i class="glyphicon glyphicon-warning-sign"></i></p></label>
-	<button style="float: left;" ng-click="addConsult();"><i class="glyphicon glyphicon-plus"></i> Adauga consultatie</button>
+	<button style="float: left;" ng-click="addConsult();" class="form-control"><i class="glyphicon glyphicon-plus"></i> Adauga consultatie</button>
 	<uib-accordion-heading>Consultatii <span
 		class="badge">{{pacient.original.consultations.length}}</span> </a> <i
 		class="pull-right glyphicon"

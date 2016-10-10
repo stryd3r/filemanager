@@ -135,9 +135,9 @@ angular
 									}, function(err) {
 										// $scope.resetDefault();
 										$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
-																		$rootScope.alertMsg = "problema in consultatii";
-																		$q.reject();
-																	});
+										$rootScope.alertMsg = "problema in consultatii";
+										$q.reject();
+										});
 												});
 							} else {
 								q.resolve();

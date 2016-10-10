@@ -4,6 +4,7 @@ angular.module('mainApp').controller(
 				function($scope, APPCONST, srv, $uibModalInstance, item) {
 					console.log(item);
 					$scope.pacient = item.original;
+					$scope.pacient.doctorId = item.doctorId;
 					$scope.cancel = function() {
 						$uibModalInstance.dismiss('cancel');
 					};
