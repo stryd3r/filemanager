@@ -9,16 +9,16 @@ import com.filemanager.utils.transporters.dto.simple.PacientDto;
 
 public class DoctorComplexDto extends DoctorDto {
 
-	private PacientDto pacient;
+	private List<PacientDto> pacients;
 	private List<ConsultationDto> consultations;
 	private List<EventDto> events;
 
-	public PacientDto getPacient() {
-		return pacient;
+	public List<PacientDto> getPacients() {
+		return pacients;
 	}
 
-	public void setPacient(PacientDto pacient) {
-		this.pacient = pacient;
+	public void setPacients(List<PacientDto> pacients) {
+		this.pacients = pacients;
 	}
 
 	public List<ConsultationDto> getConsultations() {

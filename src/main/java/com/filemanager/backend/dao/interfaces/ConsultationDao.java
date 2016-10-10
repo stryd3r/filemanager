@@ -11,13 +11,17 @@ public interface ConsultationDao {
 	boolean updateConsultation(ConsultationDto consultation);
 
 	List<ConsultationDto> getConsultations();
-	
+
 	List<ConsultationDto> getConsultationsForPacient(int pacientId);
+
+	List<ConsultationDto> getConsultationsForDoctor(int doctorId);
+
+	List<ConsultationDto> getPacientConsultationsForDoctor(int pacientId, int doctorId);
 
 	public ConsultationDto getConsultationById(int consultationId);
 
 	boolean removeConsultation(int consultationId);
-	
+
 	boolean removeConsultationForPacient(int pacientId);
 
 }

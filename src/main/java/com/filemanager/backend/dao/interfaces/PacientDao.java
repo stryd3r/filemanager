@@ -8,6 +8,8 @@ import com.filemanager.utils.transporters.dto.simple.PacientDto;
 public interface PacientDao {
 
 	public List<PacientDto> getPacients();
+	
+	public List<PacientDto> getPacientsForDoctor(int doctorId);
 
 	public PacientDto getPacientById(int id);
 

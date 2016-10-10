@@ -35,7 +35,7 @@ public class QuestionnaireController {
 		return service.getQuestionnaires();
 	}
 
-	@RequestMapping(value = "/removeQuestionnaire", produces = "application/json")
+	@RequestMapping(value = "/removeQuestionFromQuestionnaire", produces = "application/json")
 	public boolean removeQuestionFromQuestionnaire(int questionnaireId, int questionId) {
 		return service.removeQuestionFromQuestionnaire(questionnaireId, questionId);
 	}

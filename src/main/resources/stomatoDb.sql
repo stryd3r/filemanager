@@ -79,7 +79,6 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `stomato`.`event` (
   `eventId` INT(11) NOT NULL AUTO_INCREMENT,
-  `calendarId` INT(11) NOT NULL,
   `doctorId` INT(11) NOT NULL,
   `observation` VARCHAR(300) NULL DEFAULT NULL,
   `startDate` TIMESTAMP NULL DEFAULT NULL,

@@ -6,40 +6,93 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.filemanager.backend.dao.interfaces.ConsultationDao;
 import com.filemanager.backend.dao.interfaces.DoctorDao;
+import com.filemanager.backend.dao.interfaces.EventDao;
+import com.filemanager.backend.dao.interfaces.PacientDao;
 import com.filemanager.backend.service.interfaces.DoctorService;
+import com.filemanager.utils.transporters.dto.complex.DoctorComplexDto;
+import com.filemanager.utils.transporters.dto.simple.ConsultationDto;
 import com.filemanager.utils.transporters.dto.simple.DoctorDto;
+import com.filemanager.utils.transporters.dto.simple.EventDto;
+import com.filemanager.utils.transporters.dto.simple.PacientDto;
 
 @Service
 @Transactional
 public class DoctorServiceImpl implements DoctorService {
 
 	@Autowired
-	private DoctorDao dao;
+	private DoctorDao doctorDao;
+
+	@Autowired
+	private PacientDao pacientDao;
+
+	@Autowired
+	private ConsultationDao consultationDao;
+
+	@Autowired
+	private EventDao eventDao;
 
 	@Override
 	public int insertDoctor(DoctorDto doctor) {
-		return dao.insertDoctor(doctor);
+		return doctorDao.insertDoctor(doctor);
 	}
 
 	@Override
 	public List<DoctorDto> getDoctors() {
-		return dao.getDoctors();
+		return doctorDao.getDoctors();
 	}
 
 	@Override
 	public boolean updateDoctor(DoctorDto doctor) {
-		return dao.updateDoctor(doctor);
+		return doctorDao.updateDoctor(doctor);
 	}
 
 	@Override
 	public boolean removeDoctor(int doctorId) {
-		return dao.removeDoctor(doctorId);
+		return doctorDao.removeDoctor(doctorId);
 	}
 
 	@Override
 	public DoctorDto getDoctorById(int doctorId) {
-		return dao.getDoctorById(doctorId);
+		return doctorDao.getDoctorById(doctorId);
+	}
+
+	@Override
+	public DoctorComplexDto getDoctorbyIdWithDetails(int doctorId, boolean withPacients, boolean withConsultations, boolean withEvents) {
+		DoctorComplexDto result = new DoctorComplexDto();
+		DoctorDto doctor = doctorDao.getDoctorById(doctorId);
+		mapDoctorDtoPropertiesToComplex(result, doctor);
+		if (withPacients) {
+			List<PacientDto> pacients = pacientDao.getPacientsForDoctor(doctorId);
+			result.setPacients(pacients);
+		}
+		if (withConsultations) {
+			List<ConsultationDto> consultations = consultationDao.getConsultationsForDoctor(doctorId);
+			result.setConsultations(consultations);
+		}
+		if (withEvents) {
+			List<EventDto> events = eventDao.getEventsForDoctor(doctorId);
+			result.setEvents(events);
+		}
+		return result;
+	}
+
+	@Override
+	public DoctorComplexDto getDoctorbyIdWithConsultationForPacient(int doctorId, int pacientId) {
+		DoctorComplexDto result = new DoctorComplexDto();
+		DoctorDto doctor = doctorDao.getDoctorById(doctorId);
+		mapDoctorDtoPropertiesToComplex(result, doctor);
+		List<ConsultationDto> consultations = consultationDao.getPacientConsultationsForDoctor(pacientId, doctorId);
+		result.setConsultations(consultations);
+		return result;
+	}
+
+	private void mapDoctorDtoPropertiesToComplex(DoctorComplexDto result, DoctorDto doctor) {
+		result.setDoctorId(doctor.getDoctorId());
+		result.setName(doctor.getName());
+		result.setSurname(doctor.getSurname());
+		result.setColor(doctor.getColor());
 	}
 
 }

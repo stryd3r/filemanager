@@ -145,4 +145,15 @@ public class PacientDaoImpl implements PacientDao {
 		return pacient;
 	}
 
+	@Override
+	public List<PacientDto> getPacientsForDoctor(int doctorId) {
+
+		String sql = "SELECT * FROM " + PACIENT_TABLE_NAME + " WHERE " + DOCTOR_ID + " =?";
+		Object[] args = new Object[] { doctorId };
+		List<PacientDto> pacients = jdbcTemplate.query(sql, args, new PacientMapper());
+
+		return pacients;
+
+	}
+
 }

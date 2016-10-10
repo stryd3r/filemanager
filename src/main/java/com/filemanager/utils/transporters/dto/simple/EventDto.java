@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 public class EventDto {
 
 	private int eventId;
-	private int calendarId;
 	private int doctorId;
 	private String observation;
 	private Timestamp startDate;
@@ -19,14 +18,6 @@ public class EventDto {
 
 	public void setEventId(int eventId) {
 		this.eventId = eventId;
-	}
-
-	public int getCalendarId() {
-		return calendarId;
-	}
-
-	public void setCalendarId(int calendarId) {
-		this.calendarId = calendarId;
 	}
 
 	public int getDoctorId() {

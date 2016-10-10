@@ -12,7 +12,6 @@ public class EventMapper implements RowMapper<EventDto> {
 	public EventDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 		EventDto event = new EventDto();
 		event.setEventId(rs.getInt("eventId"));
-		event.setCalendarId(rs.getInt("calendarId"));
 		event.setDoctorId(rs.getInt("doctorId"));
 		event.setObservation(rs.getString("observation"));
 		event.setStartDate(rs.getTimestamp("startDate"));

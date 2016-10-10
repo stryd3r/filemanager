@@ -9,10 +9,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import com.filemanager.backend.dao.interfaces.DoctorDao;
+import com.filemanager.backend.service.interfaces.DoctorService;
 import com.filemanager.config.AppConfig;
 import com.filemanager.config.AppInitializer;
 import com.filemanager.config.DataSourceConfig;
+import com.filemanager.utils.transporters.dto.complex.DoctorComplexDto;
 import com.filemanager.utils.transporters.dto.simple.DoctorDto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,7 +21,7 @@ import com.filemanager.utils.transporters.dto.simple.DoctorDto;
 public class DoctorTest {
 
 	@Autowired
-	private DoctorDao dao;
+	private DoctorService service;
 	int validPacientId = 1;
 	int validDoctorId = 1;
 
@@ -30,9 +31,9 @@ public class DoctorTest {
 		doctor.setName("Adrian");
 		doctor.setSurname("Barna");
 		doctor.setColor("blue");
-		int insertedId = dao.insertDoctor(doctor);
+		int insertedId = service.insertDoctor(doctor);
 
-		boolean result = dao.removeDoctor(insertedId);
+		boolean result = service.removeDoctor(insertedId);
 
 		assert (result);
 	}
@@ -44,7 +45,7 @@ public class DoctorTest {
 		doctor.setName("Adrian");
 		doctor.setSurname("Barna");
 		doctor.setColor("blue");
-		boolean result = dao.updateDoctor(doctor);
+		boolean result = service.updateDoctor(doctor);
 
 		assert (result);
 	}
@@ -52,7 +53,7 @@ public class DoctorTest {
 	@Test
 	public void getDoctorById() {
 
-		DoctorDto doctor = dao.getDoctorById(validDoctorId);
+		DoctorDto doctor = service.getDoctorById(validDoctorId);
 
 		assert (doctor != null);
 	}
@@ -60,9 +61,21 @@ public class DoctorTest {
 	@Test
 	public void getDoctors() {
 
-		List<DoctorDto> doctors = dao.getDoctors();
+		List<DoctorDto> doctors = service.getDoctors();
 		System.out.println(doctors.size());
 		assert (doctors.size() > 0);
+	}
+
+	@Test
+	public void getDoctorWithDetails() {
+		DoctorComplexDto complexDoctor = service.getDoctorbyIdWithDetails(1, true, true, true);
+		assert complexDoctor != null;
+	}
+
+	@Test
+	public void getDoctorbyIdWithConsultationForPacient() {
+		DoctorComplexDto complexDoctor = service.getDoctorbyIdWithConsultationForPacient(1, 1);
+		assert complexDoctor != null;
 	}
 
 }

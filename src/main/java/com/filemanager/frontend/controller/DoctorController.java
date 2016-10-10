@@ -3,7 +3,9 @@ package com.filemanager.frontend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.filemanager.backend.service.interfaces.DoctorService;
@@ -15,8 +17,8 @@ public class DoctorController {
 	@Autowired
 	private DoctorService doctorService;
 
-	@RequestMapping(value = "/insertDoctor", produces = "application/json")
-	public int insertDoctor(DoctorDto doctor) {
+	@RequestMapping(value = "/insertDoctor", produces = "application/json", method = RequestMethod.POST)
+	public int insertDoctor(@RequestBody DoctorDto doctor) {
 		return doctorService.insertDoctor(doctor);
 	}
 
@@ -25,8 +27,8 @@ public class DoctorController {
 		return doctorService.getDoctors();
 	}
 
-	@RequestMapping(value = "/updateDoctor", produces = "application/json")
-	public boolean updateDoctor(DoctorDto doctor) {
+	@RequestMapping(value = "/updateDoctor", produces = "application/json", method = RequestMethod.POST)
+	public boolean updateDoctor(@RequestBody DoctorDto doctor) {
 		return doctorService.updateDoctor(doctor);
 	}
 
@@ -39,4 +41,15 @@ public class DoctorController {
 	public DoctorDto getDoctorById(int doctorId) {
 		return doctorService.getDoctorById(doctorId);
 	}
+
+	@RequestMapping(value = "/getDoctorbyIdWithDetails", produces = "application/json")
+	public DoctorDto getDoctorbyIdWithDetails(int doctorId, boolean withPacients, boolean withConsultations, boolean withEvents) {
+		return doctorService.getDoctorbyIdWithDetails(doctorId, withPacients, withConsultations, withEvents);
+	}
+
+	@RequestMapping(value = "/getDoctorbyIdWithConsultationForPacient", produces = "application/json")
+	public DoctorDto getDoctorbyIdWithConsultationForPacient(int doctorId, int pacientId) {
+		return doctorService.getDoctorbyIdWithConsultationForPacient(doctorId, pacientId);
+	}
+
 }

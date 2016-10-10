@@ -29,7 +29,6 @@ public class EventTest {
 	@Test
 	public void insertRemoveEvent() {
 		EventDto event = new EventDto();
-		event.setCalendarId(1);
 		event.setAllDay("1");
 		event.setColor("purple");
 		event.setDoctorId(validDoctorId);
@@ -47,7 +46,6 @@ public class EventTest {
 	public void updateEvent() {
 		EventDto event = new EventDto();
 		event.setEventId(1);
-		event.setCalendarId(2);
 		event.setAllDay("0");
 		event.setColor("pink");
 		event.setDoctorId(validDoctorId);

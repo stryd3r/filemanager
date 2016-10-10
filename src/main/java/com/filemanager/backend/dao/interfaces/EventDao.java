@@ -16,4 +16,6 @@ public interface EventDao {
 
 	boolean removeEvent(int eventId);
 
+	List<EventDto> getEventsForDoctor(int doctorId);
+
 }

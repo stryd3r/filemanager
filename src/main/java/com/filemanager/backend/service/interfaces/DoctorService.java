@@ -2,6 +2,7 @@ package com.filemanager.backend.service.interfaces;
 
 import java.util.List;
 
+import com.filemanager.utils.transporters.dto.complex.DoctorComplexDto;
 import com.filemanager.utils.transporters.dto.simple.DoctorDto;
 
 public interface DoctorService {
@@ -15,5 +16,9 @@ public interface DoctorService {
 	boolean removeDoctor(int doctorId);
 
 	DoctorDto getDoctorById(int doctorId);
+
+	DoctorComplexDto getDoctorbyIdWithDetails(int doctorId, boolean withPacients, boolean withConsultations, boolean withEvents);
+
+	DoctorComplexDto getDoctorbyIdWithConsultationForPacient(int doctorId, int pacientId);
 
 }

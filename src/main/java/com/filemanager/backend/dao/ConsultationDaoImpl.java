@@ -106,4 +106,22 @@ public class ConsultationDaoImpl implements ConsultationDao {
 		return result;
 	}
 
+	@Override
+	public List<ConsultationDto> getConsultationsForDoctor(int doctorId) {
+		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + DOCTOR_ID + "=?";
+		Object[] args = new Object[] { doctorId };
+		List<ConsultationDto> consultations = jdbcTemplate.query(sql, args, new ConsultationMapper());
+
+		return consultations;
+	}
+
+	@Override
+	public List<ConsultationDto> getPacientConsultationsForDoctor(int pacientId, int doctorId) {
+		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + DOCTOR_ID + "=? AND " + PACIENT_ID + "=?";
+		Object[] args = new Object[] { doctorId, pacientId };
+		List<ConsultationDto> consultations = jdbcTemplate.query(sql, args, new ConsultationMapper());
+
+		return consultations;
+	}
+
 }

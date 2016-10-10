@@ -22,7 +22,6 @@ public class EventDaoImpl implements EventDao {
 
 	final private static String EVENT_TABLE_NAME = "event";
 	final private static String EVENT_ID = "eventId";
-	final private static String CALENDAR_ID = "calendarId";
 	final private static String DOCTOR_ID = "doctorId";
 	final private static String OBSERVATION = "observation";
 	final private static String START_DATE = "startDate";
@@ -35,7 +34,6 @@ public class EventDaoImpl implements EventDao {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(this.jdbcTemplate).withTableName(EVENT_TABLE_NAME).usingGeneratedKeyColumns(EVENT_ID);
 
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put(CALENDAR_ID, event.getCalendarId());
 		parameters.put(DOCTOR_ID, event.getDoctorId());
 		parameters.put(OBSERVATION, event.getObservation());
 		parameters.put(START_DATE, event.getStartDate());
@@ -50,11 +48,10 @@ public class EventDaoImpl implements EventDao {
 
 	@Override
 	public boolean updateEvent(EventDto event) {
-		String sql = "UPDATE " + EVENT_TABLE_NAME + " SET " + CALENDAR_ID + "=?, " + DOCTOR_ID + "=?, " + OBSERVATION + "=?, " + START_DATE + "=?, " + END_DATE + "=?, " + ALL_DAY + "=?, " + COLOR
-				+ "=? " + " WHERE " + EVENT_ID + "=?";
+		String sql = "UPDATE " + EVENT_TABLE_NAME + " SET " + DOCTOR_ID + "=?, " + OBSERVATION + "=?, " + START_DATE + "=?, " + END_DATE + "=?, " + ALL_DAY + "=?, " + COLOR + "=? " + " WHERE "
+				+ EVENT_ID + "=?";
 
-		Object[] args = new Object[] { event.getCalendarId(), event.getDoctorId(), event.getObservation(), event.getStartDate(), event.getEndDate(), event.getAllDay(), event.getColor(),
-				event.getEventId() };
+		Object[] args = new Object[] { event.getDoctorId(), event.getObservation(), event.getStartDate(), event.getEndDate(), event.getAllDay(), event.getColor(), event.getEventId() };
 		int success = jdbcTemplate.update(sql, args);
 
 		boolean result = (success >= 1) ? true : false;
@@ -87,6 +84,15 @@ public class EventDaoImpl implements EventDao {
 
 		boolean result = (success > 0) ? true : false;
 		return result;
+	}
+
+	@Override
+	public List<EventDto> getEventsForDoctor(int doctorId) {
+		String sql = "SELECT * FROM " + EVENT_TABLE_NAME + " WHERE " + DOCTOR_ID + "=?";
+		Object[] args = new Object[] { doctorId };
+		List<EventDto> event = jdbcTemplate.query(sql, args, new EventMapper());
+
+		return event;
 	}
 
 }
