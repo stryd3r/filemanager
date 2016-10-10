@@ -23,7 +23,7 @@ public class ConsultationServiceImpl implements ConsultationService {
 	}
 
 	@Override
-	public boolean removeConsultations(List<Integer> consultations) {
+	public boolean removeConsultations(int[] consultations) {
 
 		for (int currentConsultationId : consultations) {
 			dao.removeConsultation(currentConsultationId);

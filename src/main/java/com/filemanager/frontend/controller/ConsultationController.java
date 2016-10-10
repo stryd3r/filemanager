@@ -3,6 +3,7 @@ package com.filemanager.frontend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class ConsultationController {
 	}
 
 	@RequestMapping(value = "/removeConsultations", produces = "application/json", method=RequestMethod.DELETE)
-	public boolean removeConsultations(List<Integer> consultationsId) {
+	public boolean removeConsultations(@RequestBody int[] consultationsId) {
 		boolean result = service.removeConsultations(consultationsId);
 
 		return result;

@@ -1,7 +1,6 @@
 package jUnits;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -96,12 +95,11 @@ public class ConsultationTest {
 	}
 	
 	@Test
-	public void deleteConsultations() {
-		List<Integer> consultation= new ArrayList<>();
-		consultation.add(4);
-		consultation.add(5);
+	public void removeConsultations() {
+		int[] consultation={1,4};
 		boolean result = service.removeConsultations(consultation);
 		assert (result);
 	}
+	
 
 }
