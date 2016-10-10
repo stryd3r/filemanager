@@ -40,9 +40,6 @@
 				<label class="form-control">Cnp: {{pacient.original.cnp}}</label>
 			</div>
 			<div class="col-sm-4">
-				<label class="form-control" ng-class="{'input-modified': pacient.original.age !== originalO.pacientDetailsDto.age}">Varsta: {{pacient.original.age}}</label>
-			</div>
-			<div class="col-sm-4">
 				<label class="form-control" ng-class="{'input-modified': pacient.original.sex !== originalO.pacientDetailsDto.sex}">Sex: {{pacient.original.sex}}</label>
 			</div>
 		</div>
@@ -81,10 +78,6 @@
 					maxlength="13" placeholder="CNP">
 			</div>
 			<div class="col-sm-4">
-				<input type="number" ng-model="pacient.edit.age" ng-class="{'input-modified': pacient.original.age !== originalO.pacientDetailsDto.age}"
-					class="form-control" maxlength="3" placeholder="Varsta">
-			</div>
-			<div class="col-sm-4">
 				<select class="form-control" ng-model="pacient.edit.sex" ng-class="{'input-modified': pacient.original.sex !== originalO.pacientDetailsDto.sex}">
 					<option value="M">M</option>
 					<option value="F">F</option>
@@ -106,6 +99,8 @@
 	</button>
 </div>
 <div uib-accordion-group class="panel-default" is-open="status.openDet">
+<label><p ng-if="hasChanged"
+		style="color: red; font-size: 150%;"><i class="glyphicon glyphicon-warning-sign"></i></p></label>
 	<uib-accordion-heading>Consultatii <span
 		class="badge">{{pacient.original.consultations.length}}</span> </a> <i
 		class="pull-right glyphicon"
