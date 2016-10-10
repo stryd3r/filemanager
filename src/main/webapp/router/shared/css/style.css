@@ -135,14 +135,50 @@
 	padding-right: 30px;
 }
 
-.input-warning{
+.input-warning {
 	border-color: red;
 }
 
-.input-modified{
+.input-modified {
 	border-color: blue;
 }
 
-.tr-modified{
+.tr-modified {
 	border-color: blue !important;
+}
+
+table.scrollTable {
+	width: 100%;
+}
+
+thead, tbody, tr, td, th {
+	display: block;
+}
+
+tr:after {
+	content: ' ';
+	display: block;
+	visibility: hidden;
+	clear: both;
+}
+
+thead th {
+	height: 30px;
+
+	/*text-align: left;*/
+}
+
+tbody {
+	height: 320px;
+	overflow-y: auto;
+}
+
+thead {
+	/* fallback */
+	
+}
+
+tbody td, thead th {
+	width: 19.2%;
+	float: left;
 }
