@@ -14,7 +14,6 @@ NOT SOLVED :
 7. Toate input req de la rest service trebuie sa stea intr-un Object .
 8. La insert consultation timestamp sa fie sysdate fara sa fie trimis din GUI.
 9. La getPacientById cu detalii nu intoarce birthdate.
-10. Pentru date-uri eu voi trimite un long iar la get sa primim tot un long .
 
 
 FUTURES:
