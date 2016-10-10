@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.filemanager.backend.service.interfaces.QuestionnaireAnswerService;
@@ -35,7 +36,7 @@ public class QuestionnaireController {
 		return service.getQuestionnaires();
 	}
 
-	@RequestMapping(value = "/removeQuestionFromQuestionnaire", produces = "application/json")
+	@RequestMapping(value = "/removeQuestionFromQuestionnaire", produces = "application/json", method=RequestMethod.DELETE)
 	public boolean removeQuestionFromQuestionnaire(int questionnaireId, int questionId) {
 		return service.removeQuestionFromQuestionnaire(questionnaireId, questionId);
 	}
@@ -45,7 +46,7 @@ public class QuestionnaireController {
 		return service.getQuestionFromQuestionnaire(questionnaireId, questionId);
 	}
 
-	@RequestMapping(value = "/removeQuestionnaire", produces = "application/json")
+	@RequestMapping(value = "/removeQuestionnaire", produces = "application/json", method=RequestMethod.DELETE)
 	public boolean removeQuestionnaire(int questionnaireId) {
 		return service.removeQuestionnaire(questionnaireId);
 	}
@@ -70,7 +71,7 @@ public class QuestionnaireController {
 		return answersService.getQuestionnaireAnswers();
 	}
 
-	@RequestMapping(value = "/removeQuestionnaireAnswer", produces = "application/json")
+	@RequestMapping(value = "/removeQuestionnaireAnswer", produces = "application/json", method=RequestMethod.DELETE)
 	public boolean removeQuestionnaireAnswer(int questionnaireAnswerId, int questionId, int pacientId) {
 		return answersService.removeQuestionnaireAnswer(questionnaireAnswerId, questionId, pacientId);
 	}

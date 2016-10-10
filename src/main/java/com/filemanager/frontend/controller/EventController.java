@@ -35,7 +35,7 @@ public class EventController {
 		return service.getEventById(eventId);
 	}
 
-	@RequestMapping(value = "/removeEvent", produces = "application/json")
+	@RequestMapping(value = "/removeEvent", produces = "application/json", method=RequestMethod.DELETE)
 	public boolean removeEvent(int eventId) {
 		return service.removeEvent(eventId);
 	}

@@ -56,7 +56,7 @@ public class PacientController {
 		return pacientService.updatePacientWithDetails(pacient, withDetail, withDoctor, withConsultations);
 	}
 
-	@RequestMapping(value = "/removePacient", produces = "application/json")
+	@RequestMapping(value = "/removePacient", produces = "application/json", method=RequestMethod.DELETE)
 	public boolean removePacient(int pacientId, boolean atomicDeletion) {
 
 		return pacientService.removePacient(pacientId,atomicDeletion);

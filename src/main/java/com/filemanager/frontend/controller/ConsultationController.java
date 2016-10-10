@@ -16,8 +16,8 @@ public class ConsultationController {
 	@Autowired
 	private ConsultationService service;
 
-	@RequestMapping(value = "/deleteConsultation", produces = "application/json")
-	public boolean deleteConsultation(int consultationId) {
+	@RequestMapping(value = "/removeConsultation", produces = "application/json", method=RequestMethod.DELETE)
+	public boolean removeConsultation(int consultationId) {
 		boolean result = service.removeConsultation(consultationId);
 
 		return result;

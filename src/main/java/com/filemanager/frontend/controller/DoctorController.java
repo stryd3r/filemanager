@@ -32,7 +32,7 @@ public class DoctorController {
 		return doctorService.updateDoctor(doctor);
 	}
 
-	@RequestMapping(value = "/removeDoctor", produces = "application/json")
+	@RequestMapping(value = "/removeDoctor", produces = "application/json", method = RequestMethod.DELETE)
 	public boolean removeDoctor(int doctorId) {
 		return doctorService.removeDoctor(doctorId);
 	}
