@@ -9,6 +9,9 @@ SOLVED:
 3. De adaugat timestamp la consultatii. 
 4. Inloc de varsta la pacient sa fie data nasterii, ori calculam noi varsta automat.
 5. Adaugat si CNP la pacient.
+6. De facut soft delete.
+7. De schimbat din List in Array la remove.
+8. Toate input req de la rest service trebuie sa stea intr-un Object .
 
 
 
