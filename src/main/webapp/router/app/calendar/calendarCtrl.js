@@ -71,7 +71,7 @@ angular
 					$scope.addEvent = function() {
 						modalService.openModal("addNewEvent").then(function(res) {
 							console.log(res);
-							if (res.resultContext.operationPerformed == 'SUCCESS') {
+							if (res.operationPerformed == 'SUCCESS') {
 								var newEv = res.resultContext;
 								newEv.actions = actions;
 								newEv.draggable = true;
@@ -101,7 +101,7 @@ angular
 								.then(
 										function(res) {
 											console.log(res);
-											if (res.resultContext.operationPerformed == 'SUCCESS')
+											if (res.operationPerformed == 'SUCCESS')
 												$scope.events[$scope.events.indexOf(event)] = res.resultContext;
 										});
 					};
@@ -113,7 +113,7 @@ angular
 								.then(
 										function(res) {
 											console.log(res);
-											if (res.resultContext.operationPerformed == 'SUCCESS')
+											if (res.operationPerformed == 'SUCCESS')
 												$scope.events[$scope.events.indexOf(res.calendarEvent)] = res.resultContext;
 										});
 					};

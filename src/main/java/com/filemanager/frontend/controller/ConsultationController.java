@@ -31,8 +31,8 @@ public class ConsultationController {
 		return result;
 	}
 
-	@RequestMapping(value = "/insertConsultation", produces = "application/json")
-	public int insertConsultation(ConsultationDto consultation) {
+	@RequestMapping(value = "/insertConsultation", method = RequestMethod.POST, produces = "application/json")
+	public int insertConsultation(@RequestBody ConsultationDto consultation) {
 		return service.insertConsultation(consultation);
 	}
 

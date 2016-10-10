@@ -20,6 +20,7 @@ angular
 						var pacientObj = {};
 						var originalCopy;
 						var delConsultIds = new Array();
+						var newConsutations = new Array();
 						init(pacientDetResp.data);
 
 						function init(object) {
@@ -123,6 +124,27 @@ angular
 							return q.promise;
 						}
 
+						function insertConsults() {
+							var q = $q.defer();
+							if (newConsutations.length > 0) {
+								angular.forEach(newConsutations, function(newConsult) {
+									srv.insertConsult(newConsult).then(function(resp) {
+										if(newConsutations.indexOf(newConsult) == newConsutations.length - 1){
+											q.resolve();
+										}
+									}, function(err) {
+										// $scope.resetDefault();
+										$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+																		$rootScope.alertMsg = "problema in consultatii";
+																		$q.reject();
+																	});
+												});
+							} else {
+								q.resolve();
+							}
+							return q.promise;
+						}
+
 						$scope.saveChangesDb = function(pacient) {
 							modalSrv.openModal('confirmation').then(
 									function(resp) {
@@ -131,7 +153,7 @@ angular
 											var withConsultations = !angular.equals(
 													toUpdate.consultations, originalO.consultations);
 											var withDetail = $scope.hasChanged;
-											$q.all([ deleteConsults() ]).then(
+											$q.all([ deleteConsults(), insertConsults() ]).then(
 													function() {
 														srv.saveAllPacientInDb(toUpdate, withConsultations,
 																withDetail).then(function(response) {
@@ -177,8 +199,23 @@ angular
 
 						$scope.addConsult = function() {
 							modalSrv.openModal('addConsult').then(function(resp) {
-
+								console.log(resp);
+								if (resp.operationPerformed === 'SUCCESS') {
+									var consultObj = resp.resultContext;
+									consultObj.pacientId = originalO.pacientId;
+									consultObj.doctorId = originalO.doctorId;
+									consultObj.consultationTime = new Date().getTime();
+									$scope.pacient.edit.consultations.push({
+										edit : consultObj,
+										original : consultObj
+									});
+									$scope.pacient.original.consultations.push({
+										edit : consultObj,
+										original : consultObj
+									});
+									newConsutations.push(consultObj);
+									checkForChanges();
+								}
 							});
 						}
-
 					} ]);

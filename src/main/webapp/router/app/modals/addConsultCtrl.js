@@ -2,8 +2,9 @@ angular.module('mainApp').controller(
 		'addConsultCtrl',
 		[ '$scope', 'APPCONST', 'mainService', '$uibModalInstance',
 			function($scope, APPCONST, srv, $uibModalInstance) {
-				$scope.ok = function(newPacient) {
-					$uibModalInstance.close("OK");
+				$scope.addConsult = function(consult) {
+					consult.price = consult.price.toString();
+					$uibModalInstance.close(consult);
 				};
 
 				$scope.cancel = function() {

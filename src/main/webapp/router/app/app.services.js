@@ -54,6 +54,10 @@ angular.module('mainApp').service(
 					return $http.delete(appConst.ENDPOINT.PACIENTS.DELETE_CONSULTATIONS, ids);
 				}
 				
+				this.insertConsult = function(param){
+					return $http.post(appConst.ENDPOINT.PACIENTS.INSERT_CONSULTATION, param);
+				}
+				
 				//utility to create query url
 				var urlCreator = function(endpoint, params) {
 					var urlRet = endpoint;
@@ -91,9 +95,10 @@ angular.module('mainApp').service(
 					});
 
 					modalInstance.result.then(function(result) {
-						result.operationPerformed = APPCONST.MODALS.RETURN_VALUES.SUCCESS;
+						//result.operationPerformed = APPCONST.MODALS.RETURN_VALUES.SUCCESS;
 						deferred.resolve({
 							callContext : currentModalContext,
+							operationPerformed : APPCONST.MODALS.RETURN_VALUES.SUCCESS,
 							resultContext : result
 						});
 					}, function() {

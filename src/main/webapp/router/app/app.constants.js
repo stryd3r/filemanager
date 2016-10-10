@@ -19,7 +19,8 @@ angular.module('mainApp').constant('APPCONST', (function() {
 				GET_DOCTORS : defEndpoint + 'getDoctors',
 				GET_PACIENTS_BY_ID : defEndpoint + 'getPacientById',
 				SAVE_PACIENT_IN_DB : defEndpoint + 'updatePacientWithDetails',
-				DELETE_CONSULTATIONS : defEndpoint + 'removeConsultations'
+				DELETE_CONSULTATIONS : defEndpoint + 'removeConsultations',
+				INSERT_CONSULTATION : defEndpoint + 'insertConsultation'
 			}
 		},
 		ALERT : {
