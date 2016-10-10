@@ -16,6 +16,7 @@ angular.module('mainApp').constant('APPCONST', (function() {
 		ENDPOINT : {
 			PACIENTS : {
 				GET_PACIENTS : defEndpoint + 'getPacients',
+				GET_DOCTORS : defEndpoint + 'getDoctors',
 				GET_PACIENTS_BY_ID : defEndpoint + 'getPacientById',
 				SAVE_PACIENT_IN_DB : defEndpoint + 'updatePacientWithDetails'
 			}

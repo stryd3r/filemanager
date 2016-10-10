@@ -13,6 +13,10 @@ angular.module('mainApp').service(
 				this.getPacients = function() {
 					return $http.get(appConst.ENDPOINT.PACIENTS.GET_PACIENTS);
 				}
+				
+				this.getDoctors = function(){
+					return $http.get(appConst.ENDPOINT.PACIENTS.GET_DOCTORS);
+				}
 
 				this.saveAllPacientInDb = function(param, withConsultations, withDetail) {
 					var params = [ {

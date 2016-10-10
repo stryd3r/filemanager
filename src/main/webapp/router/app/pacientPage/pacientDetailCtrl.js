@@ -48,11 +48,16 @@ angular
 							pacientObj.original = {
 								name : object.name,
 								surname : object.surname,
-								address : object.pacientDetailsDto!=null?object.pacientDetailsDto.address:null,
-								zipCode : object.pacientDetailsDto!=null?object.pacientDetailsDto.zipCode:null,
-								phone : object.pacientDetailsDto!=null?object.pacientDetailsDto.phone:null,
-								age : object.pacientDetailsDto!=null?object.pacientDetailsDto.age:null,
-								sex : object.pacientDetailsDto!=null?object.pacientDetailsDto.sex:null,
+								address : object.pacientDetailsDto != null ? object.pacientDetailsDto.address
+										: null,
+								zipCode : object.pacientDetailsDto != null ? object.pacientDetailsDto.zipCode
+										: null,
+								phone : object.pacientDetailsDto != null ? object.pacientDetailsDto.phone
+										: null,
+								sex : object.pacientDetailsDto != null ? object.pacientDetailsDto.sex
+										: null,
+								cnp : object.pacientDetailsDto != null ? object.pacientDetailsDto.cnp
+										: null,
 								consultations : object.consultations
 
 							};
@@ -62,7 +67,7 @@ angular
 						}
 						// others
 						$scope.saveConsult = function(index) {
-							//var index = $scope.pacient.edit.consultations.indexOf(cons);
+							// var index = $scope.pacient.edit.consultations.indexOf(cons);
 							delete $scope.pacient.edit.consultations[index].editMode;
 							checkForChanges();
 							$scope.pacient.original.consultations[index].original = $scope.pacient.edit.consultations[index].edit;
@@ -78,6 +83,8 @@ angular
 						function checkForChanges() {
 							$scope.hasChanged = !angular.equals(originalCopy,
 									$scope.pacient.edit);
+							$scope.changesInConsultations = !angular.equals(originalCopy.consultations,
+									$scope.pacient.edit.consultations);
 						}
 
 						$scope.saveEditPacient = function(pacient) {
@@ -92,21 +99,24 @@ angular
 						}
 
 						$scope.saveChangesDb = function(pacient) {
-							modalSrv.openModal('confirmation').then(function(resp) {
-								if ("OK" === resp.resultContext) {
-									var toUpdate = createSavePacientObj(pacient);
-									var withConsultations = !angular.equals(toUpdate.consultations, originalO.consultations);
-									var withDetail = $scope.hasChanged;
-									srv.saveAllPacientInDb(toUpdate, withConsultations, withDetail).then(function(response) {
-										originalO = angular.copy(toUpdate);
-										$scope.originalO = originalO;
-										$scope.resetDefault();
-										$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
-									}, function(err) {
-										$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
-									});
-								}
-							}), function(err) {
+							modalSrv.openModal('confirmation').then(
+									function(resp) {
+										if ("OK" === resp.resultContext) {
+											var toUpdate = createSavePacientObj(pacient);
+											var withConsultations = !angular.equals(
+													toUpdate.consultations, originalO.consultations);
+											var withDetail = $scope.hasChanged;
+											srv.saveAllPacientInDb(toUpdate, withConsultations,
+													withDetail).then(function(response) {
+												originalO = angular.copy(toUpdate);
+												$scope.originalO = originalO;
+												$scope.resetDefault();
+												$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
+											}, function(err) {
+												$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+											});
+										}
+									}), function(err) {
 								console.log(err);
 							};
 						}
@@ -114,32 +124,24 @@ angular
 						function createSavePacientObj(pacient) {
 							var pacientObj = {};
 							var pacientDetObj = {};
-							//var doctorObj = {};
+							// var doctorObj = {};
 							pacientObj.name = pacient.original.name;
 							pacientObj.surname = pacient.original.surname;
 							pacientObj.pacientId = originalO.pacientId;
 							pacientObj.doctorId = originalO.doctorId;
-							//doctorObj.doctorId = originalO.doctorId;
 							var consArray = [];
 							angular.forEach(pacient.original.consultations,
 									function(consult) {
 										consArray.push(consult.original);
 									});
 							pacientObj.consultations = consArray;
-							//pacientObj.doctor = doctorObj;
-							// pacientDet
-							// pacientDetObj.pacient = pacientObj;
 							pacientDetObj.pacientId = originalO.pacientId;
 							pacientDetObj.zipCode = pacient.original.zipCode;
 							pacientDetObj.phone = pacient.original.phone;
-							pacientDetObj.age = pacient.original.age;
 							pacientDetObj.sex = pacient.original.sex;
 							pacientDetObj.address = pacient.original.address;
+							pacientDetObj.cnp = pacient.original.cnp;
 							pacientObj.pacientDetailsDto = pacientDetObj;
 							return pacientObj;
 						}
-						/*
-						 * $scope.hideShow = function(domId){ var elem =
-						 * document.getElementById(domId); elem.hide(); }
-						 */
 					} ]);
