@@ -37,7 +37,10 @@
 		<br>
 		<div class="row">
 			<div class="col-sm-4">
-				<label class="form-control">Cnp: {{pacient.original.cnp}}</label>
+				<label class="form-control" ng-class="{'input-modified': pacient.original.cnp !== originalO.pacientDetailsDto.cnp}">Cnp: {{pacient.original.cnp}}</label>
+			</div>
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': (pacient.original.birthdate | date:'dd-MM-yyyy') !== (originalO.pacientDetailsDto.birthdate | date:'dd-MM-yyyy')}">Data nasterii: {{pacient.original.birthdate | date:'dd-MM-yyyy'}}</label>
 			</div>
 			<div class="col-sm-4">
 				<label class="form-control" ng-class="{'input-modified': pacient.original.sex !== originalO.pacientDetailsDto.sex}">Sex: {{pacient.original.sex}}</label>
@@ -78,6 +81,15 @@
 					maxlength="13" placeholder="CNP">
 			</div>
 			<div class="col-sm-4">
+				<p class="input-group">
+	          		<input type="text" popup-placement="bottom" readonly class="form-control" ng-class="{'input-modified': pacient.original.birthdate !== originalO.pacientDetailsDto.birthdate}" uib-datepicker-popup="{{format}}" ng-model="pacient.edit.birthdate" is-open="birthDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+	          			<span class="input-group-btn">
+	            		<button type="button" class="btn btn-default" ng-click="birthDateOpened = true;"><i class="glyphicon glyphicon-calendar"></i></button>
+	         		 </span>
+	        	</p>
+			</div>
+			
+			<div class="col-sm-4">
 				<select class="form-control" ng-model="pacient.edit.sex" ng-class="{'input-modified': pacient.original.sex !== originalO.pacientDetailsDto.sex}">
 					<option value="M">M</option>
 					<option value="F">F</option>
@@ -101,6 +113,7 @@
 <div uib-accordion-group class="panel-default" is-open="status.openDet">
 <label><p ng-if="hasChanged"
 		style="color: red; font-size: 150%;"><i class="glyphicon glyphicon-warning-sign"></i></p></label>
+	<button style="float: left;" ng-click="addConsult();"><i class="glyphicon glyphicon-plus"></i> Adauga consultatie</button>
 	<uib-accordion-heading>Consultatii <span
 		class="badge">{{pacient.original.consultations.length}}</span> </a> <i
 		class="pull-right glyphicon"
@@ -135,7 +148,7 @@
 					<button ng-if="cons.editMode" ng-click="saveConsult($index)">
 						<i class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></i>
 					</button>
-					<button ng-if="!cons.editMode" ng-click="deleteConsult(cons)">
+					<button ng-if="!cons.editMode" ng-click="deleteConsult($index)">
 						<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
 					</button>
 					<button ng-if="cons.editMode" ng-click="cons.editMode = false">

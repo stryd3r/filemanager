@@ -11,13 +11,15 @@ angular
 					'$state',
 					'$stateParams',
 					'pacientDetResp',
+					'$q',
 					function($scope, $rootScope, APPCONST, srv, modalSrv, $state,
-							$stateParams, pacientDetResp) {
+							$stateParams, pacientDetResp, $q) {
 						// var declarations
 						var originalO = angular.copy(pacientDetResp.data);
 						$scope.originalO = originalO;
 						var pacientObj = {};
 						var originalCopy;
+						var delConsultIds = new Array();
 						init(pacientDetResp.data);
 
 						function init(object) {
@@ -56,6 +58,8 @@ angular
 										: null,
 								sex : object.pacientDetailsDto != null ? object.pacientDetailsDto.sex
 										: null,
+								birthdate : object.pacientDetailsDto != null ? object.pacientDetailsDto.birthdate
+										: null,
 								cnp : object.pacientDetailsDto != null ? object.pacientDetailsDto.cnp
 										: null,
 								consultations : object.consultations
@@ -74,17 +78,20 @@ angular
 							$scope.pacient.edit.consultations[index].original = $scope.pacient.edit.consultations[index].edit;
 						}
 
-						$scope.deleteConsult = function(cons) {
-							var index = $scope.pacient.original.consultations.indexOf(cons);
-							$scope.pacient.original.consultations.splice(index, 1);
+						$scope.deleteConsult = function(indx) {
+							// var index =
+							// $scope.pacient.original.consultations.indexOf(cons);
+							$scope.pacient.edit.consultations.splice(indx, 1);
+							delConsultIds.push(indx);
 							checkForChanges();
 						}
 
 						function checkForChanges() {
 							$scope.hasChanged = !angular.equals(originalCopy,
 									$scope.pacient.edit);
-							$scope.changesInConsultations = !angular.equals(originalCopy.consultations,
-									$scope.pacient.edit.consultations);
+							$scope.changesInConsultations = !angular
+									.equals(originalCopy.consultations,
+											$scope.pacient.edit.consultations);
 						}
 
 						$scope.saveEditPacient = function(pacient) {
@@ -96,6 +103,24 @@ angular
 						$scope.resetDefault = function() {
 							init(angular.copy(originalO));
 							checkForChanges();
+							delConsultIds = [];
+						}
+
+						function deleteConsults() {
+							var q = $q.defer();
+							if (delConsultIds.length > 0) {
+								srv.deleteConsults(delConsultIds).then(function(resp) {
+									q.resolve();
+								}, function(err) {
+									// $scope.resetDefault();
+									$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+									$rootScope.alertMsg = "problema in consultatii";
+									$q.reject();
+								});
+							} else {
+								q.resolve();
+							}
+							return q.promise;
 						}
 
 						$scope.saveChangesDb = function(pacient) {
@@ -106,15 +131,19 @@ angular
 											var withConsultations = !angular.equals(
 													toUpdate.consultations, originalO.consultations);
 											var withDetail = $scope.hasChanged;
-											srv.saveAllPacientInDb(toUpdate, withConsultations,
-													withDetail).then(function(response) {
-												originalO = angular.copy(toUpdate);
-												$scope.originalO = originalO;
-												$scope.resetDefault();
-												$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
-											}, function(err) {
-												$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
-											});
+											$q.all([ deleteConsults() ]).then(
+													function() {
+														srv.saveAllPacientInDb(toUpdate, withConsultations,
+																withDetail).then(function(response) {
+															originalO = angular.copy(toUpdate);
+															$scope.originalO = originalO;
+															$scope.resetDefault();
+															$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
+														}, function(err) {
+															// $scope.resetDefault();
+															$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+														});
+													});
 										}
 									}), function(err) {
 								console.log(err);
@@ -141,7 +170,15 @@ angular
 							pacientDetObj.sex = pacient.original.sex;
 							pacientDetObj.address = pacient.original.address;
 							pacientDetObj.cnp = pacient.original.cnp;
+							pacientDetObj.birthdate = pacient.original.birthdate;
 							pacientObj.pacientDetailsDto = pacientDetObj;
 							return pacientObj;
 						}
+
+						$scope.addConsult = function() {
+							modalSrv.openModal('addConsult').then(function(resp) {
+
+							});
+						}
+
 					} ]);

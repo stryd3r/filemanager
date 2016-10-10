@@ -31,15 +31,6 @@ angular.module('mainApp').service(
 					return $http.post(url, param);
 				}
 
-				var urlCreator = function(endpoint, params) {
-					var urlRet = endpoint;
-					for (var i = 0; i < params.length; i++) {
-						urlRet += (i == 0 ? '?' : '&') + params[i].pName + '='
-								+ params[i].pValue;
-					}
-					return urlRet;
-				};
-
 				this.getPacientById = function(id) {
 					var params = [ {
 						pName : 'pacientId',
@@ -58,6 +49,21 @@ angular.module('mainApp').service(
 							params);
 					return $http.get(url);
 				}
+				
+				this.deleteConsults = function(ids){
+					return $http.delete(appConst.ENDPOINT.PACIENTS.DELETE_CONSULTATIONS, ids);
+				}
+				
+				//utility to create query url
+				var urlCreator = function(endpoint, params) {
+					var urlRet = endpoint;
+					for (var i = 0; i < params.length; i++) {
+						urlRet += (i == 0 ? '?' : '&') + params[i].pName + '='
+								+ params[i].pValue;
+					}
+					return urlRet;
+				};
+				
 			} ]).service(
 		'modalService',
 		[

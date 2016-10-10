@@ -15,6 +15,7 @@ angular.module('mainApp').controller(
 				}
 				$scope.$watch(function() {
 					if ($rootScope.alertIsOn) {
+						$scope.errorMsg = $rootScope.alertMsg;
 						startIntrv();
 					}
 					return $rootScope.alertIsOn;

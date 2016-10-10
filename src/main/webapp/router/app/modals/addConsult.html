@@ -1,0 +1,44 @@
+<div>
+	<div class="modal-header">
+		<h3 class="modal-title" id="modal-title">Adauga consultatie</h3>
+	</div>
+	<div class="modal-body" id="modal-body">
+		<div class="row">
+			<div class="col-sm-10">
+				<div class="col-sm-5">
+					<label>Diagnostic:</label> 
+				</div>
+				<div class="col-sm-5">
+					<input type="text" ng-model="consult.diagnostic" class="form-control"> 
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-10">
+				<div class="col-sm-5">
+					<label>Observatii:</label>
+				</div>
+				<div class="col-sm-5">
+					<input ng-model="consult.observatii" class="form-control">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-10">
+				<div class="col-sm-5">
+					<label>Pret:</label> 
+				</div>
+				<div class="col-sm-5">
+					<input type="number" ng-model="consult.pret" class="form-control">
+				</div>
+				<div class="col-sm-1">
+					<strong>RON</strong>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="addConsult(consult)">Adauga</button>
+		<button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>
