@@ -114,7 +114,7 @@ angular
 										function(res) {
 											console.log(res);
 											if (res.operationPerformed == 'SUCCESS')
-												$scope.events[$scope.events.indexOf(res.calendarEvent)] = res.resultContext;
+												$scope.events[$scope.events.indexOf(calendarEv)] = res.resultContext;
 										});
 					};
 
