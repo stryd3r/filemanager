@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.filemanager.backend.service.interfaces.ConsultationService;
@@ -22,8 +23,8 @@ public class ConsultationController {
 		return result;
 	}
 
-	@RequestMapping(value = "/deleteConsultations", produces = "application/json")
-	public boolean deleteConsultations(List<Integer> consultationsId) {
+	@RequestMapping(value = "/removeConsultations", produces = "application/json", method=RequestMethod.DELETE)
+	public boolean removeConsultations(List<Integer> consultationsId) {
 		boolean result = service.removeConsultations(consultationsId);
 
 		return result;
