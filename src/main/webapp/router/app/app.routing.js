@@ -18,8 +18,8 @@
 				}).state('home', {
 					url : '/home',
 					templateUrl : 'app/homePage/homePage.html'
-				}).state('manage', {
-					url : '/manage',
+				}).state('pacients', {
+					url : '/pacienti',
 					templateUrl : 'app/manage/manage.html',
 					controller : 'manageCtrl'
 				}).state('pacient', {
