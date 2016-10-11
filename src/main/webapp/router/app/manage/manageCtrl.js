@@ -55,13 +55,11 @@ angular
 							modalSrv.openModal("confirmation").then(function(resp) {
 								if ("OK" === resp.resultContext) {
 									srv.updatePacient(pacientToUp).then(function(resp) {
-											init();
-//										delete pacient.doctor;
-//										var index = getIndex(pacientsList, pacient);
-//										pacientsList[index].original.name = pacientToUp.name;
-//										pacientsList[index].original.surname = pacientToUp.surname;
-//										pacient.editMode = false;
-//										$scope.pageChanged();
+										var index = getIndex(pacientsList, pacient);
+										pacientsList[index].original.name = pacientToUp.name;
+										pacientsList[index].original.surname = pacientToUp.surname;
+										pacient.editMode = false;
+										$scope.pageChanged();
 										$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
 									}, function(err) {
 										$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
@@ -72,7 +70,7 @@ angular
 
 						function getIndex(list, elem) {
 							for (var i = 0; i < list.length; i++) {
-								if (angular.equals(list[i], elem)) {
+								if (angular.equals(list[i].pacientId, elem.pacientId)) {
 									return i;
 								}
 							}
