@@ -1,13 +1,12 @@
 TODO LIST
 1. De facut soft delete.
-2. Toate input req de la rest service trebuie sa stea intr-un Object .
+2. Toate input req de la rest service tip post(care au parametri fara queryParam) trebuie sa stea intr-un Object .
 3. La insert consultation timestamp sa fie sysdate fara sa fie trimis din GUI.
-4. La getPacientById cu detalii nu intoarce birthdate.
-5. Am vazut ca intorci true/false la db, as prefera sa-mi arunci o exceptie in loc de false astfel incat
-in front end sa imi ajunga eroare.
-6. Cand inserez un pacient nou fara detalii si intru pe pagina lui sa-i fac update la detalii,
- nu gaseste id pacientului in tabela detalii si deci nu face update(la fel as prefera exceptie in loc da false);
- Putem sa inseram un rand cu idPacient daca nu este deja prezent cand se incearca update?sa nu fiu eu nevoit sa 
+4. Am vazut ca intorci true/false la db la tranzactii, as prefera sa-mi arunci o exceptie in loc de false astfel incat
+in front end sa imi ajunga eroare fie ea si un business exception.
+5. Cand inserez un pacient nou fara detalii si intru pe pagina lui sa-i fac update la detalii,
+ nu gaseste id pacientului in tabela detalii si deci nu face update;putem sa inseram un rand cu idPacient 
+ daca nu este deja prezent cand se incearca update?sa nu fiu eu nevoit sa 
  apelez manual insertPacientDetails.
 
 SOLVED:
