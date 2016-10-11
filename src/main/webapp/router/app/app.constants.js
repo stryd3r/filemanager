@@ -21,7 +21,9 @@ angular.module('mainApp').constant('APPCONST', (function() {
 				SAVE_PACIENT_IN_DB : defEndpoint + 'updatePacientWithDetails',
 				DELETE_CONSULTATIONS : defEndpoint + 'removeConsultations',
 				INSERT_CONSULTATION : defEndpoint + 'insertConsultation',
-				UPDATE_PACIENT : defEndpoint + 'updatePacient'
+				UPDATE_PACIENT : defEndpoint + 'updatePacient',
+				INSERT_PACIENT : defEndpoint + 'insertPacient',
+				REMOVE_PACIENT : defEndpoint + 'removePacient'
 			}
 		},
 		ALERT : {

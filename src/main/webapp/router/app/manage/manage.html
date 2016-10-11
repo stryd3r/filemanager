@@ -11,7 +11,7 @@
 			pacient</button>
 	</div>
 	<!-- Table -->
-	<table class="table table-striped scrollTable">
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Nume</th>
@@ -26,7 +26,7 @@
 				<td style="text-align: left;" ng-if="pacient.editMode"><input
 					type="text"
 					ng-init="pacient.edit.name = pacient.original.name"
-					ng-model="pacient.edit.surname"></td>
+					ng-model="pacient.edit.name"></td>
 				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.original.surname}}</td>
 				<td style="text-align: left;" ng-if="pacient.editMode"><input
 					type="text"

@@ -63,6 +63,15 @@ angular.module('mainApp').service(
 					return $http.post(appConst.ENDPOINT.PACIENTS.INSERT_CONSULTATION, param);
 				}
 				
+				this.insertPacient = function(param){
+					return $http.post(appConst.ENDPOINT.PACIENTS.INSERT_PACIENT, param);
+				}
+				
+				this.removePacient = function(idPacient){
+					var url = urlCreator(appConst.ENDPOINT.PACIENTS.REMOVE_PACIENT, [{pName:'pacientId',pValue:idPacient}, {pName:'atomicDeletion',pValue:true}]);
+					return $http.delete(url);
+				}
+				
 				// utility to create query url
 				var urlCreator = function(endpoint, params) {
 					var urlRet = endpoint;

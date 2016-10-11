@@ -12,6 +12,7 @@ angular
 					'$filter',
 					function($scope, $rootScope, APPCONST, srv, modalSrv, $state, $filter) {
 						var filteredList = null;
+						var pacientsList;
 						init();
 						function init() {
 							initPagination();
@@ -29,48 +30,61 @@ angular
 									delete elem.pacientDetailsDto;
 									delete doctorId;
 								});
-								$scope.pacientsList = res.data;
+								pacientsList = res.data;
 								$scope.paginatedPacientsList = res.data;
 								$scope.totalItems = res.data.length;
-								performPagination($scope.paginatedPacientsList);
+								// performPagination($scope.paginatedPacientsList);
+								$scope.pageChanged();
 							});
 						}
-						
+
 						function initPagination() {
 							$scope.currentPage = 1;
 							$scope.itemsPerPage = 10;
 							$scope.maxNumPage = 1;
 							$scope.maxSize = 10;
-						};
+						}
+						;
 
 						$scope.saveEdit = function(pacient) {
 							var pacientToUp = angular.copy(pacient.edit);
 							pacientToUp.doctorId = pacient.doctor.doctorId;
 							pacientToUp.pacientId = pacient.pacientId;
-							var index = $scope.paginatedPacientsList.indexOf(pacient);
 							modalSrv.openModal("confirmation").then(function(resp) {
 								if ("OK" === resp.resultContext) {
 									srv.updatePacient(pacientToUp).then(function(resp) {
-										$scope.paginatedPacientsList[index].original = pacientToUp;
+										var index = $scope.paginatedPacientsList.indexOf(pacient);
+										pacientsList[index].original.name = pacientToUp.name;
+										pacientsList[index].original.surname = pacientToUp.surname;
 										pacient.editMode = false;
+										$scope.pageChanged();
 										$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
 									}, function(err) {
 										$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
 									});
 								}
 							});
-							$scope.pageChanged();
 						}
 
 						$scope.deletePacient = function(pacient) {
-							var index = $scope.pacientsList.indexOf(pacient);
-							$scope.pacientsList.splice(index, 1);
-							$scope.pageChanged();
+
+							modalSrv.openModal("confirmation").then(function(resp) {
+								if ("OK" === resp.resultContext) {
+									srv.removePacient(pacient.pacientId).then(function(resp) {
+										var index = pacientsList.indexOf(pacient);
+										pacientsList.splice(index, 1);
+										$scope.pageChanged();
+										$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
+									}, function(err) {
+										$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+									});
+								}
+							});
 						}
 
 						$scope.openAddPacientModal = function() {
 							console.log(APPCONST.MODALS);
-							modalSrv.openModal("addPacient", $scope.pacientsList).then(
+							modalSrv.openModal("addPacient", pacientsList).then(
 									function(res) {
 										console.log(res);
 										var newPacient = {
@@ -78,8 +92,15 @@ angular
 											original : res.resultContext
 										};
 										if (res.operationPerformed == 'SUCCESS') {
-											$scope.pacientsList.push(newPacient);
-											$scope.pageChanged();
+											srv.insertPacient(newPacient.original).then(
+													function(resp) {
+														newPacient.pacientId = resp.data;
+														pacientsList.push(newPacient);
+														$scope.pageChanged();
+														$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
+													}, function(err) {
+														$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+													});
 										}
 									});
 						}
@@ -99,9 +120,10 @@ angular
 						}
 
 						$scope.pageChanged = function() {
-							filteredList = $filter('filter')($scope.pacientsList,
+							filteredList = $filter('filter')(pacientsList,
 									$scope.searchPacient);
 							filteredList = $filter('orderBy')(filteredList, 'original.name');
+							pacientsList = $filter('orderBy')(pacientsList, 'original.name');
 							performPagination(filteredList);
 							$scope.totalItems = filteredList.length;
 						}

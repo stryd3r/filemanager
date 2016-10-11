@@ -151,34 +151,34 @@ table.scrollTable {
 	width: 100%;
 }
 
-thead, tbody, tr, td, th {
+table.scrollTable thead, table.scrollTable tbody, table.scrollTable tr, table.scrollTable td, table.scrollTable th {
 	display: block;
 }
 
-tr:after {
+table.scrollTable tr:after {
 	content: ' ';
 	display: block;
 	visibility: hidden;
 	clear: both;
 }
 
-thead th {
+table.scrollTable thead th {
 	height: 30px;
 
 	/*text-align: left;*/
 }
 
-tbody {
+table.scrollTable tbody {
 	height: 320px;
 	overflow-y: auto;
 }
 
-thead {
+table.scrollTable thead {
 	/* fallback */
 	
 }
 
-tbody td, thead th {
+table.scrollTable tbody td, table.scrollTable thead th {
 	width: 19.2%;
 	float: left;
 }
