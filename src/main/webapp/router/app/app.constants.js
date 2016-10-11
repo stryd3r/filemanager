@@ -23,7 +23,8 @@ angular.module('mainApp').constant('APPCONST', (function() {
 				INSERT_CONSULTATION : defEndpoint + 'insertConsultation',
 				UPDATE_PACIENT : defEndpoint + 'updatePacient',
 				INSERT_PACIENT : defEndpoint + 'insertPacient',
-				REMOVE_PACIENT : defEndpoint + 'removePacient'
+				REMOVE_PACIENT : defEndpoint + 'removePacient',
+				GET_DOCTOR_BY_ID : defEndpoint + 'getDoctorById'
 			}
 		},
 		ALERT : {

@@ -11,12 +11,17 @@ angular.module('mainApp').service(
 				 */
 
 				this.getPacients = function() {
-					var url = urlCreator(appConst.ENDPOINT.PACIENTS.GET_PACIENTS, [{pName:'withDoctor',pValue:true}])
+					var url = urlCreator(appConst.ENDPOINT.PACIENTS.GET_PACIENTS, [{pName:'withDoctor',pValue:false}])
 					return $http.get(url);
 				}
 				
 				this.getDoctors = function(){
 					return $http.get(appConst.ENDPOINT.PACIENTS.GET_DOCTORS);
+				}
+				
+				this.getDoctorById = function(id){
+					var url = urlCreator(appConst.ENDPOINT.PACIENTS.GET_DOCTOR_BY_ID, [{pName:'doctorId',pValue:id}])
+					return $http.get(url);
 				}
 				
 				this.updatePacient = function(param){

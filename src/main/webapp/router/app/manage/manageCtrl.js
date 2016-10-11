@@ -23,12 +23,14 @@ angular
 									elem.original = {};
 									elem.original.name = elem.name;
 									elem.original.surname = elem.surname;
+									elem.original.doctorId = elem.doctorId;
+									elem.edit = angular.copy(elem.original);
 									delete elem.name;
 									delete elem.surname;
 									delete elem.doctorId;
 									delete elem.consultations;
 									delete elem.pacientDetailsDto;
-									delete doctorId;
+									delete elem.doctor;
 								});
 								pacientsList = res.data;
 								$scope.paginatedPacientsList = res.data;
@@ -48,16 +50,18 @@ angular
 
 						$scope.saveEdit = function(pacient) {
 							var pacientToUp = angular.copy(pacient.edit);
-							pacientToUp.doctorId = pacient.doctor.doctorId;
+							pacientToUp.doctorId = pacient.original.doctorId;
 							pacientToUp.pacientId = pacient.pacientId;
 							modalSrv.openModal("confirmation").then(function(resp) {
 								if ("OK" === resp.resultContext) {
 									srv.updatePacient(pacientToUp).then(function(resp) {
-										var index = $scope.paginatedPacientsList.indexOf(pacient);
-										pacientsList[index].original.name = pacientToUp.name;
-										pacientsList[index].original.surname = pacientToUp.surname;
-										pacient.editMode = false;
-										$scope.pageChanged();
+											init();
+//										delete pacient.doctor;
+//										var index = getIndex(pacientsList, pacient);
+//										pacientsList[index].original.name = pacientToUp.name;
+//										pacientsList[index].original.surname = pacientToUp.surname;
+//										pacient.editMode = false;
+//										$scope.pageChanged();
 										$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
 									}, function(err) {
 										$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
@@ -66,12 +70,19 @@ angular
 							});
 						}
 
-						$scope.deletePacient = function(pacient) {
+						function getIndex(list, elem) {
+							for (var i = 0; i < list.length; i++) {
+								if (angular.equals(list[i], elem)) {
+									return i;
+								}
+							}
+						}
 
+						$scope.deletePacient = function(pacient) {
 							modalSrv.openModal("confirmation").then(function(resp) {
 								if ("OK" === resp.resultContext) {
 									srv.removePacient(pacient.pacientId).then(function(resp) {
-										var index = pacientsList.indexOf(pacient);
+										var index = getIndex(pacientsList, pacient); //pacientsList.indexOf(pacient);
 										pacientsList.splice(index, 1);
 										$scope.pageChanged();
 										$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
@@ -114,8 +125,14 @@ angular
 						}
 
 						$scope.openInfoPacientModal = function(pacient) {
-							modalSrv.openModal("infoPacient", pacient).then(function(res) {
-								console.log(res);
+							srv.getDoctorById(pacient.original.doctorId).then(function(resp) {
+								console.log(resp);
+								pacient.doctor = resp.data;
+								modalSrv.openModal("infoPacient", pacient).then(function(resp) {
+									console.log(resp.resultContext.operationPerformed);
+								}, function(err) {
+									$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+								});
 							});
 						}
 
