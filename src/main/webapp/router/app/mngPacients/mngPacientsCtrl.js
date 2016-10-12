@@ -47,7 +47,6 @@ angular
 							$scope.maxNumPage = 1;
 							$scope.maxSize = 10;
 						}
-						;
 
 						$scope.saveEdit = function(pacient) {
 							var pacientToUp = angular.copy(pacient.edit);

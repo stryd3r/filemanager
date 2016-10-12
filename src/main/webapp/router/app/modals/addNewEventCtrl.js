@@ -12,6 +12,8 @@ angular.module('mainApp')
 							$filter) {
 						var originalPacients;
 						var originalDoctors;
+						var selectedDoctor;
+						var selectedPacient;
 						$scope.dropBtnPac = "Pacient: ";
 						$scope.dropBtnDoc = "Doctor: ";
 						init();
@@ -31,6 +33,10 @@ angular.module('mainApp')
 
 							modalService.openModal('confirmation').then(function(resp) {
 								if ("OK" === resp.resultContext) {
+									var color = {primary:selectedDoctor.color, secondary:selectedDoctor.color}
+									event.color = color;
+									event.doctorName = selectedDoctor.name + ' ' + selectedDoctor.surname
+									//event.pacientName = selectedPacient.name + ' ' + selectedPacient.surname
 									$uibModalInstance.close(event);
 								} else {
 									$uibModalInstance.dismiss('cancel');
@@ -42,9 +48,11 @@ angular.module('mainApp')
 							var name = model.name + ' ' + model.surname;
 							if (type == 'pac') {
 								$scope.dropBtnPac = name;
+								selectedPacient = model;
 								$scope.isOpenPac = false;
 							} else if (type == 'doc') {
 								$scope.dropBtnDoc = name;
+								selectedDoctor = model;
 								$scope.isOpenDoc = false;
 							}
 						}

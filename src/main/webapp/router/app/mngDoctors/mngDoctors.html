@@ -1,2 +1,69 @@
-<i ng-include="" src="'app/managePage/manage.html'"></i>
-<p>Doctors page</p>
+<div class="panel panel-default">
+	<!-- Default panel contents -->
+	<div class="panel-heading">
+	<i ng-include="" src="'app/managePage/manage.html'"></i>
+		<div class="inner-addon left-addon">
+			<i class="glyphicon glyphicon-search"></i> <input type="text"
+				class="form-control" ng-model="searchDoctor" placeholder="Search" ng-change="pageChanged()"/>
+		</div>
+		<button class="btn btn-primary btn-md"
+			ng-click="openAddDoctorModal()"
+			style="margin-top: -56px; margin-right: 500px;">Adauga
+			doctor</button>
+	</div>
+	<!-- Table -->
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Nume</th>
+				<th>Prenume</th>
+				<th>Culoare</th>
+				<th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="doctor in paginatedDoctorsList">
+				<td ng-click="goTodoctorPage(doctor)" ng-if="!doctor.editMode" style="text-align: left;">{{doctor.original.name}}</td>
+				<td style="text-align: left;" ng-if="doctor.editMode"><input
+					type="text" class="form-control"
+					ng-model="doctor.edit.name"></td>
+				<td ng-if="!doctor.editMode" style="text-align: left;">{{doctor.original.surname}}</td>
+				<td style="text-align: left;" ng-if="doctor.editMode"><input
+					type="text" class="form-control"
+					ng-init="doctor.edit.surname = doctor.original.surname"
+					ng-model="doctor.edit.surname"></td>
+				<td ng-if="!doctor.editMode" style="text-align: left;">
+					<div class="input-color">
+					    <div class="color-box" style="background-color: {{doctor.original.color}}"></div>
+					    <!-- Replace "#FF850A" to change the color -->
+					</div>
+				</td>
+				<td style="text-align: left;" ng-if="doctor.editMode"><input colorpicker
+					type="text" class="form-control"
+					ng-model="doctor.edit.color"></td>
+				<td style="text-align: left;"><button ng-if="!doctor.editMode"
+						ng-click="doctor.editMode = true">
+						<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+					</button>
+					<button ng-if="!doctor.editMode"
+						ng-click="openInfodoctorModal(doctor)">
+						<i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
+					</button>
+					<button ng-if="doctor.editMode"
+						ng-click="saveEdit(doctor)">
+						<i class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></i>
+					</button>
+					<button ng-if="!doctor.editMode"
+						ng-click="deletedoctor(doctor)">
+						<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+					</button>
+					<button ng-if="doctor.editMode"
+						ng-click="doctor.editMode = false">
+						<img src="shared/img/Undo.png">
+					</button></td>
+			</tr>
+		</tbody>
+	</table>
+	<div uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true" ng-change="pageChanged()" num-pages="numPages"></div>
+	<pre>Page: {{currentPage}} of {{numPages}}</pre>
+</div>
