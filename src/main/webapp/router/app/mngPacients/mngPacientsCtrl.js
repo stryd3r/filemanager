@@ -1,7 +1,7 @@
 angular
 		.module('mainApp')
 		.controller(
-				'manageCtrl',
+				'mngPacientsCtrl',
 				[
 					'$scope',
 					'$rootScope',
@@ -15,6 +15,7 @@ angular
 						var pacientsList;
 						init();
 						function init() {
+							$scope.pacientsActive=true;
 							initPagination();
 							// init list of pacients
 							srv.getPacients().then(function(res) {

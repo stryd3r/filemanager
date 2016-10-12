@@ -20,17 +20,24 @@
 					templateUrl : 'app/homePage/homePage.html'
 				}).state('pacients', {
 					url : '/pacienti',
-					templateUrl : 'app/manage/manage.html',
-					controller : 'manageCtrl'
-				}).state('pacient', {
-					url : '/pacient/:idPacient/:name',
-					templateUrl : 'app/pacientPage/pacientDetail.html',
-					controller : 'pacientDetailCtrl',
-					resolve : {
-						pacientDetResp : [ '$stateParams','mainService', function($stateParams, srv) {
-							return srv.getPacientById($stateParams.idPacient);
-						} ]
-					}
+					templateUrl : 'app/mngPacients/mngPacients.html',
+					controller : 'mngPacientsCtrl'
+				}).state(
+						'pacient',
+						{
+							url : '/pacient/:idPacient/:name',
+							templateUrl : 'app/pacientPage/pacientDetail.html',
+							controller : 'pacientDetailCtrl',
+							resolve : {
+								pacientDetResp : [ '$stateParams', 'mainService',
+									function($stateParams, srv) {
+										return srv.getPacientById($stateParams.idPacient);
+									} ]
+							}
+						}).state('doctors', {
+					url : '/doctori',
+					templateUrl : 'app/mngDoctors/mngDoctors.html',
+					controller : 'mngDoctorsCtrl'
 				}).state('testRest', {
 					url : '/testRest',
 					templateUrl : 'app/testRest/restTest.html',
