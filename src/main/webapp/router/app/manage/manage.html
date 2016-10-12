@@ -24,12 +24,12 @@
 			<tr ng-repeat="pacient in paginatedPacientsList">
 				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.original.name}}</td>
 				<td style="text-align: left;" ng-if="pacient.editMode"><input
-					type="text"
+					type="text" class="form-control"
 					ng-init="pacient.edit.name = pacient.original.name"
 					ng-model="pacient.edit.name"></td>
 				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.original.surname}}</td>
 				<td style="text-align: left;" ng-if="pacient.editMode"><input
-					type="text"
+					type="text" class="form-control"
 					ng-init="pacient.edit.surname = pacient.original.surname"
 					ng-model="pacient.edit.surname"></td>
 				<td style="text-align: left;"><button ng-if="!pacient.editMode"

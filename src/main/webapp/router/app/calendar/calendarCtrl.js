@@ -80,6 +80,12 @@ angular
 									var endTime = angular.copy(newEv.startsAt);
 									endTime.setMinutes(endTime.getMinutes() + 30)
 									newEv.endsAt = endTime;
+								}else{
+									var minutes = angular.copy(newEv.endsAt.getMinutes());
+									var hours = angular.copy(newEv.endsAt.getHours());
+									newEv.endsAt = angular.copy(newEv.startsAt);
+									newEv.endsAt.setMinutes(minutes);
+									newEv.endsAt.setHours(hours);
 								}
 								$scope.events.push(res.resultContext);
 							}
