@@ -82,7 +82,7 @@
 			</div>
 			<div class="col-sm-4">
 				<p class="input-group">
-	          		<input type="text" popup-placement="bottom" readonly class="form-control" ng-class="{'input-modified': pacient.original.birthdate && pacient.original.birthdate !== originalO.pacientDetailsDto.birthdate}" uib-datepicker-popup="{{'dd-MM-yyyy'}}" ng-model="pacient.edit.birthdate" is-open="birthDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+	          		<input type="text" popup-placement="bottom" readonly class="form-control" ng-class="{'input-modified': pacient.original.birthdate && (pacient.original.birthdate | date:'dd-MM-yyyy') !== (originalO.pacientDetailsDto.birthdate | date:'dd-MM-yyyy')}" uib-datepicker-popup="{{'dd-MM-yyyy'}}" ng-model="pacient.edit.birthdate" is-open="birthDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats">
 	          			<span class="input-group-btn">
 	            		<button type="button" class="btn btn-default" ng-click="birthDateOpened = true;"><i class="glyphicon glyphicon-calendar"></i></button>
 	         		 </span>
