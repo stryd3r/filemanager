@@ -31,38 +31,39 @@ angular
 						}
 
 						$scope.ok = function(event) {
+							modalService.openModal('confirmation').then(function(resp) {
+								if ("OK" === resp.resultContext) {
+									normalizeEdit(event);
+									$uibModalInstance.close(event);
+								} else {
+									$uibModalInstance.dismiss('cancel');
+								}
 
-							modalService
-									.openModal('confirmation')
-									.then(
-											function(resp) {
-												if ("OK" === resp.resultContext) {
-													var color = {
-														primary : $scope.selectedDoctor.color,
-														secondary : $scope.selectedDoctor.color
-													}
-													event.color = color;
-													event.doctorName = $scope.selectedDoctor.name + ' '
-															+ $scope.selectedDoctor.surname;
-													event.doctor = $scope.selectedDoctor;
-													if (!angular.isUndefined($scope.selectedPacient)) {
-														event.pacient = $scope.selectedPacient;
-														event.pacientName = $scope.selectedPacient.name
-																+ ' ' + $scope.selectedPacient.surname;
-													}
-													event.title = (!angular.isUndefined(event.pacient) ? event.pacientName
-															: '')
-															+ ' '
-															+ (!angular.isUndefined(event.descr)
-																	&& event.descr != '' ? '(' + event.descr
-																	+ ')' : '');
-													$uibModalInstance.close(event);
-												} else {
-													$uibModalInstance.dismiss('cancel');
-												}
-
-											});
+							});
 						}
+
+						function normalizeEdit(event) {
+							var color = {
+								primary : $scope.selectedDoctor.color,
+								secondary : $scope.selectedDoctor.color
+							}
+							event.color = color;
+							event.doctorName = $scope.selectedDoctor.name + ' '
+									+ $scope.selectedDoctor.surname;
+							event.doctor = $scope.selectedDoctor;
+							if (!angular.isUndefined($scope.selectedPacient)) {
+								event.pacient = $scope.selectedPacient;
+								event.pacientName = $scope.selectedPacient.name + ' '
+										+ $scope.selectedPacient.surname;
+							}
+							event.title = (!angular.isUndefined(event.pacient) ? event.pacientName
+									: '')
+									+ ' '
+									+ (!angular.isUndefined(event.descr) && event.descr != '' ? '('
+											+ event.descr + ')'
+											: '');
+						}
+
 						$scope.change = function(model, type) {
 							var name = model.name + ' ' + model.surname;
 							if (type == 'pac') {

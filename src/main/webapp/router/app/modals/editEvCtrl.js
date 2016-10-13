@@ -37,6 +37,11 @@ angular
 						}
 
 						$scope.ok = function() {
+							normalizeEdit();
+							$uibModalInstance.close($scope.eventEdit);
+						};
+
+						function normalizeEdit() {
 							var color = {
 								primary : $scope.selectedDoctor.color,
 								secondary : $scope.selectedDoctor.color
@@ -55,8 +60,8 @@ angular
 									+ (!angular.isUndefined($scope.eventEdit.descr)
 											&& $scope.eventEdit.descr != '' ? '('
 											+ $scope.eventEdit.descr + ')' : '');
-							$uibModalInstance.close($scope.eventEdit);
-						};
+						}
+
 						$scope.cancel = function() {
 							$uibModalInstance.dismiss('cancel');
 						};
