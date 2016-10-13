@@ -1,14 +1,17 @@
 package com.filemanager.utils.transporters.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RemoveConsultationsInput {
 
-	private int[] ids;
+	private List<Integer> ids = new ArrayList<>();
 
-	public int[] getIds() {
+	public List<Integer> getIds() {
 		return ids;
 	}
 
-	public void setIds(int[] ids) {
+	public void setIds(List<Integer> ids) {
 		this.ids = ids;
 	}
 
