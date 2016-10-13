@@ -50,7 +50,7 @@ angular.module('mainApp').service(
 						pValue : true
 					}, {
 						pName : 'withDoctor',
-						pValue : false
+						pValue : true
 					}, {
 						pName : 'withConsultations',
 						pValue : true
