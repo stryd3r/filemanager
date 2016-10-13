@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.filemanager.backend.service.interfaces.DoctorService;
+import com.filemanager.utils.transporters.dto.complex.DoctorComplexDto;
 import com.filemanager.utils.transporters.dto.simple.DoctorDto;
 
 @RestController
@@ -43,12 +44,12 @@ public class DoctorController {
 	}
 
 	@RequestMapping(value = "/getDoctorbyIdWithDetails", produces = "application/json")
-	public DoctorDto getDoctorbyIdWithDetails(int doctorId, boolean withPacients, boolean withConsultations, boolean withEvents) {
+	public DoctorComplexDto getDoctorbyIdWithDetails(int doctorId, boolean withPacients, boolean withConsultations, boolean withEvents) {
 		return doctorService.getDoctorbyIdWithDetails(doctorId, withPacients, withConsultations, withEvents);
 	}
 
 	@RequestMapping(value = "/getDoctorbyIdWithConsultationForPacient", produces = "application/json")
-	public DoctorDto getDoctorbyIdWithConsultationForPacient(int doctorId, int pacientId) {
+	public DoctorComplexDto getDoctorbyIdWithConsultationForPacient(int doctorId, int pacientId) {
 		return doctorService.getDoctorbyIdWithConsultationForPacient(doctorId, pacientId);
 	}
 

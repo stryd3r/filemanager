@@ -11,10 +11,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import com.filemanager.backend.dao.interfaces.PacientDao;
+import com.filemanager.backend.service.interfaces.PacientsService;
 import com.filemanager.config.AppConfig;
 import com.filemanager.config.AppInitializer;
 import com.filemanager.config.DataSourceConfig;
+import com.filemanager.utils.transporters.dto.complex.PacientComplexDto;
 import com.filemanager.utils.transporters.dto.simple.PacientDetailsDto;
 import com.filemanager.utils.transporters.dto.simple.PacientDto;
 
@@ -23,7 +24,7 @@ import com.filemanager.utils.transporters.dto.simple.PacientDto;
 public class PacientTest {
 
 	@Autowired
-	private PacientDao dao;
+	private PacientsService service;
 	int validPacientId = 1;
 	int validDoctorId = 1;
 
@@ -33,9 +34,9 @@ public class PacientTest {
 		pacient.setName("Adrian");
 		pacient.setSurname("Barna");
 		pacient.setDoctorId(validDoctorId);
-		int insertedId = dao.insertPacient(pacient);
+		int insertedId = service.insertPacient(pacient);
 
-		boolean result = dao.removePacient(insertedId);
+		boolean result = service.removePacient(insertedId,false);
 
 		assert (result);
 	}
@@ -47,7 +48,7 @@ public class PacientTest {
 		pacient.setName("Adrian123");
 		pacient.setSurname("Barna");
 		pacient.setDoctorId(validDoctorId);
-		boolean result = dao.updatePacient(pacient);
+		boolean result = service.updatePacient(pacient);
 
 		assert (result);
 	}
@@ -55,7 +56,7 @@ public class PacientTest {
 	@Test
 	public void getPacientById() {
 
-		PacientDto pacient = dao.getPacientById(validPacientId);
+		PacientDto pacient = service.getPacientById(validPacientId,true,true,true);
 
 		assert (pacient != null);
 	}
@@ -63,7 +64,7 @@ public class PacientTest {
 	@Test
 	public void getPacients() {
 
-		List<PacientDto> pacients = dao.getPacients();
+		List<PacientComplexDto> pacients = service.getPacients(true,true,true);
 
 		assert (pacients.size() > 0);
 	}
@@ -78,16 +79,16 @@ public class PacientTest {
 		pacientDetail.setSex("M");
 		pacientDetail.setZipCode("600125");
 		pacientDetail.setCnp("1881213046690");
-		dao.insertPacientDetails(pacientDetail);
+		service.insertPacientDetails(pacientDetail);
 
-		boolean success = dao.removePacientDetails(validPacientId);
+		boolean success = service.removePacientDetails(validPacientId);
 
 		assert (success);
 	}
 
 	@Test
 	public void getPacientDetails() {
-		PacientDetailsDto result = dao.getPacientDetails(validPacientId);
+		PacientDetailsDto result = service.getPacientDetails(validPacientId);
 
 		assert (result != null);
 	}
@@ -102,7 +103,7 @@ public class PacientTest {
 		pacientDetail.setZipCode("600125");
 		pacientDetail.setSex("m");
 		pacientDetail.setCnp("1881213046699");
-		boolean success = dao.updatePacientDetails(pacientDetail);
+		boolean success = service.updatePacientDetails(pacientDetail);
 		assert (success);
 	}
 

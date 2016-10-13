@@ -7,7 +7,7 @@ in front end sa imi ajunga eroare fie ea si un business exception.
 5. Cand inserez un pacient nou fara detalii si intru pe pagina lui sa-i fac update la detalii,
  nu gaseste id pacientului in tabela detalii si deci nu face update;putem sa inseram un rand cu idPacient 
  daca nu este deja prezent cand se incearca update?sa nu fiu eu nevoit sa 
- apelez manual insertPacientDetails.
+ apelez manual insertPacientDetails. (insert/update details if exists)
 6. Serviciu la doctori care sa aduca lista de pacienti asignati .
 
 SOLVED:

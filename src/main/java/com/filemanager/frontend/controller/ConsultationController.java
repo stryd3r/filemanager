@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.filemanager.backend.service.interfaces.ConsultationService;
+import com.filemanager.utils.transporters.dto.RemoveConsultationsInput;
 import com.filemanager.utils.transporters.dto.simple.ConsultationDto;
 
 @RestController
@@ -25,8 +26,8 @@ public class ConsultationController {
 	}
 
 	@RequestMapping(value = "/removeConsultations", produces = "application/json", method=RequestMethod.DELETE)
-	public boolean removeConsultations(@RequestBody int[] consultationsId) {
-		boolean result = service.removeConsultations(consultationsId);
+	public boolean removeConsultations(@RequestBody RemoveConsultationsInput input) {
+		boolean result = service.removeConsultations(input.getIds());
 
 		return result;
 	}
