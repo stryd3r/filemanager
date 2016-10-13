@@ -12,103 +12,158 @@ angular
 					// to work
 					$scope.calendarView = 'month';
 					$scope.viewDate = new Date();
-					var actions = [
-							{
-								label : '<i class=\'glyphicon glyphicon-pencil\'></i>',
-								onClick : function(args) {
-									modalInstance = alert.show('Edited',
-											args.calendarEvent);
-									modalInstance.result
-											.then(
-													function(yourData) {
-														$scope.selected = yourData;
-													},
-													function() {
-														$log
-																.info('Modal dismissed at: '
-																		+ new Date());
-													});
-								}
-							},
-							{
-								label : '<i class=\'glyphicon glyphicon-remove\'></i>',
-								onClick : function(args) {
-									alert.show('Deleted', args.calendarEvent);
-								}
-							} ];
-					$scope.events = [
-							{
-								title : 'An event',
-								color : calendarConfig.colorTypes.warning,
-								startsAt : moment().startOf('week').subtract(2,
-										'days').add(8, 'hours').toDate(),
-								endsAt : moment().startOf('week')
-										.add(1, 'week').add(9, 'hours')
-										.toDate(),
-								draggable : true,
-								resizable : true,
-								actions : actions
-							},
-							{
-								title : '<i class="glyphicon glyphicon-asterisk"></i> <span class="text-primary">Another event</span>, with a <i>html</i> title',
-								color : calendarConfig.colorTypes.info,
-								startsAt : moment().subtract(1, 'day').toDate(),
-								endsAt : moment().add(5, 'days').toDate(),
-								draggable : true,
-								resizable : true,
-								actions : actions
-							},
-							{
-								title : 'This is a really long event title that occurs on every year',
-								color : calendarConfig.colorTypes.important,
-								startsAt : moment().startOf('day').add(7,
-										'hours').toDate(),
-								endsAt : moment().startOf('day').add(19,
-										'hours').toDate(),
-								recursOn : 'year',
-								draggable : true,
-								resizable : true,
-								actions : actions
-							} ];
+					calendarConfig.dateFormatter = 'moment'; // use moment instead of
+					// angular for formatting
+					// dates
+					calendarConfig.i18nStrings.weekNumber = 'Săpt {week}';
+					moment.locale('ro');
+					var actions = [ {
+						label : '<i class=\'glyphicon glyphicon-pencil\'></i>',
+						onClick : function(args) {
+							$scope.eventEdited(args.calendarEvent);
+						}
+					}, {
+						label : '<i class=\'glyphicon glyphicon-remove\'></i>',
+						onClick : function(args) {
+							// alert.show('Deleted', args.calendarEvent);
+							// if (res.resultContext.operationPerformed != 'ABORTED')
+							$scope.eventDeleted(args.calendarEvent);
+						}
+					} ];
+					$scope.events = [];
+					$scope.events = [ {
+						title : 'programare',
+						color : calendarConfig.colorTypes.warning,
+						startsAt : moment().startOf('week').subtract(2, 'days').add(8,
+								'hours').toDate(),
+						endsAt : moment().startOf('week').subtract(2, 'days').add(9,
+								'hours').toDate(),
+						draggable : true,
+						resizable : true,
+						doctorName : 'Mirionescu Ioana',
+						pacientName : 'Nastasa Radu',
+						actions : actions
+					}
+					// {
+					// title : '<i class="glyphicon glyphicon-asterisk"></i> <span
+					// class="text-primary">Another event</span>, with a <i>html</i>
+					// title',
+					// color : calendarConfig.colorTypes.info,
+					// startsAt : moment().subtract(1, 'day').toDate(),
+					// endsAt : moment().add(5, 'days').toDate(),
+					// draggable : true,
+					// resizable : true,
+					// actions : actions
+					// },
+					// {
+					// title : 'This is a really long event title that occurs on every
+					// year',
+					// color : calendarConfig.colorTypes.important,
+					// startsAt : moment().startOf('day').add(7,
+					// 'hours').toDate(),
+					// endsAt : moment().startOf('day').add(19,
+					// 'hours').toDate(),
+					// recursOn : 'year',
+					// draggable : true,
+					// resizable : true,
+					// actions : actions
+					// }
+					];
 
 					$scope.isCellOpen = true;
 
 					$scope.addEvent = function() {
-						modalService
-								.openModal("addNewEvent")
-								.then(
-										function(res) {
-											console.log(res);
-											if (res.resultContext.operationPerformed != 'ABORTED')
-												var newEv = res.resultContext;
-											newEv.actions = actions;
-											$scope.events
-													.push(res.resultContext);
-										});
+						modalService.openModal("addNewEvent").then(function(res) {
+							console.log(res);
+							if (res.operationPerformed == 'SUCCESS') {
+								var newEv = res.resultContext;
+								newEv.actions = actions;
+								newEv.draggable = true;
+								newEv.resizable = true;
+								if (angular.isUndefined(newEv.endsAt)) {
+									var endTime = angular.copy(newEv.startsAt);
+									endTime.setMinutes(endTime.getMinutes() + 30)
+									newEv.endsAt = endTime;
+								} else {
+									newEv = setDateEnd(newEv);
+								}
+								$scope.events.push(res.resultContext);
+							}
+						});
 
 						/*
 						 * $scope.events.push({ title : 'New event', startsAt :
 						 * moment().startOf('day').toDate(), endsAt :
 						 * moment().endOf('day').toDate(), color :
-						 * calendarConfig.colorTypes.important, draggable :
-						 * true, resizable : true });
+						 * calendarConfig.colorTypes.important, draggable : true, resizable :
+						 * true });
 						 */
 					};
 
+					function setDateEnd(ev) {
+						var minutes = angular.copy(ev.endsAt.getMinutes());
+						var hours = angular.copy(ev.endsAt.getHours());
+						ev.endsAt = angular.copy(ev.startsAt);
+						ev.endsAt.setMinutes(minutes);
+						ev.endsAt.setHours(hours);
+						return ev;
+					}
+
 					$scope.eventClicked = function(event) {
-						alert.show('Clicked', event);
+						// alert.show('Clicked', event);
+						modalService
+								.openModal("editEv", event)
+								.then(
+										function(res) {
+											console.log(res);
+											if (res.operationPerformed == 'SUCCESS') {
+												if (res.resultContext == 'DELETE') {
+													$scope.eventDeleted(event);
+												} else {
+													res.resultContext = setDateEnd(res.resultContext);
+													$scope.events[$scope.events.indexOf(event)] = res.resultContext;
+												}
+											}
+										});
 					};
 
-					$scope.eventEdited = function(event) {
-						alert.show('Edited', event);
+					$scope.eventEdited = function(calendarEv) {
+						// alert.show('Edited', event);
+						modalService
+								.openModal("editEv", calendarEv)
+								.then(
+										function(res) {
+											console.log(res);
+											if (res.operationPerformed == 'SUCCESS') {
+												if (res.resultContext == 'DELETE') {
+													$scope.eventDeleted(event);
+												} else {
+													$scope.events[$scope.events.indexOf(calendarEv)] = res.resultContext;
+												}
+											}
+										});
 					};
 
-					$scope.eventDeleted = function(event) {
-						alert.show('Deleted', event);
+					$scope.eventDeleted = function(calendarEv) {
+						// alert.show('Deleted', event);
+						modalService.openModal('confirmation').then(function(resp) {
+							if ("OK" === resp.resultContext) {
+								$scope.events.splice($scope.events.indexOf(calendarEv), 1);
+							}
+
+						});
 					};
 
 					$scope.eventTimesChanged = function(event) {
-						alert.show('Dropped or resized', event);
+						console.log(event);
+						modalService.openModal('confirmation').then(function(resp) {
+							if ("OK" === resp.resultContext) {
+								event.startsAt = $scope.newEvStart;
+								event.endsAt = $scope.newEvEnd;
+							}
+
+						});
+						// alert.show('Dropped or resized', event);
 					};
 
 					$scope.toggle = function($event, field, event) {

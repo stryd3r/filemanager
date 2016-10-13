@@ -1,0 +1,184 @@
+<h2>Pacientul {{pacient.original.name + ' ' +
+	pacient.original.surname}}</h2>
+<uib-accordion close-others="oneAtATime" class='col-sm-12'>
+<label><p ng-if="hasChanged"
+		style="color: red; font-size: 150%;">Schimbari efectuate dar inca
+		nesalvate!</p></label>
+<div uib-accordion-group class="panel-default" is-open="status.open">
+	<uib-accordion-heading> Detalii <i
+		class="pull-right glyphicon"
+		ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+	</uib-accordion-heading>
+	<div ng-if="!pacient.editMode">
+		<div class="row">
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.original.name !== originalO.name}">Nume: {{pacient.original.name}}</label>
+			</div>
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.original.surname !== originalO.surname}">Prenume:
+					{{pacient.original.surname}}</label>
+			</div>
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.original.phone && pacient.original.phone !== originalO.pacientDetailsDto.phone}">Telefon:
+					{{pacient.original.phone}}</label>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.original.address && pacient.original.address !== originalO.pacientDetailsDto.address}">Adresa:
+					{{pacient.original.address}}</label>
+			</div>
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.original.zipCode && pacient.original.zipCode !== originalO.pacientDetailsDto.zipCode}">Zip Code:
+					{{pacient.original.zipCode}}</label>
+			</div>
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.original.doctor && pacient.original.doctor.doctorId !== originalO.doctor.doctorId}">Doctor asignat:
+					{{pacient.original.doctor.name + ' ' + pacient.original.doctor.surname}}</label>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.original.cnp && pacient.original.cnp !== originalO.pacientDetailsDto.cnp}">Cnp: {{pacient.original.cnp}}</label>
+			</div>
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.original.birthdate && (pacient.original.birthdate | date:'dd-MM-yyyy') !== (originalO.pacientDetailsDto.birthdate | date:'dd-MM-yyyy')}">Data nasterii: {{pacient.original.birthdate | date:'dd-MM-yyyy'}}</label>
+			</div>
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.original.sex && pacient.original.sex !== originalO.pacientDetailsDto.sex}">Sex: {{pacient.original.sex}}</label>
+			</div>
+		</div>
+		<br>
+	</div>
+	<div ng-if="pacient.editMode">
+		<div class="row">
+			<div class="col-sm-4">
+				<input type="text" ng-model="pacient.edit.name" class="form-control" ng-class="{'input-modified': pacient.original.name !== originalO.name}"
+					placeholder="Nume">
+			</div>
+			<div class="col-sm-4">
+				<input type="text" ng-model="pacient.edit.surname" ng-class="{'input-modified': pacient.original.surname !== originalO.surname}"
+					class="form-control" placeholder="Prenume">
+			</div>
+			<div class="col-sm-4">
+				<input type="text" ng-model="pacient.edit.phone" ng-class="{'input-modified': pacient.original.phone && pacient.original.phone !== originalO.pacientDetailsDto.phone}"
+					class="form-control" placeholder="Telefon">
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-4">
+				<textarea ng-model="pacient.edit.address" class="form-control" ng-class="{'input-modified': pacient.original.address && pacient.original.address !== originalO.pacientDetailsDto.address}"
+					style="max-width: 100%;" placeholder="Adresa"></textarea>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" ng-model="pacient.edit.zipCode" ng-class="{'input-modified': pacient.original.zipCode && pacient.original.zipCode !== originalO.pacientDetailsDto.zipCode}"
+					class="form-control" placeholder="Zip Code">
+			</div>
+			<div class="col-sm-4">
+				<select type="text" ng-options="doc.name+' '+doc.surname for doc in doctorsList track by doc.doctorId" 
+				ng-model="pacient.edit.doctor" 
+				ng-class="{'input-modified': pacient.original.doctor && pacient.original.doctor.doctorId !== originalO.doctor.doctorId}"
+					class="form-control">
+					</select>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-4">
+				<input type="text" ng-model="pacient.edit.cnp" ng-class="{'input-modified': pacient.original.cnp && pacient.original.cnp !== originalO.pacientDetailsDto.cnp}" class="form-control"
+					maxlength="13" placeholder="CNP">
+			</div>
+			<div class="col-sm-4">
+				<p class="input-group">
+	          		<input type="text" popup-placement="bottom" readonly class="form-control" ng-class="{'input-modified': pacient.original.birthdate && (pacient.original.birthdate | date:'dd-MM-yyyy') !== (originalO.pacientDetailsDto.birthdate | date:'dd-MM-yyyy')}" uib-datepicker-popup="{{'dd-MM-yyyy'}}" ng-model="pacient.edit.birthdate" is-open="birthDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats">
+	          			<span class="input-group-btn">
+	            		<button type="button" class="btn btn-default" ng-click="birthDateOpened = true;"><i class="glyphicon glyphicon-calendar"></i></button>
+	         		 </span>
+	        	</p>
+			</div>
+			
+			<div class="col-sm-4">
+				<select class="form-control" ng-model="pacient.edit.sex" ng-class="{'input-modified': pacient.original.sex && pacient.original.sex !== originalO.pacientDetailsDto.sex}">
+					<option value="M">M</option>
+					<option value="F">F</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<button ng-if="!pacient.editMode" ng-click="pacient.editMode = true"
+		style="float: right;">
+		<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+	</button>
+	<button ng-if="pacient.editMode" ng-click="pacient.editMode = false"
+		style="float: right;">
+		<img src="shared/img/Undo.png">
+	</button>
+	<button ng-if="pacient.editMode" ng-click="saveEditPacient(pacient)"
+		style="float: right;">
+		<i class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></i>
+	</button>
+</div>
+<div uib-accordion-group class="panel-default" is-open="status.openDet">
+<label><p ng-if="changesInConsultations"
+		style="color: red; font-size: 150%;"><i class="glyphicon glyphicon-warning-sign"></i></p></label>
+	<button style="float: left; width: 20%" ng-click="addConsult();" class="form-control"><i class="glyphicon glyphicon-plus"></i> Adauga consultatie</button>
+	<uib-accordion-heading>Consultatii <span
+		class="badge">{{pacient.original.consultations.length}}</span> </a> <i
+		class="pull-right glyphicon"
+		ng-class="{'glyphicon-chevron-down': status.openDet, 'glyphicon-chevron-right': !status.openDet}"></i>
+	</uib-accordion-heading>
+	<table class="table table-striped scrollTable">
+		<thead>
+			<tr>
+				<th>Diagnostic</th>
+				<th>Observatii</th>
+				<th>Pret</th>
+				<th>Date</th>
+				<th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="cons in pacient.edit.consultations">
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.diagnostic}}</td>
+				<td style="text-align: left;" ng-if="cons.editMode"><input
+					class="form-control" type="text" ng-model="cons.edit.diagnostic"></td>
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.observation}}</td>
+				<td style="text-align: left;" ng-if="cons.editMode"><input
+					class="form-control" type="text" ng-model="cons.edit.observation"></td>
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.price}} RON</td>
+				<td style="text-align: left;" ng-if="cons.editMode"><input
+					class="form-control" type="text" ng-model="cons.edit.price"></td>
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.consultationTime | date:'medium'}}</td>
+				<td style="text-align: left;"><button ng-if="!cons.editMode"
+						ng-click="cons.editMode = true">
+						<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+					</button>
+					<button ng-if="cons.editMode" ng-click="saveConsult($index)">
+						<i class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></i>
+					</button>
+					<button ng-if="!cons.editMode" ng-click="deleteConsult($index)">
+						<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+					</button>
+					<button ng-if="cons.editMode" ng-click="cons.editMode = false">
+						<img src="shared/img/Undo.png">
+					</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div uib-accordion-group class="panel-default" is-open="status.openCh">
+	<uib-accordion-heading>Chestionar <i
+		class="pull-right glyphicon"
+		ng-class="{'glyphicon-chevron-down': status.openCh, 'glyphicon-chevron-right': !status.openCh}"></i>
+	</uib-accordion-heading>
+	<strong>Chestionar</strong>
+</div>
+<button type="button" ng-disabled="!hasChanged"
+	class="btn btn-default btn-sm" ng-click="saveChangesDb(pacient);">Salveaza
+	schimbari</button>
+<button type="button" class="btn btn-default btn-sm"
+	ng-disabled="!hasChanged" ng-click="resetDefault();">Reset</button>
+</uib-accordion>

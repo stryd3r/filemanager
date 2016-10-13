@@ -2,17 +2,35 @@
 	<div class="modal-header">
 		<h3 class="modal-title" id="modal-title">Adauga pacient</h3>
 	</div>
-	<div class="modal-body" id="modal-body" ng-form="addPacientForm">
+	<div class="modal-body">
 		<div class="form-group">
-			<label>Nume:</label> <input type="text"
-				ng-model="addPacientObj.firstName" class="form-control"> <label>Prenume:</label>
-			<input type="text" ng-model="addPacientObj.lastName"
-				class="form-control"> <label>Seria:</label> <input
-				type="text" ng-model="addPacientObj.seria" class="form-control">
+			<label>Nume:</label> 
+			<input type="text" ng-model="addPacientObj.name" class="form-control"> 
+			<label>Prenume:</label> 
+			<input type="text" ng-model="addPacientObj.surname" class="form-control">
+			<div class="btn-group" uib-dropdown auto-close="outsideClick"
+					is-open="isOpenDoc">
+					<button id="single-button" type="button" class="btn btn-default"
+						uib-dropdown-toggle ng-disabled="disabled">
+						{{dropBtnDoc}} <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" uib-dropdown-menu
+						aria-labelledby="simple-dropdown" role="menu">
+						<li><div class="inner-addon left-addon" ng-if="isOpenDoc">
+								<i class="glyphicon glyphicon-search"></i> <input type="text"
+									ng-change="search(searchDoctor)" class="form-control"
+									ng-model="searchDoctor" placeholder="Search" />
+							</div></li>
+						<li role="menuitem" ng-repeat="doc in doctorsList"><a
+							href="" ng-click="change(doc)">{{doc.name + ' ' +
+								doc.surname}}</a></li>
+					</ul>
+			</div>
 		</div>
 	</div>
 	<div class="modal-footer">
-		<button class="btn btn-primary" type="button" ng-click="ok(this.addPacientObj)">Adauga</button>
+		<button class="btn btn-primary" type="button" ng-disabled="!addPacientObj.name || !addPacientObj.surname || !addPacientObj.doctorId"
+			ng-click="ok(addPacientObj)">Adauga</button>
 		<button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
 	</div>
 </div>

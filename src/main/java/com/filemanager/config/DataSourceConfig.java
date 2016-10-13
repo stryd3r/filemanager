@@ -13,11 +13,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
+@EnableTransactionManagement
 public class DataSourceConfig {
 
-	private static final String PACKAGES_TO_SCAN = "com.filemanager.utils.transporters";
+	private static final String PACKAGES_TO_SCAN = "com.filemanager.utils.transporters.entities";
 
 	@Bean
 	public DataSource dataSource() {
@@ -52,6 +54,7 @@ public class DataSourceConfig {
 	@Bean
 	public HibernateTransactionManager transactionManager() throws IOException {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory());
+		transactionManager.setDataSource(dataSource());
 
 		return transactionManager;
 	}

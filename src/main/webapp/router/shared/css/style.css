@@ -33,7 +33,7 @@
 }
 
 .marginLeft {
-	margin-left: 8%;
+	margin-left: 4.5%;
 }
 
 .button {
@@ -107,7 +107,7 @@
 /* enable absolute positioning */
 .inner-addon {
 	position: relative;
-	width:200px;
+	width: 200px;
 }
 
 /* style glyph */
@@ -133,4 +133,68 @@
 
 .right-addon input {
 	padding-right: 30px;
+}
+
+.input-warning {
+	border-color: red;
+}
+
+.input-modified {
+	border-color: blue;
+}
+
+.tr-modified {
+	border-color: blue !important;
+}
+
+table.scrollTable {
+	width: 100%;
+}
+
+table.scrollTable thead, table.scrollTable tbody, table.scrollTable tr, table.scrollTable td, table.scrollTable th {
+	display: block;
+}
+
+table.scrollTable tr:after {
+	content: ' ';
+	display: block;
+	visibility: hidden;
+	clear: both;
+}
+
+table.scrollTable thead th {
+	height: 30px;
+
+	/*text-align: left;*/
+}
+
+table.scrollTable tbody {
+	height: 320px;
+	overflow-y: auto;
+}
+
+table.scrollTable thead {
+	/* fallback */
+	
+}
+
+table.scrollTable tbody td, table.scrollTable thead th {
+	width: 19.2%;
+	float: left;
+}
+
+.input-color {
+    position: relative;
+}
+.input-color input {
+    padding-left: 20px;
+}
+.input-color .color-box {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background-color: #ccc;
+    position: absolute;
+    left: 5px;
+    top: 5px;
 }

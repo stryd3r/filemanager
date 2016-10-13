@@ -3,7 +3,7 @@ angular.module('mainApp').controller(
 		[ '$scope', 'APPCONST', 'mainService', '$uibModalInstance', 'item',
 				function($scope, APPCONST, srv, $uibModalInstance, item) {
 					console.log(item);
-					$scope.pacient = item.original;
+					$scope.pacient = item;
 					$scope.cancel = function() {
 						$uibModalInstance.dismiss('cancel');
 					};

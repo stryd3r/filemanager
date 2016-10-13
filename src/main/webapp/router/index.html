@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <title>Management Pacienti</title>
 <!-- app framework -->
 <script src="shared/libs/angular/angular.js"></script>
 <script src="shared/libs/angular/angular-route.js"></script>
-<script src="shared/libs/bootstrap/ui-bootstrap-tpls-2.1.1.js"></script>
+<script src="shared/libs/bootstrap/ui-bootstrap-tpls-2.1.4.js"></script>
 <script src="shared/libs/angular/interact.js"></script>
 <script src="shared/libs/angular/moment.js"></script>
 <script src="shared/libs/angular/angular-animate.js"></script>
@@ -15,7 +15,9 @@
 <!-- photo slider -->
 <script src="shared/libs/slider/jquery-3.1.0.min.js"></script>
 <script src="shared/libs/slider/TweenMax.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-touch.min.js"></script>
+<script src="shared/libs/angular/angular-touch.js"></script>
+<!-- loading bar -->
+<script src="shared/libs/angular/loading-bar.js"></script>
 
 <!-- app main jars -->
 <script src="app/app.module.js"></script>
@@ -25,8 +27,9 @@
 <!-- calendar -->
 <script type="text/javascript"
 	src="shared/libs/angular/angular-bootstrap-calendar-tpls.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/js/bootstrap-colorpicker-module.min.js"></script>
+<script type="text/javascript" src="shared/libs/bootstrap/bootstrap-colorpicker-module.js"></script>
+<!-- <script
+	src="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/js/bootstrap-colorpicker-module.min.js"></script> -->
 <script src="app/calendar/lib/calendarConfig.js"></script>
 <script src="app/calendar/lib/helpers.js"></script>
 
@@ -34,38 +37,46 @@
 <script src="app/loginComponent/loginCtrl.js"></script>
 <script src="app/createAccountComponent/createAccountCtrl.js"></script>
 <script src="app/calendar/calendarCtrl.js"></script>
-<script src="app/manage/manageCtrl.js"></script>
+<script src="app/mngPacients/mngPacientsCtrl.js"></script>
+<script src="app/pacientPage/pacientDetailCtrl.js"></script>
+<script src="app/mngDoctors/mngDoctorsCtrl.js"></script>
 <!-- modal ctrls -->
 <script src="app/modals/addPacientCtrl.js"></script>
 <script src="app/modals/infoPacientCtrl.js"></script>
 <script src="app/modals/addNewEventCtrl.js"></script>
 <script src="app/calendar/editEventCtrl.js"></script>
 <script src="app/modals/editEvCtrl.js"></script>
+<script src="app/modals/confirmationCtrl.js"></script>
+<script src="app/modals/addConsultCtrl.js"></script>
+<script src="app/modals/addDoctorCtrl.js"></script>
 
 <!-- testRest temp -->
 <script src="app/testRest/testRestCtrl.js"></script>
 
 <!-- Components -->
 <script src="shared/component/photoSlider/photoSliderCtrl.js"></script>
+<script src="shared/component/alertMsg/alertMsgCtrl.js"></script>
 
 <!-- CSS -->
 <link href="shared/css/bootstrap.css" rel="stylesheet" />
 <link href="shared/css/style.css" rel="stylesheet" />
 <link href="shared/css/slider.css" rel="stylesheet" />
-<link href="shared/css/angular-bootstrap-calendar.min.css"
+<link href="shared/css/angular-bootstrap-calendar.css"
 	rel="stylesheet" type="text/css">
 <link href="shared/css/bootstrap-theme.css" rel="stylesheet"
 	type="text/css">
-<link
+<link href="shared/css/colorpicker.css" rel="stylesheet" />
+<!-- <link
 	href="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/css/colorpicker.min.css"
-	rel="stylesheet">
+	rel="stylesheet"> -->
 <link rel="shortcut icon" href="http://example.com/favicon.ico">
-
+<link href="shared/css/loading-bar.css" rel="stylesheet" type="text/css">
 
 </head>
 <body ng-app="mainApp" ng-controller="routerController"
 	style="background-image: url('shared/img/background.jpg')">
-	<div class="tab-content col-md-10 text-center centred marginLeft"
+	<div alert-msg></div>
+	<div class="tab-content col-md-11 text-center centred marginLeft"
 		style="background-color: #EEEAE9;">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
@@ -82,17 +93,19 @@
 				<ul class="nav navbar-nav">
 					<li ui-sref-active="active"><a ui-sref="home" href="">home</a></li>
 					<li ui-sref-active="active"><a ui-sref="calendar" href="">calendar</a></li>
-					<li ui-sref-active="active"><a ui-sref="manage" href="">manage</a></li>
+					<li ui-sref-active="active"><a ui-sref="pacients" href="">pacienti</a></li>
+					<li ui-sref-active="active"><a ui-sref="doctors" href="">doctori</a></li>
 				</ul>
+				<a href="" ng-click="goBack()" ng-if="stateHasChanged">BACK</a>
 			</div>
 		</nav>
 
-		<div class="row">
+		<div>
 			<div class="container">
 				<div ui-view></div>
 			</div>
 		</div>
 	</div>
-	<div style="text-align: center;" class="row" ng-include="'shared/html/footer.html'"></div>
+	<div style="text-align: center;" ng-include="'shared/html/footer.html'"></div>
 </body>
 </html>

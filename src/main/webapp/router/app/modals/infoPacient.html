@@ -1,21 +1,21 @@
 <div>
 	<div class="modal-header">
-		<h3 class="modal-title" id="modal-title">Info pacient {{pacient.firstName + ' ' + pacient.lastName}}</h3>
+		<h3 class="modal-title" id="modal-title">Info pacient {{pacient.name + ' ' + pacient.surname}}</h3>
 	</div>
 	<div class="modal-body" id="modal-body">
 		<div class="row">
 			<div class="col-sm-9">
-				<label>Nume: {{pacient.firstName}}</label>
+				<label>Nume: {{pacient.original.name}}</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-9">
-				<label>Prenume: {{pacient.lastName}}</label>
+				<label>Prenume: {{pacient.original.surname}}</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-9">
-				<label>Seria: {{pacient.seria}}</label>
+				<label>Doctor asignat: {{pacient.doctor.name + ' ' + pacient.doctor.surname}}</label>
 			</div>
 		</div>
 		<div class="row">
