@@ -93,7 +93,7 @@ angular
 
 						$scope.openAddPacientModal = function() {
 							console.log(APPCONST.MODALS);
-							modalSrv.openModal("addPacient", pacientsList).then(
+							modalSrv.openModal("addPacient").then(
 									function(res) {
 										console.log(res);
 										var newPacient = {

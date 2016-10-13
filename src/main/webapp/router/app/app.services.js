@@ -77,6 +77,19 @@ angular.module('mainApp').service(
 					return $http.delete(url);
 				}
 				
+				this.removeDoctor = function(idDoctor){
+					var url = urlCreator(appConst.ENDPOINT.PACIENTS.REMOVE_DOCTOR, [{pName:'doctorId',pValue:idDoctor}]);
+					return $http.delete(url);
+				}
+				
+				this.insertDoctor = function(param){
+					return $http.post(appConst.ENDPOINT.PACIENTS.INSERT_DOCTOR, param);
+				}
+				
+				this.updateDoctor = function(param){
+					return $http.post(appConst.ENDPOINT.PACIENTS.UPDATE_DOCTOR, param);
+				}
+				
 				// utility to create query url
 				var urlCreator = function(endpoint, params) {
 					var urlRet = endpoint;

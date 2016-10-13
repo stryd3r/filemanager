@@ -8,6 +8,7 @@ in front end sa imi ajunga eroare fie ea si un business exception.
  nu gaseste id pacientului in tabela detalii si deci nu face update;putem sa inseram un rand cu idPacient 
  daca nu este deja prezent cand se incearca update?sa nu fiu eu nevoit sa 
  apelez manual insertPacientDetails.
+6. Serviciu la doctori care sa aduca lista de pacienti asignati .
 
 SOLVED:
 1. Am vazut ca la delete este doar deletePacient, adica de tot.
