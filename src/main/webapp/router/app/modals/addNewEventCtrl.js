@@ -1,4 +1,5 @@
-angular.module('mainApp')
+angular
+		.module('mainApp')
 		.controller(
 				'addNewEventCtrl',
 				[
@@ -12,8 +13,8 @@ angular.module('mainApp')
 							$filter) {
 						var originalPacients;
 						var originalDoctors;
-						var selectedDoctor;
-						var selectedPacient;
+						$scope.selectedDoctor;
+						$scope.selectedPacient;
 						$scope.dropBtnPac = "Pacient: ";
 						$scope.dropBtnDoc = "Doctor: ";
 						init();
@@ -31,37 +32,55 @@ angular.module('mainApp')
 
 						$scope.ok = function(event) {
 
-							modalService.openModal('confirmation').then(function(resp) {
-								if ("OK" === resp.resultContext) {
-									var color = {primary:selectedDoctor.color, secondary:selectedDoctor.color}
-									event.color = color;
-									event.doctorName = selectedDoctor.name + ' ' + selectedDoctor.surname
-									//event.pacientName = selectedPacient.name + ' ' + selectedPacient.surname
-									$uibModalInstance.close(event);
-								} else {
-									$uibModalInstance.dismiss('cancel');
-								}
+							modalService
+									.openModal('confirmation')
+									.then(
+											function(resp) {
+												if ("OK" === resp.resultContext) {
+													var color = {
+														primary : $scope.selectedDoctor.color,
+														secondary : $scope.selectedDoctor.color
+													}
+													event.color = color;
+													event.doctorName = $scope.selectedDoctor.name + ' '
+															+ $scope.selectedDoctor.surname;
+													event.doctor = $scope.selectedDoctor;
+													if (!angular.isUndefined($scope.selectedPacient)) {
+														event.pacient = $scope.selectedPacient;
+														event.pacientName = $scope.selectedPacient.name
+																+ ' ' + $scope.selectedPacient.surname;
+													}
+													event.title = (!angular.isUndefined(event.pacient) ? event.pacientName
+															: '')
+															+ ' '
+															+ (!angular.isUndefined(event.descr)
+																	&& event.descr != '' ? '(' + event.descr
+																	+ ')' : '');
+													$uibModalInstance.close(event);
+												} else {
+													$uibModalInstance.dismiss('cancel');
+												}
 
-							});
+											});
 						}
 						$scope.change = function(model, type) {
 							var name = model.name + ' ' + model.surname;
 							if (type == 'pac') {
 								$scope.dropBtnPac = name;
-								selectedPacient = model;
+								$scope.selectedPacient = model;
 								$scope.isOpenPac = false;
 							} else if (type == 'doc') {
 								$scope.dropBtnDoc = name;
-								selectedDoctor = model;
+								$scope.selectedDoctor = model;
 								$scope.isOpenDoc = false;
 							}
 						}
 
 						$scope.search = function(searchItem, type) {
-							if(type == 'pac'){
+							if (type == 'pac') {
 								$scope.pacientsList = $filter('filter')(
 										angular.copy(originalPacients), searchItem);
-							}else if (type == 'doc'){
+							} else if (type == 'doc') {
 								$scope.doctorsList = $filter('filter')(
 										angular.copy(originalDoctors), searchItem);
 							}

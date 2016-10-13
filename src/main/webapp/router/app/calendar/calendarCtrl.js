@@ -39,6 +39,7 @@ angular
 						draggable : true,
 						resizable : true,
 						doctorName : 'Mirionescu Ioana',
+						pacientName : 'Nastasa Radu',
 						actions : actions
 					}
 					// {

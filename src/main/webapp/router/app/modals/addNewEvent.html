@@ -4,12 +4,6 @@
 	</div>
 	<div class="modal-body" id="modal-body">
 		<div class="row">
-			<div class="col-sm-9">
-				<label>Titlu: </label><input type="text" class="form-control"
-					ng-class="{'input-warning': !event.title}" ng-model="event.title">
-			</div>
-		</div>
-		<div class="row">
 			<div class="col-sm-2">
 				<div class="btn-group" uib-dropdown auto-close="outsideClick"
 					is-open="isOpenPac">
@@ -46,25 +40,12 @@
 									ng-change="search(searchDoctor, 'doc')" class="form-control"
 									ng-model="searchDoctor" placeholder="Search" />
 							</div></li>
-						<li role="menuitem" ng-repeat="doc in doctorsList"><a
-							href="" ng-click="change(doc,'doc')">{{doc.name + ' ' +
-								doc.surname}}</a></li>
+						<li role="menuitem" ng-repeat="doc in doctorsList"><a href=""
+							ng-click="change(doc,'doc')">{{doc.name + ' ' + doc.surname}}</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-		<!-- <div class="row">
-			<div class="col-sm-9">
-				<label>Culoare principala: </label><input class="form-control"
-					colorpicker type="text" ng-model="event.color.primary">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-9">
-				<label>Culoare secundara:</label> <input class="form-control"
-					colorpicker type="text" ng-model="event.color.secondary">
-			</div>
-		</div> -->
 		<div class="row">
 			<div class="col-sm-9">
 				<label>Data: </label>
@@ -72,41 +53,37 @@
 					<input type="text" class="form-control" readonly
 						ng-class="{'input-warning': !event.startsAt}"
 						uib-datepicker-popup="dd MMMM yyyy" ng-model="event.startsAt"
-						is-open="event.startOpen" close-text="Close"> <span
-						class="input-group-btn">
-						<button type="button" class="btn btn-default"
-							ng-disabled="!event.title"
+						ng-init="event.startOpen = false" is-open="event.startOpen"
+						close-text="Close"> <span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-disabled="!selectedDoctor"
 							ng-click="toggle($event, 'startOpen', event)">
 							<i class="glyphicon glyphicon-calendar"></i>
 						</button>
 					</span>
 				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
 				<label>De la ora: </label>
 				<div uib-timepicker ng-model="event.startsAt" hour-step="0.5"
 					show-meridian="false" ng-disabled="!event.startsAt"
 					minute-step="15" show-meridian="true"></div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-9">
-				<!-- <label>Se termina la:</label>
-				<p class="input-group" style="max-width: 250px">
-					<input type="text" class="form-control" readonly
-						uib-datepicker-popup="dd MMMM yyyy" ng-model="event.endsAt"
-						is-open="event.endOpen" close-text="Close"> <span
-						class="input-group-btn">
-						<button type="button" class="btn btn-default"
-							ng-click="toggle($event, 'endOpen', event)">
-							<i class="glyphicon glyphicon-calendar"></i>
-						</button>
-					</span>
-				</p> -->
+			<div class="col-sm-2"></div>
+			<div class="col-sm-2">
 				<label>La ora: </label>
 				<div uib-timepicker ng-model="event.endsAt" hour-step="0.5"
-					show-meridian="false" ng-disabled="!event.startsAt"
-					minute-step="15" show-meridian="true"></div>
+					ng-disabled="!event.startsAt" minute-step="15" show-meridian="false"></div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label>Descr: </label><input type="text" class="form-control"
+					maxlength="20" ng-model="event.descr">
+			</div>
+		</div>
+		<br>
 		<div class="modal-footer">
 			<button class="btn btn-primary" type="button"
 				ng-disabled="!event.startsAt" ng-click="ok(event)">Adauga</button>
