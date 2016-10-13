@@ -8,8 +8,10 @@ angular
 					'mainService',
 					'$uibModalInstance',
 					'alert',
+					'modalService',
 					'item',
-					function($scope, APPCONST, srv, $uibModalInstance, alert, item) {
+					function($scope, APPCONST, srv, $uibModalInstance, alert,
+							modalService, item) {
 						$scope.selectedDoctor;
 						$scope.selectedPacient;
 						console.log(item);
@@ -37,7 +39,15 @@ angular
 						}
 
 						$scope.ok = function() {
-							normalizeEdit();
+							modalService.openModal('confirmation').then(function(resp) {
+								if ("OK" === resp.resultContext) {
+									normalizeEdit();
+									$uibModalInstance.close(event);
+								} else {
+									$uibModalInstance.dismiss('cancel');
+								}
+
+							});
 							$uibModalInstance.close($scope.eventEdit);
 						};
 

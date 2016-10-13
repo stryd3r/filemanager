@@ -105,7 +105,7 @@ angular
 					$scope.eventClicked = function(event) {
 						// alert.show('Clicked', event);
 						modalService
-								.openModal("editEv", event, 'lg')
+								.openModal("editEv", event)
 								.then(
 										function(res) {
 											console.log(res);
@@ -117,7 +117,7 @@ angular
 					$scope.eventEdited = function(calendarEv) {
 						// alert.show('Edited', event);
 						modalService
-								.openModal("editEv", calendarEv, 'lg')
+								.openModal("editEv", calendarEv)
 								.then(
 										function(res) {
 											console.log(res);
