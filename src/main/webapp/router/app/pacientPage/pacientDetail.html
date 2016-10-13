@@ -25,13 +25,17 @@
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<label class="form-control" ng-class="{'input-modified': pacient.original.address && pacient.original.address !== originalO.pacientDetailsDto.address}">Adresa:
 					{{pacient.original.address}}</label>
 			</div>
 			<div class="col-sm-4">
 				<label class="form-control" ng-class="{'input-modified': pacient.original.zipCode && pacient.original.zipCode !== originalO.pacientDetailsDto.zipCode}">Zip Code:
 					{{pacient.original.zipCode}}</label>
+			</div>
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.original.doctor && pacient.original.doctor.doctorId !== originalO.doctor.doctorId}">Doctor asignat:
+					{{pacient.original.doctor.name + ' ' + pacient.original.doctor.surname}}</label>
 			</div>
 		</div>
 		<br>
@@ -65,13 +69,20 @@
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<textarea ng-model="pacient.edit.address" class="form-control" ng-class="{'input-modified': pacient.original.address && pacient.original.address !== originalO.pacientDetailsDto.address}"
 					style="max-width: 100%;" placeholder="Adresa"></textarea>
 			</div>
 			<div class="col-sm-4">
 				<input type="text" ng-model="pacient.edit.zipCode" ng-class="{'input-modified': pacient.original.zipCode && pacient.original.zipCode !== originalO.pacientDetailsDto.zipCode}"
 					class="form-control" placeholder="Zip Code">
+			</div>
+			<div class="col-sm-4">
+				<select type="text" ng-options="doc.name+' '+doc.surname for doc in doctorsList track by doc.doctorId" 
+				ng-model="pacient.edit.doctor" 
+				ng-class="{'input-modified': pacient.original.doctor && pacient.original.doctor.doctorId !== originalO.doctor.doctorId}"
+					class="form-control">
+					</select>
 			</div>
 		</div>
 		<br>

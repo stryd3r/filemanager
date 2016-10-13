@@ -63,13 +63,22 @@ angular
 										: null,
 								cnp : object.pacientDetailsDto != null ? object.pacientDetailsDto.cnp
 										: null,
+								doctor : object.doctor,
 								consultations : object.consultations
 
 							};
 							pacientObj.edit = angular.copy(pacientObj.original);
 							$scope.pacient = pacientObj;
 							originalCopy = angular.copy($scope.pacient.original);
+							getDoctorsList();
 						}
+
+						function getDoctorsList() {
+							srv.getDoctors().then(function(resp) {
+								$scope.doctorsList = resp.data;
+							});
+						}
+
 						// others
 						$scope.saveConsult = function(index) {
 							// var index = $scope.pacient.edit.consultations.indexOf(cons);
@@ -127,17 +136,24 @@ angular
 						function insertConsults() {
 							var q = $q.defer();
 							if (newConsutations.length > 0) {
-								angular.forEach(newConsutations, function(newConsult) {
-									srv.insertConsult(newConsult).then(function(resp) {
-										if(newConsutations.indexOf(newConsult) == newConsutations.length - 1){
-											q.resolve();
-										}
-									}, function(err) {
-										// $scope.resetDefault();
-										$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
-										$rootScope.alertMsg = "problema in consultatii";
-										$q.reject();
-										});
+								angular
+										.forEach(
+												newConsutations,
+												function(newConsult) {
+													srv
+															.insertConsult(newConsult)
+															.then(
+																	function(resp) {
+																		if (newConsutations.indexOf(newConsult) == newConsutations.length - 1) {
+																			q.resolve();
+																		}
+																	},
+																	function(err) {
+																		// $scope.resetDefault();
+																		$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+																		$rootScope.alertMsg = "problema in consultatii";
+																		$q.reject();
+																	});
 												});
 							} else {
 								q.resolve();
@@ -179,7 +195,8 @@ angular
 							pacientObj.name = pacient.original.name;
 							pacientObj.surname = pacient.original.surname;
 							pacientObj.pacientId = originalO.pacientId;
-							pacientObj.doctorId = originalO.doctorId;
+							pacientObj.doctorId = pacient.original.doctor.doctorId;
+							pacientObj.doctor = pacient.original.doctor;
 							var consArray = [];
 							angular.forEach(pacient.original.consultations,
 									function(consult) {
