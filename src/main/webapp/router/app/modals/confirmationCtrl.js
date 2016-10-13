@@ -2,7 +2,7 @@ angular.module('mainApp').controller(
 		'confirmationCtrl',
 		[ '$scope', 'APPCONST', 'mainService', '$uibModalInstance',
 			function($scope, APPCONST, srv, $uibModalInstance) {
-				$scope.ok = function(newPacient) {
+				$scope.ok = function() {
 					$uibModalInstance.close("OK");
 				};
 

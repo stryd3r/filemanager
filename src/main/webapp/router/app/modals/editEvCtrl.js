@@ -42,13 +42,11 @@ angular
 							modalService.openModal('confirmation').then(function(resp) {
 								if ("OK" === resp.resultContext) {
 									normalizeEdit();
-									$uibModalInstance.close(event);
+									$uibModalInstance.close($scope.eventEdit);
 								} else {
 									$uibModalInstance.dismiss('cancel');
 								}
-
 							});
-							$uibModalInstance.close($scope.eventEdit);
 						};
 
 						function normalizeEdit() {
@@ -77,7 +75,7 @@ angular
 						};
 
 						$scope.deleteEvent = function() {
-							$uibModalInstance.close();
+							$uibModalInstance.close("DELETE");
 						}
 
 						$scope.change = function(model, type) {

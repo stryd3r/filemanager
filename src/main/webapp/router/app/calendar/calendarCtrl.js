@@ -12,7 +12,9 @@ angular
 					// to work
 					$scope.calendarView = 'month';
 					$scope.viewDate = new Date();
-					calendarConfig.dateFormatter = 'moment'; // use moment instead of angular for formatting dates
+					calendarConfig.dateFormatter = 'moment'; // use moment instead of
+					// angular for formatting
+					// dates
 					calendarConfig.i18nStrings.weekNumber = 'Săpt {week}';
 					moment.locale('ro');
 					var actions = [ {
@@ -34,8 +36,8 @@ angular
 						color : calendarConfig.colorTypes.warning,
 						startsAt : moment().startOf('week').subtract(2, 'days').add(8,
 								'hours').toDate(),
-						endsAt : moment().startOf('week').subtract(2, 'days').add(9, 'hours')
-								.toDate(),
+						endsAt : moment().startOf('week').subtract(2, 'days').add(9,
+								'hours').toDate(),
 						draggable : true,
 						resizable : true,
 						doctorName : 'Mirionescu Ioana',
@@ -78,16 +80,12 @@ angular
 								newEv.actions = actions;
 								newEv.draggable = true;
 								newEv.resizable = true;
-								if(angular.isUndefined(newEv.endsAt)){
+								if (angular.isUndefined(newEv.endsAt)) {
 									var endTime = angular.copy(newEv.startsAt);
 									endTime.setMinutes(endTime.getMinutes() + 30)
 									newEv.endsAt = endTime;
-								}else{
-									var minutes = angular.copy(newEv.endsAt.getMinutes());
-									var hours = angular.copy(newEv.endsAt.getHours());
-									newEv.endsAt = angular.copy(newEv.startsAt);
-									newEv.endsAt.setMinutes(minutes);
-									newEv.endsAt.setHours(hours);
+								} else {
+									newEv = setDateEnd(newEv);
 								}
 								$scope.events.push(res.resultContext);
 							}
@@ -102,6 +100,15 @@ angular
 						 */
 					};
 
+					function setDateEnd(ev) {
+						var minutes = angular.copy(ev.endsAt.getMinutes());
+						var hours = angular.copy(ev.endsAt.getHours());
+						ev.endsAt = angular.copy(ev.startsAt);
+						ev.endsAt.setMinutes(minutes);
+						ev.endsAt.setHours(hours);
+						return ev;
+					}
+
 					$scope.eventClicked = function(event) {
 						// alert.show('Clicked', event);
 						modalService
@@ -109,8 +116,14 @@ angular
 								.then(
 										function(res) {
 											console.log(res);
-											if (res.operationPerformed == 'SUCCESS')
-												$scope.events[$scope.events.indexOf(event)] = res.resultContext;
+											if (res.operationPerformed == 'SUCCESS') {
+												if (res.resultContext == 'DELETE') {
+													$scope.eventDeleted(event);
+												} else {
+													res.resultContext = setDateEnd(res.resultContext);
+													$scope.events[$scope.events.indexOf(event)] = res.resultContext;
+												}
+											}
 										});
 					};
 
@@ -121,8 +134,13 @@ angular
 								.then(
 										function(res) {
 											console.log(res);
-											if (res.operationPerformed == 'SUCCESS')
-												$scope.events[$scope.events.indexOf(calendarEv)] = res.resultContext;
+											if (res.operationPerformed == 'SUCCESS') {
+												if (res.resultContext == 'DELETE') {
+													$scope.eventDeleted(event);
+												} else {
+													$scope.events[$scope.events.indexOf(calendarEv)] = res.resultContext;
+												}
+											}
 										});
 					};
 
