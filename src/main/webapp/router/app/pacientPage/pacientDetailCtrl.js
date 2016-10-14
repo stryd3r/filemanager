@@ -75,9 +75,9 @@ angular
 							checkForChanges();
 						}
 
-						$scope.deleteConsult = function(indx) {
-							$scope.pacient.edit.consultations.splice(indx, 1);
-							delConsultIds.push(indx);
+						$scope.deleteConsult = function(cons) {
+							delConsultIds.push(cons.edit.consultationId);
+							$scope.pacient.edit.consultations.splice($scope.pacient.edit.consultations.indexOf(cons), 1);
 							checkForChanges();
 						}
 

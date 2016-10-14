@@ -159,7 +159,7 @@
 					<button ng-if="cons.editMode" ng-click="cons.editMode = fasle;saveConsult(cons)">
 						<i class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></i>
 					</button>
-					<button ng-if="!cons.editMode" ng-click="deleteConsult($index)">
+					<button ng-if="!cons.editMode" ng-click="deleteConsult(cons)">
 						<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
 					</button>
 					<button ng-if="cons.editMode" ng-click="cons.editMode = false; undoPacientConsultChanges(cons);">
