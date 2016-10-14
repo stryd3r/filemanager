@@ -77,7 +77,8 @@ angular
 
 						$scope.deleteConsult = function(cons) {
 							delConsultIds.push(cons.edit.consultationId);
-							$scope.pacient.edit.consultations.splice($scope.pacient.edit.consultations.indexOf(cons), 1);
+							$scope.pacient.edit.consultations.splice(
+									$scope.pacient.edit.consultations.indexOf(cons), 1);
 							checkForChanges();
 						}
 
@@ -219,9 +220,9 @@ angular
 										if (resp.operationPerformed === 'SUCCESS') {
 											var consultObj = resp.resultContext;
 											consultObj.pacientId = angular
-													.copy($scope.pacient.pacientId);
+													.copy($scope.pacient.edit.pacientId);
 											consultObj.doctorId = angular
-													.copy($scope.pacient.doctorId);
+													.copy($scope.pacient.edit.doctorId);
 											consultObj.consultationTime = new Date().getTime();
 											$scope.pacient.edit.consultations.push({
 												edit : angular.copy(consultObj),
