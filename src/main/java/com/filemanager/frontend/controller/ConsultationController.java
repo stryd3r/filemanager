@@ -26,8 +26,8 @@ public class ConsultationController {
 	}
 
 	@RequestMapping(value = "/removeConsultations", produces = "application/json", method=RequestMethod.DELETE)
-	public boolean removeConsultations(@RequestBody RemoveConsultationsInput input) {
-		boolean result = service.removeConsultations(input.getIds());
+	public boolean removeConsultations(@RequestBody int[] ids) {
+		boolean result = service.removeConsultations(ids);
 
 		return result;
 	}

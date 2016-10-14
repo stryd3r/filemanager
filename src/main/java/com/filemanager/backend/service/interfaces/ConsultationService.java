@@ -8,7 +8,7 @@ public interface ConsultationService {
 
 	boolean removeConsultation(int consultationId);
 
-	boolean removeConsultations(List<Integer> consultations);
+	boolean removeConsultations(int[] ids);
 
 	int insertConsultation(ConsultationDto consultation);
 
