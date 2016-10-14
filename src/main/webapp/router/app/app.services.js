@@ -64,6 +64,11 @@ angular.module('mainApp').service(
 					return $http.delete(appConst.ENDPOINT.PACIENTS.DELETE_CONSULTATIONS, ids);
 				}
 				
+				this.deleteConsult = function(idCons){
+					var url = urlCreator(appConst.ENDPOINT.PACIENTS.DELETE_CONSULT, [{pName:'consultationId',pValue:idCons}]);
+					return $http.delete(url);
+				}
+				
 				this.insertConsult = function(param){
 					return $http.post(appConst.ENDPOINT.PACIENTS.INSERT_CONSULTATION, param);
 				}

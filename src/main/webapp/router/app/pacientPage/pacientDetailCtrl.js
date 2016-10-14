@@ -105,13 +105,25 @@ angular
 						function deleteConsults() {
 							var q = $q.defer();
 							if (delConsultIds.length > 0) {
-								srv.deleteConsults(delConsultIds).then(function(resp) {
-									q.resolve();
-								}, function(err) {
-									$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
-									$rootScope.alertMsg = "problema in consultatii";
-									$q.reject();
-								});
+								angular
+										.forEach(
+												delConsultIds,
+												function(cId) {
+													srv
+															.deleteConsult(cId)
+															.then(
+																	function(resp) {
+																		if (delConsultIds.indexOf(cId) == delConsultIds.length - 1) {
+																			q.resolve();
+																		}
+																	},
+																	function(err) {
+																		$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+																		$rootScope.alertMsg = "Consultation problem: "
+																				+ err.statusText;
+																		$q.reject();
+																	});
+												});
 							} else {
 								q.resolve();
 							}
@@ -140,7 +152,8 @@ angular
 																	function(err) {
 																		// $scope.resetDefault();
 																		$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
-																		$rootScope.alertMsg = "problema in consultatii";
+																		$rootScope.alertMsg = "Consultation problem: "
+																				+ err.statusText;
 																		$q.reject();
 																	});
 												});
