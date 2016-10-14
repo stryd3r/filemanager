@@ -3,7 +3,7 @@ angular.module('mainApp').controller(
 		[ '$scope', 'APPCONST', 'mainService', '$uibModalInstance',
 			function($scope, APPCONST, srv, $uibModalInstance) {
 				$scope.addConsult = function(consult) {
-					consult.price = consult.price.toString();
+					//consult.price = consult.price.toString();
 					$uibModalInstance.close(consult);
 				};
 

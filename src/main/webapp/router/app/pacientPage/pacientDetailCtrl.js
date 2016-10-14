@@ -15,15 +15,14 @@ angular
 					function($scope, $rootScope, APPCONST, srv, modalSrv, $state,
 							$stateParams, pacientDetResp, $q) {
 						// var declarations
-						var originalO = angular.copy(pacientDetResp.data);
-						$scope.originalO = originalO;
-						var pacientObj = {};
-						var originalCopy;
 						var delConsultIds = new Array();
 						var newConsutations = new Array();
+						var tempUndoDet;
+						var tempUndoCons;
 						init(pacientDetResp.data);
 
 						function init(object) {
+							var pacientObj = new Object();
 							// accordion
 							$scope.oneAtATime = false;
 							$scope.status = {
@@ -40,6 +39,7 @@ angular
 							angular.forEach(object.consultations, function(cons) {
 								cons.original = angular.copy(cons);
 								cons.edit = angular.copy(cons.original);
+								cons.editMode = false;
 								delete cons.consultationId;
 								delete cons.pacientId;
 								delete cons.doctorId;
@@ -49,27 +49,17 @@ angular
 								delete cons.consultationTime;
 							});
 							pacientObj.original = {
-								name : object.name,
+								name : angular.copy(object.name),
 								surname : object.surname,
-								address : object.pacientDetailsDto != null ? object.pacientDetailsDto.address
-										: null,
-								zipCode : object.pacientDetailsDto != null ? object.pacientDetailsDto.zipCode
-										: null,
-								phone : object.pacientDetailsDto != null ? object.pacientDetailsDto.phone
-										: null,
-								sex : object.pacientDetailsDto != null ? object.pacientDetailsDto.sex
-										: null,
-								birthdate : object.pacientDetailsDto != null ? object.pacientDetailsDto.birthdate
-										: null,
-								cnp : object.pacientDetailsDto != null ? object.pacientDetailsDto.cnp
-										: null,
-								doctor : object.doctor,
-								consultations : object.consultations
+								doctorId : angular.copy(object.doctorId),
+								pacientId : angular.copy(object.pacientId),
+								doctor : angular.copy(object.doctor),
+								consultations : angular.copy(object.consultations),
+								pacientDetailsDto : angular.copy(object.pacientDetailsDto)
 
 							};
 							pacientObj.edit = angular.copy(pacientObj.original);
-							$scope.pacient = pacientObj;
-							originalCopy = angular.copy($scope.pacient.original);
+							$scope.pacient = angular.copy(pacientObj);
 							getDoctorsList();
 						}
 
@@ -80,12 +70,10 @@ angular
 						}
 
 						// others
-						$scope.saveConsult = function(index) {
+						$scope.saveConsult = function(cons) {
 							// var index = $scope.pacient.edit.consultations.indexOf(cons);
-							delete $scope.pacient.edit.consultations[index].editMode;
+							tempUndoCons = angular.copy(cons.edit);
 							checkForChanges();
-							$scope.pacient.original.consultations[index].original = $scope.pacient.edit.consultations[index].edit;
-							$scope.pacient.edit.consultations[index].original = $scope.pacient.edit.consultations[index].edit;
 						}
 
 						$scope.deleteConsult = function(indx) {
@@ -97,32 +85,35 @@ angular
 						}
 
 						function checkForChanges() {
-							$scope.hasChanged = !angular.equals(originalCopy,
+							$scope.hasChanged = !angular.equals($scope.pacient.original,
 									$scope.pacient.edit);
-							$scope.changesInConsultations = !angular
-									.equals(originalCopy.consultations,
-											$scope.pacient.edit.consultations);
+							$scope.changesInConsultations = !angular.equals(
+									$scope.pacient.original.consultations,
+									$scope.pacient.edit.consultations);
 						}
 
 						$scope.saveEditPacient = function(pacient) {
+							tempUndoDet = angular.copy(pacient.edit);
 							checkForChanges();
-							$scope.pacient.original = pacient.edit;
 							pacient.editMode = false;
 						}
 
 						$scope.resetDefault = function() {
-							init(angular.copy(originalO));
+							$scope.pacient.edit = angular.copy($scope.pacient.original);
 							checkForChanges();
-							delConsultIds = [];
+							delConsultIds = new Array();
+							newConsutations = new Array();
 						}
 
 						function deleteConsults() {
 							var q = $q.defer();
 							if (delConsultIds.length > 0) {
-								srv.deleteConsults(delConsultIds).then(function(resp) {
+								var objInp = {
+									ids : delConsultIds
+								};
+								srv.deleteConsults(objInp).then(function(resp) {
 									q.resolve();
 								}, function(err) {
-									// $scope.resetDefault();
 									$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
 									$rootScope.alertMsg = "problema in consultatii";
 									$q.reject();
@@ -140,6 +131,10 @@ angular
 										.forEach(
 												newConsutations,
 												function(newConsult) {
+													newConsult.pacientId = angular
+															.copy($scope.pacient.edit.pacientId);
+													newConsult.doctorId = angular
+															.copy($scope.pacient.edit.doctor.doctorId);
 													srv
 															.insertConsult(newConsult)
 															.then(
@@ -162,77 +157,91 @@ angular
 						}
 
 						$scope.saveChangesDb = function(pacient) {
-							modalSrv.openModal('confirmation').then(
-									function(resp) {
-										if ("OK" === resp.resultContext) {
-											var toUpdate = createSavePacientObj(pacient);
-											var withConsultations = !angular.equals(
-													toUpdate.consultations, originalO.consultations);
-											var withDetail = $scope.hasChanged;
-											$q.all([ deleteConsults(), insertConsults() ]).then(
-													function() {
-														srv.saveAllPacientInDb(toUpdate, withConsultations,
-																withDetail).then(function(response) {
-															originalO = angular.copy(toUpdate);
-															$scope.originalO = originalO;
-															$scope.resetDefault();
-															$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
-														}, function(err) {
-															// $scope.resetDefault();
-															$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
-														});
-													});
-										}
-									}), function(err) {
-								console.log(err);
-							};
+									modalSrv
+											.openModal('confirmation')
+											.then(
+													function(resp) {
+														if ("OK" === resp.resultContext) {
+															// /var toUpdate = createSavePacientObj(pacient);
+															var withConsultations = !angular.equals(
+																	pacient.edit.consultations,
+																	pacient.original.consultations);
+															var withDetail = $scope.hasChanged;
+															$q
+																	.all([ deleteConsults(), insertConsults() ])
+																	.then(
+																			function() {
+																				srv
+																						.saveAllPacientInDb(
+																								createSaveAllChangesObj(pacient.edit),
+																								withConsultations, withDetail)
+																						.then(
+																								function(response) {
+																									$scope.pacient.original = angular
+																											.copy(pacient.edit);
+																									$scope.resetDefault();
+																									$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
+																								},
+																								function(err) {
+																									// $scope.resetDefault();
+																									$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+																								});
+																			});
+														}
+													}), function(err) {
+										console.log(err);
+									};
 						}
 
-						function createSavePacientObj(pacient) {
-							var pacientObj = {};
-							var pacientDetObj = {};
-							// var doctorObj = {};
-							pacientObj.name = pacient.original.name;
-							pacientObj.surname = pacient.original.surname;
-							pacientObj.pacientId = originalO.pacientId;
-							pacientObj.doctorId = pacient.original.doctor.doctorId;
-							pacientObj.doctor = pacient.original.doctor;
-							var consArray = [];
-							angular.forEach(pacient.original.consultations,
-									function(consult) {
-										consArray.push(consult.original);
-									});
-							pacientObj.consultations = consArray;
-							pacientDetObj.pacientId = originalO.pacientId;
-							pacientDetObj.zipCode = pacient.original.zipCode;
-							pacientDetObj.phone = pacient.original.phone;
-							pacientDetObj.sex = pacient.original.sex;
-							pacientDetObj.address = pacient.original.address;
-							pacientDetObj.cnp = pacient.original.cnp;
-							pacientDetObj.birthdate = pacient.original.birthdate;
-							pacientObj.pacientDetailsDto = pacientDetObj;
-							return pacientObj;
+						function createSaveAllChangesObj(obj) {
+							var toRet = angular.copy(obj);
+							toRet.doctorId = toRet.doctor.doctorId;
+							delete toRet.editMode;
+							for (var i = 0; i < toRet.consultations.length; i++) {
+								toRet.consultations[i] = angular
+										.copy(toRet.consultations[i].edit);
+							}
+							return toRet;
 						}
 
 						$scope.addConsult = function() {
-							modalSrv.openModal('addConsult').then(function(resp) {
-								console.log(resp);
-								if (resp.operationPerformed === 'SUCCESS') {
-									var consultObj = resp.resultContext;
-									consultObj.pacientId = originalO.pacientId;
-									consultObj.doctorId = originalO.doctorId;
-									consultObj.consultationTime = new Date().getTime();
-									$scope.pacient.edit.consultations.push({
-										edit : consultObj,
-										original : consultObj
+							modalSrv.openModal('addConsult').then(
+									function(resp) {
+										console.log(resp);
+										if (resp.operationPerformed === 'SUCCESS') {
+											var consultObj = resp.resultContext;
+											consultObj.pacientId = angular
+													.copy($scope.pacient.pacientId);
+											consultObj.doctorId = angular
+													.copy($scope.pacient.doctorId);
+											consultObj.consultationTime = new Date().getTime();
+											$scope.pacient.edit.consultations.push({
+												edit : angular.copy(consultObj),
+												original : angular.copy(consultObj)
+											});
+											newConsutations.push(consultObj);
+											checkForChanges();
+										}
 									});
-									$scope.pacient.original.consultations.push({
-										edit : consultObj,
-										original : consultObj
-									});
-									newConsutations.push(consultObj);
-									checkForChanges();
-								}
-							});
+						}
+						$scope.undoPacientDetailsChanges = function() {
+							if (angular.isUndefined(tempUndoDet)) {
+								tempUndoDet = angular.copy($scope.pacient.original);
+							}
+							$scope.pacient.edit.name = angular.copy(tempUndoDet.name);
+							$scope.pacient.edit.surname = angular.copy(tempUndoDet.surname);
+							$scope.pacient.edit.pacientDetailsDto = angular
+									.copy(tempUndoDet.pacientDetailsDto);
+							tempUndoDet = angular.copy($scope.pacient.edit);
+							checkForChanges();
+						}
+
+						$scope.undoPacientConsultChanges = function(consult) {
+							if (angular.isUndefined(tempUndoCons)) {
+								tempUndoCons = angular.copy(consult.original);
+							}
+							consult.edit = angular.copy(tempUndoCons);
+							tempUndoCons = angular.copy(consult.edit);
+							checkForChanges();
 						}
 					} ]);

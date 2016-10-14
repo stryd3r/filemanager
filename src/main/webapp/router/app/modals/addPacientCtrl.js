@@ -6,8 +6,10 @@ angular.module('mainApp').controller(
 			'mainService',
 			'$uibModalInstance',
 			'$filter',
+			'modalService',
 			'item',
-			function($scope, APPCONST, srv, $uibModalInstance, $filter, item) {
+			function($scope, APPCONST, srv, $uibModalInstance, $filter, modalService,
+					item) {
 				console.log(item);
 				var originalDoctors;
 				var doc;
@@ -35,8 +37,11 @@ angular.module('mainApp').controller(
 				}
 
 				$scope.ok = function(newPacient) {
-					//newPacient.doctorId = doc.doctorId;
-					$uibModalInstance.close(newPacient);
+					modalService.openModal('confirmation').then(function(resp) {
+						if ("OK" === resp.resultContext) {
+							$uibModalInstance.close(newPacient);
+						}
+					});
 				};
 
 				$scope.cancel = function() {

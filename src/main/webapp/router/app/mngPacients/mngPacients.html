@@ -23,15 +23,13 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="pacient in paginatedPacientsList">
-				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.original.name}}</td>
+				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.edit.name}}</td>
 				<td style="text-align: left;" ng-if="pacient.editMode"><input
 					type="text" class="form-control"
-					ng-init="pacient.edit.name = pacient.original.name"
 					ng-model="pacient.edit.name"></td>
-				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.original.surname}}</td>
+				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.edit.surname}}</td>
 				<td style="text-align: left;" ng-if="pacient.editMode"><input
 					type="text" class="form-control"
-					ng-init="pacient.edit.surname = pacient.original.surname"
 					ng-model="pacient.edit.surname"></td>
 				<td style="text-align: left;"><button ng-if="!pacient.editMode"
 						ng-click="pacient.editMode = true">
@@ -50,7 +48,7 @@
 						<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
 					</button>
 					<button ng-if="pacient.editMode"
-						ng-click="pacient.editMode = false">
+						ng-click="pacient.editMode = false;undoPacChanges(pacient);">
 						<img src="shared/img/Undo.png">
 					</button></td>
 			</tr>

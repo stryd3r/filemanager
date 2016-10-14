@@ -13,6 +13,7 @@ angular
 					function($scope, $rootScope, APPCONST, srv, modalSrv, $state, $filter) {
 						var doctorsList;
 						var filteredList;
+						var tempUndoDoc;
 						init();
 						initPagination();
 						function init() {
@@ -24,15 +25,16 @@ angular
 									elem.original.name = elem.name;
 									elem.original.surname = elem.surname;
 									elem.original.color = elem.color;
+									elem.original.doctorId = elem.doctorId;
 									elem.edit = angular.copy(elem.original);
 									delete elem.name;
 									delete elem.surname;
 									delete elem.color;
+									delete elem.doctorId;
 								});
-								doctorsList = resp.data;
-								$scope.paginatedPacientsList = resp.data;
-								$scope.totalItems = resp.data.length;
-								// performPagination($scope.paginatedPacientsList);
+								doctorsList = angular.copy(resp.data);
+								$scope.paginatedPacientsList = angular.copy(resp.data);
+								$scope.totalItems = angular.copy(resp.data.length);
 								$scope.pageChanged();
 							});
 						}
@@ -47,30 +49,30 @@ angular
 						$scope.pageChanged = function() {
 							filteredList = $filter('filter')
 									(doctorsList, $scope.searchDoctor);
-							filteredList = $filter('orderBy')(filteredList, 'original.name');
-							doctorsList = $filter('orderBy')(doctorsList, 'original.name');
+							filteredList = $filter('orderBy')(filteredList, 'edit.name');
+							doctorsList = $filter('orderBy')(doctorsList, 'edit.name');
 							performPagination(filteredList);
 							$scope.totalItems = filteredList.length;
 						}
 
 						function getIndex(list, elem) {
 							for (var i = 0; i < list.length; i++) {
-								if (angular.equals(list[i].doctorId, elem.doctorId)) {
+								if (angular.equals(list[i].edit.doctorId, elem.doctorId)) {
 									return i;
 								}
 							}
 						}
 
 						$scope.saveEdit = function(doctor) {
-							var doctorToUp = angular.copy(doctor.edit);
-							doctorToUp.doctorId = doctor.doctorId;
+							//var doctorToUp = angular.copy(doctor.edit);
+							//doctorToUp.doctorId = doctor.doctorId;
 							modalSrv.openModal("confirmation").then(function(resp) {
 								if ("OK" === resp.resultContext) {
-									srv.updateDoctor(doctorToUp).then(function(resp) {
-										var index = getIndex(doctorsList, doctor);
-										doctorsList[index].original.name = doctorToUp.name;
-										doctorsList[index].original.surname = doctorToUp.surname;
-										doctorsList[index].original.color = doctorToUp.color;
+									srv.updateDoctor(doctor.edit).then(function(resp) {
+										var index = getIndex(doctorsList, doctor.edit);
+										doctorsList[index].edit = angular.copy(doctor.edit);
+										doctorsList[index].original = angular.copy(doctor.edit);
+										tempUndoDoc = angular.copy(doctor.edit);
 										doctor.editMode = false;
 										$scope.pageChanged();
 										$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
@@ -86,11 +88,13 @@ angular
 								console.log(res);
 								var newDoctor = {
 									editMode : false,
-									original : res.resultContext
+									edit : angular.copy(res.resultContext),
+									original : angular.copy(res.resultContext)
 								};
 								if (res.operationPerformed == 'SUCCESS') {
-									srv.insertDoctor(newDoctor.original).then(function(resp) {
-										newDoctor.doctorId = resp.data;
+									srv.insertDoctor(newDoctor.edit).then(function(resp) {
+										newDoctor.edit.doctorId = resp.data;
+										newDoctor.original.doctorId = resp.data;
 										doctorsList.push(newDoctor);
 										$scope.pageChanged();
 										$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
@@ -104,8 +108,8 @@ angular
 						$scope.deleteDoctor = function(doctor) {
 							modalSrv.openModal("confirmation").then(function(resp) {
 								if ("OK" === resp.resultContext) {
-									srv.removeDoctor(doctor.doctorId).then(function(resp) {
-										var index = getIndex(doctorsList, doctor);
+									srv.removeDoctor(doctor.edit.doctorId).then(function(resp) {
+										var index = getIndex(doctorsList, doctor.edit);
 										doctorsList.splice(index, 1);
 										$scope.pageChanged();
 										$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
@@ -126,5 +130,13 @@ angular
 								$scope.paginatedDoctorsList = list;
 							}
 						};
+						
+						$scope.undoDocChanges = function(doc) {
+							if (angular.isUndefined(tempUndoDoc)) {
+								tempUndoDoc = angular.copy(doc.original);
+							}
+							doc.edit = angular.copy(tempUndoDoc);
+							tempUndoDoc = angular.copy(doc.edit);
+						}
 
 					} ]);

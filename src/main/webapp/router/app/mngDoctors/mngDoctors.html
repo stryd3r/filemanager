@@ -23,18 +23,17 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="doctor in paginatedDoctorsList">
-				<td ng-click="goTodoctorPage(doctor)" ng-if="!doctor.editMode" style="text-align: left;">{{doctor.original.name}}</td>
+				<td ng-click="goTodoctorPage(doctor)" ng-if="!doctor.editMode" style="text-align: left;">{{doctor.edit.name}}</td>
 				<td style="text-align: left;" ng-if="doctor.editMode"><input
 					type="text" class="form-control"
 					ng-model="doctor.edit.name"></td>
-				<td ng-if="!doctor.editMode" style="text-align: left;">{{doctor.original.surname}}</td>
+				<td ng-if="!doctor.editMode" style="text-align: left;">{{doctor.edit.surname}}</td>
 				<td style="text-align: left;" ng-if="doctor.editMode"><input
 					type="text" class="form-control"
-					ng-init="doctor.edit.surname = doctor.original.surname"
 					ng-model="doctor.edit.surname"></td>
 				<td ng-if="!doctor.editMode" style="text-align: left;">
 					<div class="input-color">
-					    <div class="color-box" style="background-color: {{doctor.original.color}}"></div>
+					    <div class="color-box" style="background-color: {{doctor.edit.color}}"></div>
 					    <!-- Replace "#FF850A" to change the color -->
 					</div>
 				</td>
@@ -58,7 +57,7 @@
 						<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
 					</button>
 					<button ng-if="doctor.editMode"
-						ng-click="doctor.editMode = false">
+						ng-click="doctor.editMode = false;undoDocChanges(doctor);">
 						<img src="shared/img/Undo.png">
 					</button></td>
 			</tr>

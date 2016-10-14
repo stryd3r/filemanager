@@ -12,42 +12,42 @@
 	<div ng-if="!pacient.editMode">
 		<div class="row">
 			<div class="col-sm-4">
-				<label class="form-control" ng-class="{'input-modified': pacient.original.name !== originalO.name}">Nume: {{pacient.original.name}}</label>
+				<label class="form-control" ng-class="{'input-modified': pacient.edit.name !== pacient.original.name}">Nume: {{pacient.edit.name}}</label>
 			</div>
 			<div class="col-sm-4">
-				<label class="form-control" ng-class="{'input-modified': pacient.original.surname !== originalO.surname}">Prenume:
-					{{pacient.original.surname}}</label>
+				<label class="form-control" ng-class="{'input-modified': pacient.edit.surname !== pacient.original.surname}">Prenume:
+					{{pacient.edit.surname}}</label>
 			</div>
 			<div class="col-sm-4">
-				<label class="form-control" ng-class="{'input-modified': pacient.original.phone && pacient.original.phone !== originalO.pacientDetailsDto.phone}">Telefon:
-					{{pacient.original.phone}}</label>
-			</div>
-		</div>
-		<br>
-		<div class="row">
-			<div class="col-sm-4">
-				<label class="form-control" ng-class="{'input-modified': pacient.original.address && pacient.original.address !== originalO.pacientDetailsDto.address}">Adresa:
-					{{pacient.original.address}}</label>
-			</div>
-			<div class="col-sm-4">
-				<label class="form-control" ng-class="{'input-modified': pacient.original.zipCode && pacient.original.zipCode !== originalO.pacientDetailsDto.zipCode}">Zip Code:
-					{{pacient.original.zipCode}}</label>
-			</div>
-			<div class="col-sm-4">
-				<label class="form-control" ng-class="{'input-modified': pacient.original.doctor && pacient.original.doctor.doctorId !== originalO.doctor.doctorId}">Doctor asignat:
-					{{pacient.original.doctor.name + ' ' + pacient.original.doctor.surname}}</label>
+				<label class="form-control" ng-class="{'input-modified': pacient.edit.pacientDetailsDto.phone && pacient.edit.pacientDetailsDto.phone !== pacient.original.pacientDetailsDto.phone}">Telefon:
+					{{pacient.edit.pacientDetailsDto.phone}}</label>
 			</div>
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-sm-4">
-				<label class="form-control" ng-class="{'input-modified': pacient.original.cnp && pacient.original.cnp !== originalO.pacientDetailsDto.cnp}">Cnp: {{pacient.original.cnp}}</label>
+				<label class="form-control" ng-class="{'input-modified': pacient.edit.pacientDetailsDto.address && pacient.edit.pacientDetailsDto.address !== pacient.original.pacientDetailsDto.address}">Adresa:
+					{{pacient.edit.pacientDetailsDto.address}}</label>
 			</div>
 			<div class="col-sm-4">
-				<label class="form-control" ng-class="{'input-modified': pacient.original.birthdate && (pacient.original.birthdate | date:'dd-MM-yyyy') !== (originalO.pacientDetailsDto.birthdate | date:'dd-MM-yyyy')}">Data nasterii: {{pacient.original.birthdate | date:'dd-MM-yyyy'}}</label>
+				<label class="form-control" ng-class="{'input-modified': pacient.edit.pacientDetailsDto.zipCode && pacient.edit.pacientDetailsDto.zipCode !== pacient.original.pacientDetailsDto.zipCode}">Zip Code:
+					{{pacient.edit.pacientDetailsDto.zipCode}}</label>
 			</div>
 			<div class="col-sm-4">
-				<label class="form-control" ng-class="{'input-modified': pacient.original.sex && pacient.original.sex !== originalO.pacientDetailsDto.sex}">Sex: {{pacient.original.sex}}</label>
+				<label class="form-control" ng-class="{'input-modified': pacient.edit.doctor && pacient.edit.doctor.doctorId !== pacient.original.doctor.doctorId}">Doctor asignat:
+					{{pacient.edit.doctor.name + ' ' + pacient.edit.doctor.surname}}</label>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.edit.pacientDetailsDto.cnp && pacient.edit.pacientDetailsDto.cnp !== pacient.original.pacientDetailsDto.cnp}">Cnp: {{pacient.edit.pacientDetailsDto.cnp}}</label>
+			</div>
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.edit.pacientDetailsDto.birthdate && (pacient.edit.pacientDetailsDto.birthdate | date:'dd-MM-yyyy') !== (pacient.original.pacientDetailsDto.birthdate | date:'dd-MM-yyyy')}">Data nasterii: {{pacient.edit.pacientDetailsDto.birthdate | date:'dd-MM-yyyy'}}</label>
+			</div>
+			<div class="col-sm-4">
+				<label class="form-control" ng-class="{'input-modified': pacient.edit.pacientDetailsDto.sex && pacient.edit.pacientDetailsDto.sex !== pacient.original.pacientDetailsDto.sex}">Sex: {{pacient.edit.pacientDetailsDto.sex}}</label>
 			</div>
 		</div>
 		<br>
@@ -55,45 +55,45 @@
 	<div ng-if="pacient.editMode">
 		<div class="row">
 			<div class="col-sm-4">
-				<input type="text" ng-model="pacient.edit.name" class="form-control" ng-class="{'input-modified': pacient.original.name !== originalO.name}"
+				<input type="text" ng-model="pacient.edit.name" class="form-control" ng-class="{'input-modified': pacient.edit.name !== pacient.original.name}"
 					placeholder="Nume">
 			</div>
 			<div class="col-sm-4">
-				<input type="text" ng-model="pacient.edit.surname" ng-class="{'input-modified': pacient.original.surname !== originalO.surname}"
+				<input type="text" ng-model="pacient.edit.surname" ng-class="{'input-modified': pacient.edit.surname !== pacient.original.surname}"
 					class="form-control" placeholder="Prenume">
 			</div>
 			<div class="col-sm-4">
-				<input type="text" ng-model="pacient.edit.phone" ng-class="{'input-modified': pacient.original.phone && pacient.original.phone !== originalO.pacientDetailsDto.phone}"
+				<input type="text" ng-model="pacient.edit.pacientDetailsDto.phone" ng-class="{'input-modified': pacient.edit.pacientDetailsDto.phone && pacient.edit.pacientDetailsDto.phone !== pacient.original.pacientDetailsDto.phone}"
 					class="form-control" placeholder="Telefon">
 			</div>
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-sm-4">
-				<textarea ng-model="pacient.edit.address" class="form-control" ng-class="{'input-modified': pacient.original.address && pacient.original.address !== originalO.pacientDetailsDto.address}"
+				<textarea ng-model="pacient.edit.pacientDetailsDto.address" class="form-control" ng-class="{'input-modified': pacient.edit.pacientDetailsDto.address && pacient.edit.pacientDetailsDto.address !== pacient.original.pacientDetailsDto.address}"
 					style="max-width: 100%;" placeholder="Adresa"></textarea>
 			</div>
 			<div class="col-sm-4">
-				<input type="text" ng-model="pacient.edit.zipCode" ng-class="{'input-modified': pacient.original.zipCode && pacient.original.zipCode !== originalO.pacientDetailsDto.zipCode}"
+				<input type="text" ng-model="pacient.edit.pacientDetailsDto.zipCode" ng-class="{'input-modified': pacient.edit.pacientDetailsDto.zipCode && pacient.edit.pacientDetailsDto.zipCode !== pacient.original.pacientDetailsDto.zipCode}"
 					class="form-control" placeholder="Zip Code">
 			</div>
 			<div class="col-sm-4">
 				<select type="text" ng-options="doc.name+' '+doc.surname for doc in doctorsList track by doc.doctorId" 
 				ng-model="pacient.edit.doctor" 
-				ng-class="{'input-modified': pacient.original.doctor && pacient.original.doctor.doctorId !== originalO.doctor.doctorId}"
+				ng-class="{'input-modified': pacient.edit.doctor && pacient.edit.doctor.doctorId !== pacient.original.doctor.doctorId}"
 					class="form-control">
 					</select>
-			</div>
+			</div> 
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-sm-4">
-				<input type="text" ng-model="pacient.edit.cnp" ng-class="{'input-modified': pacient.original.cnp && pacient.original.cnp !== originalO.pacientDetailsDto.cnp}" class="form-control"
+				<input type="text" ng-model="pacient.edit.pacientDetailsDto.cnp" ng-class="{'input-modified': pacient.edit.pacientDetailsDto.cnp && pacient.edit.pacientDetailsDto.cnp !== pacient.original.pacientDetailsDto.cnp}" class="form-control"
 					maxlength="13" placeholder="CNP">
 			</div>
 			<div class="col-sm-4">
 				<p class="input-group">
-	          		<input type="text" popup-placement="bottom" readonly class="form-control" ng-class="{'input-modified': pacient.original.birthdate && (pacient.original.birthdate | date:'dd-MM-yyyy') !== (originalO.pacientDetailsDto.birthdate | date:'dd-MM-yyyy')}" uib-datepicker-popup="{{'dd-MM-yyyy'}}" ng-model="pacient.edit.birthdate" is-open="birthDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats">
+	          		<input type="text" popup-placement="bottom" readonly class="form-control" ng-class="{'input-modified': pacient.edit.pacientDetailsDto.birthdate && (pacient.edit.pacientDetailsDto.birthdate | date:'dd-MM-yyyy') !== (pacient.original.pacientDetailsDto.birthdate | date:'dd-MM-yyyy')}" uib-datepicker-popup="{{'dd-MM-yyyy'}}" ng-model="pacient.edit.pacientDetailsDto.birthdate" is-open="birthDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats">
 	          			<span class="input-group-btn">
 	            		<button type="button" class="btn btn-default" ng-click="birthDateOpened = true;"><i class="glyphicon glyphicon-calendar"></i></button>
 	         		 </span>
@@ -101,7 +101,7 @@
 			</div>
 			
 			<div class="col-sm-4">
-				<select class="form-control" ng-model="pacient.edit.sex" ng-class="{'input-modified': pacient.original.sex && pacient.original.sex !== originalO.pacientDetailsDto.sex}">
+				<select class="form-control" ng-model="pacient.edit.pacientDetailsDto.sex" ng-class="{'input-modified': pacient.edit.pacientDetailsDto.sex && pacient.edit.pacientDetailsDto.sex !== pacient.original.pacientDetailsDto.sex}">
 					<option value="M">M</option>
 					<option value="F">F</option>
 				</select>
@@ -112,7 +112,7 @@
 		style="float: right;">
 		<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
 	</button>
-	<button ng-if="pacient.editMode" ng-click="pacient.editMode = false"
+	<button ng-if="pacient.editMode" ng-click="undoPacientDetailsChanges();pacient.editMode = false;"
 		style="float: right;">
 		<img src="shared/img/Undo.png">
 	</button>
@@ -126,7 +126,7 @@
 		style="color: red; font-size: 150%;"><i class="glyphicon glyphicon-warning-sign"></i></p></label>
 	<button style="float: left; width: 20%" ng-click="addConsult();" class="form-control"><i class="glyphicon glyphicon-plus"></i> Adauga consultatie</button>
 	<uib-accordion-heading>Consultatii <span
-		class="badge">{{pacient.original.consultations.length}}</span> </a> <i
+		class="badge">{{pacient.edit.consultations.length}}</span> </a> <i
 		class="pull-right glyphicon"
 		ng-class="{'glyphicon-chevron-down': status.openDet, 'glyphicon-chevron-right': !status.openDet}"></i>
 	</uib-accordion-heading>
@@ -142,27 +142,27 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="cons in pacient.edit.consultations">
-				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.diagnostic}}</td>
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.edit.diagnostic}}</td>
 				<td style="text-align: left;" ng-if="cons.editMode"><input
 					class="form-control" type="text" ng-model="cons.edit.diagnostic"></td>
-				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.observation}}</td>
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.edit.observation}}</td>
 				<td style="text-align: left;" ng-if="cons.editMode"><input
 					class="form-control" type="text" ng-model="cons.edit.observation"></td>
-				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.price}} RON</td>
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.edit.price}} RON</td>
 				<td style="text-align: left;" ng-if="cons.editMode"><input
 					class="form-control" type="text" ng-model="cons.edit.price"></td>
-				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.original.consultationTime | date:'medium'}}</td>
+				<td ng-if="!cons.editMode" style="text-align: left;">{{cons.edit.consultationTime | date:'medium'}}</td>
 				<td style="text-align: left;"><button ng-if="!cons.editMode"
 						ng-click="cons.editMode = true">
 						<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
 					</button>
-					<button ng-if="cons.editMode" ng-click="saveConsult($index)">
+					<button ng-if="cons.editMode" ng-click="cons.editMode = fasle;saveConsult(cons)">
 						<i class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></i>
 					</button>
 					<button ng-if="!cons.editMode" ng-click="deleteConsult($index)">
 						<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
 					</button>
-					<button ng-if="cons.editMode" ng-click="cons.editMode = false">
+					<button ng-if="cons.editMode" ng-click="cons.editMode = false; undoPacientConsultChanges(cons);">
 						<img src="shared/img/Undo.png">
 					</button></td>
 			</tr>
