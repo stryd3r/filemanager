@@ -71,14 +71,11 @@ angular
 
 						// others
 						$scope.saveConsult = function(cons) {
-							// var index = $scope.pacient.edit.consultations.indexOf(cons);
 							tempUndoCons = angular.copy(cons.edit);
 							checkForChanges();
 						}
 
 						$scope.deleteConsult = function(indx) {
-							// var index =
-							// $scope.pacient.original.consultations.indexOf(cons);
 							$scope.pacient.edit.consultations.splice(indx, 1);
 							delConsultIds.push(indx);
 							checkForChanges();
@@ -108,10 +105,7 @@ angular
 						function deleteConsults() {
 							var q = $q.defer();
 							if (delConsultIds.length > 0) {
-								var objInp = {
-									ids : delConsultIds
-								};
-								srv.deleteConsults(objInp).then(function(resp) {
+								srv.deleteConsults(delConsultIds).then(function(resp) {
 									q.resolve();
 								}, function(err) {
 									$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
@@ -162,7 +156,6 @@ angular
 											.then(
 													function(resp) {
 														if ("OK" === resp.resultContext) {
-															// /var toUpdate = createSavePacientObj(pacient);
 															var withConsultations = !angular.equals(
 																	pacient.edit.consultations,
 																	pacient.original.consultations);
@@ -232,6 +225,7 @@ angular
 							$scope.pacient.edit.surname = angular.copy(tempUndoDet.surname);
 							$scope.pacient.edit.pacientDetailsDto = angular
 									.copy(tempUndoDet.pacientDetailsDto);
+							$scope.pacient.edit.doctor = angular.copy(tempUndoDet.doctor);
 							tempUndoDet = angular.copy($scope.pacient.edit);
 							checkForChanges();
 						}
