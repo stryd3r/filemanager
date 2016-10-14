@@ -159,7 +159,9 @@ angular
 															var withConsultations = !angular.equals(
 																	pacient.edit.consultations,
 																	pacient.original.consultations);
-															var withDetail = $scope.hasChanged;
+															var withDetail = !angular.equals(
+																	pacient.edit.pacientDetailsDto,
+																	pacient.original.pacientDetailsDto);
 															$q
 																	.all([ deleteConsults(), insertConsults() ])
 																	.then(
