@@ -45,7 +45,7 @@
 			<version>5.1.35</version>
 		</dependency>
 
-		<!-- Hibernate dependency -->
+		<!-- Hibernate dependency /added for transaction and logging the sqls when are ran-->
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -110,15 +110,6 @@
 			<artifactId>twilio-java-sdk</artifactId>
 			<version>(6.0,6.9)</version>
 		</dependency>
-
-		<!-- MAPPER dependencies -->
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-jdk8</artifactId>
-			<version>${org.mapstruct.version}</version>
-		</dependency>
-
-
 
 	</dependencies>
 
