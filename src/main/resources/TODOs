@@ -9,6 +9,12 @@ in front end sa imi ajunga eroare fie ea si un business exception.
  daca nu este deja prezent cand se incearca update?sa nu fiu eu nevoit sa 
  apelez manual insertPacientDetails. (insert/update details if exists)
 6. Serviciu la doctori care sa aduca lista de pacienti asignati .
+7. La getEvents mi-ar trebui si pacientul si doctorul selectat(nu neaparat cel asignat pacientului)
+	- de ex eu cand adaug un ev, ii selectez pacientul si doctorul la alegere. Iar cand fac get ma astept sa stiu
+	ce-am ales. POti face tu un exemplu pe calendar sa vezi cum merge si mai discutam despre asta.
+
+High priority
+5.
 
 SOLVED:
 1. Am vazut ca la delete este doar deletePacient, adica de tot.
