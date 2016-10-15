@@ -122,7 +122,15 @@ public class PacientsServiceImpl implements PacientsService {
 
 	@Override
 	public boolean updatePacientDetails(PacientDetailsDto pacient) {
-		return pacientDao.updatePacientDetails(pacient);
+		boolean result;
+		try {
+			pacientDao.getPacientDetails(pacient.getPacientId());
+			result = pacientDao.updatePacientDetails(pacient);
+		} catch (EmptyResultDataAccessException e) {
+			// if we get where means that the user doesn't have any details and we have to insert it
+			result = pacientDao.insertPacientDetails(pacient);
+		}
+		return result;
 	}
 
 	@Override

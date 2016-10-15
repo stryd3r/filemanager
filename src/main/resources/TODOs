@@ -4,17 +4,14 @@ TODO LIST
 3. La insert consultation timestamp sa fie sysdate fara sa fie trimis din GUI.
 4. Am vazut ca intorci true/false la db la tranzactii, as prefera sa-mi arunci o exceptie in loc de false astfel incat
 in front end sa imi ajunga eroare fie ea si un business exception.
-5. Cand inserez un pacient nou fara detalii si intru pe pagina lui sa-i fac update la detalii,
- nu gaseste id pacientului in tabela detalii si deci nu face update;putem sa inseram un rand cu idPacient 
- daca nu este deja prezent cand se incearca update?sa nu fiu eu nevoit sa 
- apelez manual insertPacientDetails. (insert/update details if exists)
+
 6. Serviciu la doctori care sa aduca lista de pacienti asignati .
 7. La getEvents mi-ar trebui si pacientul si doctorul selectat(nu neaparat cel asignat pacientului)
 	- de ex eu cand adaug un ev, ii selectez pacientul si doctorul la alegere. Iar cand fac get ma astept sa stiu
 	ce-am ales. POti face tu un exemplu pe calendar sa vezi cum merge si mai discutam despre asta.
 
 High priority
-5.
+
 
 SOLVED:
 1. Am vazut ca la delete este doar deletePacient, adica de tot.
@@ -23,6 +20,10 @@ SOLVED:
 3. De adaugat timestamp la consultatii. 
 4. Inloc de varsta la pacient sa fie data nasterii, ori calculam noi varsta automat.
 5. Adaugat si CNP la pacient.
+5. Cand inserez un pacient nou fara detalii si intru pe pagina lui sa-i fac update la detalii,
+ nu gaseste id pacientului in tabela detalii si deci nu face update;putem sa inseram un rand cu idPacient 
+ daca nu este deja prezent cand se incearca update?sa nu fiu eu nevoit sa 
+ apelez manual insertPacientDetails. (insert/update details if exists)
 
 
 FUTURES:

@@ -96,13 +96,13 @@ public class PacientTest {
 	@Test
 	public void updatePacientDetails() {
 		PacientDetailsDto pacientDetail = new PacientDetailsDto();
-		pacientDetail.setPacientId(validPacientId);
+		pacientDetail.setPacientId(2);
 		pacientDetail.setBirthdate(new Timestamp(new Date().getTime()));
-		pacientDetail.setPhone("000");
-		pacientDetail.setAddress("Lalelor");
-		pacientDetail.setZipCode("600125");
-		pacientDetail.setSex("m");
-		pacientDetail.setCnp("1881213046699");
+		pacientDetail.setPhone("0001");
+		pacientDetail.setAddress("Lalelor1");
+		pacientDetail.setZipCode("6001251");
+		pacientDetail.setSex("f");
+		pacientDetail.setCnp("1881213046691");
 		boolean success = service.updatePacientDetails(pacientDetail);
 		assert (success);
 	}
