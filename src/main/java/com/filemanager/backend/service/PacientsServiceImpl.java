@@ -101,7 +101,8 @@ public class PacientsServiceImpl implements PacientsService {
 	public boolean updatePacientWithDetails(PacientComplexDto pacient, boolean withDetail, boolean withDoctor, boolean withConsultations) {
 		pacientDao.updatePacient(pacient);
 		if (withDetail) {
-			pacientDao.updatePacientDetails(pacient.getPacientDetailsDto());
+			pacient.getPacientDetailsDto().setPacientId(pacient.getPacientId());
+			updatePacientDetails(pacient.getPacientDetailsDto());
 		}
 		if (withDoctor) {
 			doctorDao.updateDoctor(pacient.getDoctor());
@@ -124,7 +125,6 @@ public class PacientsServiceImpl implements PacientsService {
 	public boolean updatePacientDetails(PacientDetailsDto pacient) {
 		boolean result;
 		try {
-			pacientDao.getPacientDetails(pacient.getPacientId());
 			result = pacientDao.updatePacientDetails(pacient);
 		} catch (EmptyResultDataAccessException e) {
 			// if we get where means that the user doesn't have any details and we have to insert it
