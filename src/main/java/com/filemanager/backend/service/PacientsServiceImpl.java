@@ -101,7 +101,6 @@ public class PacientsServiceImpl implements PacientsService {
 	public boolean updatePacientWithDetails(PacientComplexDto pacient, boolean withDetail, boolean withDoctor, boolean withConsultations) {
 		pacientDao.updatePacient(pacient);
 		if (withDetail) {
-			pacient.getPacientDetailsDto().setPacientId(pacient.getPacientId());
 			updatePacientDetails(pacient.getPacientDetailsDto());
 		}
 		if (withDoctor) {
