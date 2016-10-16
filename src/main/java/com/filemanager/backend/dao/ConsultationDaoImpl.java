@@ -29,6 +29,10 @@ public class ConsultationDaoImpl implements ConsultationDao {
 	final private static String PRICE = "price";
 	final private static String CONSULTATION_TIME = "consultationTime";
 
+	final private static String WHERE_NOT_DELETED = " WHERE deleted IS NULL";
+	final private static String AND_NOT_DELETED = " AND deleted IS NULL";
+	final private static String DELETE = " SET deleted = 1";
+
 	@Override
 	public int insertConsultation(ConsultationDto consultation) {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(this.jdbcTemplate).withTableName(CONSULTATTION_TABLE_NAME).usingGeneratedKeyColumns(CONSULTATION_ID);
@@ -49,7 +53,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 	@Override
 	public boolean updateConsultation(ConsultationDto consultation) {
 		String sql = "UPDATE " + CONSULTATTION_TABLE_NAME + " SET " + DOCTOR_ID + "=?," + PACIENT_ID + "=?, " + DIAGNOSTIC + "=?, " + OBSERVATION + "=? , " + CONSULTATION_TIME + "=? , " + PRICE
-				+ "=? WHERE " + CONSULTATION_ID + "=?";
+				+ "=? WHERE " + CONSULTATION_ID + "=?" + AND_NOT_DELETED;
 
 		Object[] args = new Object[] { consultation.getDoctorId(), consultation.getPacientId(), consultation.getDiagnostic(), consultation.getObservation(), consultation.getConsultationTime(),
 				consultation.getPrice(), consultation.getConsultationId() };
@@ -61,7 +65,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 
 	@Override
 	public boolean removeConsultation(int consultationId) {
-		String sql = "DELETE FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + CONSULTATION_ID + " =?";
+		String sql = "UPDATE " + CONSULTATTION_TABLE_NAME + DELETE + " WHERE " + CONSULTATION_ID + " =?";
 		Object[] args = new Object[] { consultationId };
 		int success = jdbcTemplate.update(sql, args);
 
@@ -71,7 +75,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 
 	@Override
 	public List<ConsultationDto> getConsultations() {
-		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME;
+		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + WHERE_NOT_DELETED;
 		List<ConsultationDto> consultations = jdbcTemplate.query(sql, new ConsultationMapper());
 
 		return consultations;
@@ -79,7 +83,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 
 	@Override
 	public ConsultationDto getConsultationById(int consultationId) {
-		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + CONSULTATION_ID + "=?";
+		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + CONSULTATION_ID + "=?" + AND_NOT_DELETED;
 		Object[] args = new Object[] { consultationId };
 
 		ConsultationDto consultation = jdbcTemplate.queryForObject(sql, args, new ConsultationMapper());
@@ -89,7 +93,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 
 	@Override
 	public List<ConsultationDto> getConsultationsForPacient(int pacientId) {
-		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + PACIENT_ID + "=?";
+		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + PACIENT_ID + "=?" + AND_NOT_DELETED;
 		Object[] args = new Object[] { pacientId };
 		List<ConsultationDto> consultations = jdbcTemplate.query(sql, args, new ConsultationMapper());
 
@@ -98,7 +102,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 
 	@Override
 	public boolean removeConsultationForPacient(int pacientId) {
-		String sql = "DELETE FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
+		String sql = "UPDATE " + CONSULTATTION_TABLE_NAME + DELETE + " WHERE " + PACIENT_ID + " =?";
 		Object[] args = new Object[] { pacientId };
 		int success = jdbcTemplate.update(sql, args);
 
@@ -108,7 +112,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 
 	@Override
 	public List<ConsultationDto> getConsultationsForDoctor(int doctorId) {
-		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + DOCTOR_ID + "=?";
+		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + DOCTOR_ID + "=?" + AND_NOT_DELETED;
 		Object[] args = new Object[] { doctorId };
 		List<ConsultationDto> consultations = jdbcTemplate.query(sql, args, new ConsultationMapper());
 
@@ -117,7 +121,7 @@ public class ConsultationDaoImpl implements ConsultationDao {
 
 	@Override
 	public List<ConsultationDto> getPacientConsultationsForDoctor(int pacientId, int doctorId) {
-		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + DOCTOR_ID + "=? AND " + PACIENT_ID + "=?";
+		String sql = "SELECT * FROM " + CONSULTATTION_TABLE_NAME + " WHERE " + DOCTOR_ID + "=? AND " + PACIENT_ID + "=?" + AND_NOT_DELETED;
 		Object[] args = new Object[] { doctorId, pacientId };
 		List<ConsultationDto> consultations = jdbcTemplate.query(sql, args, new ConsultationMapper());
 

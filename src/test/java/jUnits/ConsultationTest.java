@@ -11,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import com.filemanager.backend.dao.interfaces.ConsultationDao;
 import com.filemanager.backend.service.interfaces.ConsultationService;
 import com.filemanager.config.AppConfig;
 import com.filemanager.config.AppInitializer;
@@ -22,15 +21,13 @@ import com.filemanager.utils.transporters.dto.simple.ConsultationDto;
 @ContextConfiguration(classes = { AppInitializer.class, AppConfig.class, DataSourceConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class ConsultationTest {
 
-	@Autowired
-	private ConsultationDao dao;
 
 	@Autowired
 	private ConsultationService service;
 
 	private static final int validConsultationId = 3;
 	private static final int validDoctorId = 1;
-	private static final int validPacientId = 1;
+	private static final int validPacientId = 3;
 
 	@Test
 	public void insertRemoveConsultation() {
@@ -42,9 +39,9 @@ public class ConsultationTest {
 		consultation.setObservation("obs");
 		consultation.setPrice("100");
 		consultation.setConsultationTime(new Timestamp(new Date().getTime()));
-		int insertedId = dao.insertConsultation(consultation);
+		int insertedId = service.insertConsultation(consultation);
 
-		boolean result = dao.removeConsultation(insertedId);
+		boolean result = service.removeConsultation(insertedId);
 
 		assert (result);
 	}
@@ -59,7 +56,7 @@ public class ConsultationTest {
 		consultation.setObservation("obs2");
 		consultation.setPrice("111");
 		consultation.setConsultationTime(new Timestamp(new Date().getTime()));
-		boolean result = dao.updateConsultation(consultation);
+		boolean result = service.updateConsultation(consultation);
 
 		assert (result);
 	}
@@ -67,7 +64,7 @@ public class ConsultationTest {
 	@Test
 	public void getConsultationById() {
 
-		ConsultationDto consultation = dao.getConsultationById(validConsultationId);
+		ConsultationDto consultation = service.getConsultationById(validConsultationId);
 
 		assert (consultation != null);
 	}
@@ -75,7 +72,7 @@ public class ConsultationTest {
 	@Test
 	public void getConsultations() {
 
-		List<ConsultationDto> consultations = dao.getConsultations();
+		List<ConsultationDto> consultations = service.getConsultations();
 		System.out.println(consultations.size());
 		assert (consultations.size() > 0);
 	}
@@ -83,7 +80,7 @@ public class ConsultationTest {
 	@Test
 	public void getConsultationsForPacient() {
 
-		List<ConsultationDto> consultations = dao.getConsultationsForPacient(2);
+		List<ConsultationDto> consultations = service.getConsultationsForPacient(2);
 		System.out.println(consultations.size());
 		assert (consultations.size() > 0);
 	}

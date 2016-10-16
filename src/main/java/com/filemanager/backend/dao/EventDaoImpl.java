@@ -29,6 +29,10 @@ public class EventDaoImpl implements EventDao {
 	final private static String ALL_DAY = "allDay";
 	final private static String COLOR = "color";
 
+	final private static String WHERE_NOT_DELETED = " WHERE deleted IS NULL";
+	final private static String AND_NOT_DELETED = " AND deleted IS NULL";
+	final private static String DELETE = " SET deleted = 1";
+
 	@Override
 	public int insertEvent(EventDto event) {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(this.jdbcTemplate).withTableName(EVENT_TABLE_NAME).usingGeneratedKeyColumns(EVENT_ID);
@@ -49,7 +53,7 @@ public class EventDaoImpl implements EventDao {
 	@Override
 	public boolean updateEvent(EventDto event) {
 		String sql = "UPDATE " + EVENT_TABLE_NAME + " SET " + DOCTOR_ID + "=?, " + OBSERVATION + "=?, " + START_DATE + "=?, " + END_DATE + "=?, " + ALL_DAY + "=?, " + COLOR + "=? " + " WHERE "
-				+ EVENT_ID + "=?";
+				+ EVENT_ID + "=?" + AND_NOT_DELETED;
 
 		Object[] args = new Object[] { event.getDoctorId(), event.getObservation(), event.getStartDate(), event.getEndDate(), event.getAllDay(), event.getColor(), event.getEventId() };
 		int success = jdbcTemplate.update(sql, args);
@@ -60,7 +64,7 @@ public class EventDaoImpl implements EventDao {
 
 	@Override
 	public List<EventDto> getEvents() {
-		String sql = "SELECT * FROM " + EVENT_TABLE_NAME;
+		String sql = "SELECT * FROM " + EVENT_TABLE_NAME + WHERE_NOT_DELETED;
 		List<EventDto> events = jdbcTemplate.query(sql, new EventMapper());
 
 		return events;
@@ -68,7 +72,7 @@ public class EventDaoImpl implements EventDao {
 
 	@Override
 	public EventDto getEventById(int eventId) {
-		String sql = "SELECT * FROM " + EVENT_TABLE_NAME + " WHERE " + EVENT_ID + "=?";
+		String sql = "SELECT * FROM " + EVENT_TABLE_NAME + " WHERE " + EVENT_ID + "=?" + AND_NOT_DELETED;
 		Object[] args = new Object[] { eventId };
 		EventDto event = jdbcTemplate.queryForObject(sql, args, new EventMapper());
 
@@ -77,7 +81,7 @@ public class EventDaoImpl implements EventDao {
 
 	@Override
 	public boolean removeEvent(int eventId) {
-		String sql = "DELETE FROM " + EVENT_TABLE_NAME + " WHERE " + EVENT_ID + " =?";
+		String sql = "UPDATE " + EVENT_TABLE_NAME + DELETE + " WHERE " + EVENT_ID + " =?";
 
 		Object[] args = new Object[] { eventId };
 		int success = jdbcTemplate.update(sql, args);
@@ -88,7 +92,7 @@ public class EventDaoImpl implements EventDao {
 
 	@Override
 	public List<EventDto> getEventsForDoctor(int doctorId) {
-		String sql = "SELECT * FROM " + EVENT_TABLE_NAME + " WHERE " + DOCTOR_ID + "=?";
+		String sql = "SELECT * FROM " + EVENT_TABLE_NAME + " WHERE " + DOCTOR_ID + "=?" + AND_NOT_DELETED;
 		Object[] args = new Object[] { doctorId };
 		List<EventDto> event = jdbcTemplate.query(sql, args, new EventMapper());
 

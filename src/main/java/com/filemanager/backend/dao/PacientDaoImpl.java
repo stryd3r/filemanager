@@ -36,6 +36,10 @@ public class PacientDaoImpl implements PacientDao {
 	final private static String SEX = "sex";
 	final private static String CNP = "cnp";
 
+	final private static String WHERE_NOT_DELETED = " WHERE deleted IS NULL";
+	final private static String AND_NOT_DELETED = " AND deleted IS NULL";
+	final private static String DELETE = " SET deleted = 1";
+
 	@Override
 	public int insertPacient(PacientDto pacient) {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(this.jdbcTemplate).withTableName(PACIENT_TABLE_NAME).usingGeneratedKeyColumns(PACIENT_ID);
@@ -53,7 +57,7 @@ public class PacientDaoImpl implements PacientDao {
 	@Override
 	public List<PacientDto> getPacients() {
 
-		String sql = "SELECT * FROM " + PACIENT_TABLE_NAME;
+		String sql = "SELECT * FROM " + PACIENT_TABLE_NAME + WHERE_NOT_DELETED;
 
 		List<PacientDto> pacientsList = jdbcTemplate.query(sql, new PacientMapper());
 
@@ -64,7 +68,7 @@ public class PacientDaoImpl implements PacientDao {
 	@Override
 	public PacientDto getPacientById(int pacientId) {
 
-		String sql = "SELECT * FROM " + PACIENT_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
+		String sql = "SELECT * FROM " + PACIENT_TABLE_NAME + " WHERE " + PACIENT_ID + " =?" + AND_NOT_DELETED;
 		Object[] args = new Object[] { pacientId };
 		PacientDto pacient = jdbcTemplate.queryForObject(sql, args, new PacientMapper());
 
@@ -74,7 +78,7 @@ public class PacientDaoImpl implements PacientDao {
 
 	@Override
 	public boolean removePacient(int pacientId) {
-		String sql = "DELETE FROM " + PACIENT_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
+		String sql = "UPDATE " + PACIENT_TABLE_NAME + DELETE + " WHERE " + PACIENT_ID + " =?";
 
 		Object[] args = new Object[] { pacientId };
 		int success = jdbcTemplate.update(sql, args);
@@ -86,7 +90,7 @@ public class PacientDaoImpl implements PacientDao {
 	@Override
 	public boolean updatePacient(PacientDto pacient) {
 
-		String sql = "UPDATE " + PACIENT_TABLE_NAME + " SET " + NAME + "=?, " + SURNAME + "=?, " + DOCTOR_ID + "=? WHERE " + PACIENT_ID + "=?";
+		String sql = "UPDATE " + PACIENT_TABLE_NAME + " SET " + NAME + "=?, " + SURNAME + "=?, " + DOCTOR_ID + "=? WHERE " + PACIENT_ID + "=?" + AND_NOT_DELETED;
 
 		Object[] args = new Object[] { pacient.getName(), pacient.getSurname(), pacient.getDoctorId(), pacient.getPacientId() };
 		int success = jdbcTemplate.update(sql, args);
@@ -115,7 +119,8 @@ public class PacientDaoImpl implements PacientDao {
 
 	@Override
 	public boolean updatePacientDetails(PacientDetailsDto pacientDetail) {
-		String sql = "UPDATE " + PACIENT_DETAIL_TABLE_NAME + " SET " + ADDRESS + "=?, " + ZIPCODE + "=?, " + PHONE + "=?, " + BIRTHDATE + "=?, " + SEX + "=?, " + CNP + "=? WHERE " + PACIENT_ID + "=?";
+		String sql = "UPDATE " + PACIENT_DETAIL_TABLE_NAME + " SET " + ADDRESS + "=?, " + ZIPCODE + "=?, " + PHONE + "=?, " + BIRTHDATE + "=?, " + SEX + "=?, " + CNP + "=? WHERE " + PACIENT_ID + "=?"
+				+ AND_NOT_DELETED;
 
 		Object[] args = new Object[] { pacientDetail.getAddress(), pacientDetail.getZipCode(), pacientDetail.getPhone(), pacientDetail.getBirthdate(), pacientDetail.getSex(), pacientDetail.getCnp(),
 				pacientDetail.getPacientId() };
@@ -127,7 +132,7 @@ public class PacientDaoImpl implements PacientDao {
 
 	@Override
 	public boolean removePacientDetails(int pacientId) {
-		String sql = "DELETE FROM " + PACIENT_DETAIL_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
+		String sql = "UPDATE " + PACIENT_DETAIL_TABLE_NAME + DELETE + " WHERE " + PACIENT_ID + " =?";
 
 		Object[] args = new Object[] { pacientId };
 		int success = jdbcTemplate.update(sql, args);
@@ -138,7 +143,7 @@ public class PacientDaoImpl implements PacientDao {
 
 	@Override
 	public PacientDetailsDto getPacientDetails(int pacientId) {
-		String sql = "SELECT * FROM " + PACIENT_DETAIL_TABLE_NAME + " WHERE " + PACIENT_ID + " =?";
+		String sql = "SELECT * FROM " + PACIENT_DETAIL_TABLE_NAME + " WHERE " + PACIENT_ID + " =?" + AND_NOT_DELETED;
 		Object[] args = new Object[] { pacientId };
 		PacientDetailsDto pacient = jdbcTemplate.queryForObject(sql, args, new PacientDetailsMapper());
 
@@ -148,7 +153,7 @@ public class PacientDaoImpl implements PacientDao {
 	@Override
 	public List<PacientDto> getPacientsForDoctor(int doctorId) {
 
-		String sql = "SELECT * FROM " + PACIENT_TABLE_NAME + " WHERE " + DOCTOR_ID + " =?";
+		String sql = "SELECT * FROM " + PACIENT_TABLE_NAME + " WHERE " + DOCTOR_ID + " =?" + AND_NOT_DELETED;
 		Object[] args = new Object[] { doctorId };
 		List<PacientDto> pacients = jdbcTemplate.query(sql, args, new PacientMapper());
 

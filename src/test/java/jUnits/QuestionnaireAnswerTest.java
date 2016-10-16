@@ -21,9 +21,9 @@ public class QuestionnaireAnswerTest {
 
 	@Autowired
 	private QuestionnaireAnswerDao dao;
-	private static final int validQuestionId = 2;
-	private static final int validQuestionnaireId = 2;
-	private static final int validPacientId = 1;
+	private static final int validQuestionId = 3;
+	private static final int validQuestionnaireId = 3;
+	private static final int validPacientId = 3;
 
 	@Test
 	public void insertRemoveQuestionnaireAnswer() {

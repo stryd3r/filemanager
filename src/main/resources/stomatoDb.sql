@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`doctor` (
   `name` VARCHAR(100) NOT NULL,
   `surname` VARCHAR(100) NOT NULL,
   `color` VARCHAR(10) NOT NULL,
+  `deleted` INT(1) NULL DEFAULT NULL,
   PRIMARY KEY (`doctorId`),
   UNIQUE INDEX `color_UNIQUE` (`color` ASC))
 ENGINE = InnoDB
@@ -39,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`pacient` (
   `name` VARCHAR(20) NOT NULL,
   `surname` VARCHAR(20) NOT NULL,
   `doctorId` INT(11) NOT NULL,
+  `deleted` INT(1) NULL DEFAULT NULL,
   PRIMARY KEY (`pacientId`),
   INDEX `fk_pacienti_doctori1_idx` (`doctorId` ASC),
   CONSTRAINT `fk_pacienti_doctori1`
@@ -61,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`consultation` (
   `observation` VARCHAR(500) NULL,
   `price` VARCHAR(100) NULL DEFAULT NULL,
   `consultationTime` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted` INT(1) NULL DEFAULT NULL,
   PRIMARY KEY (`consultationId`),
   INDEX `Vizite_clienti` (`pacientId` ASC),
   INDEX `doctori_Vizite` (`doctorId` ASC),
@@ -85,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`event` (
   `endDate` TIMESTAMP NULL DEFAULT NULL,
   `allDay` TINYINT(1) NOT NULL DEFAULT '0',
   `color` VARCHAR(10) NOT NULL,
+  `deleted` INT(1) NULL DEFAULT NULL,
   PRIMARY KEY (`eventId`),
   INDEX `fk_event_doctor1_idx` (`doctorId` ASC),
   CONSTRAINT `fk_event_doctor1`
@@ -107,6 +111,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`pacientDetail` (
   `birthdate` TIMESTAMP NULL,
   `sex` VARCHAR(1) NULL,
   `cnp` VARCHAR(13) NULL,
+  `deleted` INT(1) NULL DEFAULT NULL,
   INDEX `fk_detalii_pacient_pacienti1_idx` (`pacientId` ASC),
   UNIQUE INDEX `pacientId_UNIQUE` (`pacientId` ASC),
   CONSTRAINT `fk_detalii_pacient_pacienti1`
@@ -125,6 +130,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`questionnaire` (
   `questionnaireId` INT(11) NOT NULL,
   `questionId` INT(11) NOT NULL,
   `question` VARCHAR(301) NOT NULL,
+  `deleted` INT(1) NULL DEFAULT NULL,
   PRIMARY KEY (`questionnaireId`, `questionId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
@@ -138,6 +144,7 @@ CREATE TABLE IF NOT EXISTS `stomato`.`questionnaireAnswer` (
   `questionnaireId` INT(11) NOT NULL,
   `questionId` INT(11) NOT NULL,
   `answer` VARCHAR(500) NULL,
+  `deleted` INT(1) NULL DEFAULT NULL,
   INDEX `raspuns_chestionar_chestionare` (`questionnaireId` ASC, `questionId` ASC),
   INDEX `raspuns_chestionar_clienti` (`pacientId` ASC),
   CONSTRAINT `raspuns_chestionar_chestionare`

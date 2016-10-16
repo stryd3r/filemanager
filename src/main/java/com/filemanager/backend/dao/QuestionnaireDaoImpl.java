@@ -25,6 +25,10 @@ public class QuestionnaireDaoImpl implements QuestionnaireDao {
 	final private static String QUESTION_ID = "questionId";
 	final private static String QUESTION = "question";
 
+	final private static String WHERE_NOT_DELETED = " WHERE deleted IS NULL";
+	final private static String AND_NOT_DELETED = " AND deleted IS NULL";
+	final private static String DELETE = " SET deleted = 1";
+
 	@Override
 	public boolean insertQuestionnaire(QuestionnaireDto questionnaire) {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(this.jdbcTemplate).withTableName(QUESTIONNAIRE_TABLE_NAME);
@@ -42,7 +46,7 @@ public class QuestionnaireDaoImpl implements QuestionnaireDao {
 	@Override
 	public boolean updateQuestionnaire(QuestionnaireDto questionnaire, int oldQuestionnaireId, int oldQuestionId) {
 		String sql = "UPDATE " + QUESTIONNAIRE_TABLE_NAME + " SET " + QUESTIONNAIRE_ID + "=?, " + QUESTION_ID + "=?, " + QUESTION + "=?" + " WHERE " + QUESTIONNAIRE_ID + "=" + oldQuestionnaireId
-				+ " AND " + QUESTION_ID + "=" + oldQuestionId;
+				+ " AND " + QUESTION_ID + "=" + oldQuestionId + AND_NOT_DELETED;
 
 		Object[] args = new Object[] { questionnaire.getQuestionnaireId(), questionnaire.getQuestionId(), questionnaire.getQuestion() };
 		int success = jdbcTemplate.update(sql, args);
@@ -53,7 +57,7 @@ public class QuestionnaireDaoImpl implements QuestionnaireDao {
 
 	@Override
 	public List<QuestionnaireDto> getQuestionnaires() {
-		String sql = "SELECT * FROM " + QUESTIONNAIRE_TABLE_NAME;
+		String sql = "SELECT * FROM " + QUESTIONNAIRE_TABLE_NAME + WHERE_NOT_DELETED;
 
 		List<QuestionnaireDto> questionnaireAnswers = jdbcTemplate.query(sql, new QuestionnaireMapper());
 
@@ -62,7 +66,7 @@ public class QuestionnaireDaoImpl implements QuestionnaireDao {
 
 	@Override
 	public boolean removeQuestionFromQuestionnaire(int questionnaireId, int questionId) {
-		String sql = "DELETE FROM " + QUESTIONNAIRE_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + " =? AND " + QUESTION_ID + " =?";
+		String sql = "UPDATE " + QUESTIONNAIRE_TABLE_NAME + DELETE + " WHERE " + QUESTIONNAIRE_ID + " =? AND " + QUESTION_ID + " =?";
 
 		Object[] args = new Object[] { questionnaireId, questionId };
 		int success = jdbcTemplate.update(sql, args);
@@ -73,7 +77,7 @@ public class QuestionnaireDaoImpl implements QuestionnaireDao {
 
 	@Override
 	public QuestionnaireDto getQuestionFromQuestionnaire(int questionnaireId, int questionId) {
-		String sql = "SELECT * FROM " + QUESTIONNAIRE_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + "=? AND " + QUESTION_ID + "=?";
+		String sql = "SELECT * FROM " + QUESTIONNAIRE_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + "=? AND " + QUESTION_ID + "=?" + AND_NOT_DELETED;
 		Object[] args = new Object[] { questionnaireId, questionId };
 		QuestionnaireDto questionnaire = jdbcTemplate.queryForObject(sql, args, new QuestionnaireMapper());
 
@@ -82,7 +86,7 @@ public class QuestionnaireDaoImpl implements QuestionnaireDao {
 
 	@Override
 	public boolean removeQuestionnaire(int questionnaireId) {
-		String sql = "DELETE FROM " + QUESTIONNAIRE_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + " =?";
+		String sql = "UPDATE " + QUESTIONNAIRE_TABLE_NAME + DELETE + " WHERE " + QUESTIONNAIRE_ID + " =?";
 
 		Object[] args = new Object[] { questionnaireId };
 		int success = jdbcTemplate.update(sql, args);
@@ -93,7 +97,7 @@ public class QuestionnaireDaoImpl implements QuestionnaireDao {
 
 	@Override
 	public List<QuestionnaireDto> getQuestionnaire(int questionnaireId) {
-		String sql = "SELECT * FROM " + QUESTIONNAIRE_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + "=?";
+		String sql = "SELECT * FROM " + QUESTIONNAIRE_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + "=?" + AND_NOT_DELETED;
 		Object[] args = new Object[] { questionnaireId };
 		List<QuestionnaireDto> questionnaires = jdbcTemplate.query(sql, args, new QuestionnaireMapper());
 

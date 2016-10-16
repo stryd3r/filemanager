@@ -25,7 +25,7 @@ public class PacientTest {
 
 	@Autowired
 	private PacientsService service;
-	int validPacientId = 1;
+	int validPacientId = 4;
 	int validDoctorId = 1;
 
 	@Test

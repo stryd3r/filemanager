@@ -23,14 +23,14 @@ public class DoctorTest {
 	@Autowired
 	private DoctorService service;
 	int validPacientId = 1;
-	int validDoctorId = 1;
+	int validDoctorId = 5;
 
 	@Test
 	public void insertRemoveDoctor() {
 		DoctorDto doctor = new DoctorDto();
 		doctor.setName("Adrian");
 		doctor.setSurname("Barna");
-		doctor.setColor("blue");
+		doctor.setColor("red");
 		int insertedId = service.insertDoctor(doctor);
 
 		boolean result = service.removeDoctor(insertedId);
@@ -44,7 +44,7 @@ public class DoctorTest {
 		doctor.setDoctorId(validDoctorId);
 		doctor.setName("Adrian");
 		doctor.setSurname("Barna");
-		doctor.setColor("blue");
+		doctor.setColor("red21");
 		boolean result = service.updateDoctor(doctor);
 
 		assert (result);

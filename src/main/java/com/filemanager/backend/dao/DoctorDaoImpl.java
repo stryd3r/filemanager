@@ -26,6 +26,10 @@ public class DoctorDaoImpl implements DoctorDao {
 	final private static String SURNAME = "surname";
 	final private static String COLOR = "color";
 
+	final private static String WHERE_NOT_DELETED = " WHERE deleted IS NULL";
+	final private static String AND_NOT_DELETED = " AND deleted IS NULL";
+	final private static String DELETE = " SET deleted = 1";
+
 	@Override
 	public int insertDoctor(DoctorDto doctor) {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(this.jdbcTemplate).withTableName(DOCTOR_TABLE_NAME).usingGeneratedKeyColumns(DOCTOR_ID);
@@ -42,7 +46,7 @@ public class DoctorDaoImpl implements DoctorDao {
 
 	@Override
 	public List<DoctorDto> getDoctors() {
-		String sql = "SELECT * FROM " + DOCTOR_TABLE_NAME;
+		String sql = "SELECT * FROM " + DOCTOR_TABLE_NAME + WHERE_NOT_DELETED;
 		List<DoctorDto> doctors = jdbcTemplate.query(sql, new DoctorMapper());
 
 		return doctors;
@@ -50,7 +54,7 @@ public class DoctorDaoImpl implements DoctorDao {
 
 	@Override
 	public DoctorDto getDoctorById(int doctorId) {
-		String sql = "SELECT * FROM " + DOCTOR_TABLE_NAME + " WHERE " + DOCTOR_ID + "=?";
+		String sql = "SELECT * FROM " + DOCTOR_TABLE_NAME + " WHERE " + DOCTOR_ID + "=?" + AND_NOT_DELETED;
 
 		Object[] args = new Object[] { doctorId };
 
@@ -61,7 +65,7 @@ public class DoctorDaoImpl implements DoctorDao {
 
 	@Override
 	public boolean updateDoctor(DoctorDto doctor) {
-		String sql = "UPDATE " + DOCTOR_TABLE_NAME + " SET " + NAME + "=?, " + SURNAME + "=?, " + COLOR + "=? WHERE " + DOCTOR_ID + "=?";
+		String sql = "UPDATE " + DOCTOR_TABLE_NAME + " SET " + NAME + "=?, " + SURNAME + "=?, " + COLOR + "=? WHERE " + DOCTOR_ID + "=?" + AND_NOT_DELETED;
 
 		Object[] args = new Object[] { doctor.getName(), doctor.getSurname(), doctor.getColor(), doctor.getDoctorId() };
 		int success = jdbcTemplate.update(sql, args);
@@ -72,7 +76,7 @@ public class DoctorDaoImpl implements DoctorDao {
 
 	@Override
 	public boolean removeDoctor(int doctorId) {
-		String sql = "DELETE FROM " + DOCTOR_TABLE_NAME + " WHERE " + DOCTOR_ID + " =?";
+		String sql = "UPDATE " + DOCTOR_TABLE_NAME + DELETE + " WHERE " + DOCTOR_ID + " =?";
 		Object[] args = new Object[] { doctorId };
 		int success = jdbcTemplate.update(sql, args);
 
