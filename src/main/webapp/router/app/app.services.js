@@ -10,6 +10,11 @@ angular.module('mainApp').service(
 				 * $http.get('shared/mock/json/pacienti.json'); }
 				 */
 
+				this.getDoctorsPacients = function(doctorId, withPacients){
+					var url = urlCreator(appConst.ENDPOINT.PACIENTS.GET_DOCTOR_PACIENTS, [{pName:'doctorId',pValue:doctorId}, {pName:'withPacients',pValue:withPacients}])
+					return $http.get(url);
+				}
+				
 				this.getPacients = function() {
 					var url = urlCreator(appConst.ENDPOINT.PACIENTS.GET_PACIENTS, [{pName:'withDoctor',pValue:false}])
 					return $http.get(url);

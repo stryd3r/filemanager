@@ -28,7 +28,8 @@ angular.module('mainApp').constant('APPCONST', (function() {
 				INSERT_DOCTOR : defEndpoint + 'insertDoctor',
 				UPDATE_DOCTOR : defEndpoint + 'updateDoctor',
 				REMOVE_DOCTOR : defEndpoint + 'removeDoctor',
-				DELETE_CONSULT : defEndpoint + 'removeConsultation'
+				DELETE_CONSULT : defEndpoint + 'removeConsultation',
+				GET_DOCTOR_PACIENTS : defEndpoint + 'getDoctorbyIdWithDetails'
 			}
 		},
 		ALERT : {

@@ -8,7 +8,11 @@ in front end sa imi ajunga eroare fie ea si un business exception.
 	ce-am ales. POti face tu un exemplu pe calendar sa vezi cum merge si mai discutam despre asta.
 
 High priority
-
+1. Dupa update: 
+	- daca adaug un pacient ii asignez un doctor si dupa sterg doctorul, crapa getDoctorById si implicit si getPacientById cand apas pe info
+	  sau cand vreau sa deschid pagina pacientului.
+	Ar trebui aruncat cel putin un business exception care sa spuna ca pacientul nu are nici un doctor asignat 
+	si sa mearga in details si sa-i asigneze doctor(doar ca in cazul asta nu poate accesa nici pagina de details).
 
 SOLVED:
 1. Am vazut ca la delete este doar deletePacient, adica de tot.

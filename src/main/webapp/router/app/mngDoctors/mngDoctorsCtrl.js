@@ -64,8 +64,8 @@ angular
 						}
 
 						$scope.saveEdit = function(doctor) {
-							//var doctorToUp = angular.copy(doctor.edit);
-							//doctorToUp.doctorId = doctor.doctorId;
+							// var doctorToUp = angular.copy(doctor.edit);
+							// doctorToUp.doctorId = doctor.doctorId;
 							modalSrv.openModal("confirmation").then(function(resp) {
 								if ("OK" === resp.resultContext) {
 									srv.updateDoctor(doctor.edit).then(function(resp) {
@@ -130,7 +130,15 @@ angular
 								$scope.paginatedDoctorsList = list;
 							}
 						};
-						
+
+						$scope.openInfoDoctorModal = function(doctor) {
+							modalSrv.openModal("infoDoctor", doctor).then(function(resp) {
+								console.log(resp.resultContext.operationPerformed);
+							}, function(err) {
+								$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+							});
+						}
+
 						$scope.undoDocChanges = function(doc) {
 							if (angular.isUndefined(tempUndoDoc)) {
 								tempUndoDoc = angular.copy(doc.original);

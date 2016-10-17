@@ -131,6 +131,9 @@ angular
 								}, function(err) {
 									$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
 								});
+							}, function(err) {
+								$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+								$rootScope.alertMsg = "Info pacient modal problem: " + err.statusText;
 							});
 						}
 
