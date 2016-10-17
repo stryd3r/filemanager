@@ -1,0 +1,29 @@
+<div>
+	<div class="modal-header">
+		<h3 class="modal-title" id="modal-title">
+			Lista pacienti <strong>{{doctor.edit.name + ' ' +
+				doctor.edit.surname}}</strong>
+		</h3>
+	</div>
+	<div class="modal-body" id="modal-body">
+		<table class="table table-striped scrollTable"
+			ng-if="pacientsList.length > 0">
+			<thead>
+				<tr>
+					<th>Nume</th>
+					<th>Prenume</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="pac in pacientsList">
+					<td style="text-align: left;">{{pac.name}}</td>
+					<td style="text-align: left;">{{pac.surname}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<strong ng-if="pacientsList.length == 0">Nimic de afisat !</strong>
+		<div class="modal-footer">
+			<button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+		</div>
+	</div>
+</div>

@@ -205,6 +205,10 @@ angular
 						function createSaveAllChangesObj(obj) {
 							var toRet = angular.copy(obj);
 							toRet.doctorId = toRet.doctor.doctorId;
+							if (angular.isUndefined(toRet.pacientDetailsDto)
+									&& angular.isUndefined(toRet.pacientDetailsDto.pacientId)) {
+								toRet.pacientDetailsDto.pacientId = toRet.pacientId;
+							}
 							delete toRet.editMode;
 							for (var i = 0; i < toRet.consultations.length; i++) {
 								toRet.consultations[i] = angular
