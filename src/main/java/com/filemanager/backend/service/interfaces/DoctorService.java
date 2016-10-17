@@ -2,6 +2,7 @@ package com.filemanager.backend.service.interfaces;
 
 import java.util.List;
 
+import com.filemanager.exceptions.ConstraintException;
 import com.filemanager.utils.transporters.dto.complex.DoctorComplexDto;
 import com.filemanager.utils.transporters.dto.simple.DoctorDto;
 
@@ -13,7 +14,7 @@ public interface DoctorService {
 
 	boolean updateDoctor(DoctorDto doctor);
 
-	boolean removeDoctor(int doctorId);
+	boolean removeDoctor(int doctorId) throws ConstraintException;
 
 	DoctorDto getDoctorById(int doctorId);
 

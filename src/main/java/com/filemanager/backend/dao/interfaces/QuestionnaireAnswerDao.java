@@ -17,5 +17,7 @@ public interface QuestionnaireAnswerDao {
 	QuestionnaireAnswerDto getAnswer(int questionnaireId, int questionId, int pacientId);
 	
 	List<QuestionnaireAnswerDto> getAnswersForQuestionnaire(int questionnaireId, int pacientId);
+
+	boolean checkIfQuestionnaireCanBeDeleted(int questionnaireId);
 	
 }

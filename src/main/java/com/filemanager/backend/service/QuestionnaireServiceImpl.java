@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.filemanager.backend.dao.interfaces.QuestionnaireAnswerDao;
 import com.filemanager.backend.dao.interfaces.QuestionnaireDao;
 import com.filemanager.backend.service.interfaces.QuestionnaireService;
+import com.filemanager.exceptions.ConstraintException;
 import com.filemanager.utils.transporters.dto.simple.QuestionnaireDto;
 
 @Service
@@ -16,6 +18,9 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 
 	@Autowired
 	private QuestionnaireDao dao;
+
+	@Autowired
+	private QuestionnaireAnswerDao questionnaireAnswerDao;
 
 	@Override
 	public boolean insertQuestionnaire(QuestionnaireDto questionnaire) {
@@ -43,8 +48,17 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 	}
 
 	@Override
-	public boolean removeQuestionnaire(int questionnaireId) {
+	public boolean removeQuestionnaire(int questionnaireId) throws ConstraintException {
+		checkIfconstraintsPassed(questionnaireId);
 		return dao.removeQuestionnaire(questionnaireId);
+	}
+
+	private void checkIfconstraintsPassed(int questionnaireId) throws ConstraintException {
+		boolean result = questionnaireAnswerDao.checkIfQuestionnaireCanBeDeleted(questionnaireId);
+		if (!result) {
+			throw new ConstraintException("Chestionarul nu poate fi sters deoarece cel putin un pacient l-a completat!");
+		}
+
 	}
 
 	@Override

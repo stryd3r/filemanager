@@ -76,6 +76,7 @@ public class DoctorDaoImpl implements DoctorDao {
 
 	@Override
 	public boolean removeDoctor(int doctorId) {
+		
 		String sql = "UPDATE " + DOCTOR_TABLE_NAME + DELETE + " WHERE " + DOCTOR_ID + " =?";
 		Object[] args = new Object[] { doctorId };
 		int success = jdbcTemplate.update(sql, args);

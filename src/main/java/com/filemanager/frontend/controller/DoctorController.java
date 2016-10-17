@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.filemanager.backend.service.interfaces.DoctorService;
+import com.filemanager.exceptions.ConstraintException;
 import com.filemanager.utils.transporters.dto.complex.DoctorComplexDto;
 import com.filemanager.utils.transporters.dto.simple.DoctorDto;
 
@@ -34,7 +35,7 @@ public class DoctorController {
 	}
 
 	@RequestMapping(value = "/removeDoctor", produces = "application/json", method = RequestMethod.DELETE)
-	public boolean removeDoctor(int doctorId) {
+	public boolean removeDoctor(int doctorId) throws ConstraintException {
 		return doctorService.removeDoctor(doctorId);
 	}
 

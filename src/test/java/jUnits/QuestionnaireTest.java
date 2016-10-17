@@ -9,10 +9,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import com.filemanager.backend.dao.interfaces.QuestionnaireDao;
+import com.filemanager.backend.service.interfaces.QuestionnaireService;
 import com.filemanager.config.AppConfig;
 import com.filemanager.config.AppInitializer;
 import com.filemanager.config.DataSourceConfig;
+import com.filemanager.exceptions.ConstraintException;
 import com.filemanager.utils.transporters.dto.simple.QuestionnaireDto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,7 +21,7 @@ import com.filemanager.utils.transporters.dto.simple.QuestionnaireDto;
 public class QuestionnaireTest {
 
 	@Autowired
-	private QuestionnaireDao dao;
+	private QuestionnaireService questionnaireService;
 
 	@Test
 	public void insertRemoveQuestionnaire() {
@@ -29,13 +30,17 @@ public class QuestionnaireTest {
 		questionnaire.setQuestionId(3);
 		questionnaire.setQuestionnaireId(3);
 		questionnaire.setQuestion("ce?");
-		boolean resultInserted = dao.insertQuestionnaire(questionnaire);
+		boolean resultInserted = questionnaireService.insertQuestionnaire(questionnaire);
 
-		boolean resultDeleted = dao.removeQuestionFromQuestionnaire(3, 3);
+		boolean resultDeleted = questionnaireService.removeQuestionFromQuestionnaire(3, 3);
 
 		assert (resultInserted && resultDeleted);
 	}
 
+	@Test
+	public void removeQuestionnaireWhichHasAnswers() throws ConstraintException{
+		questionnaireService.removeQuestionnaire(1);
+	}
 	@Test
 	public void updateQuestionnaire() {
 
@@ -43,14 +48,14 @@ public class QuestionnaireTest {
 		questionnaire.setQuestionnaireId(4);
 		questionnaire.setQuestionId(5);
 		questionnaire.setQuestion("ce?");
-		boolean result = dao.updateQuestionnaire(questionnaire, 1, 1);
+		boolean result = questionnaireService.updateQuestionnaire(questionnaire, 1, 1);
 		assert (result);
 	}
 
 	@Test
 	public void getQuestionnaireById() {
 
-		QuestionnaireDto questionnaireAnswerDto = dao.getQuestionFromQuestionnaire(4, 5);
+		QuestionnaireDto questionnaireAnswerDto = questionnaireService.getQuestionFromQuestionnaire(4, 5);
 
 		assert (questionnaireAnswerDto != null);
 	}
@@ -58,20 +63,20 @@ public class QuestionnaireTest {
 	@Test
 	public void getQuestionnaires() {
 
-		List<QuestionnaireDto> questionnaireAnswers = dao.getQuestionnaires();
+		List<QuestionnaireDto> questionnaireAnswers = questionnaireService.getQuestionnaires();
 		System.out.println(questionnaireAnswers.size());
 		assert (!questionnaireAnswers.isEmpty());
 	}
 
 	@Test
-	public void removeQuestionnaire() {
-		boolean result = dao.removeQuestionnaire(1);
+	public void removeQuestionnaire() throws ConstraintException {
+		boolean result = questionnaireService.removeQuestionnaire(1);
 		assert result;
 	}
 
 	@Test
 	public void getQuestionnaire() {
-		List<QuestionnaireDto> questionsForQuestionnaire = dao.getQuestionnaire(1);
+		List<QuestionnaireDto> questionsForQuestionnaire = questionnaireService.getQuestionnaire(1);
 		System.out.println(questionsForQuestionnaire.size());
 		assert !questionsForQuestionnaire.isEmpty();
 	}

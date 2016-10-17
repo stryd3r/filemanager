@@ -13,6 +13,7 @@ import com.filemanager.backend.service.interfaces.DoctorService;
 import com.filemanager.config.AppConfig;
 import com.filemanager.config.AppInitializer;
 import com.filemanager.config.DataSourceConfig;
+import com.filemanager.exceptions.ConstraintException;
 import com.filemanager.utils.transporters.dto.complex.DoctorComplexDto;
 import com.filemanager.utils.transporters.dto.simple.DoctorDto;
 
@@ -26,7 +27,7 @@ public class DoctorTest {
 	int validDoctorId = 5;
 
 	@Test
-	public void insertRemoveDoctor() {
+	public void insertRemoveDoctor() throws ConstraintException {
 		DoctorDto doctor = new DoctorDto();
 		doctor.setName("Adrian");
 		doctor.setSurname("Barna");
@@ -36,6 +37,11 @@ public class DoctorTest {
 		boolean result = service.removeDoctor(insertedId);
 
 		assert (result);
+	}
+	
+	@Test
+	public void removeDoctorWithHasPacient() throws ConstraintException{
+		service.removeDoctor(1);
 	}
 
 	@Test

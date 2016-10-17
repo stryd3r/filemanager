@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.filemanager.backend.service.interfaces.QuestionnaireAnswerService;
 import com.filemanager.backend.service.interfaces.QuestionnaireService;
+import com.filemanager.exceptions.ConstraintException;
 import com.filemanager.utils.transporters.dto.simple.QuestionnaireAnswerDto;
 import com.filemanager.utils.transporters.dto.simple.QuestionnaireDto;
 
@@ -47,7 +48,7 @@ public class QuestionnaireController {
 	}
 
 	@RequestMapping(value = "/removeQuestionnaire", produces = "application/json", method=RequestMethod.DELETE)
-	public boolean removeQuestionnaire(int questionnaireId) {
+	public boolean removeQuestionnaire(int questionnaireId) throws ConstraintException {
 		return service.removeQuestionnaire(questionnaireId);
 	}
 

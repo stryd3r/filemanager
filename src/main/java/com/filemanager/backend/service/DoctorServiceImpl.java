@@ -11,6 +11,7 @@ import com.filemanager.backend.dao.interfaces.DoctorDao;
 import com.filemanager.backend.dao.interfaces.EventDao;
 import com.filemanager.backend.dao.interfaces.PacientDao;
 import com.filemanager.backend.service.interfaces.DoctorService;
+import com.filemanager.exceptions.ConstraintException;
 import com.filemanager.utils.transporters.dto.complex.DoctorComplexDto;
 import com.filemanager.utils.transporters.dto.simple.ConsultationDto;
 import com.filemanager.utils.transporters.dto.simple.DoctorDto;
@@ -49,8 +50,16 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public boolean removeDoctor(int doctorId) {
+	public boolean removeDoctor(int doctorId) throws ConstraintException {
+		checkIfconstraintsPassed(doctorId);
 		return doctorDao.removeDoctor(doctorId);
+	}
+
+	private void checkIfconstraintsPassed(int doctorId) throws ConstraintException {
+		List<PacientDto> pacients = pacientDao.getPacientsForDoctor(doctorId);
+		if (!pacients.isEmpty()) {
+			throw new ConstraintException("Doctorul nu poate fi sters deoarece are cel putin un pacient asignat!");
+		}
 	}
 
 	@Override

@@ -85,8 +85,8 @@ public class PacientsServiceImpl implements PacientsService {
 
 	@Override
 	public boolean removePacient(int pacientId, boolean atomicDeletion) {
+		pacientDao.removePacientDetails(pacientId);
 		if (atomicDeletion) {
-			pacientDao.removePacientDetails(pacientId);
 			consultationDao.removeConsultationForPacient(pacientId);
 		}
 		return pacientDao.removePacient(pacientId);
@@ -164,10 +164,10 @@ public class PacientsServiceImpl implements PacientsService {
 			pacientForResult.setDoctor(doctor);
 		}
 		if (withConsultations) {
-			try {
-				List<ConsultationDto> consultations = consultationDao.getConsultationsForPacient(currentPacient.getPacientId());
+			List<ConsultationDto> consultations = consultationDao.getConsultationsForPacient(currentPacient.getPacientId());
+			if (!consultations.isEmpty()) {
 				pacientForResult.setConsultations(consultations);
-			} catch (EmptyResultDataAccessException e) {
+			} else {
 				System.out.println("No consultations for pacientId: " + currentPacient.getPacientId());
 			}
 		}

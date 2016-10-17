@@ -95,4 +95,16 @@ public class QuestionnaireAnswerDaoImpl implements QuestionnaireAnswerDao {
 		return answers;
 	}
 
+	@Override
+	public boolean checkIfQuestionnaireCanBeDeleted(int questionnaireId) {
+		String sql = "SELECT * FROM " + QUESTIONNAIRE_ANSWER_TABLE_NAME + " WHERE " + QUESTIONNAIRE_ID + "=? " + AND_NOT_DELETED + " LIMIT 1";
+		Object[] args = new Object[] { questionnaireId };
+		List<QuestionnaireAnswerDto> answers = jdbcTemplate.query(sql, args, new QuestionnaireAnswerMapper());
+		if (answers.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }
