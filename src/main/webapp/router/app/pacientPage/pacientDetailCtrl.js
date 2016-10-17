@@ -206,7 +206,7 @@ angular
 							var toRet = angular.copy(obj);
 							toRet.doctorId = toRet.doctor.doctorId;
 							if (angular.isUndefined(toRet.pacientDetailsDto)
-									&& angular.isUndefined(toRet.pacientDetailsDto.pacientId)) {
+									|| angular.isUndefined(toRet.pacientDetailsDto.pacientId)) {
 								toRet.pacientDetailsDto.pacientId = toRet.pacientId;
 							}
 							delete toRet.editMode;
