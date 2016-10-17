@@ -29,9 +29,22 @@
 							templateUrl : 'app/pacientPage/pacientDetail.html',
 							controller : 'pacientDetailCtrl',
 							resolve : {
-								pacientDetResp : [ '$stateParams', 'mainService',
-									function($stateParams, srv) {
-										return srv.getPacientById($stateParams.idPacient);
+								pacientDetResp : [
+									'$stateParams',
+									'$rootScope',
+									'APPCONST',
+									'mainService',
+									function($stateParams, $rootScope, APPCONST, srv) {
+										var retVal = srv.getPacientById($stateParams.idPacient);
+										retVal.then(function(r) {
+
+										}, function(err) {
+											console.log(err);
+											$rootScope.alertIsOn = APPCONST.ALERT.ERROR;
+											$rootScope.alertMsg = "Pacient detail problem: "
+													+ err.statusText;
+										});
+										return retVal;
 									} ]
 							}
 						}).state('doctors', {
