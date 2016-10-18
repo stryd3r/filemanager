@@ -13,7 +13,7 @@ angular
 					function($scope, $rootScope, APPCONST, srv, modalSrv, $state, $filter) {
 						var doctorsList;
 						var filteredList;
-						var tempUndoDoc;
+						var tempUndoDoc = new Array();
 						init();
 						initPagination();
 						function init() {
@@ -72,7 +72,7 @@ angular
 										var index = getIndex(doctorsList, doctor.edit);
 										doctorsList[index].edit = angular.copy(doctor.edit);
 										doctorsList[index].original = angular.copy(doctor.edit);
-										tempUndoDoc = angular.copy(doctor.edit);
+										tempUndoDoc[index] = angular.copy(doctor.edit);
 										doctor.editMode = false;
 										$scope.pageChanged();
 										$rootScope.alertIsOn = APPCONST.ALERT.SUCCESS;
@@ -140,11 +140,12 @@ angular
 						}
 
 						$scope.undoDocChanges = function(doc) {
-							if (angular.isUndefined(tempUndoDoc)) {
-								tempUndoDoc = angular.copy(doc.original);
+							var index = getIndex($scope.paginatedDoctorsList, doc.edit);
+							if (angular.isUndefined(tempUndoDoc[index])) {
+								tempUndoDoc[index] = angular.copy(doc.original);
 							}
-							doc.edit = angular.copy(tempUndoDoc);
-							tempUndoDoc = angular.copy(doc.edit);
+							doc.edit = angular.copy(tempUndoDoc[index]);
+							tempUndoDoc[index] = angular.copy(doc.edit);
 						}
 
 					} ]);

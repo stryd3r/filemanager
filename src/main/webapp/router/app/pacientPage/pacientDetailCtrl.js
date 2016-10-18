@@ -18,7 +18,7 @@ angular
 						var delConsultIds = new Array();
 						var newConsutations = new Array();
 						var tempUndoDet;
-						var tempUndoCons;
+						var tempUndoCons = new Array();
 						init(pacientDetResp.data);
 
 						function init(object) {
@@ -54,7 +54,9 @@ angular
 								doctorId : angular.copy(object.doctorId),
 								pacientId : angular.copy(object.pacientId),
 								doctor : angular.copy(object.doctor),
-								consultations : angular.copy(object.consultations),
+								consultations : angular.isUndefined(object.consultations)
+										|| object.consultations == null ? new Array() : angular
+										.copy(object.consultations),
 								pacientDetailsDto : angular.copy(object.pacientDetailsDto)
 
 							};
@@ -69,16 +71,29 @@ angular
 							});
 						}
 
+						function getIndex(list, elem) {
+							for (var i = 0; i < list.length; i++) {
+								if (angular.equals(list[i].edit.consultationId,
+										elem.consultationId)) {
+									return i;
+								}
+							}
+						}
+
 						// others
 						$scope.saveConsult = function(cons) {
-							tempUndoCons = angular.copy(cons.edit);
+							var index = getIndex($scope.pacient.edit.consultations, cons.edit);
+							tempUndoCons[index] = angular.copy(cons.edit);
 							checkForChanges();
 						}
 
 						$scope.deleteConsult = function(cons) {
-							delConsultIds.push(cons.edit.consultationId);
+							if (!angular.isUndefined(cons.edit.consultationId)) {
+								delConsultIds.push(cons.edit.consultationId);
+							}
 							$scope.pacient.edit.consultations.splice(
 									$scope.pacient.edit.consultations.indexOf(cons), 1);
+							newConsutations.splice(newConsutations.indexOf(cons), 1);
 							checkForChanges();
 						}
 
@@ -138,14 +153,16 @@ angular
 										.forEach(
 												newConsutations,
 												function(newConsult) {
-													newConsult.pacientId = angular
+													newConsult.toInsert.pacientId = angular
 															.copy($scope.pacient.edit.pacientId);
-													newConsult.doctorId = angular
+													newConsult.toInsert.doctorId = angular
 															.copy($scope.pacient.edit.doctor.doctorId);
 													srv
-															.insertConsult(newConsult)
+															.insertConsult(newConsult.toInsert)
 															.then(
 																	function(resp) {
+																		$scope.pacient.edit.consultations[newConsult.index].edit.consultationId = angular
+																				.copy(resp.data);
 																		if (newConsutations.indexOf(newConsult) == newConsutations.length - 1) {
 																			q.resolve();
 																		}
@@ -206,7 +223,10 @@ angular
 							var toRet = angular.copy(obj);
 							toRet.doctorId = toRet.doctor.doctorId;
 							if (angular.isUndefined(toRet.pacientDetailsDto)
-									|| angular.isUndefined(toRet.pacientDetailsDto.pacientId)) {
+									|| toRet.pacientDetailsDto == null) {
+								toRet.pacientDetailsDto = new Object();
+							}
+							if (angular.isUndefined(toRet.pacientDetailsDto.pacientId)) {
 								toRet.pacientDetailsDto.pacientId = toRet.pacientId;
 							}
 							delete toRet.editMode;
@@ -228,12 +248,17 @@ angular
 											consultObj.doctorId = angular
 													.copy($scope.pacient.edit.doctorId);
 											consultObj.consultationTime = new Date().getTime();
-											$scope.pacient.edit.consultations.push({
+											var toPush = {
 												edit : angular.copy(consultObj),
 												original : angular.copy(consultObj)
-											});
-											newConsutations.push(consultObj);
+											};
+											$scope.pacient.edit.consultations.push(toPush);
 											checkForChanges();
+											newConsutations.push({
+												index : $scope.pacient.edit.consultations
+														.indexOf(toPush),
+												toInsert : consultObj
+											});
 										}
 									});
 						}
@@ -251,11 +276,13 @@ angular
 						}
 
 						$scope.undoPacientConsultChanges = function(consult) {
-							if (angular.isUndefined(tempUndoCons)) {
-								tempUndoCons = angular.copy(consult.original);
+							var index = getIndex($scope.pacient.edit.consultations,
+									consult.edit);
+							if (angular.isUndefined(tempUndoCons[index])) {
+								tempUndoCons[index] = angular.copy(consult.original);
 							}
-							consult.edit = angular.copy(tempUndoCons);
-							tempUndoCons = angular.copy(consult.edit);
+							consult.edit = angular.copy(tempUndoCons[index]);
+							tempUndoCons[index] = angular.copy(consult.edit);
 							checkForChanges();
 						}
 					} ]);
