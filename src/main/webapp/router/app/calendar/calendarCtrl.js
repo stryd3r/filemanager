@@ -34,9 +34,9 @@ angular
 					$scope.events = [ {
 						title : 'programare',
 						color : calendarConfig.colorTypes.warning,
-						startsAt : moment().startOf('week').subtract(2, 'days').add(8,
+						startsAt : moment().add(1,
 								'hours').toDate(),
-						endsAt : moment().startOf('week').subtract(2, 'days').add(9,
+						endsAt : moment().add(2,
 								'hours').toDate(),
 						draggable : true,
 						resizable : true,
