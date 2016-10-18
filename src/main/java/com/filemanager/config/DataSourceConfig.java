@@ -25,9 +25,16 @@ public class DataSourceConfig {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/stomato");
-		dataSource.setUsername("root");
-		dataSource.setPassword("mysql");
+		boolean enableOpenShiftSettings = true;
+		if (enableOpenShiftSettings) {
+			dataSource.setUrl("jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${OPENSHIFT_MYSQL_DB_PORT}/stomatoviadent");
+			dataSource.setUsername("adminmIE6zgL");
+			dataSource.setPassword("y7G72GhU4Wz_");
+		} else {
+			dataSource.setUrl("jdbc:mysql://localhost:3306/stomato");
+			dataSource.setUsername("root");
+			dataSource.setPassword("mysql");
+		}
 		return dataSource;
 	}
 
