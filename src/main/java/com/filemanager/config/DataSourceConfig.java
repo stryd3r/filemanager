@@ -14,8 +14,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
+@EnableWebMvc
 @EnableTransactionManagement
 public class DataSourceConfig {
 
@@ -28,6 +29,10 @@ public class DataSourceConfig {
 		dataSource.setUrl("jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7140776");
 		dataSource.setUsername("sql7140776");
 		dataSource.setPassword("g4Tcxnf6z4");
+//		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//		dataSource.setUrl("jdbc:mysql://localhost:3306/stomato");
+//		dataSource.setUsername("root");
+//		dataSource.setPassword("mysql");
 		return dataSource;
 	}
 
