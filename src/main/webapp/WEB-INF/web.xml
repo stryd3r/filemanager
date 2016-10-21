@@ -11,10 +11,6 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring-web-config.xml</param-value>
 		</init-param>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>com.filemanager.config.DataSourceConfig</param-value>
-		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
@@ -29,12 +25,7 @@
 	</listener>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>com.filemanager.config.DataSourceConfig</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring-core-config.xml</param-value>
+		<param-value>/WEB-INF/spring-web-config.xml</param-value>
 	</context-param>
 
 </web-app>

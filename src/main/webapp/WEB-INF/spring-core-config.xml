@@ -8,6 +8,5 @@
         http://www.springframework.org/schema/context/spring-context.xsd ">
 
 	<context:component-scan
-		base-package="com.filemanager.config, com.filemanager.backend, com.filemanager.frontend" />
-
+		base-package="com.filemanager.backend, com.filemanager.frontend" />
 </beans>
