@@ -6,13 +6,13 @@
 			<div class="col-sm-3">
 				<div class="inner-addon left-addon">
 					<i class="glyphicon glyphicon-search"></i> <input type="text"
-						class="form-control" ng-model="searchDoctor" placeholder="Search"
+						class="form-control" ng-model="searchPacient" placeholder="Search"
 						ng-change="pageChanged()" />
 				</div>
 			</div>
 			<div class="col-sm-3">
 				<button class="btn btn-primary btn-md"
-					ng-click="openAddDoctorModal()">Adauga doctor</button>
+					ng-click="openAddPacientModal()">Adauga pacient</button>
 			</div>
 		</div>
 	</div>
@@ -22,45 +22,36 @@
 			<tr>
 				<th>Nume</th>
 				<th>Prenume</th>
-				<th>Culoare</th>
+				<!-- <th>Seria</th> -->
 				<th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="doctor in paginatedDoctorsList">
-				<td ng-click="goTodoctorPage(doctor)" ng-if="!doctor.editMode"
-					style="text-align: left;">{{doctor.edit.name}}</td>
-				<td style="text-align: left;" ng-if="doctor.editMode"><input
-					type="text" class="form-control" ng-model="doctor.edit.name"></td>
-				<td ng-if="!doctor.editMode" style="text-align: left;">{{doctor.edit.surname}}</td>
-				<td style="text-align: left;" ng-if="doctor.editMode"><input
-					type="text" class="form-control" ng-model="doctor.edit.surname"></td>
-				<td ng-if="!doctor.editMode" style="text-align: left;">
-					<div class="input-color">
-						<div class="color-box"
-							style="background-color: {{doctor.edit.color"></div>
-						<!-- Replace "#FF850A" to change the color -->
-					</div>
-				</td>
-				<td style="text-align: left;" ng-if="doctor.editMode"><input
-					colorpicker type="text" class="form-control"
-					ng-model="doctor.edit.color"></td>
-				<td style="text-align: left;"><button ng-if="!doctor.editMode"
-						ng-click="doctor.editMode = true">
+			<tr ng-repeat="pacient in paginatedPacientsList">
+				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode"
+					style="text-align: left; cursor: pointer;">{{pacient.edit.name}}</td>
+				<td style="text-align: left;" ng-if="pacient.editMode"><input
+					type="text" class="form-control" ng-model="pacient.edit.name"></td>
+				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode"
+					style="text-align: left; cursor: pointer;">{{pacient.edit.surname}}</td>
+				<td style="text-align: left;" ng-if="pacient.editMode"><input
+					type="text" class="form-control" ng-model="pacient.edit.surname"></td>
+				<td style="text-align: left;"><button ng-if="!pacient.editMode"
+						ng-click="pacient.editMode = true">
 						<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
 					</button>
-					<button ng-if="!doctor.editMode"
-						ng-click="openInfoDoctorModal(doctor)">
+					<button ng-if="!pacient.editMode"
+						ng-click="openInfoPacientModal(pacient)">
 						<i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
 					</button>
-					<button ng-if="doctor.editMode" ng-click="saveEdit(doctor)">
+					<button ng-if="pacient.editMode" ng-click="saveEdit(pacient)">
 						<i class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></i>
 					</button>
-					<button ng-if="!doctor.editMode" ng-click="deleteDoctor(doctor)">
+					<button ng-if="!pacient.editMode" ng-click="deletePacient(pacient)">
 						<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
 					</button>
-					<button ng-if="doctor.editMode"
-						ng-click="doctor.editMode = false;undoDocChanges(doctor);">
+					<button ng-if="pacient.editMode"
+						ng-click="pacient.editMode = false;undoPacChanges(pacient);">
 						<img src="shared/img/Undo.png">
 					</button></td>
 			</tr>
