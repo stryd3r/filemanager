@@ -14,6 +14,7 @@ import com.filemanager.utils.transporters.dto.simple.PacientDetailsDto;
 import com.filemanager.utils.transporters.dto.simple.PacientDto;
 
 @RestController
+@RequestMapping("/router")
 public class PacientController {
 
 	@Autowired

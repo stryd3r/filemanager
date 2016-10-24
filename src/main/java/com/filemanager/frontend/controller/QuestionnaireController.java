@@ -14,6 +14,7 @@ import com.filemanager.utils.transporters.dto.simple.QuestionnaireAnswerDto;
 import com.filemanager.utils.transporters.dto.simple.QuestionnaireDto;
 
 @RestController
+@RequestMapping("/router")
 public class QuestionnaireController {
 
 	@Autowired
