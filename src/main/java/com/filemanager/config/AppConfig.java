@@ -8,7 +8,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
-@ComponentScan(basePackages = { "com.filemanager.frontend", "com.filemanager.backend" })
+@ComponentScan(basePackages = { "com.filemanager.frontend",
+		"com.filemanager.backend" })
 public class AppConfig {
 
 	@Bean

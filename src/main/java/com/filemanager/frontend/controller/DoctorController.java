@@ -14,6 +14,7 @@ import com.filemanager.utils.transporters.dto.complex.DoctorComplexDto;
 import com.filemanager.utils.transporters.dto.simple.DoctorDto;
 
 @RestController
+@RequestMapping("/router")
 public class DoctorController {
 
 	@Autowired

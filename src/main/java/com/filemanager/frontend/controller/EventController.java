@@ -11,6 +11,7 @@ import com.filemanager.backend.service.interfaces.EventService;
 import com.filemanager.utils.transporters.dto.simple.EventDto;
 
 @RestController
+@RequestMapping("/router")
 public class EventController {
 
 	@Autowired

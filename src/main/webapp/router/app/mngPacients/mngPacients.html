@@ -1,15 +1,20 @@
 <div class="panel panel-default">
 	<!-- Default panel contents -->
 	<div class="panel-heading">
-	<i ng-include="" src="'app/managePage/manage.html'"></i>
-		<div class="inner-addon left-addon">
-			<i class="glyphicon glyphicon-search"></i> <input type="text"
-				class="form-control" ng-model="searchPacient" placeholder="Search" ng-change="pageChanged()"/>
+		<i ng-include="" src="'app/managePage/manage.html'"></i>
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="inner-addon left-addon">
+					<i class="glyphicon glyphicon-search"></i> <input type="text"
+						class="form-control" ng-model="searchPacient" placeholder="Search"
+						ng-change="pageChanged()" />
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<button class="btn btn-primary btn-md"
+					ng-click="openAddPacientModal()">Adauga pacient</button>
+			</div>
 		</div>
-		<button class="btn btn-primary btn-md"
-			ng-click="openAddPacientModal()"
-			style="margin-top: -56px; margin-right: 500px;">Adauga
-			pacient</button>
 	</div>
 	<!-- Table -->
 	<table class="table table-striped">
@@ -23,14 +28,14 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="pacient in paginatedPacientsList">
-				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.edit.name}}</td>
+				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode"
+					style="text-align: left; cursor: pointer;">{{pacient.edit.name}}</td>
 				<td style="text-align: left;" ng-if="pacient.editMode"><input
-					type="text" class="form-control"
-					ng-model="pacient.edit.name"></td>
-				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode" style="text-align: left;cursor: pointer;">{{pacient.edit.surname}}</td>
+					type="text" class="form-control" ng-model="pacient.edit.name"></td>
+				<td ng-click="goToPacientPage(pacient)" ng-if="!pacient.editMode"
+					style="text-align: left; cursor: pointer;">{{pacient.edit.surname}}</td>
 				<td style="text-align: left;" ng-if="pacient.editMode"><input
-					type="text" class="form-control"
-					ng-model="pacient.edit.surname"></td>
+					type="text" class="form-control" ng-model="pacient.edit.surname"></td>
 				<td style="text-align: left;"><button ng-if="!pacient.editMode"
 						ng-click="pacient.editMode = true">
 						<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
@@ -39,12 +44,10 @@
 						ng-click="openInfoPacientModal(pacient)">
 						<i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
 					</button>
-					<button ng-if="pacient.editMode"
-						ng-click="saveEdit(pacient)">
+					<button ng-if="pacient.editMode" ng-click="saveEdit(pacient)">
 						<i class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></i>
 					</button>
-					<button ng-if="!pacient.editMode"
-						ng-click="deletePacient(pacient)">
+					<button ng-if="!pacient.editMode" ng-click="deletePacient(pacient)">
 						<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
 					</button>
 					<button ng-if="pacient.editMode"
@@ -54,6 +57,8 @@
 			</tr>
 		</tbody>
 	</table>
-	<div uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true" ng-change="pageChanged()" num-pages="numPages"></div>
+	<div uib-pagination total-items="totalItems" ng-model="currentPage"
+		max-size="maxSize" class="pagination-sm" boundary-links="true"
+		force-ellipses="true" ng-change="pageChanged()" num-pages="numPages"></div>
 	<pre>Page: {{currentPage}} of {{numPages}}</pre>
 </div>

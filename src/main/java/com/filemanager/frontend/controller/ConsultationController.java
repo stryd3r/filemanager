@@ -12,6 +12,7 @@ import com.filemanager.backend.service.interfaces.ConsultationService;
 import com.filemanager.utils.transporters.dto.simple.ConsultationDto;
 
 @RestController
+@RequestMapping("/router")
 public class ConsultationController {
 
 	@Autowired

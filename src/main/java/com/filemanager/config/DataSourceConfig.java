@@ -25,21 +25,19 @@ public class DataSourceConfig {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		boolean enableOpenShiftSettings = true;
-		if (enableOpenShiftSettings) {
-			dataSource.setUrl("jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${OPENSHIFT_MYSQL_DB_PORT}/stomatoviadent");
-			dataSource.setUsername("adminmIE6zgL");
-			dataSource.setPassword("y7G72GhU4Wz_");
-		} else {
-			dataSource.setUrl("jdbc:mysql://localhost:3306/stomato");
-			dataSource.setUsername("root");
-			dataSource.setPassword("mysql");
-		}
+		dataSource
+				.setUrl("jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7140776");
+		dataSource.setUsername("sql7140776");
+		dataSource.setPassword("g4Tcxnf6z4");
+		// dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		// dataSource.setUrl("jdbc:mysql://localhost:3306/stomato");
+		// dataSource.setUsername("root");
+		// dataSource.setPassword("mysql");
 		return dataSource;
 	}
 
 	@Bean
-	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+	public JdbcTemplate setJdbcTemplate(DataSource dataSource) {
 		return new JdbcTemplate(dataSource);
 	}
 
@@ -51,7 +49,8 @@ public class DataSourceConfig {
 
 		Properties hibernateProperties = new Properties();
 
-		hibernateProperties.put("dialect", "org.hibernate.dialect.MySQLInnoDBDialect");
+		hibernateProperties.put("dialect",
+				"org.hibernate.dialect.MySQLInnoDBDialect");
 		hibernateProperties.put(Environment.SHOW_SQL, "true");
 		factory.setHibernateProperties(hibernateProperties);
 		factory.afterPropertiesSet();
@@ -60,7 +59,8 @@ public class DataSourceConfig {
 
 	@Bean
 	public HibernateTransactionManager transactionManager() throws IOException {
-		HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory());
+		HibernateTransactionManager transactionManager = new HibernateTransactionManager(
+				sessionFactory());
 		transactionManager.setDataSource(dataSource());
 
 		return transactionManager;

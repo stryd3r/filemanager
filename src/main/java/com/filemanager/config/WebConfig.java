@@ -14,19 +14,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 
-@Configuration
 @EnableWebMvc
+@Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = { "com.filemanager.frontend", "com.filemanager.backend" })
+@ComponentScan(basePackages = { "com.filemanager.frontend",
+		"com.filemanager.backend" })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+	public void configureDefaultServletHandling(
+			DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
 
 	@Override
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+	public void configureMessageConverters(
+			List<HttpMessageConverter<?>> converters) {
 		// Here we add our custom-configured HttpMessageConverter
 		converters.add(jacksonMessageConverter());
 		super.configureMessageConverters(converters);

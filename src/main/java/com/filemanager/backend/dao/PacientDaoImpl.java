@@ -23,7 +23,7 @@ public class PacientDaoImpl implements PacientDao {
 	private JdbcTemplate jdbcTemplate;
 
 	final private static String PACIENT_TABLE_NAME = "pacient";
-	final private static String PACIENT_DETAIL_TABLE_NAME = "pacientdetail";
+	final private static String PACIENT_DETAIL_TABLE_NAME = "pacientDetail";
 	final private static String PACIENT_ID = "pacientId";
 	final private static String NAME = "name";
 	final private static String SURNAME = "surname";
